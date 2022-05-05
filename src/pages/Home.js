@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutUser from "../Layouts/Layout-user"
+import LayoutUser from "../components/Layouts/Layout-user"
 import { useNavigate, Outlet} from 'react-router-dom'
 
 const Home = () => {

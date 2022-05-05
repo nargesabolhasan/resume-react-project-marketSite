@@ -1,6 +1,6 @@
 import React from 'react'
-import LayoutUser from "../Layouts/Layout-user"
-import MainUser from "../user/Main-user"
+import LayoutUser from "../components/Layouts/Layout-user"
+import MainUser from "../components/user/Main-user"
 
 const Product = () => {
   return (

@@ -21,7 +21,9 @@ class HttpService {
 
     axios.interceptors.response.use(
       (response) => {
-        //if(error.response.statusCode ===401) {}
+        if(response.statusCode ===401) {
+          alert ("you are not valid")
+        }
         return response;
       },
       (error) => {
