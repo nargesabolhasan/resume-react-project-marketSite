@@ -8,7 +8,9 @@ const Home = () => {
     <>
     <div>Home</div>
     <button onClick={() =>navigate("/Basket", { replace: true })}>Basket</button>
-    <button onClick={() =>navigate("/PanelAdmin", { replace: true })}>PanelAdmin</button>
+    <button onClick={() =>navigate("/PanelProducts", { replace: true })}>PanelProducts</button>
+    <button onClick={() =>navigate("/PanelQuantity", { replace: true })}>PanelQuantity</button>
+    <button onClick={() =>navigate("/PanelOrder", { replace: true })}>PanelOrder</button>
     <button onClick={() =>navigate("/PanelLogin", { replace: true })}>PanelLogin</button>
     <button onClick={() =>navigate("/Payment", { replace: true })}>Payment</button>
     <button onClick={() =>navigate("/Product", { replace: true })}>Product</button>
