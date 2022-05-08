@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutAdmin from "../components/Layouts/Layout-admin"
+import {LayoutAdmin} from "../components/index"
 
 const PanelProducts = () => {
   return (

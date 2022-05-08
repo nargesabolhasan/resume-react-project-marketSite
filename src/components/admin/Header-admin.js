@@ -1,9 +1,9 @@
 import React from 'react'
 
-const HeaderUserAdmin = () => {
+const HeaderAdmin = () => {
   return (
     <div>Header-Admin</div>
   )
 }
 
-export default HeaderUserAdmin
+export default HeaderAdmin
