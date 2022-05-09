@@ -5,39 +5,48 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import Grid from "@mui/material/Grid";
+import image from "../../assets/images/avatar/avatar.webp";
+import HttpService from "../../axios/HttpService";
+import { useNavigate, Outlet } from "react-router-dom";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Logout"];
+// const settings = ["Profile", "Logout"];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [data, setData] = React.useState([]);
+  const navigate = useNavigate();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
+  React.useEffect(() => {
+    getData();
+  }, []);
+  //-----------
+  const getData = async () => {
+    setData(await HttpService.get("whoami"));
+  };
+  //----------
+  const handleLogOut=()=> {
+    localStorage.removeItem("token");
+    navigate("/", { replace: true })
+    
+  }
+
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ p: 3 }}>
       <Container maxWidth="xl" sx={{ mr: 2, ml: 2, mx: "auto", width: "100%" }}>
         <Toolbar
           disableGutters
@@ -121,10 +130,14 @@ const ResponsiveAppBar = () => {
               </NavLink>
             </IconButton>
           </Grid>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, textAlign: "center" }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  sx={{ width: 80, height: 80 }}
+                  src={image}
+                  alt="Alt Text!"
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -143,12 +156,22 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem>
+                <NavLink
+                  to="/Profile"
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                    textDecoration: "none",
+                  })}
+                >
+                  <Typography textAlign="center">Profile</Typography>
+                </NavLink>
+              </MenuItem>
+              <MenuItem>
+              <Typography textAlign="center" onClick={handleLogOut}>logout</Typography>
+              </MenuItem>
             </Menu>
+            <Typography>{data.name}</Typography>
           </Box>
         </Toolbar>
       </Container>
