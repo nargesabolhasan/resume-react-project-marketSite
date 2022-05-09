@@ -5,20 +5,19 @@ import HttpService from "../axios/HttpService";
 
 const PanelProducts = () => {
   const [data, setData] = useState([]);
-  const [items, setItems] = useState([]);
   //-----------
   useEffect(() => {
     getData();
   }, []);
   //-----------
   const getData = async () => {
-    setItems(await HttpService.get("products"));
+    setData(await HttpService.get("products"));
   };
 
   return (
     <div>
       PanelProducts
-      <Table products={items} />
+      <Table products={data} />
     </div>
   );
 };

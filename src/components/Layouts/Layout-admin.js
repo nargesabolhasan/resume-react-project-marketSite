@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderAdmin from "../admin/Header-admin";
+import {HeaderAdmin} from "../index";
 import HeaderAdminLogin from "../admin/Header-admin-login";
 
 

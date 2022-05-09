@@ -1,6 +1,6 @@
 import Authentication from "./admin/Authentication";
 import FormValidation from "./admin/FormValidation";
-import HeaderUserAdmin from "./admin/Header-admin";
+import HeaderAdmin from "./admin/Header-admin";
 import MainAdmin from "./admin/Main-Admin";
 import Modals from "./admin/Modals";
 import Table from "./admin/Tables";
@@ -20,7 +20,7 @@ import LayoutUser from "./Layouts/Layout-user";
 export {
   Authentication,
   FormValidation,
-  HeaderUserAdmin,
+  HeaderAdmin,
   MainAdmin,
   Modals,
   Table,
