@@ -23,8 +23,8 @@ function App() {
         <Route path="/PanelOrder" element={<PanelOrder />} />
         <Route path="/PanelLogin" element={<PanelLogin />} />
         <Route path="/Payment" element={<Payment />} />
-        <Route path="/Product/:id" element={<Product />} />
-        <Route path="/ProductGroup/:id" element={<ProductGroup />} />
+        <Route path="/Product" element={<Product />} />
+        <Route path="/ProductGroup" element={<ProductGroup />} />
         <Route path="/ResultPayment" element={<ResultPayment />} />
         <Route path="/SubmitPayment" element={<SubmitPayment />} />
       </Routes>
