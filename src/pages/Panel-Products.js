@@ -1,10 +1,26 @@
-import React from 'react'
-import {LayoutAdmin} from "../components/index"
+import React, { useEffect,useState } from "react";
+import { LayoutAdmin } from "../components/index";
+import { Table } from "../components/index";
+import HttpService from "../axios/HttpService";
 
 const PanelProducts = () => {
-  return (
-    <div>PanelProducts</div>
-  )
-}
+  const [data, setData] = useState([]);
+  const [items, setItems] = useState([]);
+  //-----------
+  useEffect(() => {
+    getData();
+  }, []);
+  //-----------
+  const getData = async () => {
+    setItems(await HttpService.get("products"));
+  };
 
-export default LayoutAdmin(PanelProducts)
+  return (
+    <div>
+      PanelProducts
+      <Table products={items} />
+    </div>
+  );
+};
+
+export default LayoutAdmin(PanelProducts);
