@@ -43,7 +43,7 @@ function TablePaginationActions(props) {
         disabled={page === 0}
         aria-label="first page"
       >
-        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
@@ -72,7 +72,7 @@ function TablePaginationActions(props) {
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
     </Box>
   );
@@ -90,18 +90,6 @@ export default function CustomPaginationActionsTable(props) {
   const [data, setData] = React.useState();
   const [item, setItem] = React.useState([]);
   const { products } = props;
-
-  // const createData=(product)=> {
-  //   product.map(item=>{
-  //     return setItem([...item,item.ENname])
-  //   })
-  
-  // }
-
-
-
-  // const rows =[createData(products)].sort((a, b) => (a.calories < b.calories ? -1 : 1));
-
   
   console.log(item)
 
