@@ -11,13 +11,26 @@ const useSortableData = (items, config = null) => {
     let sortableItems = [...items];
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === "ascending" ? -1 : 1;
+        if(sortConfig.key==="price"){
+            let numFormatA=a[sortConfig.key].replace(',', "").replace(',', '')
+            let numFormatB=b[sortConfig.key].replace(',', "").replace(',', '')
+            console.log(+numFormatA, +numFormatB)
+            if (+numFormatA < +numFormatB) {
+                return sortConfig.direction === "ascending" ? -1 : 1;
+              }
+              if (+numFormatA > +numFormatB) {
+                return sortConfig.direction === "ascending" ? 1 : -1;
+              }
+
+        }else{
+          if (a[sortConfig.key] < b[sortConfig.key]) {
+            return sortConfig.direction === "ascending" ? -1 : 1;
+          }
+          if (a[sortConfig.key] > b[sortConfig.key]) {
+            return sortConfig.direction === "ascending" ? 1 : -1;
+          }
+          return 0;
         }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === "ascending" ? 1 : -1;
-        }
-        return 0;
       });
     }
     return sortableItems;
@@ -80,7 +93,7 @@ export default function App(props) {
   //   console.log(products)
   const { products } = props;
   return (
-    <div className="App">
+    <div >
       <ProductTable products={products} />
     </div>
   );
