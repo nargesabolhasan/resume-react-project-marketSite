@@ -3,7 +3,8 @@ import FormValidation from "./admin/FormValidation";
 import HeaderAdmin from "./admin/Header-admin";
 import MainAdmin from "./admin/Main-Admin";
 import Modals from "./admin/Modals";
-import Table from "./admin/TablesProduct";
+import TablesProduct from "./admin/TablesProduct";
+import TableQuantity from "./admin/TableQuantity";
 
 import ButtonAdd from "./buttons/Button-add";
 import ButtonSubmit from "./buttons/Button-submit";
@@ -23,7 +24,8 @@ export {
   HeaderAdmin,
   MainAdmin,
   Modals,
-  Table,
+  TablesProduct,
+  TableQuantity,
   ButtonAdd,
   ButtonSubmit,
   Dashboard,

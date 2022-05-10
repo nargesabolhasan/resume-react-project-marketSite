@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { LayoutAdmin } from "../components/index";
-import { Table } from "../components/index";
+import { TablesProduct } from "../components/index";
 import HttpService from "../axios/HttpService";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { styled } from '@mui/material/styles'
-import Zor from "../components/admin/Zor";
 
 const Root = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
@@ -40,7 +39,7 @@ const PanelProducts = () => {
     <Grid item container alignContent={'center'} xs={12}>
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
       <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت کالا ها</Typography>
-      <Table products={data} category={category} />
+      <TablesProduct products={data} category={category} />
     </Root>
     </Grid>
   );
