@@ -18,6 +18,8 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { styled } from "@mui/material/styles";
+import InputChange from "./InputChange";
+import HttpService from "../../axios/HttpService";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -127,12 +129,54 @@ export default function CustomPaginationActionsTable(props) {
   const { products, category } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const[inputShow,setInputShow] = React.useState(false)
-  const[countValue,setCountValue] = React.useState()
-  const handleCount =(input)=>{
-    setInputShow(true)
-    setCountValue(input)
-  }
+
+  const [changedCount, setChangedCount] = React.useState();
+  const [listOfCuont, setListOfCuont] = React.useState([]);
+  const [changedPrice, setChangedPrice] = React.useState();
+  const handleSubmit = () => {
+    patchData();
+  };
+  //-----------axios.patch :-----------
+  const patchData = () => {
+    console.log(changedCount.id);
+    // await HttpService.patch("products/",changedCount);
+  };
+
+  const clickHandlerCounter = (event) => {
+    event.target.disabled = false;
+  };
+
+  const changeHandlerCount = (event, textId) => {
+    setChangedCount({
+      ...changedCount,
+      count: event.target.value,
+      id: textId,
+    });
+
+    listOfCuont?.map(item=>{
+
+      // if(item.id=== changedCount.id && item!==undefined){
+      //   console.log("yes")
+      // }
+       console.log(item)
+    })
+    setListOfCuont([...listOfCuont, changedCount]);
+  };
+
+  const changeHandlerPrice = (event, textId) => {
+    setChangedPrice({
+      ...changedPrice,
+      price: event.target.value,
+      id: textId,
+    });
+  };
+
+  console.log(listOfCuont);
+  const keyDownHandlerCount = (event) => {
+    if (event.key === "Enter") {
+      event.target.disabled = true;
+    }
+  };
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -159,11 +203,31 @@ export default function CustomPaginationActionsTable(props) {
             : products
           ).map((item, index) => (
             <TableRow key={item.id}>
-              <TableCells align="right" onClick={()=>handleCount(item.count)}>
-              
+              <TableCells align="right">
+                <InputChange
+                  inputType="text"
+                  value={item.count}
+                  changeHandler={(e) => changeHandlerCount(e, item.id)}
+                  clickHandler={clickHandlerCounter}
+                  keyDownHandler={keyDownHandlerCount}
+                  disableInput={false}
+                  placeholders={item.count}
+                  inputId={String(item.id)}
+                />
               </TableCells>
-              <TableCells align="right">{item.count}</TableCells>
-              <TableCells align="right">{item.price}</TableCells>
+              <TableCells align="right">
+                <InputChange
+                  inputType="text"
+                  value={item.price}
+                  changeHandler={(e) => changeHandlerPrice(e, item.id)}
+                  clickHandler={clickHandlerCounter}
+                  keyDownHandler={keyDownHandlerCount}
+                  disableInput={false}
+                  placeholders={item.price}
+                  inputId={String(item.id)}
+                />
+              </TableCells>
+
               <TittleCells align="right">{item.name}</TittleCells>
               <TableCells
                 align="right"
@@ -201,6 +265,7 @@ export default function CustomPaginationActionsTable(props) {
           </TableRow>
         </TableFooter>
       </Table>
+      <button onClick={handleSubmit}>submit</button>
     </TableContainer>
   );
 }

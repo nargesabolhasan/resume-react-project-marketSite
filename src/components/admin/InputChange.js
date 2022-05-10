@@ -1,12 +1,45 @@
-import React from 'react'
+import React from "react";
+import TextField from '@mui/material/TextField';
+import PropTypes from 'prop-types';
 
 const InputChange = (props) => {
-const {inputType,changeHandler,value,clickHandler,keyInput}=props
+  const {
+    inputType,
+    changeHandler,
+    value,
+    clickHandler,
+    keyInput,
+    keyDownHandler,
+    disableInput,
+    placeholders,
+    inputId
+  } = props;
   return (
     <div>
-        <input type={inputType} value={value} onChange={changeHandler} onClick={clickHandler} key={keyInput}/>
+      <TextField
+        type={inputType}
+        defaultValue={value}
+        onChange={changeHandler}
+        onClick={clickHandler}
+        key={keyInput}
+        onKeyDown={keyDownHandler}
+        disabled={disableInput}
+        placeholder={placeholders}
+        id={inputId}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default InputChange
+InputChange.propTypes = {
+  inputType: PropTypes.string,
+  changeHandler: PropTypes.func.isRequired,
+  clickHandler: PropTypes.func.isRequired,
+  keyDownHandler: PropTypes.func.isRequired,
+  disableInput:PropTypes.bool,
+  placeholders:PropTypes.string.isRequired,
+  value:PropTypes.string,
+  inputId:PropTypes.string.isRequired,
+};
+
+export default InputChange;

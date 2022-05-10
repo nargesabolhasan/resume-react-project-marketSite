@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LayoutAdmin } from "../components/index";
-import { TableQuantity } from "../components/index";
+import { InputChange, LayoutAdmin ,TableQuantity} from "../components/index";
 import HttpService from "../axios/HttpService";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -38,7 +37,7 @@ const PanelQuantity = () => {
     <Grid item container alignContent={'center'} xs={12}>
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
       <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت کالا ها</Typography>
-      <TableQuantity products={data} />
+      <TableQuantity products={data}/>
     </Root>
     </Grid>
   );
