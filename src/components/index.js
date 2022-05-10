@@ -3,6 +3,7 @@ import FormValidation from "./admin/FormValidation";
 import HeaderAdmin from "./admin/Header-admin";
 import MainAdmin from "./admin/Main-Admin";
 import Modals from "./admin/Modals";
+import InputChange from "./admin/InputChange";
 import TablesProduct from "./admin/TablesProduct";
 import TableQuantity from "./admin/TableQuantity";
 
@@ -19,6 +20,7 @@ import LayoutAdmin from "./Layouts/Layout-admin";
 import LayoutUser from "./Layouts/Layout-user";
 
 export {
+  InputChange,
   Authentication,
   FormValidation,
   HeaderAdmin,
