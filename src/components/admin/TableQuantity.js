@@ -207,12 +207,12 @@ export default function CustomPaginationActionsTable(props) {
               <TableCells align="right">
                 <InputChange
                   inputType="text"
-                  value={item.count}
+                  value={String(item.count)}
                   changeHandler={(e) => changeHandlerCount(e, item.id)}
                   clickHandler={clickHandlerCounter}
                   keyDownHandler={keyDownHandlerCount}
                   disableInput={false}
-                  placeholders={item.count}
+                  placeholders={String(item.count)}
                   inputId={String(item.id)}
                 />
               </TableCells>

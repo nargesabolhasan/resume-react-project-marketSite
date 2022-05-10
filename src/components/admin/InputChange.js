@@ -2,6 +2,7 @@ import React from "react";
 import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 
+
 const InputChange = (props) => {
   const {
     inputType,
@@ -37,7 +38,7 @@ InputChange.propTypes = {
   clickHandler: PropTypes.func.isRequired,
   keyDownHandler: PropTypes.func.isRequired,
   disableInput:PropTypes.bool,
-  placeholders:PropTypes.string.isRequired,
+  placeholders:PropTypes.string,
   value:PropTypes.string,
   inputId:PropTypes.string.isRequired,
 };

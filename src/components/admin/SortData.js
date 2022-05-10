@@ -1,9 +1,8 @@
-
 //   let sortedProducts = [products.map((item=>{return item.name}))]
 //   console.log(products)
 
-import React from 'react';
-
+import React from "react";
+import TableQuantity from "./TableQuantity";
 
 const useSortableData = (items, config = null) => {
   const [sortConfig, setSortConfig] = React.useState(config);
@@ -13,10 +12,10 @@ const useSortableData = (items, config = null) => {
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
+          return sortConfig.direction === "ascending" ? -1 : 1;
         }
         if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
+          return sortConfig.direction === "ascending" ? 1 : -1;
         }
         return 0;
       });
@@ -25,13 +24,13 @@ const useSortableData = (items, config = null) => {
   }, [items, sortConfig]);
 
   const requestSort = (key) => {
-    let direction = 'ascending';
+    let direction = "ascending";
     if (
       sortConfig &&
       sortConfig.key === key &&
-      sortConfig.direction === 'ascending'
+      sortConfig.direction === "ascending"
     ) {
-      direction = 'descending';
+      direction = "descending";
     }
     setSortConfig({ key, direction });
   };
@@ -49,61 +48,40 @@ const ProductTable = (props) => {
     return sortConfig.key === name ? sortConfig.direction : undefined;
   };
   return (
-    <table>
-      <caption>Products</caption>
-      <thead>
-        <tr>
-          <th>
-            <button
-              type="button"
-              onClick={() => requestSort('name')}
-              className={getClassNamesFor('name')}
-            >
-              Name
-            </button>
-          </th>
-          <th>
-            <button
-              type="button"
-              onClick={() => requestSort('price')}
-              className={getClassNamesFor('price')}
-            >
-              Price
-            </button>
-          </th>
-          <th>
-            <button
-              type="button"
-              onClick={() => requestSort('count')}
-              className={getClassNamesFor('count')}
-            >
-               count
-            </button>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item) => (
-          <tr key={item.id}>
-            <td>{item.name}</td>
-            <td>${item.price}</td>
-            <td>{item.count}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div>
+      <button
+        type="button"
+        onClick={() => requestSort("name")}
+        className={getClassNamesFor("name")}
+      >
+        Name
+      </button>
+      <button
+        type="button"
+        onClick={() => requestSort("count")}
+        className={getClassNamesFor("count")}
+      >
+        count
+      </button>
+      <button
+        type="button"
+        onClick={() => requestSort("price")}
+        className={getClassNamesFor("price")}
+      >
+        Price
+      </button>
+      <TableQuantity products={items} />
+    </div>
   );
 };
 
 export default function App(props) {
-    //   let sortedProducts = [products.map((item=>{return item.name}))]
-//   console.log(products)
-const {products}=props
+  //   let sortedProducts = [products.map((item=>{return item.name}))]
+  //   console.log(products)
+  const { products } = props;
   return (
     <div className="App">
-      <ProductTable
-        products={products}
-      />
+      <ProductTable products={products} />
     </div>
   );
 }
