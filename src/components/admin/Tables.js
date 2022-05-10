@@ -15,6 +15,8 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -85,13 +87,8 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-
 export default function CustomPaginationActionsTable(props) {
-  const [data, setData] = React.useState();
-  const [item, setItem] = React.useState([]);
-  const { products } = props;
-  
-  console.log(item)
+  const { products, category } = props;
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -110,22 +107,30 @@ export default function CustomPaginationActionsTable(props) {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableBody>
+    <TableContainer component={Paper} sx={{mx:"auto",mt:5}}>
+      <Table sx={{ minWidth: 500}} aria-label="custom pagination table">
+        <TableBody variant="h3">
           {(rowsPerPage > 0
-            ? products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            ? products.slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              )
             : products
-          ).map((row) => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.name}
+          ).map((item,index) => (
+            <TableRow key={item.id}>
+              <TableCell style={{ width: 20 }} align="left">
+                <DeleteForeverIcon /><DriveFileRenameOutlineIcon/>
+              </TableCell>
+              <TableCell style={{ width: 20 ,}} align="right">
+                {category.map((category) =>
+                  category.id === item.categoryId ? category.name : ""
+                )}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.ENname}
+                {item.name}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.id}
+              <TableCell style={{ width: 25 }} align="right">
+                {index+1}
               </TableCell>
             </TableRow>
           ))}
