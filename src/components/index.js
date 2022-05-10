@@ -6,6 +6,7 @@ import Modals from "./admin/Modals";
 import InputChange from "./admin/InputChange";
 import TablesProduct from "./admin/TablesProduct";
 import TableQuantity from "./admin/TableQuantity";
+import SortData from "./admin/SortData";
 
 import ButtonAdd from "./buttons/Button-add";
 import ButtonSubmit from "./buttons/Button-submit";
@@ -36,5 +37,6 @@ export {
   HeaderUserStore,
   MainUser,
   LayoutAdmin,
-  LayoutUser
+  LayoutUser,
+  SortData
 };
