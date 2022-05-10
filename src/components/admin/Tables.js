@@ -17,6 +17,43 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import { styled } from '@mui/material/styles'
+
+const TittleCells = styled('td')(({ theme }) => ({
+  padding: theme.spacing(1),
+  [theme.breakpoints.down('md')]: {
+    width:"5px",
+    overFlow: "wrap",
+    fontSize:15,
+  },
+  [theme.breakpoints.up('md')]: {
+    width:100,
+    fontSize:15,
+  },
+  [theme.breakpoints.up('lg')]: {
+    width:160,
+    fontSize:20,
+    textAlign: 'center',
+  },
+}));
+const TableCells = styled('td')(({ theme }) => ({
+  padding: theme.spacing(1),
+  [theme.breakpoints.down('md')]: {
+    width:"5px",
+    padding:0,
+    textAlign:"center",
+    fontSize:15,
+  },
+  [theme.breakpoints.up('md')]: {
+    width:5,
+    fontSize:15,
+
+  },
+  [theme.breakpoints.up('lg')]: {
+    width:5,
+    fontSize:20,
+  },
+}));
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -118,20 +155,20 @@ export default function CustomPaginationActionsTable(props) {
             : products
           ).map((item,index) => (
             <TableRow key={item.id}>
-              <TableCell style={{ width: 20 }} align="left">
+              <TableCells align="left">
                 <DeleteForeverIcon /><DriveFileRenameOutlineIcon/>
-              </TableCell>
-              <TableCell style={{ width: 20 ,}} align="right">
+              </TableCells>
+              <TableCells align="right">
                 {category.map((category) =>
                   category.id === item.categoryId ? category.name : ""
                 )}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              </TableCells>
+              <TittleCells align="right" >
                 {item.name}
-              </TableCell>
-              <TableCell style={{ width: 25 }} align="right">
+              </TittleCells>
+              <TableCells align="right" sx={{backgroundColor:"primary.main",textAlign:"center"}} >
                 {index+1}
-              </TableCell>
+              </TableCells>
             </TableRow>
           ))}
 

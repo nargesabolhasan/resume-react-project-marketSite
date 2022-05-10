@@ -3,21 +3,23 @@ import { LayoutAdmin } from "../components/index";
 import { Table } from "../components/index";
 import HttpService from "../axios/HttpService";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import styled from 'styled-components';
 
 const Root = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down('md')]: {
-    backgroundColor: red[500],
+    width:"90%",
+    textAlign: "center"
   },
   [theme.breakpoints.up('md')]: {
-    backgroundColor: blue[500],
+    width:"80%",
   },
   [theme.breakpoints.up('lg')]: {
-    backgroundColor: green[500],
+    width:"70%",
   },
 }));
+
 const PanelProducts = () => {
   const [category, setCategory] = useState([]);
   const [data, setData] = useState([]);
@@ -33,12 +35,12 @@ const PanelProducts = () => {
   };
 
   return (
-    <root>
-    <Box sx={{mt:5,fontFamily:"koodak"}}  lg={{width:"px"}}>
+    <Grid container alignContent={'center'} xs={12}>
+    <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
       <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت کالا ها</Typography>
       <Table products={data} category={category} />
-    </Box>
-    </root>
+    </Root>
+    </Grid>
   );
 };
 
