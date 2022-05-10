@@ -39,15 +39,14 @@ const ResponsiveAppBar = () => {
     setData(await HttpService.get("whoami"));
   };
   //----------
-  const handleLogOut=()=> {
+  const handleLogOut = () => {
     localStorage.removeItem("token");
-    navigate("/", { replace: true })
-    
-  }
+    navigate("/", { replace: true });
+  };
 
   return (
     <AppBar position="static" sx={{ p: 3 }}>
-      <Container maxWidth="xl" sx={{ mr: 2, ml: 2, mx: "auto", width: "100%" }}>
+      <Container maxWidth="xl" sx={{ m: 0, mx: "auto", width: "100%" }}>
         <Toolbar
           disableGutters
           sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}
@@ -55,7 +54,6 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <IconButton
               variant="h6"
-              noWrap
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
@@ -76,59 +74,70 @@ const ResponsiveAppBar = () => {
             sx={{
               flexGrow: 1,
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            <IconButton
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            <Box sx={{ fontSize: 80, textAlign: "center" }}>پنل مدیریت </Box>
+            <Grid
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
             >
-              <NavLink
-                to="/PanelOrder"
-                style={({ isActive }) => ({
-                  color: isActive ? "white" : "black",
-                  textDecoration: "none",
-                })}
-              >
-                سفارش ها
-              </NavLink>
-            </IconButton>
+              <IconButton
+                variant="h6"
 
-            <IconButton
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              <NavLink
-                to="/PanelQuantity"
-                style={({ isActive }) => ({
-                  color: isActive ? "white" : "black",
-                  textDecoration: "none",
-                })}
+                component="div"
+                sx={{ mr: 2, display: { xs: "none", md: "flex" ,} }}
               >
-                موجودی و قیمت ها
-              </NavLink>
-            </IconButton>
-            <IconButton
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              <NavLink
-                to="/PanelProducts"
-                style={({ isActive }) => ({
-                  color: isActive ? "white" : "black",
-                  textDecoration: "none",
-                })}
+                <NavLink
+                  to="/PanelOrder"
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                    textDecoration: "none",
+                  })}
+                >
+                  سفارش ها
+                </NavLink>
+              </IconButton>
+
+              <IconButton
+                variant="h6"
+
+                component="div"
+                sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
               >
-                کالا ها
-              </NavLink>
-            </IconButton>
+                <NavLink
+                  to="/PanelQuantity"
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                    textDecoration: "none",
+                  })}
+                >
+                  موجودی و قیمت ها
+                </NavLink>
+              </IconButton>
+              <IconButton
+                variant="h6"
+
+                component="div"
+                sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+              >
+                <NavLink
+                  to="/PanelProducts"
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                    textDecoration: "none",
+                  })}
+                >
+                  کالا ها
+                </NavLink>
+              </IconButton>
+            </Grid>
           </Grid>
           <Box sx={{ flexGrow: 0, textAlign: "center" }}>
             <Tooltip title="Open settings">
@@ -168,7 +177,9 @@ const ResponsiveAppBar = () => {
                 </NavLink>
               </MenuItem>
               <MenuItem>
-              <Typography textAlign="center" onClick={handleLogOut}>logout</Typography>
+                <Typography textAlign="center" onClick={handleLogOut}>
+                  logout
+                </Typography>
               </MenuItem>
             </Menu>
             <Typography>{data.name}</Typography>
