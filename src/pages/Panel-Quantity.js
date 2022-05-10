@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { styled } from '@mui/material/styles'
 
+
 const Root = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down('md')]: {
@@ -38,7 +39,8 @@ const PanelQuantity = () => {
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
       <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت کالا ها</Typography>
       <TableQuantity products={data}/>
-      <SortData/>
+      <SortData products={data}/>
+
     </Root>
     </Grid>
   );

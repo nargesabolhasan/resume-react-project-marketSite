@@ -33,6 +33,7 @@ const PanelProducts = () => {
   const getData = async () => {
     setCategory(await HttpService.get("categories?_embed=products"));
     setData(await HttpService.get("products"));
+    
   };
 
   return (

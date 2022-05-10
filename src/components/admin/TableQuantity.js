@@ -162,6 +162,7 @@ export default function CustomPaginationActionsTable(props) {
     })
     setListOfCuont([...listOfCuont, changedCount]);
   };
+   //console.log(listOfCuont);
 
   const changeHandlerPrice = (event, textId) => {
     setChangedPrice({
@@ -171,7 +172,7 @@ export default function CustomPaginationActionsTable(props) {
     });
   };
 
-  console.log(listOfCuont);
+ 
   const keyDownHandlerCount = (event) => {
     if (event.key === "Enter") {
       event.target.disabled = true;
