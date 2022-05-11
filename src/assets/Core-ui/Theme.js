@@ -4,7 +4,7 @@ import { indigo} from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
-    primary: indigo,
+    primary: indigo ,
     warning: {
       main:"#ffc400"
     },

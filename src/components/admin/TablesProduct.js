@@ -18,6 +18,7 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { styled } from "@mui/material/styles";
+import { BASE_URL } from "../../constants/Constants";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -163,6 +164,12 @@ export default function CustomPaginationActionsTable(props) {
                 )}
               </TableCells>
               <TittleCells align="right">{item.name}</TittleCells>
+              <TableCells
+                align="right"
+                sx={{ backgroundColor: "primary.main", textAlign: "center" }}
+              >
+                <img style={{ width: "200px",}}src={`${ BASE_URL }${item.image}`} alt="Alt Text!" />
+              </TableCells>
               <TableCells
                 align="right"
                 sx={{ backgroundColor: "primary.main", textAlign: "center" }}

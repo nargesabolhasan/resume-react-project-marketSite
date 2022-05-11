@@ -1,8 +1,8 @@
-import LayoutAdmin from "../components/Layouts/Layout-admin";
+//import LayoutAdmin from "../components/Layouts/Layout-admin";
 import { React, useEffect, useState, useContext, useCallback } from "react";
 import FormValidation from "../components/admin/FormValidation";
 import HttpService from "../axios/HttpService";
-
+//import 
 const PanelLogin = () => {
   return (
     <>
@@ -11,4 +11,4 @@ const PanelLogin = () => {
   );
 };
 
-export default LayoutAdmin(PanelLogin);
+export default PanelLogin;
