@@ -30,7 +30,7 @@ const TittleCells = styled("td")(({ theme }) => ({
     fontSize: 15,
   },
   [theme.breakpoints.up("lg")]: {
-    width: 160,
+    width: 80,
     fontSize: 20,
     textAlign: "center",
   },
@@ -155,12 +155,13 @@ export default function CustomPaginationActionsTable(props) {
             let sumPrice = 0;
             let price = 0;
             return<TableRow key={item.id}>
+              <TableCells align="right">{new Date(item.orderDate).toLocaleDateString('fa-IR')}</TableCells>
               <TableCells align="right">
                 {item.orderItems?.map((item) => {
                   price = +item.price.replace(",", "").replace(",", "");
                   sumPrice += price;
                 })}
-                  <div> {sumPrice}</div>
+                  <div style={{direction:"rtl"}}> {sumPrice}  تومان</div>
 
               </TableCells>
               <TittleCells align="right">{item.name}</TittleCells>
@@ -180,7 +181,7 @@ export default function CustomPaginationActionsTable(props) {
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={3}
+              colSpan={4}
               count={products.length}
               rowsPerPage={rowsPerPage}
               page={page}

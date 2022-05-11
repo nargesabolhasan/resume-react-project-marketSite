@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { InputChange, LayoutAdmin ,SortData,TableOrder} from "../components/index";
+import { InputChange, LayoutAdmin ,FilterOrders,TableOrder} from "../components/index";
 import HttpService from "../axios/HttpService";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -32,14 +32,12 @@ const PanelOrder = () => {
     setData(await HttpService.get("/products?_embed=exam"));
     setItem(await HttpService.get("orders"));
   };
-  // categories?_embed=products
-  console.log(item)
+  
   return (
     <Grid item container alignContent={'center'} xs={12}>
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
       <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت سفارش ها</Typography>
-      {/* <SortData products={data}/> */}
-      <TableOrder products={item} />
+      <FilterOrders products={item}/>
     </Root>
     </Grid>
   )
