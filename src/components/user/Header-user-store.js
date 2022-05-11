@@ -16,6 +16,8 @@ import HttpService from "../../axios/HttpService";
 import { useNavigate, Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import logo from "../../assets/images/logo/logo.png";
+import Authentication from "../admin/Authentication"
+
 
 const AppBars = styled("nav")(({ theme }) => ({
    background:"radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(166,148,233,1) 100%)",
@@ -23,18 +25,9 @@ const AppBars = styled("nav")(({ theme }) => ({
 }));
 
 const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [data, setData] = React.useState([]);
   const navigate = useNavigate();
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   React.useEffect(() => {
     getData();
@@ -44,10 +37,6 @@ const ResponsiveAppBar = () => {
     setData(await HttpService.get("whoami"));
   };
   //----------
-  const handleLogOut = () => {
-    localStorage.removeItem("token");
-    navigate("/", { replace: true });
-  };
 
   return (
     <AppBars position="static" sx={{ p: 3 }}>
@@ -105,21 +94,7 @@ const ResponsiveAppBar = () => {
                 </NavLink>
               </IconButton>
 
-              <IconButton
-                variant="h6"
-                component="div"
-                sx={{ mr: 2, display: { xs: "none", md: "flex", lg: "flex" } }}
-              >
-                <NavLink
-                  to="/PanelOrder"
-                  style={({ isActive }) => ({
-                    color: isActive ? "white" : "black",
-                    textDecoration: "none",
-                  })}
-                >
-                  مدیریت
-                </NavLink>
-              </IconButton>
+             <Authentication/>
             </Grid>
             <Grid
               item

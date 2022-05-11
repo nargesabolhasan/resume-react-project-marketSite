@@ -14,6 +14,9 @@ import Grid from "@mui/material/Grid";
 import image from "../../assets/images/avatar/avatar.webp";
 import HttpService from "../../axios/HttpService";
 import { useNavigate, Outlet } from "react-router-dom";
+import { useDispatch ,useSelector} from "react-redux";
+import { logout } from "../../redux/userSlice";
+
 
 // const settings = ["Profile", "Logout"];
 
@@ -22,6 +25,8 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [data, setData] = React.useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -41,6 +46,8 @@ const ResponsiveAppBar = () => {
   //----------
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("state");
+    dispatch(logout());
     navigate("/", { replace: true });
   };
 

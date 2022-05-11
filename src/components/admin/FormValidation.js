@@ -9,14 +9,18 @@ import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { React, useEffect, useState, useContext } from "react";
-// import rtlPlugin from "stylis-plugin-rtl";
 import HttpService from "../../axios/HttpService";
 import ShowPassword from "./ShowPassword";
-import {TOKEN} from"../../constants/Constants"
+import { TOKEN } from "../../constants/Constants";
+import { useDispatch ,useSelector} from "react-redux";
+import { setUser } from "../../redux/userSlice";
+
 
 const FormValidation = () => {
   const [adminData, setAdminData] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state);
 
   useEffect(() => {
     getData();
@@ -31,11 +35,12 @@ const FormValidation = () => {
       input.username === adminData.username &&
       input.password === adminData.password
     ) {
-      alert("hi");
-      localStorage.setItem("token",TOKEN);
+      alert("سلام به پنل مدیریت خوش آمدید");
+      localStorage.setItem("token", TOKEN);
       navigate("/PanelProducts", { replace: true });
+      dispatch(setUser(input));
     } else {
-      alert(":(");
+      alert("رمز یا نام کاربری اشتباه است");
     }
   };
 
