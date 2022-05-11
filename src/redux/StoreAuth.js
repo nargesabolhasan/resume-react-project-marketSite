@@ -1,10 +1,10 @@
 import React from "react";
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice"
+import authSlice from "./AuthSlice"
 
 export const Store = configureStore({
   devTools:true, 
   reducer:{
-    user:userReducer
+    user:authSlice
   }
 });

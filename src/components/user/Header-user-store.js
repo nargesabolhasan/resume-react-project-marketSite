@@ -12,7 +12,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink, Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import image from "../../assets/images/avatar/avatar.webp";
 import HttpService from "../../axios/HttpService";
 import { useNavigate, Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";

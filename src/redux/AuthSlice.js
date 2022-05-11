@@ -1,12 +1,9 @@
 import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
 
-export const userSlice = createSlice({
-  name: "user",
-  initialState: {
-      name: "user",
-      password: ""
-  },
+export const authSlice = createSlice({
+  name: "isAuthenticated",
+  initialState:false,
   reducers: {
     setUser: (state, action) => {
       console.log(state, action);
@@ -19,5 +16,5 @@ export const userSlice = createSlice({
 });
 
 
-export const { setUser, logout } = userSlice.actions;
-export default userSlice.reducer;
+export const { setUser, logout } = authSlice.actions;
+export default authSlice.reducer;
