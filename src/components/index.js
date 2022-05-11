@@ -6,6 +6,7 @@ import Modals from "./admin/Modals";
 import InputChange from "./admin/InputChange";
 import TablesProduct from "./admin/TablesProduct";
 import TableQuantity from "./admin/TableQuantity";
+import TableOrder from "./admin/TableOrder";
 import SortData from "./admin/SortData";
 
 import ButtonAdd from "./buttons/Button-add";
@@ -29,6 +30,7 @@ export {
   Modals,
   TablesProduct,
   TableQuantity,
+  TableOrder,
   ButtonAdd,
   ButtonSubmit,
   Dashboard,

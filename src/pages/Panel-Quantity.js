@@ -37,9 +37,8 @@ const PanelQuantity = () => {
   return (
     <Grid item container alignContent={'center'} xs={12}>
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
-      <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت کالا ها</Typography>
+      <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}> موجودی و قیمت ها</Typography>
       <SortData products={data}/>
-
     </Root>
     </Grid>
   );
