@@ -1,32 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import HttpService from "../../axios/HttpService"
+import React, { useEffect, useState } from "react";
+import HttpService from "../../axios/HttpService";
+import { BASE_URL } from "../../constants/Constants";
+//import ""
 
 const MainUser = () => {
-  const [data,setData] =useState([])
-  const [items, setItems] = useState([])
+  const [data, setData] = useState([]);
+  const [items, setItems] = useState([]);
   useEffect(() => {
-    getData()
-  },[])
+    getData();
+  }, []);
 
-  const getData=async()=> {
-    setItems(await HttpService.get("products"))
-  }
+  const getData = async () => {
+    setItems(await HttpService.get("products"));
+  };
 
-  console.log(items)
   return (
     <div>
-      {/* {items.map((item) =>(<li>{item.id}</li>))} */}
+      {/* {items.map((item) => (
+        <>
+              <picture>
+        <source srcset={`${ BASE_URL }${item.image}`} type="image/webp" />
+        <img src={`${ BASE_URL }${item.image}`} alt="Alt Text!" />
+      </picture>
+          <li style={{direction:"rtl"}}>{item.description}</li>
+          <li style={{direction:"rtl"}}>{item.name}</li>
+        </>
+      ))} */}
     </div>
-  )
-}
+  );
+};
 
-export default MainUser
-
-
-  // useEffect(()=>{
-  //   Object.values(data).map((data) =>setItems([...items,data]))
-  // },[data])
-
-  // setTimeout(() =>{
-  //   items.forEach((item) =>console.log(item))
-  // } ,4000)
+export default MainUser;

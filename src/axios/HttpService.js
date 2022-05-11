@@ -10,7 +10,7 @@ class HttpService {
     axios.interceptors.request.use(
       (config) => {
         if(config.url==="orders"){
-          config.headers["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFtaXIgaG9zc2VpbiBNYWhkaW91biIsImlhdCI6MTY1MTY1ODQzNSwiZXhwIjoxNjUxNjY5MjM1fQ.usMMZjQN3VKw6_DwcVt1ssH4YW0cxVD4CYtzsJHjYyA"
+          config.headers["token"]=localStorage.getItem("token")
         }
         return config;
       },
