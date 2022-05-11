@@ -7,10 +7,11 @@ const theme = createTheme({
     primary: indigo,
     warning: {
       main:"#ffc400"
-    }
+    },
   },
   direction: 'rtl',
 });
+
 
 export default function Theme(props) {
   return (
