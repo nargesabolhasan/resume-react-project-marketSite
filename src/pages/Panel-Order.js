@@ -30,15 +30,16 @@ const PanelOrder = () => {
   //-----------
   const getData = async () => {
     setData(await HttpService.get("/products?_embed=exam"));
-    setItem(await HttpService.get("exam"));
+    setItem(await HttpService.get("orders"));
   };
   // categories?_embed=products
+  console.log(item)
   return (
     <Grid item container alignContent={'center'} xs={12}>
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
       <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت سفارش ها</Typography>
       {/* <SortData products={data}/> */}
-      <TableOrder products={data} orders={item}/>
+      <TableOrder products={item} />
     </Root>
     </Grid>
   )

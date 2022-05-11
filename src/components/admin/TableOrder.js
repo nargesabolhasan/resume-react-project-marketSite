@@ -123,9 +123,10 @@ TablePaginationActions.propTypes = {
 };
 
 export default function CustomPaginationActionsTable(props) {
-  const { products ,orders} = props;
+  const { products, orders } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
   //console.log(products);
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -150,16 +151,30 @@ export default function CustomPaginationActionsTable(props) {
                 page * rowsPerPage + rowsPerPage
               )
             : products
-          ).map((item, index) =><TableRow key={index}>
-             {item.exam.map((item) =><TableCell  key={item.id}>{item.customerDetail.firstName}</TableCell>)}
-          </TableRow>
-          )}
+          ).map((item, index) =>{ 
+            let sumPrice = 0;
+            let price = 0;
+            return<TableRow key={item.id}>
+              <TableCells align="right">
+                {item.orderItems?.map((item) => {
+                  price = +item.price.replace(",", "").replace(",", "");
+                  sumPrice += price;
+                })}
+                  <div> {sumPrice}</div>
 
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
+              </TableCells>
+              <TittleCells align="right">{item.name}</TittleCells>
+              <TableCells align="left">
+                {item.customerDetail.firstName} {item.customerDetail.lastName}
+              </TableCells>
+              <TableCells
+                align="right"
+                sx={{ backgroundColor: "primary.main", textAlign: "center" }}
+              >
+                {index + 1}
+              </TableCells>
             </TableRow>
-          )}
+          })}
         </TableBody>
         <TableFooter>
           <TableRow>

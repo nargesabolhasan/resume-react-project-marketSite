@@ -41,7 +41,6 @@ const FormValidation = () => {
       localStorage.setItem("token", TOKEN);
       navigate("/PanelProducts", { replace: true });
       dispatch(setUser(input));
-      console.log(token)
     } else {
       alert("رمز یا نام کاربری اشتباه است");
     }
