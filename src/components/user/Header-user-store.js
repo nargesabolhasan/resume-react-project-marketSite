@@ -20,7 +20,7 @@ import Authentication from "../admin/Authentication"
 
 
 const AppBars = styled("nav")(({ theme }) => ({
-   background:"radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(166,148,233,1) 100%)",
+   background:" radial-gradient(circle, rgba(108,78,184,1) 20%, rgba(255,255,255,1) 100%)",
    //radial-gradient(circle, rgba(166,148,233,1) 13%, rgba(238,174,202,1) 76%);
 }));
 
@@ -71,7 +71,7 @@ const ResponsiveAppBar = () => {
                 <NavLink
                   to="/"
                   style={({ isActive }) => ({
-                    color: isActive ? "white" : "black",
+                    color: isActive ? "#6c4eb8" : "black",
                     textDecoration: "none",
                   })}
                 >
@@ -86,7 +86,7 @@ const ResponsiveAppBar = () => {
                 <NavLink
                   to="/Basket"
                   style={({ isActive }) => ({
-                    color: isActive ? "white" : "black",
+                    color: isActive ? "#6c4eb8" : "black",
                     textDecoration: "none",
                   })}
                 >
@@ -105,7 +105,7 @@ const ResponsiveAppBar = () => {
                 alignItems: "center",
               }}
             >
-              <Typography variant="h3" sx={{ fontFamily: "koodak", mx:"auto"}}>
+              <Typography variant="h3" sx={{ fontFamily: "koodak", mx:"auto",color: "white" }}>
                 فروشگاه آنلاین ایران سیب
               </Typography>
             </Grid>
