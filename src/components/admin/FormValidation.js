@@ -69,8 +69,6 @@ const FormValidation = () => {
       maxWidth="xl"
       sx={{
         m: 0,
-        mx: "auto",
-        width: "100%",
         display: "flex",
         flexDirection: "column",
       }}
