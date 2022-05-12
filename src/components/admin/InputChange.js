@@ -1,7 +1,6 @@
 import React from "react";
-import TextField from '@mui/material/TextField';
-import PropTypes from 'prop-types';
-
+import TextField from "@mui/material/TextField";
+import PropTypes from "prop-types";
 
 const InputChange = (props) => {
   const {
@@ -13,11 +12,12 @@ const InputChange = (props) => {
     keyDownHandler,
     disableInput,
     placeholders,
-    inputId
+    inputId,
   } = props;
   return (
     <div>
       <TextField
+        variant="outlined"
         type={inputType}
         defaultValue={value}
         onChange={changeHandler}
@@ -37,10 +37,10 @@ InputChange.propTypes = {
   changeHandler: PropTypes.func.isRequired,
   clickHandler: PropTypes.func.isRequired,
   keyDownHandler: PropTypes.func.isRequired,
-  disableInput:PropTypes.bool,
-  placeholders:PropTypes.string,
-  value:PropTypes.string,
-  inputId:PropTypes.string.isRequired,
+  disableInput: PropTypes.bool,
+  placeholders: PropTypes.string,
+  value: PropTypes.string,
+  inputId: PropTypes.string.isRequired,
 };
 
 export default InputChange;

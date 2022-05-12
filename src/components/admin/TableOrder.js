@@ -15,7 +15,7 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { NavLink } from "react-router-dom";
+import { NavLink ,Link} from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 const TittleCells = styled("td")(({ theme }) => ({
@@ -155,6 +155,7 @@ export default function CustomPaginationActionsTable(props) {
             let sumPrice = 0;
             let price = 0;
             return<TableRow key={item.id}>
+              <TittleCells align="right"><Link to="/PanelOrder">بررسی سفارش</Link></TittleCells>
               <TableCells align="right">{new Date(item.orderDate).toLocaleDateString('fa-IR')}</TableCells>
               <TableCells align="right">
                 {item.orderItems?.map((item) => {

@@ -266,7 +266,6 @@ export default function CustomPaginationActionsTable(props) {
           </TableRow>
         </TableFooter>
       </Table>
-      <button onClick={handleSubmit}>submit</button>
     </TableContainer>
   );
 }

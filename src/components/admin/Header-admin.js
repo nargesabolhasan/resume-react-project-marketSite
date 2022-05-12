@@ -14,9 +14,8 @@ import Grid from "@mui/material/Grid";
 import image from "../../assets/images/avatar/avatar.webp";
 import HttpService from "../../axios/HttpService";
 import { useNavigate, Outlet } from "react-router-dom";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/userSlice";
-
 
 // const settings = ["Profile", "Logout"];
 
@@ -97,9 +96,8 @@ const ResponsiveAppBar = () => {
             >
               <IconButton
                 variant="h6"
-
                 component="div"
-                sx={{ mr: 2, display: { xs: "none", md: "flex" ,} }}
+                sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
               >
                 <NavLink
                   to="/PanelOrder"
@@ -114,7 +112,6 @@ const ResponsiveAppBar = () => {
 
               <IconButton
                 variant="h6"
-
                 component="div"
                 sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
               >
@@ -130,7 +127,6 @@ const ResponsiveAppBar = () => {
               </IconButton>
               <IconButton
                 variant="h6"
-
                 component="div"
                 sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
               >
@@ -180,12 +176,20 @@ const ResponsiveAppBar = () => {
                     textDecoration: "none",
                   })}
                 >
-                  <Typography textAlign="center">Profile</Typography>
+                  <Typography
+                    textAlign="center"
+                    sx={{ fontSize: 20, fontFamily: "koodak" }}
+                  >
+                    پروفایل
+                  </Typography>
                 </NavLink>
               </MenuItem>
-              <MenuItem>
-                <Typography textAlign="center" onClick={handleLogOut}>
-                  logout
+              <MenuItem onClick={handleLogOut}>
+                <Typography
+                  textAlign="center"
+                  sx={{ fontSize: 20, fontFamily: "koodak" }}
+                >
+                  خروج
                 </Typography>
               </MenuItem>
             </Menu>

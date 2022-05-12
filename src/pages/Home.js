@@ -7,7 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div>Home</div>
+      {/* <div>Home</div>
       <button onClick={() => navigate("/Basket", { replace: true })}>
         Basket
       </button>
@@ -38,7 +38,7 @@ const Home = () => {
       </button>
       <button onClick={() => navigate("/SubmitPayment", { replace: true })}>
         SubmitPayment
-      </button>
+      </button> */}
       <MainUser />
       <Outlet />
     </>

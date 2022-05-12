@@ -3,6 +3,7 @@ import { InputChange, LayoutAdmin ,FilterOrders,TableOrder} from "../components/
 import HttpService from "../axios/HttpService";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button"
 import Box from "@mui/material/Box";
 import { styled } from '@mui/material/styles'
 import Pagination from "../components/admin/Pagination";
@@ -38,7 +39,7 @@ const PanelOrder = () => {
     <Grid item container alignContent={'center'} xs={12}>
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
       <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت سفارش ها</Typography>
-      <FilterOrders products={item}/>
+       <FilterOrders products={item}/> 
       {/* <Pagination/> */}
     </Root>
     </Grid>

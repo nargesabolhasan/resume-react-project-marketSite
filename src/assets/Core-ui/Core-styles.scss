@@ -5,3 +5,25 @@
     font-style: normal;
     font-display: swap;
 }
+
+.succsess {
+    color: green;
+    font-size: 30px;
+    margin: 0 auto;
+  }
+  
+  .succsess::before {
+    content: '\2714 موفقیت : ';
+    color: green;
+  }
+  
+  .failer {
+    color: red;
+    font-size: 30px;
+    margin: 0 auto;
+  }
+  
+  .failer::before {
+    content: '\2717 شکست : ';
+    color: red;
+  }
