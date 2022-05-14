@@ -9,6 +9,7 @@ import TableQuantity from "./admin/TableQuantity";
 import TableOrder from "./admin/TableOrder";
 import SortData from "./admin/SortData";
 import FilterOrders from "./admin/FilterOrders";
+import ModalAddProduct from "./admin/Modal-addProduct";
 
 import ButtonAdd from "./buttons/Button-add";
 import ButtonSubmit from "./buttons/Button-submit";
@@ -42,5 +43,6 @@ export {
   LayoutAdmin,
   LayoutUser,
   SortData,
-  FilterOrders
+  FilterOrders,
+  ModalAddProduct
 };

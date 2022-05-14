@@ -1,7 +1,7 @@
 import React from "react";
 import LayoutUser from "../components/Layouts/Layout-user";
 import { useNavigate, Outlet } from "react-router-dom";
-import { MainUser } from "../components";
+import { MainUser, ModalAddProduct } from "../components";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -39,6 +39,7 @@ const Home = () => {
       <button onClick={() => navigate("/SubmitPayment", { replace: true })}>
         SubmitPayment
       </button> */}
+      <ModalAddProduct/>
       <MainUser />
       <Outlet />
     </>
