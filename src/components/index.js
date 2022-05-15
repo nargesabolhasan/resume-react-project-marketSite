@@ -4,12 +4,14 @@ import HeaderAdmin from "./admin/Header-admin";
 import MainAdmin from "./admin/Main-Admin";
 import Modals from "./modal/Modals";
 import InputChange from "./admin/InputChange";
-import TablesProduct from "./admin/TablesProduct";
-import TableQuantity from "./admin/TableQuantity";
-import TableOrder from "./admin/TableOrder";
-import SortData from "./admin/SortData";
-import FilterOrders from "./admin/FilterOrders";
-import ModalAddProduct from "./admin/Modal-addProduct";
+import TablesProduct from "./admin/panelProduct/TablesProduct";
+import TableQuantity from "./admin/panelQuantity/TableQuantity";
+import TableOrder from "./admin/panelOrder/TableOrder";
+import SortData from "./admin/panelQuantity/SortData";
+import FilterOrders from "./admin/panelOrder/FilterOrders";
+import ModalAddProduct from "./admin/Form-addProduct";
+import ModalEditProduct from "./admin/panelProduct/Form-editProduct";
+
 
 import ButtonAdd from "./buttons/Button-add";
 import ButtonSubmit from "./buttons/Button-submit";
@@ -44,5 +46,6 @@ export {
   LayoutUser,
   SortData,
   FilterOrders,
-  ModalAddProduct
+  ModalAddProduct,
+  ModalEditProduct
 };

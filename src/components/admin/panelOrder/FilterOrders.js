@@ -2,7 +2,7 @@
 //   console.log(products)
 
 import React, { useState, useEffect } from "react";
-import TableQuantity from "./TableQuantity";
+import TableQuantity from "../panelQuantity/TableQuantity";
 import TableOrder from "./TableOrder";
 
 const ProductTable = (props) => {

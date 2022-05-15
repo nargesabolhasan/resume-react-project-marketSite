@@ -18,7 +18,8 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { styled } from "@mui/material/styles";
-import { BASE_URL } from "../../constants/Constants";
+import InputChange from "../InputChange";
+import HttpService from "../../../axios/HttpService";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -123,11 +124,60 @@ TablePaginationActions.propTypes = {
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
-
+//------------------------------------------------------------------------------------------
 export default function CustomPaginationActionsTable(props) {
   const { products, category } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const [changedCount, setChangedCount] = React.useState();
+  const [listOfCuont, setListOfCuont] = React.useState([]);
+  const [changedPrice, setChangedPrice] = React.useState();
+  const handleSubmit = () => {
+    patchData();
+  };
+  //-----------axios.patch :-----------
+  const patchData = () => {
+    console.log(changedCount.id);
+    // await HttpService.patch("products/",changedCount);
+  };
+
+  const clickHandlerCounter = (event) => {
+    event.target.disabled = false;
+  };
+
+  const changeHandlerCount = (event, textId) => {
+    setChangedCount({
+      ...changedCount,
+      count: event.target.value,
+      id: textId,
+    });
+
+    listOfCuont?.map(item=>{
+
+      // if(item.id=== changedCount.id && item!==undefined){
+      //   console.log("yes")
+      // }
+       console.log(item)
+    })
+    setListOfCuont([...listOfCuont, changedCount]);
+  };
+   //console.log(listOfCuont);
+
+  const changeHandlerPrice = (event, textId) => {
+    setChangedPrice({
+      ...changedPrice,
+      price: event.target.value,
+      id: textId,
+    });
+  };
+
+ 
+  const keyDownHandlerCount = (event) => {
+    if (event.key === "Enter") {
+      event.target.disabled = true;
+    }
+  };
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -154,27 +204,37 @@ export default function CustomPaginationActionsTable(props) {
             : products
           ).map((item, index) => (
             <TableRow key={item.id}>
-              <TableCells align="left">
-                <DeleteForeverIcon />
-                <DriveFileRenameOutlineIcon />
+              <TableCells align="right">
+                <InputChange
+                  inputType="text"
+                  value={String(item.count)}
+                  changeHandler={(e) => changeHandlerCount(e, item.id)}
+                  clickHandler={clickHandlerCounter}
+                  keyDownHandler={keyDownHandlerCount}
+                  disableInput={false}
+                  placeholders={String(item.count)}
+                  inputId={String(item.id)}
+                />
               </TableCells>
               <TableCells align="right">
-                {category.map((category) =>
-                  category.id === item.categoryId ? category.name : ""
-                )}
+                <InputChange
+                  inputType="text"
+                  value={item.price}
+                  changeHandler={(e) => changeHandlerPrice(e, item.id)}
+                  clickHandler={clickHandlerCounter}
+                  keyDownHandler={keyDownHandlerCount}
+                  disableInput={false}
+                  placeholders={item.price}
+                  inputId={String(item.id)}
+                />
               </TableCells>
+
               <TittleCells align="right">{item.name}</TittleCells>
               <TableCells
                 align="right"
                 sx={{ backgroundColor: "primary.main", textAlign: "center" }}
               >
-                <img style={{ width: "200px",}}src={`${ BASE_URL }${item.image}`} alt="Alt Text!" />
-              </TableCells>
-              <TableCells
-                align="right"
-                sx={{ backgroundColor: "primary.main", textAlign: "center" }}
-              >
-                {index+1}
+                {index + 1}
               </TableCells>
             </TableRow>
           ))}

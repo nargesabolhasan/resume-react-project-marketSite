@@ -17,13 +17,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/userSlice";
 import ButtonAdd from "../buttons/Button-add";
 import Modals from "../modal/Modals";
-import "../../assets/Core-ui/Core-styles.scss"
+import "../../assets/Core-ui/Core-styles.scss";
 
 const FormValidation = () => {
   const [adminData, setAdminData] = useState([]);
+  //**modal **//
   const [open, setOpen] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state);
@@ -37,25 +39,28 @@ const FormValidation = () => {
   };
 
   //--------Modal open & close :----------
-  const handleShow = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleShow = () => {
+    setOpen(true);
+    setClassname("succsess");
+    setBodyMassages("سلام به پنل مدیریت خوش آمدید");
+  };
+  const handleClose=()=>setOpen(false);
+ 
   //-----------Authentication :-----------
   const Authentication = (input) => {
     if (
       input.username === adminData.username &&
       input.password === adminData.password
     ) {
-      setOpen(true);
-      setClassname("succsess")
-      setBodyMassages("سلام به پنل مدیریت خوش آمدید");
+      handleShow()
       setTimeout(() => {
         localStorage.setItem("token", TOKEN);
         navigate("/PanelProducts", { replace: true });
         dispatch(setUser(input));
-      },4000);
+      }, 4000);
     } else {
       setOpen(true);
-      setClassname("failer")
+      setClassname("failer");
       setBodyMassages("رمز یا نام کاربری اشتباه است ");
     }
   };

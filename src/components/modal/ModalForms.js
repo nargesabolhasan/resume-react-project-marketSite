@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import PropTypes from "prop-types";
 
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -18,7 +19,7 @@ const style = {
 };
 
 export default function BasicModal(props) {
-  const { open, handleclose, classname, bodyMassages } = props;
+  const { open, handleclose, classname, children } = props;
 
   return (
     <>
@@ -42,12 +43,12 @@ export default function BasicModal(props) {
             className={classname}
           >
           </Typography>
-          <Typography
+          <Box
             id="modal-modal-description"
             sx={{ mt: 2, fontSize: 20, fontFamily: "koodak", direction: "rtl",textAlign: "center"}}
           >
-            {bodyMassages}
-          </Typography>
+            {children}
+          </Box>
         </Box>
       </Modal>
     </>
@@ -57,5 +58,4 @@ export default function BasicModal(props) {
 BasicModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleclose: PropTypes.func.isRequired,
-  bodyMassages: PropTypes.isRequired,
 };
