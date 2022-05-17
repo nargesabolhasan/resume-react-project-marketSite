@@ -3,7 +3,7 @@ import { Formik, validateYupSchema } from "formik";
 import * as Yup from "yup";
 import { Yard } from "@mui/icons-material";
 
-import HttpService from "../../axios/HttpService";
+import HttpService from "../../../axios/HttpService";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
-import Buttons from "../buttons/Button-add";
+import Buttons from "../../buttons/Button-add";
 
 const TittleInputs = styled("h3")(({ theme }) => ({
   fontFamily: "koodak",

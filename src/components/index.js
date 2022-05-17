@@ -9,7 +9,7 @@ import TableQuantity from "./admin/panelQuantity/TableQuantity";
 import TableOrder from "./admin/panelOrder/TableOrder";
 import SortData from "./admin/panelQuantity/SortData";
 import FilterOrders from "./admin/panelOrder/FilterOrders";
-import ModalAddProduct from "./admin/Form-addProduct";
+import ModalAddProduct from "./admin/panelProduct/Form-addProduct";
 import ModalEditProduct from "./admin/panelProduct/Form-editProduct";
 
 
