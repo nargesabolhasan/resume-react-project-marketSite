@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import HttpService from "../../../axios/HttpService";
@@ -9,6 +9,9 @@ import MenuItem from "@mui/material/MenuItem";
 import ButtonAdd from "../../buttons/Button-add";
 import Grid from "@mui/material/Grid";
 import "./prodactStyle.scss";
+import usePatchAxios from "../../../axios/usePatchAxios";
+
+//----component styles----------------
 
 const EditForm = styled("form")(({ theme }) => ({
   fontFamily: "koodak",
@@ -24,8 +27,12 @@ const Errors = styled("h5")(({ theme }) => ({
   color: "red",
 }));
 
+//---------------------------------------------------------
+
 const Basic = (props) => {
   const { product } = props;
+  const [changedData,setChangedData]=useState(product)
+  const {data,loading,error}=usePatchAxios()
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
@@ -44,9 +51,13 @@ const Basic = (props) => {
     description: Yup.string("توضیحات محصول را وارد کنید"),
   });
 
-  const auth = async (input) => {
-    // await HttpService.patch("products", input);
-    console.log(input);
+  const handleChanges=(e)=>{
+    setChangedData(prev => ({ ...prev,  [e.target.name]: e.target.value}))
+  }
+//---------patch:-----------
+  const auth =  (input) => {
+    // await HttpService.patch(`products/${product.id}`, changedData);
+    //console.log(changedData);
   };
 
   return (
@@ -65,6 +76,7 @@ const Basic = (props) => {
         }}
         validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
+          
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -88,9 +100,9 @@ const Basic = (props) => {
               className="TextField"
               type="text"
               name="name"
-              onChange={handleChange}
+              onChange={handleChanges}
               onBlur={handleBlur}
-              defaultValue={product.name}
+              value={changedData.name}
             />
             <Errors variant="h5">
               {errors.name && touched.name && errors.name}
@@ -100,9 +112,9 @@ const Basic = (props) => {
               className="TextField"
               type="text"
               name="ENname"
-              onChange={handleChange}
+              onChange={handleChanges}
               onBlur={handleBlur}
-              defaultValue={product.ENname}
+              value={changedData.ENname}
             />
             <Errors variant="h5">
               {errors.ENname && touched.ENname && errors.ENname}
@@ -115,7 +127,7 @@ const Basic = (props) => {
                   name="image"
                   type="file"
                   accept="image/webp"
-                  onChange={handleChange}
+                  onChange={handleChanges}
                   onBlur={handleBlur}
                 />
                 <Errors variant="h5">
@@ -127,9 +139,9 @@ const Basic = (props) => {
                 <TextField
                   type="text"
                   name="color"
-                  onChange={handleChange}
+                  onChange={handleChanges}
                   onBlur={handleBlur}
-                  defaultValue={product.color}
+                  value={changedData.color}
                 />
                 <Errors variant="h5">
                   {errors.color && touched.color && errors.color}
@@ -140,9 +152,9 @@ const Basic = (props) => {
                 <Select
                   id="categoryId"
                   name="categoryId"
-                  onChange={handleChange}
+                  onChange={handleChanges}
                   onBlur={handleBlur}
-                  defaultValue={product.categoryId}
+                  value={changedData.categoryId}
                 >
                   <MenuItem value={1}>مک مینی</MenuItem>
                   <MenuItem value={2}>مک بوک پرو16</MenuItem>
@@ -163,9 +175,9 @@ const Basic = (props) => {
                 <TextField
                   type="number"
                   name="price"
-                  onChange={handleChange}
+                  onChange={handleChanges}
                   onBlur={handleBlur}
-                  defaultValue={product.price}
+                  value={changedData.price}
                 />
                 <Errors variant="h5">
                   {errors.price && touched.price && errors.price}
@@ -176,9 +188,9 @@ const Basic = (props) => {
                 <TextField
                   type="number"
                   name="count"
-                  onChange={handleChange}
+                  onChange={handleChanges}
                   onBlur={handleBlur}
-                  defaultValue={product.count}
+                  value={changedData.count}
                 />
                 <Errors variant="h5">
                   {errors.count && touched.count && errors.count}
@@ -190,9 +202,9 @@ const Basic = (props) => {
               className="TextField"
               type="text"
               name="description"
-              onChange={handleChange}
+              onChange={handleChanges}
               onBlur={handleBlur}
-              defaultValue={product.description}
+              value={changedData.description}
             />
             <Errors variant="h5">
               {errors.description && touched.description && errors.description}

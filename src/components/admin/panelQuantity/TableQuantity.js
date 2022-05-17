@@ -18,7 +18,7 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { styled } from "@mui/material/styles";
-import InputChange from "../InputChange";
+import InputChange from "../panelQuantity/InputChange";
 import HttpService from "../../../axios/HttpService";
 
 const TittleCells = styled("td")(({ theme }) => ({

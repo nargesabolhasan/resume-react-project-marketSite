@@ -12,7 +12,6 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { React, useEffect, useState, useContext } from "react";
 import HttpService from "../../axios/HttpService";
 import ShowPassword from "./ShowPassword";
-import { TOKEN } from "../../constants/Constants";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/userSlice";
 import ButtonAdd from "../buttons/Button-add";
@@ -30,13 +29,13 @@ const FormValidation = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state);
 
-  useEffect(() => {
-    getData();
-  }, []);
-  //-----------axios.get :-----------
-  const getData = async () => {
-    setAdminData(await HttpService.get("whoami"));
-  };
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+  // //-----------axios.get :-----------
+  // const getData = async () => {
+  //   setAdminData(await HttpService.post("auth/login", values ));
+  // };
 
   //--------Modal open & close :----------
   const handleShow = () => {
@@ -47,17 +46,16 @@ const FormValidation = () => {
   const handleClose=()=>setOpen(false);
  
   //-----------Authentication :-----------
-  const Authentication = (input) => {
-    if (
-      input.username === adminData.username &&
-      input.password === adminData.password
-    ) {
+  const Authentication =async (input) => {
+
+    const res=await HttpService.post("auth/login", input )
+    if (res) {
+      localStorage.setItem("token",res.token)
       handleShow()
       setTimeout(() => {
-        localStorage.setItem("token", TOKEN);
         navigate("/PanelProducts", { replace: true });
         dispatch(setUser(input));
-      }, 4000);
+      }, 3000);
     } else {
       setOpen(true);
       setClassname("failer");

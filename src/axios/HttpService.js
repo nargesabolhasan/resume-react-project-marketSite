@@ -21,9 +21,9 @@ class HttpService {
 
     axios.interceptors.response.use(
       (response) => {
-        if(response.statusCode ===401) {
-          alert ("you are not valid")
-        }
+        // if(response.statusCode ===401) {
+        //   alert ("you have  to set token")
+        // }
         return response;
       },
       (error) => {

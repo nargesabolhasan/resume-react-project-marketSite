@@ -57,5 +57,4 @@ export default function BasicModal(props) {
 BasicModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleclose: PropTypes.func.isRequired,
-  bodyMassages: PropTypes.isRequired,
 };

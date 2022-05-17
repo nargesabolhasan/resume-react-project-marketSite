@@ -3,7 +3,7 @@ import FormValidation from "./admin/FormValidation";
 import HeaderAdmin from "./admin/Header-admin";
 import MainAdmin from "./admin/Main-Admin";
 import Modals from "./modal/Modals";
-import InputChange from "./admin/InputChange";
+import InputChange from "./admin/panelQuantity/InputChange";
 import TablesProduct from "./admin/panelProduct/TablesProduct";
 import TableQuantity from "./admin/panelQuantity/TableQuantity";
 import TableOrder from "./admin/panelOrder/TableOrder";
