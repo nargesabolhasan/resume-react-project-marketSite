@@ -1,15 +1,14 @@
 import React from "react";
 import useGetAxios from "../../../axios/useGetAxios";
 import { BASE_URL } from "../../../constants/Constants";
+import PaginationBackend from "../../pagination/Pagination-Backend";
 import "./CardStyles.scss";
 
 const CardProduct = () => {
   const { data, loading, error } = useGetAxios("products");
-  console.log(data)
-
   return (
     <>
-    {loading ?<h1>Loading...</h1>:(
+    {/* {loading ?<h1>Loading...</h1>:(
         data?.map((product) => (
             <div className="card">
               <div className="face face1">
@@ -28,9 +27,27 @@ const CardProduct = () => {
               </div>
             </div>
           ))
-    )}
+    )} */}
+    <PaginationBackend/>
     </>
   );
 };
 
 export default CardProduct;
+
+
+// {loading ? (
+//   <h1>Loading...</h1>
+// ) : (
+//   <table>
+//   <tbody>
+//     {data?.map((record) => (
+//       <TableRow key={record.id}>
+//         <TableCell>{record.id}</TableCell>
+//         <TableCell>{record.name}</TableCell>
+//         <TableCell>$ {record.price}</TableCell>
+//       </TableRow>
+//     ))}
+//   </tbody>
+// </table>
+// )}

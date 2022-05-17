@@ -5,11 +5,11 @@ import { MainUser, ModalAddProduct } from "../components";
 import CardProduct from "../components/user/home/Card-Product";
 
 const Home = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   return (
     <>
-<CardProduct/>
       <Outlet />
+      <CardProduct/>
     </>
   );
 };
