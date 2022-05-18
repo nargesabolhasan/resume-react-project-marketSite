@@ -9,22 +9,25 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
+import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
-import Buttons from "../../buttons/Button-add";
+import ButtonAdd from "../../buttons/Button-add";
 
-const TittleInputs = styled("h3")(({ theme }) => ({
+
+const EditForm = styled("form")(({ theme }) => ({
+  fontFamily: "koodak",
+  textAlign: "right",
+}));
+
+const TittleInputs = styled("h5")(({ theme }) => ({
   fontFamily: "koodak",
 }));
 
-const Errors = styled("h3")(({ theme }) => ({
-  fontFamily: "koodak",
+const Errors = styled("h5")(({ theme }) => ({
+  textAlign: "right",
   color: "red",
 }));
-
-const Input = styled("input")({
-  border: "none",
-});
 
 const Basic = () => {
   const LoginSchema = Yup.object().shape({
@@ -35,7 +38,7 @@ const Basic = () => {
       .min(3, "نام بیشتر از 3 حرف باشد")
       .required("نام لاتین محصول را وارد کنید")
       .matches(
-        /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi & /^[0-9a-zA-Z]+$/,
+        /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi || /^[0-9a-zA-Z]+$/,
         "تنها حروف لاتین امکان پذیر است"
       ),
     image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
@@ -46,21 +49,14 @@ const Basic = () => {
     description: Yup.string().required("توضیحات محصول را وارد کنید"),
   });
 
-  const auth = (input) => {
-    //await HttpService.post("products", input);
-    // axios({
-    //   method: "post",
-    //   url: "http://localhost:3002/products",
-    //   data: input,
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // })
-    const formData = new FormData();
-    for (const [key, value] of Object.entries(input)) {
-      formData.append(key, value);
-      console.log(key, value);
-    }
+  const auth = async(input) => {
+    //  await HttpService.post("/upload",input.image)
+    // await HttpService.post("/products",input)
+    await HttpService.post("/products",input)
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 500);
 
-    axios.post("http://localhost:3002/products", formData);
   };
 
   return (
@@ -80,7 +76,6 @@ const Basic = () => {
         validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
             auth(values);
           }, 400);
@@ -96,12 +91,12 @@ const Basic = () => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit} style={{ direction: "rtl" }}>
-            <TittleInputs>نام محصول</TittleInputs>
+          <EditForm onSubmit={handleSubmit}>
+            <TittleInputs> نام محصول</TittleInputs>
             <TextField
+              className="TextField"
               type="text"
               name="name"
-              multiline
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.name}
@@ -111,9 +106,9 @@ const Basic = () => {
             </Errors>
             <TittleInputs> نام لاتین</TittleInputs>
             <TextField
+              className="TextField"
               type="text"
               name="ENname"
-              multiline
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.ENname}
@@ -121,76 +116,88 @@ const Basic = () => {
             <Errors variant="h5">
               {errors.ENname && touched.ENname && errors.ENname}
             </Errors>
-            <TittleInputs>تصویر</TittleInputs>
-            <Input
-              id="image"
-              name="image"
-              type="file"
-              accept="image/webp"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <Errors variant="h5">
-              {errors.image && touched.image && errors.image}
-            </Errors>
-
-            <TittleInputs id="demo-simple-select-label">دسته بندی</TittleInputs>
-            <Select
-              labelId="demo-simple-select-label"
-              onBlur={handleBlur}
-              name="categoryId"
-              id="demo-simple-select"
-              value={values.categoryId}
-              onChange={handleChange}
-            >
-              <MenuItem value={1}>مک مینی</MenuItem>
-              <MenuItem value={2}>مک بوک پرو16</MenuItem>
-              <MenuItem value={3}>مک بوک پرو 14</MenuItem>
-              <MenuItem value={4}>مک بوک پرو13 </MenuItem>
-              <MenuItem value={5}> مک بوک ایر</MenuItem>
-              <MenuItem value={6}>آیمک</MenuItem>
-              <MenuItem value={7}>آیپد پرو</MenuItem>
-            </Select>
-            <Errors variant="h5">
-              {errors.categoryId && touched.categoryId && errors.categoryId}
-            </Errors>
-            <TittleInputs>قیمت</TittleInputs>
-            <TextField
-              type="number"
-              name="price"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.price}
-            />
-            <Errors variant="h5">
-              {errors.price && touched.price && errors.price}
-            </Errors>
-            <TittleInputs>تعداد</TittleInputs>
-            <TextField
-              type="number"
-              name="count"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.count}
-            />
-            <Errors variant="h5">
-              {errors.count && touched.count && errors.count}
-            </Errors>
-            <TittleInputs>رنگ</TittleInputs>
-            <TextField
-              type="text"
-              name="color"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.color}
-            />
-            <Errors variant="h5">
-              {errors.color && touched.color && errors.color}
-            </Errors>
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <TittleInputs>تصویر</TittleInputs>
+                <TextField
+                  id="image"
+                  name="image"
+                  type="file"
+                  accept="image/webp"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <Errors variant="h5">
+                  {errors.image && touched.image && errors.image}
+                </Errors>
+              </Grid>
+              <Grid item xs={4}>
+                <TittleInputs>رنگ</TittleInputs>
+                <TextField
+                  type="text"
+                  name="color"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.color}
+                />
+                <Errors variant="h5">
+                  {errors.color && touched.color && errors.color}
+                </Errors>
+              </Grid>
+              <Grid item xs={4}>
+                <TittleInputs>دسته بندی</TittleInputs>
+                <Select
+                  id="categoryId"
+                  name="categoryId"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.categoryId}
+                >
+                  <MenuItem value={1}>مک مینی</MenuItem>
+                  <MenuItem value={2}>مک بوک پرو16</MenuItem>
+                  <MenuItem value={3}> 14 مک بوک پرو </MenuItem>
+                  <MenuItem value={4}>13 مک بوک پرو </MenuItem>
+                  <MenuItem value={5}>مک بوک ایر </MenuItem>
+                  <MenuItem value={6}>آیمک</MenuItem>
+                  <MenuItem value={7}>آیپد پرو</MenuItem>
+                </Select>
+                <Errors variant="h5">
+                  {errors.categoryId && touched.categoryId && errors.categoryId}
+                </Errors>
+              </Grid>
+            </Grid>
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <TittleInputs>قیمت</TittleInputs>
+                <TextField
+                  type="number"
+                  name="price"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.price}
+                />
+                <Errors variant="h5">
+                  {errors.price && touched.price && errors.price}
+                </Errors>
+              </Grid>
+              <Grid item xs={6}>
+                <TittleInputs>تعداد</TittleInputs>
+                <TextField
+                  type="number"
+                  name="count"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.count}
+                />
+                <Errors variant="h5">
+                  {errors.count && touched.count && errors.count}
+                </Errors>
+              </Grid>
+            </Grid>
             <TittleInputs>توضیحات</TittleInputs>
             <TextField
+              className="TextField"
               type="text"
-              multiline
               name="description"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -199,10 +206,10 @@ const Basic = () => {
             <Errors variant="h5">
               {errors.description && touched.description && errors.description}
             </Errors>
-            <Buttons type="submit" disabled={isSubmitting}>
+            <ButtonAdd type="submit" disabled={isSubmitting} >
               ذخیره
-            </Buttons>
-          </form>
+            </ButtonAdd>
+          </EditForm>
         )}
       </Formik>
     </div>

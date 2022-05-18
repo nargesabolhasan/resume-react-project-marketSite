@@ -7,6 +7,8 @@ import TableCell from "@mui/material/TableCell";
 import { BASE_URL } from "../../../constants/Constants";
 import ModalForms from "../../modal/ModalForms";
 import ModalEditProduct from "./Form-editProduct";
+import { ModalAddProduct } from "../..";
+import axios from "axios"
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -56,8 +58,13 @@ const TabLists = (props) => {
   const handleClose = () => setOpen(false);
 
   //------------table buttons:-------------------
-  const handleDelete = (e) => {
-    console.log(e.target.value);
+  const handleDelete = (input) => {
+    console.log(input);
+    axios.delete(`products/${input}`, { headers: {"token" : localStorage.getItem("token")} })
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 500);
+   
   };
 
   const handleEdit = (e) => {
@@ -69,7 +76,7 @@ const TabLists = (props) => {
     <>
       <TableRow key={items.id}>
         <TableCells align="left">
-          <DeleteForeverIcon onClick={handleDelete} />
+          <DeleteForeverIcon onClick={()=>handleDelete(items.id)} />
           <DriveFileRenameOutlineIcon onClick={handleEdit} />
         </TableCells>
         <TableCells align="right">

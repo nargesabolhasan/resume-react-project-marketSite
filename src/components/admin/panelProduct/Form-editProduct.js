@@ -10,6 +10,7 @@ import ButtonAdd from "../../buttons/Button-add";
 import Grid from "@mui/material/Grid";
 import "./prodactStyle.scss";
 import usePatchAxios from "../../../axios/usePatchAxios";
+import axios from "axios"
 
 //----component styles----------------
 
@@ -56,8 +57,10 @@ const Basic = (props) => {
   }
 //---------patch:-----------
   const auth =  (input) => {
-    // await HttpService.patch(`products/${product.id}`, changedData);
-    //console.log(changedData);
+    axios.patch(`products/${product.id}`, changedData, { headers: {"token" : localStorage.getItem("token")} })
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 1000);
   };
 
   return (
@@ -76,9 +79,7 @@ const Basic = (props) => {
         }}
         validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
-          
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
             auth(values);
           }, 400);

@@ -3,7 +3,7 @@ import LayoutUser from "../components/Layouts/Layout-user";
 import { useNavigate, Outlet } from "react-router-dom";
 import { MainUser, ModalAddProduct } from "../components";
 import CardProduct from "../components/user/home/Card-Product";
-import PaginationBackend from "../components/pagination/Pagination-Backend";
+import PaginationBackend from "../components/user/home/Pagination-Backend";
 
 const Home = () => {
   //const navigate = useNavigate();

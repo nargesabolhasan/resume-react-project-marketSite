@@ -21,42 +21,6 @@ import { styled } from "@mui/material/styles";
 import { BASE_URL } from "../../../constants/Constants";
 import TableRows from "./TableRows";
 
-
-// const TittleCells = styled("td")(({ theme }) => ({
-//   padding: theme.spacing(1),
-//   [theme.breakpoints.down("md")]: {
-//     width: "5px",
-//     overFlow: "wrap",
-//     fontSize: 15,
-//   },
-//   [theme.breakpoints.up("md")]: {
-//     width: 100,
-//     fontSize: 15,
-//   },
-//   [theme.breakpoints.up("lg")]: {
-//     width: 160,
-//     fontSize: 20,
-//     textAlign: "center",
-//   },
-// }));
-// const TableCells = styled("td")(({ theme }) => ({
-//   padding: theme.spacing(1),
-//   [theme.breakpoints.down("md")]: {
-//     width: "5px",
-//     padding: 0,
-//     textAlign: "center",
-//     fontSize: 15,
-//   },
-//   [theme.breakpoints.up("md")]: {
-//     width: 5,
-//     fontSize: 15,
-//   },
-//   [theme.breakpoints.up("lg")]: {
-//     width: 5,
-//     fontSize: 20,
-//   },
-// }));
-
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;

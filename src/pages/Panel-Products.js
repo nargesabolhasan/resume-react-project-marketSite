@@ -7,6 +7,8 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import ModalForms from "../components/modal/ModalForms";
+import ModalAddProduct from "../components/admin/panelProduct/Form-addProduct";
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -26,6 +28,15 @@ const PanelProducts = () => {
   const [category, setCategory] = useState([]);
   const [data, setData] = useState([]);
 
+  //**modal **//
+  const [open, setOpen] = useState(false);
+  const [classname, setClassname] = useState("");
+  //--------Modal open & close :----------
+
+  const handleShow = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
   //-----------
   useEffect(() => {
     getData();
@@ -39,7 +50,7 @@ const PanelProducts = () => {
   return (
     <Grid item container alignContent={"center"} xs={12}>
       <Root sx={{ mt: 5, fontFamily: "koodak", mx: "auto" }}>
-        <ButtonAdd> افزودن کالا</ButtonAdd>
+        <ButtonAdd clickHandler={handleShow}> افزودن کالا</ButtonAdd>
         <Typography
           variant="h3"
           sx={{ direction: "rtl", mt: 5, fontFamily: "koodak" }}
@@ -48,6 +59,9 @@ const PanelProducts = () => {
         </Typography>
         <TablesProduct products={data} category={category} />
       </Root>
+      <ModalForms open={open} handleclose={() => handleClose()}>
+        <ModalAddProduct />
+      </ModalForms>
     </Grid>
   );
 };
