@@ -1,14 +1,52 @@
 import React from "react";
-import useGetAxios from "../../../axios/useGetAxios";
 import { BASE_URL } from "../../../constants/Constants";
-import PaginationBackend from "../../pagination/Pagination-Backend";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import { useNavigate, NavLink } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 import "./CardStyles.scss";
 
-const CardProduct = () => {
-  const { data, loading, error } = useGetAxios("products");
+const Buttons = styled("button")(({ theme }) => ({
+  fontFamily: "koodak",
+}));
+
+
+const CardProduct = (props) => {
+  let navigate = useNavigate();
+  const { product } = props;
+  const handleNavigate = (nativeName) => {
+    navigate(`/Product/${nativeName}`, { replace: true });
+  };
+
   return (
-    <>
-    {/* {loading ?<h1>Loading...</h1>:(
+      <Grid className="card" item xs={3}>
+        <Grid className="face face1">
+          <div className="content">
+            <img src={`${BASE_URL}${product.image}`} />
+            <h3>{product.name}</h3>
+          </div>
+        </Grid>
+        <Grid className="face face2">
+          <div className="content">
+            <p>{product.description}</p>
+            <Button
+              variant="outlined"
+              sx={{ fontFamily: "koodak" }}
+              onClick={() => handleNavigate(product.name)}
+            >
+              بیشتر بخوانید ...
+            </Button>
+          </div>
+        </Grid>
+      </Grid>
+  );
+};
+
+export default CardProduct;
+
+{
+  /* {loading ?<h1>Loading...</h1>:(
         data?.map((product) => (
             <div className="card">
               <div className="face face1">
@@ -27,27 +65,5 @@ const CardProduct = () => {
               </div>
             </div>
           ))
-    )} */}
-    <PaginationBackend/>
-    </>
-  );
-};
-
-export default CardProduct;
-
-
-// {loading ? (
-//   <h1>Loading...</h1>
-// ) : (
-//   <table>
-//   <tbody>
-//     {data?.map((record) => (
-//       <TableRow key={record.id}>
-//         <TableCell>{record.id}</TableCell>
-//         <TableCell>{record.name}</TableCell>
-//         <TableCell>$ {record.price}</TableCell>
-//       </TableRow>
-//     ))}
-//   </tbody>
-// </table>
-// )}
+    )} */
+}
