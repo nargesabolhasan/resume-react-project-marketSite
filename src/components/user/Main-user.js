@@ -15,6 +15,9 @@ const Titles = styled("h3")(({ theme }) => ({
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   padding: 10,
   margin: 5,
+  color:"white",
+  backgroundColor: "#4f13e3",
+  borderRadius: 5
 }));
 
 const Div = styled("div")(({ theme }) => ({

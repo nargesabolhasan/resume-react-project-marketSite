@@ -58,7 +58,7 @@ console.log(happoo)
         color="primary"
         defaultPage={1}
         page={activePage}
-        count={Math.ceil(49 / limit)}
+        count={Math.ceil(7 / limit)}
         onChange={(_, page) => setActivePage(page)}
       />
     </Div>
