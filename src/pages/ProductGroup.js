@@ -55,7 +55,7 @@ const ProductGroup = () => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <FlexBox>
+        <Dashboards>
           <Div>
             <Container spacing={1}>
                 <Grid
@@ -78,8 +78,7 @@ const ProductGroup = () => {
                 </Grid>
             </Container>
           </Div>
-          <Dashboards/>
-        </FlexBox>
+        </Dashboards>
       )}
     </>
   );
