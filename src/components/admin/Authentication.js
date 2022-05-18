@@ -19,7 +19,7 @@ const Authentication = () => {
     <IconButton
       variant="h6"
       component="div"
-      sx={{ mr: 2, display: { xs: "none", md: "flex", lg: "flex" } }}
+      sx={{ mr: 2, display: { xs: "none", md: "flex", lg: "flex",color: "black" } }}
       onClick={handleAuthentication}
     >
       مدیریت

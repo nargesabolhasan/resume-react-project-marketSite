@@ -17,7 +17,10 @@ const ShowPassword = (props) => {
   const { value, onChange, onBlur } = props;
   return (
     <FormControl>
-      <InputLabel htmlFor="password" sx={{ flexGrow: 1, mt: 2 }}>
+      <InputLabel
+        htmlFor="password"
+        sx={{ flexGrow: 1, mt: 2, fontSize: 20, fontFamily: "koodak" }}
+      >
         رمز عبور
       </InputLabel>
       <Grid container columns={6} sx={{ mt: 5 }}>

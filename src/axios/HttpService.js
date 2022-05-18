@@ -2,6 +2,7 @@
  import { BASE_URL } from "../constants/Constants";
 
 class HttpService {
+   
   constructor() {
     axios.defaults.baseURL = BASE_URL;
     axios.defaults.timeout = 2000;
@@ -12,6 +13,7 @@ class HttpService {
         if(config.url==="orders"){
           config.headers["token"]=localStorage.getItem("token")
         }
+        //config.headers["X-Total-Count"]=config.lenght
         return config;
       },
       (error) => {
@@ -21,9 +23,10 @@ class HttpService {
 
     axios.interceptors.response.use(
       (response) => {
-        if(response.statusCode ===401) {
-          alert ("you are not valid")
-        }
+        // if(response.statusCode ===401) {
+        //   alert ("you have  to set token")
+        // }
+         
         return response;
       },
       (error) => {
@@ -35,6 +38,11 @@ class HttpService {
   get = async(url) => {
     try {
       const res = await axios.get(url);
+      // res.set({
+      //   'X-Total-Count': '49',
+      //   'Access-Control-Expose-Headers': 'X-Total-Count'
+      // })
+      //res.headers('Access-Control-Expose-Headers', 'X-Total-Count')
       return res.data;
     } catch (err) {
       return err;

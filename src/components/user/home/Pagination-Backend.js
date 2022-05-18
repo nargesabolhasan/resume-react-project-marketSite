@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useMemo } from "react";
-import LayoutUser from "../components/Layouts/Layout-user";
+import React, { useMemo, useState } from "react";
+import useGetAxios from "../../../axios/useGetAxios";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import CardProduct from "../components/user/home/Card-Product";
+import CardProduct from "./Card-Product";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import useGetAxios from "../axios/useGetAxios";
-import { Dashboards } from "../components/index";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const Div = styled("div")(({ theme }) => ({
   width: "100%",
@@ -20,15 +19,9 @@ const Div = styled("div")(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "space-around",
   alignItems: "center",
-  marginTop: "200px",
-}));
-
-const FlexBox = styled("div")(({ theme }) => ({
-  width: "100%",
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-around",
-  alignItems: "center",
+  overflow: "hidden",
+  direction: "rtl",
+  marginTop: "20px",
 }));
 
 const Span = styled("div")(({ theme }) => ({
@@ -36,53 +29,61 @@ const Span = styled("div")(({ theme }) => ({
   paddingLeft: "20px",
 }));
 
-const ProductGroup = () => {
-  let { id } = useParams();
-  let navigate = useNavigate();
-  const limit = useMemo(() => 1, []);
+const PaginationBackend = () => {
+  const limit = useMemo(() => 2, []);
   const [activePage, setActivePage] = useState(1);
+  let navigate = useNavigate();
 
   const { data, loading, error } = useGetAxios(
-    `/categories/${id}?_embed=products`
+    `/categories?_embed=products&_page=${activePage}&_limit=${limit}`
   );
 
   const handleNavigate = (id) => {
     navigate(`/categories/${id}`, { replace: true });
   };
-  console.log(data);
 
   return (
-    <>
+    <Div>
       {loading ? (
-        <h1>Loading...</h1>
+        <Typography>Loading...</Typography>
       ) : (
-        <Dashboards data={data}>
-          <Div>
-            <Container spacing={1} sx={{direction: "rtl"}}>
+        <Container spacing={1}>
+          {data?.map((record) => (
+            <>
               <Button
                 variant="outlined"
                 sx={{ fontFamily: "koodak", height: "10px", p: 4 }}
-                onClick={() => handleNavigate(data?.id)}
+                onClick={() => handleNavigate(record.id)}
               >
-                {data?.name}
+                {record.name}
               </Button>
               <Grid
                 container
                 item
                 xs={12}
-                key={data?.id}
-                sx={{ ml: 20, flexWrap: "hidden" }}
+                key={record.id}
+                sx={{ ml: 20, flexWrap: "hidden", direction: "rtl" }}
               >
-                {data?.products.map((item) => (
-                  <CardProduct product={item} key={item?.id} />
+                {record.products.map((item) => (
+                  <CardProduct product={item} key={item.id} />
                 ))}
               </Grid>
-            </Container>
-          </Div>
-        </Dashboards>
+            </>
+          ))}
+        </Container>
       )}
-    </>
+      <Pagination
+        variant="outlined"
+        color="primary"
+        defaultPage={1}
+        page={activePage}
+        count={Math.ceil(7 / limit)}
+        onChange={(_, page) => setActivePage(page)}
+      />
+    </Div>
   );
 };
 
-export default ProductGroup;
+export default PaginationBackend;
+
+//data?.headers["x-total-count"];

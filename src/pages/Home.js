@@ -6,13 +6,20 @@ import { useNavigate, Outlet} from 'react-router-dom'
 import React from "react";
 import LayoutUser from "../components/Layouts/Layout-user";
 import { useNavigate, Outlet } from "react-router-dom";
+<<<<<<< HEAD
 import { MainUser } from "../components";
+>>>>>>> develope
+=======
+import { MainUser, ModalAddProduct } from "../components";
+import CardProduct from "../components/user/home/Card-Product";
+import PaginationBackend from "../components/user/home/Pagination-Backend";
 >>>>>>> develope
 
 const Home = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   return (
     <>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <div>Home</div>
     <button onClick={() =>navigate("/Basket", { replace: true })}>Basket</button>
@@ -60,7 +67,11 @@ const Home = () => {
         SubmitPayment
       </button>
       <MainUser />
+=======
+>>>>>>> develope
       <Outlet />
+      <PaginationBackend/>
+     
     </>
   );
 };

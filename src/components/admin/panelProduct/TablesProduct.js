@@ -15,43 +15,11 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { NavLink } from "react-router-dom";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { styled } from "@mui/material/styles";
-
-const TittleCells = styled("td")(({ theme }) => ({
-  padding: theme.spacing(1),
-  [theme.breakpoints.down("md")]: {
-    width: "5px",
-    overFlow: "wrap",
-    fontSize: 15,
-  },
-  [theme.breakpoints.up("md")]: {
-    width: 100,
-    fontSize: 15,
-  },
-  [theme.breakpoints.up("lg")]: {
-    width: 80,
-    fontSize: 20,
-    textAlign: "center",
-  },
-}));
-const TableCells = styled("td")(({ theme }) => ({
-  padding: theme.spacing(1),
-  [theme.breakpoints.down("md")]: {
-    width: "5px",
-    padding: 0,
-    textAlign: "center",
-    fontSize: 15,
-  },
-  [theme.breakpoints.up("md")]: {
-    width: 5,
-    fontSize: 15,
-  },
-  [theme.breakpoints.up("lg")]: {
-    width: 5,
-    fontSize: 20,
-  },
-}));
+import { BASE_URL } from "../../../constants/Constants";
+import TableRows from "./TableRows";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -123,11 +91,13 @@ TablePaginationActions.propTypes = {
 };
 
 export default function CustomPaginationActionsTable(props) {
-  const { products, orders } = props;
+  const { products, category } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const handleDelete=(e) => {
+    console.log(e.target.value)
+  }
 
-  //console.log(products);
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
@@ -151,37 +121,21 @@ export default function CustomPaginationActionsTable(props) {
                 page * rowsPerPage + rowsPerPage
               )
             : products
-          ).map((item, index) =>{ 
-            let sumPrice = 0;
-            let price = 0;
-            return<TableRow key={item.id}>
-              <TableCells align="right">{new Date(item.orderDate).toLocaleDateString('fa-IR')}</TableCells>
-              <TableCells align="right">
-                {item.orderItems?.map((item) => {
-                  price = +item.price.replace(",", "").replace(",", "");
-                  sumPrice += price;
-                })}
-                  <div style={{direction:"rtl"}}> {sumPrice}  تومان</div>
+          ).map((item, index) => (
+            <TableRows items={item} categories={category} index={index} key={index}/>
+          ))}
 
-              </TableCells>
-              <TittleCells align="right">{item.name}</TittleCells>
-              <TableCells align="left">
-                {item.customerDetail.firstName} {item.customerDetail.lastName}
-              </TableCells>
-              <TableCells
-                align="right"
-                sx={{ backgroundColor: "primary.main", textAlign: "center" }}
-              >
-                {index + 1}
-              </TableCells>
+          {emptyRows > 0 && (
+            <TableRow style={{ height: 53 * emptyRows }}>
+              <TableCell colSpan={6} />
             </TableRow>
-          })}
+          )}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={4}
+              colSpan={3}
               count={products.length}
               rowsPerPage={rowsPerPage}
               page={page}
