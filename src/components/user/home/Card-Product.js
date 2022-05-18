@@ -21,7 +21,7 @@ const CardProduct = (props) => {
     navigate(`/products/${name}`, { replace: true });
   };
   return (
-      <Grid className="card" item xs={3}>
+      <Grid className="card" item xs={4} sx={{mt:4}}>
         <Grid className="face face1">
           <div className="content">
             <img src={`${BASE_URL}${product.image}`} />

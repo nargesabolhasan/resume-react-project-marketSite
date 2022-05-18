@@ -3,8 +3,8 @@
   cursor: pointer;
 }
 .card .face {
-  width: 350px;
-  height:350px;
+  width: 370px;
+  height:370px;
   transition: 0.5s;
 }
 .card .face.face1 {
@@ -20,7 +20,7 @@
   direction: rtl;
 }
 .card:hover .face.face1 {
-  background: #f5823e;
+  background: #e091ff;
   transform: translateY(0);
   border-radius:0px;
 }

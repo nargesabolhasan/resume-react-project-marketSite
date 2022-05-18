@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import LayoutUser from "../components/Layouts/Layout-user";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
@@ -6,13 +6,13 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import CardProduct from "../components/user/home/Card-Product"
+import CardProduct from "../components/user/home/Card-Product";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import useGetAxios from "../axios/useGetAxios"
-import {Dashboards} from "../components/index"
+import useGetAxios from "../axios/useGetAxios";
+import { Dashboards } from "../components/index";
 
 const Div = styled("div")(({ theme }) => ({
   width: "100%",
@@ -20,6 +20,7 @@ const Div = styled("div")(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "space-around",
   alignItems: "center",
+  marginTop: "200px",
 }));
 
 const FlexBox = styled("div")(({ theme }) => ({
@@ -48,34 +49,34 @@ const ProductGroup = () => {
   const handleNavigate = (id) => {
     navigate(`/categories/${id}`, { replace: true });
   };
-  console.log(data)
+  console.log(data);
 
   return (
     <>
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <Dashboards>
+        <Dashboards data={data}>
           <Div>
-            <Container spacing={1}>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  key={data?.id}
-                  sx={{ ml: 20, flexWrap: "hidden" }}
-                >
-                  <Button
-                    variant="outlined"
-                    sx={{ fontFamily: "koodak" }}
-                    onClick={() => handleNavigate(data?.id)}
-                  >
-                    {data?.name}
-                  </Button>
-                  {data?.products.map((item) => (
-                    <CardProduct product={item} key={item?.id} />
-                  ))}
-                </Grid>
+            <Container spacing={1} sx={{direction: "rtl"}}>
+              <Button
+                variant="outlined"
+                sx={{ fontFamily: "koodak", height: "10px", p: 4 }}
+                onClick={() => handleNavigate(data?.id)}
+              >
+                {data?.name}
+              </Button>
+              <Grid
+                container
+                item
+                xs={12}
+                key={data?.id}
+                sx={{ ml: 20, flexWrap: "hidden" }}
+              >
+                {data?.products.map((item) => (
+                  <CardProduct product={item} key={item?.id} />
+                ))}
+              </Grid>
             </Container>
           </Div>
         </Dashboards>
@@ -84,4 +85,4 @@ const ProductGroup = () => {
   );
 };
 
-export default LayoutUser(ProductGroup);
+export default ProductGroup;
