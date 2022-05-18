@@ -15,10 +15,9 @@ const Buttons = styled("button")(({ theme }) => ({
 const CardProduct = (props) => {
   let navigate = useNavigate();
   const { product } = props;
-  const handleNavigate = (nativeName) => {
-    navigate(`/Product/${nativeName}`, { replace: true });
+  const handleNavigate = (name) => {
+    navigate(`/Products/${name}`, { replace: true });
   };
-
   return (
       <Grid className="card" item xs={3}>
         <Grid className="face face1">
@@ -33,7 +32,7 @@ const CardProduct = (props) => {
             <Button
               variant="outlined"
               sx={{ fontFamily: "koodak" }}
-              onClick={() => handleNavigate(product.name)}
+              onClick={() => handleNavigate(product.id)}
             >
               بیشتر بخوانید ...
             </Button>

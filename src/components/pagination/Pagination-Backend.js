@@ -4,7 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink ,useParams} from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import CardProduct from "../user/home/Card-Product";
 import Container from "@mui/material/Container";
@@ -29,14 +29,14 @@ paddingLeft: "20px"
 const PaginationBackend = () => {
   const limit = useMemo(() => 2, []);
   const [activePage, setActivePage] = useState(1);
+  let { happoo } = useParams()
   // const { data, loading, error } = useGetAxios(
   //   `/products?_page=${activePage}&_limit=${limit}}`
   // );
   const { data, loading, error } = useGetAxios(
     `/categories?_embed=products&_page=${activePage}&_limit=${limit}}`
   );
-  console.log(data);
-
+console.log(happoo)
   return (
     <Div>
       {loading ? (
@@ -45,7 +45,7 @@ const PaginationBackend = () => {
         <Container spacing={1}>
           {data?.map((record) => (
             <Grid container item xs={12} key={record.id} sx={{ml:20,flexWrap:"hidden"}}>
-              <NavLink to={`/Product/${record.name}`}>{record.name}</NavLink>
+              <NavLink to={`/ProductGroup/${record.name}`}>{record.name}</NavLink>
               {record.products.map((item) => (
                 <CardProduct product={item} key={item.id}/>
               ))}
