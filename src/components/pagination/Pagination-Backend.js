@@ -9,6 +9,7 @@ import { styled } from "@mui/material/styles";
 import CardProduct from "../user/home/Card-Product";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const Div = styled("div")(({ theme }) => ({
@@ -29,14 +30,16 @@ paddingLeft: "20px"
 const PaginationBackend = () => {
   const limit = useMemo(() => 2, []);
   const [activePage, setActivePage] = useState(1);
-  let { happoo } = useParams()
-  // const { data, loading, error } = useGetAxios(
-  //   `/products?_page=${activePage}&_limit=${limit}}`
-  // );
+  let navigate = useNavigate();
+
   const { data, loading, error } = useGetAxios(
-    `/categories?_embed=products&_page=${activePage}&_limit=${limit}}`
+    `/categories?_embed=products&_page=${activePage}&_limit=${limit}`
   );
-console.log(happoo)
+
+  const handleNavigate = (name) => {
+    navigate(`/categories/${name}`, { replace: true });
+  };
+
   return (
     <Div>
       {loading ? (
@@ -45,7 +48,13 @@ console.log(happoo)
         <Container spacing={1}>
           {data?.map((record) => (
             <Grid container item xs={12} key={record.id} sx={{ml:20,flexWrap:"hidden"}}>
-              <NavLink to={`/ProductGroup/${record.name}`}>{record.name}</NavLink>
+             <Button
+              variant="outlined"
+              sx={{ fontFamily: "koodak" }}
+              onClick={() => handleNavigate(record.id)}
+            >
+                {record.name}
+            </Button>
               {record.products.map((item) => (
                 <CardProduct product={item} key={item.id}/>
               ))}

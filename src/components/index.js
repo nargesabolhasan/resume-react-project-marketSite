@@ -20,7 +20,7 @@ import Dashboard from "./user/Dashboard";
 import FooterUser from "./user/FooterUser";
 import FormValidationUser from "./user/FormValidationUser";
 import HeaderUserStore from "./user/Header-user-store";
-import MainUser from "./user/Main-user";
+import MainUser from "./user/Main-product";
 
 import LayoutAdmin from "./Layouts/Layout-admin";
 import LayoutUser from "./Layouts/Layout-user";

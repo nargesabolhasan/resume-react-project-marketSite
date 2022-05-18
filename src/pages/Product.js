@@ -1,6 +1,6 @@
 import React from "react";
 import LayoutUser from "../components/Layouts/Layout-user";
-import MainUser from "../components/user/Main-user";
+import MainUser from "../components/user/Main-product";
 import { useNavigate, useParams } from "react-router-dom";
 import useGetAxios from "../axios/useGetAxios";
 import Container from "@mui/material/Container";
@@ -19,8 +19,6 @@ const Product = () => {
     <Box>
       {loading ? <h1>Loading...</h1> : <Box>
       <MainUser info={data}/>
-        {/* <Box></Box> */}
-        
       </Box>}
     </Box>
   );

@@ -13,10 +13,12 @@ const Buttons = styled("button")(({ theme }) => ({
 
 
 const CardProduct = (props) => {
+
   let navigate = useNavigate();
   const { product } = props;
+
   const handleNavigate = (name) => {
-    navigate(`/Products/${name}`, { replace: true });
+    navigate(`/products/${name}`, { replace: true });
   };
   return (
       <Grid className="card" item xs={3}>
