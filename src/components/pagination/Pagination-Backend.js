@@ -36,8 +36,8 @@ const PaginationBackend = () => {
     `/categories?_embed=products&_page=${activePage}&_limit=${limit}`
   );
 
-  const handleNavigate = (name) => {
-    navigate(`/categories/${name}`, { replace: true });
+  const handleNavigate = (id) => {
+    navigate(`/categories/${id}`, { replace: true });
   };
 
   return (
@@ -67,7 +67,7 @@ const PaginationBackend = () => {
         color="primary"
         defaultPage={1}
         page={activePage}
-        count={Math.ceil(7 / limit)}
+        count={Math.ceil(7/ limit)}
         onChange={(_, page) => setActivePage(page)}
       />
     </Div>

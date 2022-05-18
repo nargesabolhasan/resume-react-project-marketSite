@@ -24,7 +24,7 @@ function App() {
         <Route path="/PanelLogin" element={<PanelLogin />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/Products/:name" element={<Product />} />
-        <Route path="/categories/:name" element={<ProductGroup />} />
+        <Route path="/categories/:id" element={<ProductGroup />} />
         <Route path="/ResultPayment" element={<ResultPayment />} />
         <Route path="/SubmitPayment" element={<SubmitPayment />} />
         {/* <Route path="*" element={<NotFound />} /> */}
