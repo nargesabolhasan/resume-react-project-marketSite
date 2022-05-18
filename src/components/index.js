@@ -16,7 +16,7 @@ import ModalEditProduct from "./admin/panelProduct/Form-editProduct";
 import ButtonAdd from "./buttons/Button-add";
 import ButtonSubmit from "./buttons/Button-submit";
 
-import Dashboard from "./user/Dashboard";
+import Dashboards from "./user/Dashboards";
 import FooterUser from "./user/FooterUser";
 import FormValidationUser from "./user/FormValidationUser";
 import HeaderUserStore from "./user/Header-user-store";
@@ -37,7 +37,7 @@ export {
   TableOrder,
   ButtonAdd,
   ButtonSubmit,
-  Dashboard,
+  Dashboards,
   FooterUser,
   FormValidationUser,
   HeaderUserStore,

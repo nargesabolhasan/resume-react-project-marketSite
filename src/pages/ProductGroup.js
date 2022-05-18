@@ -12,6 +12,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import useGetAxios from "../axios/useGetAxios"
+import {Dashboards} from "../components/index"
 
 const Div = styled("div")(({ theme }) => ({
   width: "100%",
@@ -19,7 +20,14 @@ const Div = styled("div")(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "space-around",
   alignItems: "center",
-  overflow: "hidden",
+}));
+
+const FlexBox = styled("div")(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center",
 }));
 
 const Span = styled("div")(({ theme }) => ({
@@ -47,7 +55,7 @@ const ProductGroup = () => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <Box>
+        <FlexBox>
           <Div>
             <Container spacing={1}>
                 <Grid
@@ -70,7 +78,8 @@ const ProductGroup = () => {
                 </Grid>
             </Container>
           </Div>
-        </Box>
+          <Dashboards/>
+        </FlexBox>
       )}
     </>
   );
