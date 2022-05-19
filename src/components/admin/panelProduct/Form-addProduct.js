@@ -41,7 +41,9 @@ const Basic = () => {
         /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi || /^[0-9a-zA-Z]+$/,
         "تنها حروف لاتین امکان پذیر است"
       ),
-    image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
+    image: Yup.mixed().required("تصویر محصول بار گذاری شود").test('fileFormat', '  فرمت عکس webp باشد', (value) => {
+       return value && ['image/webp'].includes(value.type);
+    }),
     categoryId: Yup.number().required("دسته بندی  را انتخاب کنید"),
     price: Yup.number().required("قیمت محصول را وارد کنید"),
     count: Yup.number().required(" تعداد محصول را وارد کنید "),
@@ -51,7 +53,7 @@ const Basic = () => {
 
   const auth = async(input) => {
    const res= await HttpService.post("/upload",input.image)
-   console.log (res)
+   console.log (res.headers.url)
     // await HttpService.post("/products",input)
     //await HttpService.post("/products",{ ...input , image: res})
     // setTimeout(() => {
