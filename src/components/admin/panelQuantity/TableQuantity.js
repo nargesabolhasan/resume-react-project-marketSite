@@ -242,7 +242,7 @@ export default function CustomPaginationActionsTable(props) {
                 />
               </TableCells>
 
-              <TittleCells align="right">{item.name}</TittleCells>
+              <TittleCells align="right"  sx={{direction: "rtl"}}>{item.name}</TittleCells>
               <TableCells
                 align="right"
                 sx={{ backgroundColor: "primary.main", textAlign: "center" }}

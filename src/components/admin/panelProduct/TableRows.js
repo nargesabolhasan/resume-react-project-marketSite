@@ -34,6 +34,7 @@ const TableCells = styled("td")(({ theme }) => ({
     padding: 0,
     textAlign: "center",
     fontSize: 15,
+    direction: "ltr",
   },
   [theme.breakpoints.up("md")]: {
     width: 5,
@@ -86,7 +87,7 @@ const TabLists = (props) => {
             category.id === items.categoryId ? category.name : ""
           )}
         </TableCells>
-        <TittleCells align="right">{items.name}</TittleCells>
+        <TittleCells align="right" sx={{direction: "rtl"}}>{items.name}</TittleCells>
         <TableCells
           align="right"
           sx={{ backgroundColor: "primary.main", textAlign: "center" }}
