@@ -38,7 +38,6 @@ const PaginationBackend = () => {
     `/categories?_embed=products&_page=${activePage}&_limit=${limit}`
   );
 
-console.log(data)
   const handleNavigate = (id) => {
     navigate(`/categories/${id}`, { replace: true });
   };
@@ -50,7 +49,7 @@ console.log(data)
       ) : (
         <Container spacing={1}>
           {data?.data.map((record) => (
-            <>
+            <Box key={record.id}>
               <Button
                 variant="outlined"
                 sx={{ fontFamily: "koodak", height: "10px", p: 4 }}
@@ -69,7 +68,7 @@ console.log(data)
                   <CardProduct product={item} key={item.id} />
                 ))}
               </Grid>
-            </>
+            </Box>
           ))}
         </Container>
       )}

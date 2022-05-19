@@ -19,8 +19,7 @@ const Div = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-around",
-  alignItems: "center",
-  marginTop: "200px",
+  marginTop: "10px",
 }));
 
 const FlexBox = styled("div")(({ theme }) => ({
@@ -56,7 +55,7 @@ const ProductGroup = () => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <>
+        <Div>
         <Dashboards >
           <Container spacing={1}>
               <>
@@ -81,7 +80,7 @@ const ProductGroup = () => {
               </>
           </Container>
           </Dashboards>
-        </>
+        </Div>
       )}
     </>
   );

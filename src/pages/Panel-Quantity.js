@@ -48,7 +48,6 @@ const PanelQuantity = () => {
           variant="h3"
           sx={{ direction: "rtl", mt: 5, fontFamily: "koodak" }}
         >
-          {" "}
           موجودی و قیمت ها
         </Typography>
         <SortData products={data} />

@@ -47,9 +47,11 @@ const TableCells = styled("td")(({ theme }) => ({
 
 const TabLists = (props) => {
   const { items, categories, index } = props;
+
   //**modal **//
   const [open, setOpen] = useState(false);
   const [classname, setClassname] = useState("");
+
   //--------Modal open & close :----------
 
   const handleShow = () => {
