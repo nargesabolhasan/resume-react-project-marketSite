@@ -51,8 +51,8 @@ const PaginationBackend = () => {
           {data?.data.map((record) => (
             <Box key={record.id}>
               <Button
-                variant="outlined"
-                sx={{ fontFamily: "koodak", height: "10px", p: 4 }}
+              variant="contained"
+                sx={{ fontFamily: "koodak", height: "10px", p: 4 ,width:"100%", border:3,fontSize: 25}}
                 onClick={() => handleNavigate(record.id)}
               >
                 {record.name}
