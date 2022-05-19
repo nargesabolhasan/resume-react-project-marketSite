@@ -5,10 +5,12 @@ import { MainUser, ModalAddProduct } from "../components";
 import CardProduct from "../components/user/home/Card-Product";
 import PaginationBackend from "../components/user/home/Pagination-Backend";
 
+
 const Home = () => {
   //const navigate = useNavigate();
   return (
     <>
+ 
       <Outlet />
       <PaginationBackend/>
      

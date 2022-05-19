@@ -8,43 +8,73 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import ButtonAdd from "../../buttons/Button-add";
-import axios from "axios"
+import axios from "axios";
 
 const TableCells = styled("td")(({ theme }) => ({
-    textAlign: "center",
-    fontSize: 20,
-    border: "1px solid black",
-    padding: 3
-
+  textAlign: "center",
+  fontSize: 20,
+  border: "1px solid black",
+  padding: 3,
 }));
 const TittleCells = styled("td")(({ theme }) => ({
   textAlign: "center",
   fontSize: 20,
   padding: 5,
-  fontFamily: "koodak"
+  fontFamily: "koodak",
+}));
+const Div = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-around",
+  alignItems: "center",
 }));
 
 const ModalOrders = (props) => {
   const { info } = props;
-  const header=[ "نام کالا","قیمت"]
+  const header = ["نام کالا", "قیمت"];
 
-  const handleSubmit=()=>{
-    const status=info.orderStatus
-    // console.log(info.orderStatus)
-    // const Completed={"orderStatus":1 }
-    console.log({ ...info , orderStatus:1})
-    axios.patch(`orders/${info.id}`, { ...info , orderStatus:1}, { headers: {"token" : localStorage.getItem("token")} })
+  const handleSubmit = () => {
+    axios.patch(
+      `orders/${info.id}`,
+      { ...info, orderStatus: 1 },
+      { headers: { token: localStorage.getItem("token") } }
+    );
     setTimeout(() => {
       window.location.reload(false);
     }, 1000);
-  }
+  };
+  console.log(info);
   return (
-    <div>
+    <Div>
       <TittleCells>بررسی اطلاعات</TittleCells>
+      <Div>
+        <Table>
+          <TableHead sx={{ color: "white", backgroundColor: "primary.main" }}>
+            <TableCells sx={{ textAlign: "center" }}>نام </TableCells>
+            <TableCells sx={{ textAlign: "center" }}> نام خانوادگی</TableCells>
+            <TableCells sx={{ textAlign: "center" }}>شماره تماس</TableCells>
+            <TableCells sx={{ textAlign: "center" }}> محل سکونت</TableCells>
+          </TableHead>
+          <TableCells sx={{ textAlign: "center" }}>
+            {info.customerDetail.firstName}
+          </TableCells>
+          <TableCells sx={{ textAlign: "center" }}>
+            {info.customerDetail.lastName}
+          </TableCells>
+          <TableCells sx={{ textAlign: "center" }}>
+            {info.customerDetail.phone}
+          </TableCells>
+          <TableCells sx={{ textAlign: "center" }}>
+            {info.customerDetail.billingAddress}
+          </TableCells>
+        </Table>
+      </Div>
       {info.orderItems.map((item) => (
         <Table>
-          <TableHead sx={{color: "white",backgroundColor: "primary.main"}}>
-            {header.map((item) => (<TableCells  sx={{textAlign: "center"}}>{item}</TableCells>))}
+          <TableHead sx={{ color: "white", backgroundColor: "primary.main" }}>
+            {header.map((item) => (
+              <TableCells sx={{ textAlign: "center" }}>{item}</TableCells>
+            ))}
           </TableHead>
           <TableBody>
             <TableRow>
@@ -55,7 +85,7 @@ const ModalOrders = (props) => {
         </Table>
       ))}
       <ButtonAdd clickHandler={handleSubmit}>تحویل شد</ButtonAdd>
-    </div>
+    </Div>
   );
 };
 

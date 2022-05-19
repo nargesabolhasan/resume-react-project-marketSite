@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Formik, validateYupSchema } from "formik";
 import * as Yup from "yup";
 import { Yard } from "@mui/icons-material";
@@ -30,6 +30,7 @@ const Errors = styled("h5")(({ theme }) => ({
 }));
 
 const Basic = () => {
+  const [imageData,setImageData]=useState();
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
       .min(4, "نام بیشتر از 4 حرف باشد")
@@ -41,9 +42,10 @@ const Basic = () => {
         /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi || /^[0-9a-zA-Z]+$/,
         "تنها حروف لاتین امکان پذیر است"
       ),
-    image: Yup.mixed().required("تصویر محصول بار گذاری شود").test('fileFormat', '  فرمت عکس webp باشد', (value) => {
-       return value && ['image/webp'].includes(value.type);
-    }),
+    image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
+    // .test('fileFormat', '  فرمت عکس webp باشد', (value) => {
+    //    return value && ['image/webp','image/png'].includes(value.type);
+    // }),
     categoryId: Yup.number().required("دسته بندی  را انتخاب کنید"),
     price: Yup.number().required("قیمت محصول را وارد کنید"),
     count: Yup.number().required(" تعداد محصول را وارد کنید "),
@@ -52,13 +54,13 @@ const Basic = () => {
   });
 
   const auth = async(input) => {
-   const res= await HttpService.post("/upload",input.image)
-   console.log (res.headers.url)
-    // await HttpService.post("/products",input)
+  //  const res= await HttpService.post("/upload",input.image)
+  //  console.log (res.data)
+     await HttpService.post("/products",input)
     //await HttpService.post("/products",{ ...input , image: res})
-    // setTimeout(() => {
-    //   window.location.reload(false);
-    // }, 500);
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 500);
 
   };
 
