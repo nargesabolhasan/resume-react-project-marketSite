@@ -38,6 +38,7 @@ const PaginationBackend = () => {
     `/categories?_embed=products&_page=${activePage}&_limit=${limit}`
   );
 
+console.log(data)
   const handleNavigate = (id) => {
     navigate(`/categories/${id}`, { replace: true });
   };
@@ -48,7 +49,7 @@ const PaginationBackend = () => {
         <Typography>Loading...</Typography>
       ) : (
         <Container spacing={1}>
-          {data?.map((record) => (
+          {data?.data.map((record) => (
             <>
               <Button
                 variant="outlined"
@@ -77,7 +78,7 @@ const PaginationBackend = () => {
         color="primary"
         defaultPage={1}
         page={activePage}
-        count={Math.ceil(7 / limit)}
+        count={Math.ceil(data?.headers["x-total-count"] / limit)}
         onChange={(_, page) => setActivePage(page)}
       />
     </Div>

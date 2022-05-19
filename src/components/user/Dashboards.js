@@ -46,8 +46,8 @@ function ResponsiveDrawer(props) {
 
       <Divider />
 
-      {data?.map((record, index) => (
-        <Box key={record.id} sx={{ direction: "rtl", p: 3 }}>
+      {data?.data.map((record, index) => (
+        <Box key={index} sx={{ direction: "rtl", p: 3 }}>
           <Box>
             <ListItemIcon>
                     <ApiIcon/>

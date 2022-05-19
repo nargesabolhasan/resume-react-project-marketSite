@@ -36,7 +36,8 @@ const PanelQuantity = () => {
   }, []);
   //-----------
   const getData = async () => {
-    setData(await HttpService.get("products"));
+    const res=await HttpService.get("products")
+    setData(res?.data);
   };
 
   return (

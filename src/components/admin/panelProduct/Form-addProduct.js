@@ -50,12 +50,13 @@ const Basic = () => {
   });
 
   const auth = async(input) => {
-    //  await HttpService.post("/upload",input.image)
+   const res= await HttpService.post("/upload",input.image)
+   console.log (res)
     // await HttpService.post("/products",input)
-    await HttpService.post("/products",input)
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 500);
+    //await HttpService.post("/products",{ ...input , image: res})
+    // setTimeout(() => {
+    //   window.location.reload(false);
+    // }, 500);
 
   };
 

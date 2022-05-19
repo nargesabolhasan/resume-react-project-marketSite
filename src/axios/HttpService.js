@@ -38,12 +38,7 @@ class HttpService {
   get = async(url) => {
     try {
       const res = await axios.get(url);
-      // res.set({
-      //   'X-Total-Count': '49',
-      //   'Access-Control-Expose-Headers': 'X-Total-Count'
-      // })
-      //res.headers('Access-Control-Expose-Headers', 'X-Total-Count')
-      return res.data;
+      return res;
     } catch (err) {
       return err;
     }

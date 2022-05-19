@@ -56,30 +56,32 @@ const ProductGroup = () => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <Dashboards data={data}>
-          <Div>
-            <Container spacing={1} sx={{direction: "rtl"}}>
-              <Button
-                variant="outlined"
-                sx={{ fontFamily: "koodak", height: "10px", p: 4 }}
-                onClick={() => handleNavigate(data?.id)}
-              >
-                {data?.name}
-              </Button>
-              <Grid
-                container
-                item
-                xs={12}
-                key={data?.id}
-                sx={{ ml: 20, flexWrap: "hidden" }}
-              >
-                {data?.products.map((item) => (
-                  <CardProduct product={item} key={item?.id} />
-                ))}
-              </Grid>
-            </Container>
-          </Div>
-        </Dashboards>
+        <>
+        <Dashboards >
+          <Container spacing={1}>
+              <>
+                <Button
+                  variant="outlined"
+                  sx={{ fontFamily: "koodak", height: "10px", p: 4 }}
+                  onClick={() => handleNavigate(data?.data.id)}
+                >
+                  {data?.data.name}
+                </Button>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  key={data?.data.id}
+                  sx={{ ml: 20, flexWrap: "hidden", direction: "rtl" }}
+                >
+                  {data?.data.products.map((item) => (
+                    <CardProduct product={item} key={item.id} />
+                  ))}
+                </Grid>
+              </>
+          </Container>
+          </Dashboards>
+        </>
       )}
     </>
   );

@@ -43,9 +43,12 @@ const PanelProducts = () => {
   }, []);
   //-----------
   const getData = async () => {
-    setCategory(await HttpService.get("categories?_embed=products"));
-    setData(await HttpService.get("products"));
+    const res= await HttpService.get("products")
+    setData(res?.data)
+    const result=await HttpService.get("categories?_embed=products")
+    setCategory(result?.data);
   };
+  
 
   return (
     <Grid item container alignContent={"center"} xs={12}>

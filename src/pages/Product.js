@@ -18,7 +18,7 @@ const Product = () => {
   return (
     <Box>
       {loading ? <h1>Loading...</h1> : <Box>
-      <MainUser info={data}/>
+      <MainUser info={data?.data}/>
       </Box>}
     </Box>
   );
