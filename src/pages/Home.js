@@ -26,6 +26,7 @@ const PhotoWraper = styled("div")(({ theme }) => ({
   justifyContent: "space-around",
   width: "100%",
   margin: "0 auto",
+  marginTop:"10px",
 }));
 
 const Home = () => {
@@ -46,10 +47,8 @@ const Home = () => {
   return (
     <>
       <Div>
-        
-        {/* <img src={homeBackGround} style={{ margin: "30px", width: "100%" }} /> */}
         <Slider handleOpen={handleOpen}  />
-
+<Box sx={{margin:"30px 0",boxShadow:"-10px -10px 20px 2px #ba6b6c57"}}>
         <PhotoWraper>
           <Box
             sx={{
@@ -124,6 +123,7 @@ const Home = () => {
             این هرگز معادل آن را ندیده‌اید
           </Box>
         </PhotoWraper>
+        </Box>
       </Div>
       <FooterUser />
     </>
