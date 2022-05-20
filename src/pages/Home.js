@@ -7,12 +7,7 @@ import macbookpro2021 from "../assets/images/logo/macbookpro2021.png";
 import ipad from "../assets/images/logo/ipad.jpg";
 import { styled } from "@mui/material/styles";
 import useGetAxios from "../axios/useGetAxios";
-import CardProduct from "../components/user/home/Card-Product";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Slider from "../components/user/home/Slider";
 
 const Div = styled("div")(({ theme }) => ({
