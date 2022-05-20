@@ -111,7 +111,7 @@ const ResponsiveAppBar = () => {
             </Grid>
             <Grid item xs={2}>
               <Link to="/">
-                <img src={logo} style={{ width: "200px", float: "right" }} />
+                <img src={logo} style={{ width: "100px", float: "right" }} />
               </Link>
             </Grid>
           </Grid>

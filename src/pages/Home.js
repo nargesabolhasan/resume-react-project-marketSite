@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LayoutUser from "../components/Layouts/Layout-user";
 import { useNavigate, Outlet } from "react-router-dom";
 import { FooterUser, MainUser, ModalAddProduct } from "../components";
@@ -13,6 +13,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Slider from "../components/user/home/Slider";
 
 const Div = styled("div")(({ theme }) => ({
   display: "flex",
@@ -31,21 +32,38 @@ const PhotoWraper = styled("div")(({ theme }) => ({
   width: "100%",
   margin: "0 auto",
 }));
+
 const Home = () => {
   let navigate = useNavigate();
   const { data, loading, error } = useGetAxios(`/categories/?_embed=products`);
+
+  const [handleOpen, setHandleOpen] = useState({ open: true });
+
+  //const matches = useMediaQuery("(max-width:600px)");
+
+  const handleClick = () => {
+    setHandleOpen({ open: true });
+  };
   const handleNavigate = (id) => {
     navigate(`/categories/${id}`, { replace: true });
   };
-  console.log(data);
 
   return (
     <>
       <Div>
-        <img src={homeBackGround} style={{ margin: "30px", width: "100%" }} />
+        
+        {/* <img src={homeBackGround} style={{ margin: "30px", width: "100%" }} /> */}
+        {/* <Slider handleOpen={handleOpen}  /> */}
+
         <PhotoWraper>
           <Box
-            sx={{ direction: "rtl", fontFamily: "koodak", width: "50%", p: 3,boxShadow:"-2px 22px rgba(0,0,0,0.2)" }}
+            sx={{
+              direction: "rtl",
+              fontFamily: "koodak",
+              width: "50%",
+              p: 3,
+              boxShadow: "-2px 22px rgba(0,0,0,0.2)",
+            }}
           >
             اپل در سال 2020 تغییراتی مهم را در کامپیوترهای مک اعمال کرد که
             قدرتمندترین مدل آن‌ها با عنوان مک بوک پرو 2020 همراه با پردازنده M1
@@ -66,7 +84,13 @@ const Home = () => {
         <PhotoWraper>
           <img src={ipad} style={{ width: "50%" }} />
           <Box
-            sx={{ direction: "rtl", fontFamily: "koodak", width: "50%", p: 3,boxShadow:"2px 22px rgba(0,0,0,0.2)" }}
+            sx={{
+              direction: "rtl",
+              fontFamily: "koodak",
+              width: "50%",
+              p: 3,
+              boxShadow: "2px 22px rgba(0,0,0,0.2)",
+            }}
           >
             بررسی آیپد پرو ۲۰۲۱ نسل ۵ | انقلابی در هویت آیپدها آیپد پرو ۲۰۲۱ نسل
             ۵ که در جریان کنفرانس بهاری شرکت اپل رونمایی شد، یکی از انقلابی‌ترین
@@ -90,20 +114,18 @@ const Home = () => {
             بدون نیاز به کامپیوترهای دیگر تمامی کارهای مورد نظر خود را انجام
             دهند.
             <br></br>
-            جالب اینجا است که قدرت پردازشی آیپد جدید افزایش قابل توجهی داشته است و در عین حال مصرف باتری و انرژی این محصول نیز به طور کلی بهبود داشته است. آیپد پرو می‌تواند با یک بار شارژ باتری برای یک روز کاری کامل پاسخگوی نیازهای کاربر باشد و تمامی امکانات ممکن را در اختیار استفاده کننده خود قرار دهد.
-تراشه M1 تعبیه شده در این آیپدها دارای ۸ هسته پردازش مرکزی، ۸ هسته پردازش گرافیکی و ۱۶ هسته مربوط به پردازش‌های هوشمند مصنوعی است که در مجموع باعث شده تا قدرت پردازنده تا ۵۰ درصد نسبت به نسل پیشین بهبود داشته باشد و قدرت پردازش گرافیکی نیز تا ۴۰ درصد در دستگاه‌های جدید سریع‌تر شود.
-نمایشگر باکیفیت‌تر که تا پیش از این هرگز معادل آن را ندیده‌اید
+            جالب اینجا است که قدرت پردازشی آیپد جدید افزایش قابل توجهی داشته است
+            و در عین حال مصرف باتری و انرژی این محصول نیز به طور کلی بهبود داشته
+            است. آیپد پرو می‌تواند با یک بار شارژ باتری برای یک روز کاری کامل
+            پاسخگوی نیازهای کاربر باشد و تمامی امکانات ممکن را در اختیار استفاده
+            کننده خود قرار دهد. تراشه M1 تعبیه شده در این آیپدها دارای ۸ هسته
+            پردازش مرکزی، ۸ هسته پردازش گرافیکی و ۱۶ هسته مربوط به پردازش‌های
+            هوشمند مصنوعی است که در مجموع باعث شده تا قدرت پردازنده تا ۵۰ درصد
+            نسبت به نسل پیشین بهبود داشته باشد و قدرت پردازش گرافیکی نیز تا ۴۰
+            درصد در دستگاه‌های جدید سریع‌تر شود. نمایشگر باکیفیت‌تر که تا پیش از
+            این هرگز معادل آن را ندیده‌اید
           </Box>
         </PhotoWraper>
-        {/* {loading ? (
-        <Typography>Loading...</Typography>
-      ) : (
-        <Div spacing={1}>
-          {data?.data.map(data => (
-            <h1>{data.name}</h1>
-          ))}
-        </Div>
-      )} */}
       </Div>
       <FooterUser />
     </>
@@ -111,3 +133,18 @@ const Home = () => {
 };
 
 export default LayoutUser(Home);
+
+// function App() {
+//   const [handleOpen, setHandleOpen] = useState({ open: true });
+
+//   const matches = useMediaQuery("(max-width:600px)");
+//   return (
+//     <>
+//       <AutoRotatingCarouselModal
+//         handleOpen={handleOpen}
+//         setHandleOpen={setHandleOpen}
+//       />
+//     </>
+//   );
+// }
+// export default App
