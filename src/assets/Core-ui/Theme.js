@@ -15,7 +15,7 @@ import { indigo } from "@mui/material/colors";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ef9a9a",
+      main: "#ba6b6c",
     },
     PDark: {
       main: "#ba6b6c",
