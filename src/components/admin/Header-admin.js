@@ -47,7 +47,7 @@ const ResponsiveAppBar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("state");
     dispatch(logout());
-    navigate("/", { replace: true });
+    navigate("/");
   };
 
   return (

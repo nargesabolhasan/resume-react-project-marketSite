@@ -58,6 +58,7 @@ const Basic = () => {
      for (const [key,value] of Object.entries(input)){
        formData.append(key,value);
      }
+
      await HttpService.post("/products",formData)
   };
 
@@ -126,7 +127,7 @@ const Basic = () => {
                   name="image"
                   type="file"
                   accept="image/webp"
-                  onChange={handleChange}
+                  onChange={()=>{handleChange()}}
                   onBlur={handleBlur}
                 />
                 <Errors variant="h5">

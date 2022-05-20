@@ -39,7 +39,6 @@ InputChange.propTypes = {
   keyDownHandler: PropTypes.func.isRequired,
   disableInput: PropTypes.bool,
   placeholders: PropTypes.string,
-  value: PropTypes.string,
   inputId: PropTypes.string.isRequired,
 };
 

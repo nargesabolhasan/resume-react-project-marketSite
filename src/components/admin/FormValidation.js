@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { React, useEffect, useState, useContext } from "react";
 import HttpService from "../../axios/HttpService";
+import axios from "axios";
 import ShowPassword from "./ShowPassword";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/userSlice";
@@ -29,35 +30,27 @@ const FormValidation = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state);
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-  // //-----------axios.get :-----------
-  // const getData = async () => {
-  //   setAdminData(await HttpService.post("auth/login", values ));
-  // };
-
   //--------Modal open & close :----------
   const handleShow = () => {
     setOpen(true);
     setClassname("succsess");
     setBodyMassages("سلام به پنل مدیریت خوش آمدید");
   };
-  const handleClose=()=>setOpen(false);
- 
+  const handleClose = () => setOpen(false);
+
   //-----------Authentication :-----------
-  const Authentication =async (input) => {
-
-    const res=await HttpService.post("auth/login", input )
-
-    if (res) {
-      localStorage.setItem("token",res.token)
-      handleShow()
-      setTimeout(() => {
-        navigate("/PanelProducts", { replace: true });
-        dispatch(setUser(input));
-      }, 3000);
-    } else {
+  const Authentication = async (input) => {
+    const res = await HttpService.post("auth/login", input);
+    try {
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.token);
+        handleShow();
+        setTimeout(() => {
+          navigate("/PanelProducts", { replace: true });
+          dispatch(setUser(input));
+        }, 3000);
+      }
+    } catch (err) {
       setOpen(true);
       setClassname("failer");
       setBodyMassages("رمز یا نام کاربری اشتباه است ");
@@ -65,7 +58,7 @@ const FormValidation = () => {
   };
   //-----------------handleBack--------------
   const handleBack = () => {
-    navigate("/", { replace: true });
+    navigate("/");
   };
 
   return (

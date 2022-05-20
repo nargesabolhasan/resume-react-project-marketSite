@@ -19,7 +19,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { styled } from "@mui/material/styles";
 import InputChange from "../panelQuantity/InputChange";
-import TableHead from '@mui/material/TableHead';
+import TableHead from "@mui/material/TableHead";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -131,7 +131,7 @@ export default function CustomPaginationActionsTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   //---input type:----
-  const [readonly,setReadonly]=React.useState(true);
+  const [readonly, setReadonly] = React.useState(true);
 
   const [changedCount, setChangedCount] = React.useState();
   const [listOfCuont, setListOfCuont] = React.useState([]);
@@ -156,19 +156,18 @@ export default function CustomPaginationActionsTable(props) {
       id: textId,
     });
 
-    listOfCuont?.map(item=>{
-
+    listOfCuont?.map((item) => {
       // if(item.id=== changedCount.id && item!==undefined){
       //   console.log("yes")
       // }
-       console.log(item)
-    })
+      console.log(item);
+    });
     setListOfCuont([...listOfCuont, changedCount]);
   };
-   //console.log(listOfCuont);
+  //console.log(listOfCuont);
 
   const changeHandlerPrice = (event, textId) => {
-    setReadonly(false)
+    setReadonly(false);
     setChangedPrice({
       ...changedPrice,
       price: event.target.value,
@@ -176,13 +175,12 @@ export default function CustomPaginationActionsTable(props) {
     });
   };
 
- 
   const keyDownHandlerCount = (event) => {
     if (event.key === "Enter") {
       event.target.disabled = true;
     }
   };
-  const headerTable =[" تعداد موجودی", " قیمت", "نام محصول ", "شماره"]
+  const headerTable = [" تعداد موجودی", " قیمت", "نام محصول ", "شماره"];
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -200,11 +198,13 @@ export default function CustomPaginationActionsTable(props) {
   return (
     <TableContainer component={Paper} sx={{ mx: "auto", mt: 5 }}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-      <TableHead sx={{ borderBottom: 1 }}>
-     { headerTable.map(item => (
-       <TableCells align="right">{item}</TableCells>
-     ))}
-      </TableHead>
+        <TableHead sx={{ borderBottom: 1 }}>
+          <TableRow>
+            {headerTable.map((item,index) => (
+              <TableCells align="right" key={index}>{item}</TableCells>
+            ))}
+          </TableRow>
+        </TableHead>
         <TableBody variant="h3">
           {(rowsPerPage > 0
             ? products.slice(
@@ -222,7 +222,6 @@ export default function CustomPaginationActionsTable(props) {
                   clickHandler={clickHandlerCounter}
                   keyDownHandler={keyDownHandlerCount}
                   disableInput={false}
-                  placeholders={String(item.count)}
                   inputId={String(item.id)}
                 />
               </TableCells>
@@ -234,7 +233,6 @@ export default function CustomPaginationActionsTable(props) {
                   clickHandler={clickHandlerCounter}
                   keyDownHandler={keyDownHandlerCount}
                   disableInput={false}
-                  placeholders={item.price}
                   inputId={String(item.id)}
                   InputProps={{
                     readOnly: readonly,
@@ -242,7 +240,9 @@ export default function CustomPaginationActionsTable(props) {
                 />
               </TableCells>
 
-              <TittleCells align="right"  sx={{direction: "rtl"}}>{item.name}</TittleCells>
+              <TittleCells align="right" sx={{ direction: "rtl" }}>
+                {item.name}
+              </TittleCells>
               <TableCells
                 align="right"
                 sx={{ backgroundColor: "primary.main", textAlign: "center" }}

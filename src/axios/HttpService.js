@@ -11,7 +11,6 @@ class HttpService {
         if(config.url==="orders"){
           config.headers["token"]=localStorage.getItem("token")
         }
-        //config.headers["X-Total-Count"]=config.lenght
         return config;
       },
       (error) => {
@@ -46,7 +45,7 @@ class HttpService {
   post = async(url,data) => {
     try {
       const res = await axios.post(url,data);
-      return res.data;
+      return res;
     } catch (err) {
       return err;
     }

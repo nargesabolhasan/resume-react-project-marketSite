@@ -8,7 +8,6 @@ const LayoutUser = (Component) => {
       <>
         <HeaderUserStore />
         <Component {...props} />
-        <FooterUser/>
       </>
     );
   }
