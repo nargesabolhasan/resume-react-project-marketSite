@@ -2,15 +2,16 @@ import React from "react";
 import { createTheme, ThemeProvider, status } from "@mui/material/styles";
 import { indigo } from "@mui/material/colors";
 
-// const theme = createTheme({
+
+// const customTheme = createTheme({
 //   palette: {
-//     primary: indigo ,
-//     warning: {
-//       main:"#ffc400"
+//     primary: {
+//       main: '#1976d2',
+//       contrastText: 'white',
 //     },
 //   },
-//   direction: 'rtl',
 // });
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -25,6 +26,9 @@ const theme = createTheme({
     warning: {
       main: "#ffc400",
     },
+    amber:{
+      main :"#fff8e1"
+    }
   },
   direction: "rtl",
 });
