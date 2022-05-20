@@ -51,44 +51,82 @@
 // export default AutoRotatingCarouselModal
 //------------------------------------------------------
 
-import React from 'react';
-import Carousel from 'react-material-ui-carousel'
-import { Paper, Button } from '@mui/material'
+// import React from 'react';
+// import Carousel from 'react-material-ui-carousel'
+// import { Paper, Button } from '@mui/material'
 
-function Example(props)
-{
-    var items = [
-        {
-            name: "Random Name #1",
-            description: "Probably the most random thing you have ever seen!"
-        },
-        {
-            name: "Random Name #2",
-            description: "Hello World!"
-        }
-    ]
+// function Example(props)
+// {
+//     var items = [
+//         {
+//             name: "Random Name #1",
+//             description: "Probably the most random thing you have ever seen!"
+//         },
+//         {
+//             name: "Random Name #2",
+//             description: "Hello World!"
+//         }
+//     ]
 
-    return (
-        <Carousel>
-            {
-                items.map( (item, i) => <Item key={i} item={item} /> )
-            }
-        </Carousel>
-    )
+//     return (
+//         <Carousel>
+//             {
+//                 items.map( (item, i) => <Item key={i} item={item} /> )
+//             }
+//         </Carousel>
+//     )
+// }
+
+// function Item(props)
+// {
+//     return (
+//         <div>
+//             <h2>{props.item.name}</h2>
+//             <p>{props.item.description}</p>
+
+//             <Button className="CheckButton">
+//                 Check it out!
+//             </Button>
+//         </div>
+//     )
+// }
+
+// export default Example
+
+//-----------------
+import React, { useRef, useState } from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/scrollbar";
+
+import "./Slider.scss";
+
+// import required modules
+import { Scrollbar } from "swiper";
+
+export default function App() {
+  return (
+    <>
+      <Swiper
+        scrollbar={{
+          hide: true,
+        }}
+        modules={[Scrollbar]}
+        className="mySwiper"
+      >
+        <SwiperSlide>Slide 1</SwiperSlide>
+        <SwiperSlide>Slide 2</SwiperSlide>
+        <SwiperSlide>Slide 3</SwiperSlide>
+        <SwiperSlide>Slide 4</SwiperSlide>
+        <SwiperSlide>Slide 5</SwiperSlide>
+        <SwiperSlide>Slide 6</SwiperSlide>
+        <SwiperSlide>Slide 7</SwiperSlide>
+        <SwiperSlide>Slide 8</SwiperSlide>
+        <SwiperSlide>Slide 9</SwiperSlide>
+      </Swiper>
+    </>
+  );
 }
-
-function Item(props)
-{
-    return (
-        <div>
-            <h2>{props.item.name}</h2>
-            <p>{props.item.description}</p>
-
-            <Button className="CheckButton">
-                Check it out!
-            </Button>
-        </div>
-    )
-}
-
-export default Example

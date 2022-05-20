@@ -53,7 +53,7 @@ const Home = () => {
       <Div>
         
         {/* <img src={homeBackGround} style={{ margin: "30px", width: "100%" }} /> */}
-        {/* <Slider handleOpen={handleOpen}  /> */}
+        <Slider handleOpen={handleOpen}  />
 
         <PhotoWraper>
           <Box
