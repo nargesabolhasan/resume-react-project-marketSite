@@ -57,6 +57,7 @@ const Home = () => {
               fontFamily: "koodak",
               width: "50%",
               p: 3,
+              fontSize: { xs: 15, md: 20, lg: 20 },
               boxShadow: "-2px 22px rgba(0,0,0,0.2)",
             }}
           >
@@ -84,7 +85,9 @@ const Home = () => {
               fontFamily: "koodak",
               width: "50%",
               p: 3,
+              fontSize: 20,
               boxShadow: "2px 22px rgba(0,0,0,0.2)",
+              fontSize: { xs: 15, md: 20, lg: 20 }
             }}
           >
             بررسی آیپد پرو ۲۰۲۱ نسل ۵ | انقلابی در هویت آیپدها آیپد پرو ۲۰۲۱ نسل

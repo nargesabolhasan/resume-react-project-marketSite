@@ -35,8 +35,8 @@ const ResponsiveAppBar = () => {
   //----------
 
   return (
-    <AppBar position="static" sx={{ p: 1, backgroundColor: "PDark.main" }}>
-      <Container maxWidth="xl" sx={{ m: 0, mx: "auto", width: "100%", p: 0 }}>
+    <AppBar position="static" sx={{ p: 1, backgroundColor: "PDark.main" ,width:"100%"}}>
+      <Container maxWidth="xl" >
         <Toolbar
           disableGutters
           sx={{
@@ -62,7 +62,7 @@ const ResponsiveAppBar = () => {
               <IconButton
                 variant="h6"
                 component="div"
-                sx={{ mr: 2, display: { xs: "none", md: "flex", lg: "flex" } }}
+                sx={{ mr: 5, display: { xs: "none", md: "flex", lg: "flex" } }}
               >
                 <NavLink
                   to="/Basket"
@@ -123,7 +123,7 @@ const ResponsiveAppBar = () => {
             <Grid item xs={4} sx={{ align: "center", ml: 5 }}>
               <Typography
                 variant="h3"
-                sx={{ fontFamily: "koodak", color: "#fff8e1", align: "center" }}
+                sx={{ fontFamily: "koodak", color: "#fff8e1", align: "center", mr: 5, display: { xs: "none", md: "flex", lg: "flex" }  }}
               >
                 فروشگاه آنلاین ایران سیب
               </Typography>
