@@ -6,8 +6,6 @@ class HttpService {
   constructor() {
     axios.defaults.baseURL = BASE_URL;
     axios.defaults.timeout = 2000;
-    axios.defaults.headers.common["Authorization"]="Athentication"
-
     axios.interceptors.request.use(
       (config) => {
         if(config.url==="orders"){

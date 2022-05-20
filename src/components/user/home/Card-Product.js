@@ -18,7 +18,7 @@ const CardProduct = (props) => {
   const { product } = props;
 
   const handleNavigate = (name) => {
-    navigate(`/products/${name}`, { replace: true });
+    navigate(`/products/${name}`);
   };
   return (
       <Grid className="card" item xs={4} sx={{mt:4}}>

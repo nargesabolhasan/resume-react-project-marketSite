@@ -4,7 +4,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 import { MainUser, ModalAddProduct } from "../components";
 import CardProduct from "../components/user/home/Card-Product";
 import PaginationBackend from "../components/user/home/Pagination-Backend";
-import carousel from "../assets/images/carousel.jpg"
+import carousel from "../assets/images/carousel.jpg";
 import { styled } from "@mui/material/styles";
 
 const Div = styled("div")(({ theme }) => ({
@@ -14,16 +14,13 @@ const Div = styled("div")(({ theme }) => ({
   alignItems: "center",
 }));
 
-const Home = () => {
-
+const Grouping = () => {
   return (
     <Div>
       <img src={carousel} style={{margin:"30px",width: "60%"}}/>
       <PaginationBackend/>
-     
     </Div>
   );
 };
 
-export default LayoutUser(Home);
-
+export default LayoutUser(Grouping);

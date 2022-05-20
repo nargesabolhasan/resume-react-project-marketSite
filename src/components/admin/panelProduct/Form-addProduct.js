@@ -54,14 +54,11 @@ const Basic = () => {
   });
 
   const auth = async(input) => {
-  //  const res= await HttpService.post("/upload",input.image)
-  //  console.log (res.data)
-     await HttpService.post("/products",input)
-    //await HttpService.post("/products",{ ...input , image: res})
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 500);
-
+     const formData = new FormData();
+     for (const [key,value] of Object.entries(input)){
+       formData.append(key,value);
+     }
+     await HttpService.post("/products",formData)
   };
 
   return (
