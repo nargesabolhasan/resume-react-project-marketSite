@@ -18,7 +18,6 @@ import ButtonSubmit from "./buttons/Button-submit";
 
 import Dashboards from "./user/Dashboards";
 import FooterUser from "./user/FooterUser";
-import FormValidationUser from "./user/FormValidationUser";
 import HeaderUserStore from "./user/Header-user-store";
 import MainUser from "./user/Main-product";
 
@@ -39,7 +38,6 @@ export {
   ButtonSubmit,
   Dashboards,
   FooterUser,
-  FormValidationUser,
   HeaderUserStore,
   MainUser,
   LayoutAdmin,
