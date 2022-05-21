@@ -47,10 +47,6 @@ export default function App() {
         <SwiperSlide><img src={image5} /> </SwiperSlide>
         <SwiperSlide><img src={image6} /> </SwiperSlide>
         <SwiperSlide><img src={image8} /> </SwiperSlide>
-        {/* <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide> */}
       </Swiper>
     </>
   );

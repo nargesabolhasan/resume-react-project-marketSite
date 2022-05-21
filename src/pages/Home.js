@@ -10,6 +10,8 @@ import useGetAxios from "../axios/useGetAxios";
 import Box from "@mui/material/Box";
 import Slider from "../components/user/home/Slider";
 
+
+
 const Div = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -18,6 +20,15 @@ const Div = styled("div")(({ theme }) => ({
   margin: "0 auto",
   width: "80%",
 }));
+
+const Paragraph = styled("p")(({ theme }) => ({
+  direction: "rtl",
+  fontFamily: "koodak",
+  width: "50%",
+  padding: "10px",
+ boxShadow: "-2px 22px rgba(0,0,0,0.2)",
+}))
+
 
 const PhotoWraper = styled("div")(({ theme }) => ({
   display: "flex",
@@ -48,17 +59,9 @@ const Home = () => {
     <>
       <Div>
         <Slider handleOpen={handleOpen}  />
-<Box sx={{margin:"30px 0",boxShadow:"-10px -10px 20px 2px #ba6b6c57"}}>
+<Box sx={{margin:"30px 0",boxShadow:"5px -10px 20px 2px #ba6b6c37"}}>
         <PhotoWraper>
-          <Box
-            sx={{
-              direction: "rtl",
-              fontFamily: "koodak",
-              width: "50%",
-              p: 3,
-              fontSize: { xs: 15, md: 20, lg: 20 },
-              boxShadow: "-2px 22px rgba(0,0,0,0.2)",
-            }}
+          <Paragraph sx={{fontSize: { xs: 15, md: 20, lg: 20 },}}
           >
             اپل در سال 2020 تغییراتی مهم را در کامپیوترهای مک اعمال کرد که
             قدرتمندترین مدل آن‌ها با عنوان مک بوک پرو 2020 همراه با پردازنده M1
@@ -73,21 +76,13 @@ const Home = () => {
             بتواند تمام سخت افزارهای لازم برای یک محصول را به طور کاملاً خودکفا
             طراحی کند و حالا مک بوک‌های مبتنی بر اپل سیلیکون اولین نمونه از این
             محصولات هستند.
-          </Box>
+          </Paragraph>
           <img src={macbookpro2021} style={{ width: "50%" }} />
         </PhotoWraper>
         <PhotoWraper>
           <img src={ipad} style={{ width: "50%" }} />
-          <Box
-            sx={{
-              direction: "rtl",
-              fontFamily: "koodak",
-              width: "50%",
-              p: 3,
-              fontSize: 20,
-              boxShadow: "2px 22px rgba(0,0,0,0.2)",
-              fontSize: { xs: 15, md: 20, lg: 20 }
-            }}
+          <Paragraph
+          sx={{fontSize: { xs: 15, md: 20, lg: 20 },}}
           >
             بررسی آیپد پرو ۲۰۲۱ نسل ۵ | انقلابی در هویت آیپدها آیپد پرو ۲۰۲۱ نسل
             ۵ که در جریان کنفرانس بهاری شرکت اپل رونمایی شد، یکی از انقلابی‌ترین
@@ -121,7 +116,7 @@ const Home = () => {
             نسبت به نسل پیشین بهبود داشته باشد و قدرت پردازش گرافیکی نیز تا ۴۰
             درصد در دستگاه‌های جدید سریع‌تر شود. نمایشگر باکیفیت‌تر که تا پیش از
             این هرگز معادل آن را ندیده‌اید
-          </Box>
+          </Paragraph>
         </PhotoWraper>
         </Box>
       </Div>
