@@ -1,5 +1,5 @@
 import Authentication from "./admin/Authentication";
-import FormValidation from "./admin/FormValidation";
+import FormValidation from "./admin/login/FormValidation";
 import HeaderAdmin from "./admin/Header-admin";
 import MainAdmin from "./admin/Main-Admin";
 import Modals from "./modal/Modals";

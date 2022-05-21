@@ -10,14 +10,13 @@ import { Modal, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { React, useEffect, useState, useContext } from "react";
-import HttpService from "../../axios/HttpService";
-import axios from "axios";
+import HttpService from "../../../axios/HttpService";
 import ShowPassword from "./ShowPassword";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../redux/userSlice";
-import ButtonAdd from "../buttons/Button-add";
-import Modals from "../modal/Modals";
-import "../../assets/Core-ui/Core-styles.scss";
+import { setUser } from "../../../redux/userSlice";
+import ButtonAdd from "../../buttons/Button-add";
+import Modals from "../../modal/Modals";
+import "../../../assets/Core-ui/Core-styles.scss";
 
 const FormValidation = () => {
   const [adminData, setAdminData] = useState([]);

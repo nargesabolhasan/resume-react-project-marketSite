@@ -1,6 +1,6 @@
 //import LayoutAdmin from "../components/Layouts/Layout-admin";
 import { React, useEffect, useState, useContext, useCallback } from "react";
-import FormValidation from "../components/admin/FormValidation";
+import FormValidation from "../components/admin/login/FormValidation";
 import HttpService from "../axios/HttpService";
 import back from "../assets/images/logo/backLogin.jpg"
 import LayoutUser from "../components/Layouts/Layout-user"
