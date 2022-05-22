@@ -1,5 +1,5 @@
-export const ActionTypes={
-    SET_PRODUCTS:"set_products",
-    SELECTED_PRODUCT:"selected_product",
-    REMOVE_SELECTED_PRODUCT:"remove_selected_product",
-}
+export const ActionTypes = {
+    SET_PRODUCTS: "SET_PRODUCTS",
+    SELECTED_PRODUCT: "SELECTED_PRODUCT",
+    REMOVE_SELECTED_PRODUCT: "REMOVE_SELECTED_PRODUCT",
+  };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useCallback } from "react";
 import HttpService from "../../axios/HttpService";
 import { BASE_URL } from "../../constants/Constants";
 import Box from "@mui/material/Box";
@@ -7,7 +7,14 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Buttons from "../buttons/Button-add";
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setProducts,
+  selectedProduct,
+  removeSelectedProduct,
+} from "../../redux/basketSlice";
+import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
+//import { selectedProduct ,setProducts} from "../../redux/basketRedux/actions/productActions";
 const Img = styled("img")(({ theme }) => ({
   width: "50%",
 }));
@@ -15,9 +22,9 @@ const Titles = styled("h3")(({ theme }) => ({
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   padding: 10,
   margin: 5,
-  color:"white",
+  color: "white",
   backgroundColor: "#4f13e3",
-  borderRadius: 5
+  borderRadius: 5,
 }));
 
 const Div = styled("div")(({ theme }) => ({
@@ -69,7 +76,9 @@ const MainUser = (props) => {
   const [counter, setCounter] = useState(1);
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
-  const[notValid ,setNotValid] = useState(false)
+  const [notValid, setNotValid] = useState(false);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state);
 
   useEffect(() => {
     if (info?.count == counter) {
@@ -77,14 +86,14 @@ const MainUser = (props) => {
     } else {
       setIsValidIncrease(true);
     }
-    if (counter == 0) {
+    if (counter == 1) {
       setIsValidDicrease(false);
     } else {
       setIsValidDicrease(true);
     }
-    if(info?.count ==0){
-      setCounter(0)
-      setNotValid(true)
+    if (info?.count == 0) {
+      setCounter(0);
+      setNotValid(true);
       setIsValidDicrease(false);
       setIsValidIncrease(false);
     }
@@ -97,10 +106,46 @@ const MainUser = (props) => {
   };
 
   const handleDicrease = () => {
-    if (counter > 0) {
+    if (counter > 1) {
       setCounter(counter - 1);
     }
   };
+
+  const handleShopUpdate =(info, counter)=> {
+    // (info, counter) => {
+    //   if(products.products){
+    //     products.products?.map((item=>{
+    //       console.log(item.id)
+    //       if(item.id==info.id){
+    //         console.log("hi")
+    //       }else{
+    //         dispatch(setProducts(info))
+    //       }
+    //     }))
+    //   }else{
+    //     dispatch(setProducts(info))
+      //}
+  }
+    // (info, counter) => {
+    //   if(products.products){
+    //     products.products?.map((item=>{
+    //       console.log(item.id)
+    //       if(item.id==info.id){
+    //         console.log("hi")
+    //       }else{
+    //         dispatch(setProducts(info))
+    //       }
+    //     }))
+    //   }else{
+    //     dispatch(setProducts(info))
+    //   }
+      
+    
+
+
+
+
+  console.log(products.products);
 
   return (
     <Div>
@@ -109,8 +154,11 @@ const MainUser = (props) => {
         <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
         <Span>
           <Titles>قیمت :</Titles>
-          {notValid ? <Typographys>عدم موجودی</Typographys>:<Typographys>{info?.price} تومان</Typographys>}
-          
+          {notValid ? (
+            <Typographys>عدم موجودی</Typographys>
+          ) : (
+            <Typographys>{info?.price} تومان</Typographys>
+          )}
         </Span>
         <Span>
           <Titles>تعداد :</Titles>
@@ -137,13 +185,15 @@ const MainUser = (props) => {
         </Span>
         <Span>
           <Titles>رنگ :</Titles>
-        <Typographys>{info?.color}</Typographys>
+          <Typographys>{info?.color}</Typographys>
         </Span>
-        <Box >
-          <Titles sx={{direction: "rtl"}}>توضیحات :</Titles>
-        <Typographys>{info?.description}</Typographys>
-    </Box>
-        <Buttons>افزودن به سبد خرید</Buttons>
+        <Box>
+          <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
+          <Typographys>{info?.description}</Typographys>
+        </Box>
+        <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
+          افزودن به سبد خرید
+        </Buttons>
       </InfoCard>
       <Img src={`${BASE_URL}${info?.image}`} />
     </Div>
@@ -151,3 +201,12 @@ const MainUser = (props) => {
 };
 
 export default MainUser;
+
+//let orderCount=products.orderCount + input.orderCount
+// dispatch(removeSelectedProduct(input))
+// // input = { ...input, "orderCount": orderCount };
+// // dispatch(setProducts(input));
+// console.log(product.id )
+// } else {
+// input = { ...input, "orderCount": counter };
+// dispatch(setProducts(input));

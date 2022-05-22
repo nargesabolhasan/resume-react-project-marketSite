@@ -8,7 +8,8 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Buttons from "../components/buttons/Button-add";
 import LayoutUser from "../components/Layouts/Layout-user";
-  //import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";  
+//import { useDispatch, useSelector } from "react-redux";
 //import { setUser } from "../../../redux/userSlice";
 const Img = styled("img")(({ theme }) => ({
   width: "50%",
@@ -72,7 +73,7 @@ const Basket = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const[notValid ,setNotValid] = useState(false)
-
+ 
   //const dispatch = useDispatch();
   //const data = useSelector((state) => state);
   //dispatch(setUser(input));
