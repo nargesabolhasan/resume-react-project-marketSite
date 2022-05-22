@@ -25,15 +25,6 @@ const ResponsiveAppBar = () => {
   const [data, setData] = React.useState([]);
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    getData();
-  }, []);
-  //-----------
-  const getData = async () => {
-    setData(await HttpService.get("whoami"));
-  };
-  //----------
-
   return (
     <AppBar position="static" sx={{ p: 1, backgroundColor: "PDark.main" ,width:"100%"}}>
       <Container maxWidth="xl" >

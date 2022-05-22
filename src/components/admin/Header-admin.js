@@ -39,7 +39,9 @@ const ResponsiveAppBar = () => {
   }, []);
   //-----------
   const getData = async () => {
-    setData(await HttpService.get("whoami"));
+    const res=await HttpService.get("whoami")
+    setData(res?.data);
+    console.log(res?.data)
   };
   //----------
   const handleLogOut = () => {

@@ -9,11 +9,12 @@ const Authentication = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state);
   const handleAuthentication = () => {
-    if (Object.keys(user.user).length !== 0) {
-      navigate("/PanelProducts", { replace: true });
+    if (Object.keys(user.user).length !== 0 ) {
+      navigate("/PanelProducts");
     } else {
-      navigate("/PanelLogin", { replace: true });
+      navigate("/PanelLogin");
     }
+    console.log(user)
   };
   return (
     <IconButton
