@@ -8,7 +8,7 @@ import { BASE_URL } from "../../../constants/Constants";
 import ModalForms from "../../modal/ModalForms";
 import ModalEditProduct from "./Form-editProduct";
 import { ModalAddProduct } from "../..";
-import axios from "axios"
+import axios from "axios";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -25,24 +25,30 @@ const TittleCells = styled("td")(({ theme }) => ({
     width: 160,
     fontSize: 20,
     textAlign: "center",
+    border: "2px solid #ba6b6c",
   },
 }));
 const TableCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down("md")]: {
-    width: "5px",
     padding: 0,
     textAlign: "center",
     fontSize: 15,
     direction: "ltr",
+    border: "2px solid #ba6b6c",
+
   },
   [theme.breakpoints.up("md")]: {
-    width: 5,
     fontSize: 15,
+    border: "2px solid #ba6b6c",
+    textAlign: "center",
   },
+
   [theme.breakpoints.up("lg")]: {
-    width: 5,
     fontSize: 20,
+    border: "2px solid #ba6b6c",
+    textAlign: "center",
+    height: "10px"
   },
 }));
 
@@ -63,11 +69,12 @@ const TabLists = (props) => {
   //------------table buttons:-------------------
   const handleDelete = (input) => {
     console.log(input);
-    axios.delete(`products/${input}`, { headers: {"token" : localStorage.getItem("token")} })
+    axios.delete(`products/${input}`, {
+      headers: { token: localStorage.getItem("token") },
+    });
     setTimeout(() => {
       window.location.reload(false);
     }, 500);
-   
   };
 
   const handleEdit = (e) => {
@@ -79,38 +86,34 @@ const TabLists = (props) => {
     <>
       <TableRow key={items.id}>
         <TableCells align="left">
-          <DeleteForeverIcon onClick={()=>handleDelete(items.id)} />
+          <DeleteForeverIcon onClick={() => handleDelete(items.id)} />
           <DriveFileRenameOutlineIcon onClick={handleEdit} />
         </TableCells>
-        <TableCells align="right">
+        <TableCells>
           {categories.map((category) =>
             category.id === items.categoryId ? category.name : ""
           )}
         </TableCells>
-        <TittleCells align="right" sx={{direction: "rtl"}}>{items.name}</TittleCells>
-        <TableCells
-          align="right"
-          sx={{ backgroundColor: "primary.main", textAlign: "center" }}
-        >
+        <TittleCells sx={{ direction: "rtl" }}>{items.name}</TittleCells>
+        <TableCells >
           <img
-            style={{ width: "200px" }}
+            style={{ width: "100px" }}
             src={`${BASE_URL}${items.image}`}
             alt="Alt Text!"
           />
         </TableCells>
-        <TableCells
-          align="right"
-          sx={{ backgroundColor: "primary.main", textAlign: "center" }}
+        <TableCell
+          sx={{ backgroundColor: "primary.main",color:"white",fontSize: "20px",border: "2px solid white",textAlign: "center" }}
         >
           {index + 1}
-        </TableCells>
+        </TableCell>
       </TableRow>
       <ModalForms
         open={open}
         handleclose={() => handleClose()}
         classname={classname}
       >
-        <ModalEditProduct product={items}/>
+        <ModalEditProduct product={items} />
       </ModalForms>
     </>
   );

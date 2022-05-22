@@ -46,7 +46,7 @@ const PanelQuantity = () => {
         <ButtonAdd> ذخیره</ButtonAdd>
         <Typography
           variant="h3"
-          sx={{ direction: "rtl", mt: 5, fontFamily: "koodak" }}
+          sx={{ direction: "rtl", fontFamily: "koodak" }}
         >
           موجودی و قیمت ها
         </Typography>

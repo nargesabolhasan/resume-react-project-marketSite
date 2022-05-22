@@ -41,7 +41,6 @@ const ResponsiveAppBar = () => {
   const getData = async () => {
     const res=await HttpService.get("whoami")
     setData(res?.data);
-    console.log(res?.data)
   };
   //----------
   const handleLogOut = () => {
@@ -52,7 +51,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ p: 3 }}>
+    <AppBar position="static" >
       <Container maxWidth="xl" sx={{ m: 0, mx: "auto", width: "100%" }}>
         <Toolbar
           disableGutters

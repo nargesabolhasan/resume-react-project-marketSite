@@ -56,7 +56,7 @@ const PanelProducts = () => {
         <ButtonAdd clickHandler={handleShow}> افزودن کالا</ButtonAdd>
         <Typography
           variant="h3"
-          sx={{ direction: "rtl", mt: 5, fontFamily: "koodak" }}
+          sx={{ direction: "rtl", fontFamily: "koodak" }}
         >
           مدیریت کالا ها
         </Typography>

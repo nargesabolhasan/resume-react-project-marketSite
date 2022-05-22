@@ -42,7 +42,7 @@ const PanelOrder = () => {
   return (
     <Grid item container alignContent={'center'} xs={12}>
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
-      <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت سفارش ها</Typography>
+      <Typography  variant="h3" sx={{direction: 'rtl',fontFamily:"koodak"}}>مدیریت سفارش ها</Typography>
        <FilterOrders products={data}/> 
       {/* <Pagination/> */}
     </Root>

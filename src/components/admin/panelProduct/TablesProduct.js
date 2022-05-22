@@ -29,14 +29,20 @@ const TableCells = styled("td")(({ theme }) => ({
     padding: 0,
     textAlign: "center",
     fontSize: 15,
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("md")]: {
     width: 5,
     fontSize: 15,
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("lg")]: {
     width: 5,
     fontSize: 20,
+    border: "2px solid white",
+    backgroundColor:"#ba6b6c",
+    color:"white",
+    textAlign: "center",
   },
 }));
 function TablePaginationActions(props) {
@@ -137,7 +143,7 @@ export default function CustomPaginationActionsTable(props) {
       <TableHead sx={{ borderBottom: 1 }}>
       <TableRow>
      { headerTable.map((item, index )=> (
-       <TableCells align="right" key={index}>{item}</TableCells>
+       <TableCells  key={index}>{item}</TableCells>
      ))}
         </TableRow>
       </TableHead>
