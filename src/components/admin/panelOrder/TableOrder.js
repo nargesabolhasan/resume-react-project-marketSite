@@ -37,6 +37,7 @@ const TittleCells = styled("td")(({ theme }) => ({
     width: 80,
     fontSize: 20,
     textAlign: "center",
+    border: "2px solid #ba6b6c",
   },
 }));
 const TableCells = styled("td")(({ theme }) => ({
@@ -46,14 +47,19 @@ const TableCells = styled("td")(({ theme }) => ({
     padding: 0,
     textAlign: "center",
     fontSize: 15,
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("md")]: {
     width: 5,
     fontSize: 15,
+    border: "2px solid #ba6b6c",
+    textAlign: "center",
   },
   [theme.breakpoints.up("lg")]: {
     width: 5,
     fontSize: 20,
+    border: "2px solid #ba6b6c",
+    textAlign: "center",
   },
 }));
 
@@ -146,7 +152,16 @@ export default function CustomPaginationActionsTable(props) {
     handleShow();
   };
 
-  const headerTable = ["بررسی", "  تاریخ سفارش ", " قیمت ", "  ", "نام مشتری"];
+  const headerTable = [
+    "بررسی",
+    "  تاریخ سفارش ",
+    " قیمت (تومان) ",
+    "نام مشتری",
+    "شماره ",
+  ];
+
+  
+  let dollarUSLocale = Intl.NumberFormat('en-US');
   //console.log(products);
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -163,14 +178,25 @@ export default function CustomPaginationActionsTable(props) {
 
   return (
     <>
-      <TableContainer component={Paper} sx={{ mx: "auto", mt: 5 }}>
-        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <TableContainer component={Paper} sx={{ mx: "auto", mt: 5,fontFamily:"SansWeb" }}>
+        <Table sx={{ minWidth: 300 }} aria-label="custom pagination table">
           <TableHead sx={{ borderBottom: 1 }}>
-      <TableRow>
-            {headerTable.map((item,key) => (
-              <TableCells align="right" key={key}>{item}</TableCells>
-            ))}
-</TableRow>
+            <TableRow sx={{ backgroundColor: "primary.main", color: "white" }}>
+              {headerTable.map((item, key) => (
+                <TableCell
+                  sx={{
+                    backgroundColor: "primary.main",
+                    textAlign: "center",
+                    color: "white",
+                    border: "2px solid white",
+                    fontFamily:"SansWeb"
+                  }}
+                  key={key}
+                >
+                  {item}
+                </TableCell>
+              ))}
+            </TableRow>
           </TableHead>
           <TableBody variant="h3">
             {(rowsPerPage > 0
@@ -184,7 +210,7 @@ export default function CustomPaginationActionsTable(props) {
               let price = 0;
               return (
                 <TableRow key={item.id}>
-                  <TittleCells align="right">
+                  <TittleCells>
                     <Button
                       onClick={() => handleClick(item)}
                       sx={{ fontSize: 20, fontFamily: "koodak" }}
@@ -192,36 +218,40 @@ export default function CustomPaginationActionsTable(props) {
                       بررسی سفارش
                     </Button>
                   </TittleCells>
-                  <TableCells align="right">
+                  <TableCells>
                     {new Date(item.orderDate).toLocaleDateString("fa-IR")}
                   </TableCells>
-                  <TableCells align="right">
+                  <TableCells>
                     {item.orderItems?.map((item) => {
                       price = +item.price.replace(",", "").replace(",", "");
                       sumPrice += price;
+                      console.log( dollarUSLocale.format(price))
                     })}
-                    <div style={{ direction: "rtl" }}> {sumPrice} تومان</div>
+                    <div style={{ direction: "rtl" }}> { dollarUSLocale.format(price)} </div>
                   </TableCells>
-                  <TittleCells align="right">{item.name}</TittleCells>
-                  <TableCells align="left">
+
+                  <TableCells>
                     {item.customerDetail.firstName}{" "}
                     {item.customerDetail.lastName}
                   </TableCells>
-                  <TableCells
-                    align="right"
+                  <TableCell
                     sx={{
                       backgroundColor: "primary.main",
                       textAlign: "center",
+                      color: "white",
+                      border: "2px solid white",
+                      width:"5px",
+                      fontFamily:"SansWeb"
                     }}
                   >
                     {index + 1}
-                  </TableCells>
+                  </TableCell>
                 </TableRow>
               );
             })}
           </TableBody>
           <TableFooter>
-            <TableRow>
+            <TableRow >
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                 colSpan={4}
