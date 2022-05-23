@@ -11,8 +11,17 @@ const ProductTable = (props) => {
   let sortableItems = [...props.products];
   let [initialState,setInitialState]= useState()
   const [filteredData, setFilteredData] = useState();
-  const {data,loading, error}=useGetAxios("orders/orderStatus/3")
+  const {data,loading, error}=useGetAxios("orders")
   console.log(data?.data)
+
+  useEffect(() =>{
+    data?.data.map(item=>{
+      if(item.orderStatus===3){
+        setFilteredData(item)
+      }
+    })
+  },[])
+
 
   const handleChange = (e) => {
     setFilteredData(
