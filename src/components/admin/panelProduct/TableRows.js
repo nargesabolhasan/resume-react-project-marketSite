@@ -9,6 +9,7 @@ import ModalForms from "../../modal/ModalForms";
 import ModalEditProduct from "./Form-editProduct";
 import { ModalAddProduct } from "../..";
 import axios from "axios";
+import HttpService from "../../../axios/HttpService";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -67,9 +68,8 @@ const TabLists = (props) => {
   const handleClose = () => setOpen(false);
 
   //------------table buttons:-------------------
-  const handleDelete = (input) => {
-    console.log(input);
-    axios.delete(`products/${input}`, {
+  const handleDelete =async (input) => {
+    await HttpService.delete(`products/${input}`, {
       headers: { token: localStorage.getItem("token") },
     });
     setTimeout(() => {

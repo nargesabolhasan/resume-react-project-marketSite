@@ -54,8 +54,8 @@ class HttpService {
 
   patch = async(url,data) => {
     try {
-      const resp = await axios.patch(url,data);
-      return resp.data;
+      const res = await axios.patch(url,data);
+      return res.data;
     } catch (err) {
       return err;
     }
@@ -63,8 +63,8 @@ class HttpService {
 
   delete = async(url,data) => {
     try {
-      const resp = await axios.delete(url,data);
-      return resp.data;
+      const res = await axios.delete(url,data);
+      return res;
     } catch (err) {
       return err;
     }

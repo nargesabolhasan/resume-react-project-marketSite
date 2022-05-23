@@ -29,6 +29,9 @@ const ProductTable = (props) => {
         if (e.target.value == item.orderStatus) {
           return item;
         }
+        if(e.target.value==0){
+          return item
+        }
       })
     );
   };
@@ -37,9 +40,10 @@ const ProductTable = (props) => {
     <Box >
       <RadioGroup
     aria-labelledby="demo-radio-buttons-group-label"
-    defaultValue="3"
+    defaultValue="0"
     name="radio-buttons-group"
   >
+    <FormControlLabel value="0" control={<Radio  sx={{fontSize: 20, fontFamily: "koodak"}}/>} onChange={handleChange} label="تمام سفارشات " sx={{fontSize: 20, fontFamily: "koodak"}} />
     <FormControlLabel value="1" control={<Radio  sx={{fontSize: 20, fontFamily: "koodak"}}/>}  onChange={handleChange} label="سفارش های تحویل شده"  sx={{fontSize: 20, fontFamily: "koodak"}}/>
     <FormControlLabel value="3" control={<Radio  sx={{fontSize: 20, fontFamily: "koodak"}}/>} onChange={handleChange} label="سفارش های در انتظار تحویل" sx={{fontSize: 20, fontFamily: "koodak"}} />
   </RadioGroup>

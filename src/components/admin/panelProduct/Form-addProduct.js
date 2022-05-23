@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Formik, validateYupSchema } from "formik";
 import * as Yup from "yup";
 import { Yard } from "@mui/icons-material";
@@ -13,7 +13,6 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
 import ButtonAdd from "../../buttons/Button-add";
-
 
 const EditForm = styled("form")(({ theme }) => ({
   fontFamily: "koodak",
@@ -30,7 +29,7 @@ const Errors = styled("h5")(({ theme }) => ({
 }));
 
 const Basic = () => {
-  const [imageData,setImageData]=useState();
+  const [imageData, setImageData] = useState();
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
       .min(4, "نام بیشتر از 4 حرف باشد")
@@ -39,7 +38,8 @@ const Basic = () => {
       .min(3, "نام بیشتر از 3 حرف باشد")
       .required("نام لاتین محصول را وارد کنید")
       .matches(
-        /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi || /^[0-9a-zA-Z]+$/,
+        /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi ||
+          /^[0-9a-zA-Z]+$/,
         "تنها حروف لاتین امکان پذیر است"
       ),
     image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
@@ -52,15 +52,20 @@ const Basic = () => {
     color: Yup.string().required("رنگ محصول را وارد کنید "),
     description: Yup.string().required("توضیحات محصول را وارد کنید"),
   });
+  //-----------
+  const auth = async (input) => {
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(input)) {
+      formData.append(key, value);
+    }
 
-  const auth = async(input) => {
-     const formData = new FormData();
-     for (const [key,value] of Object.entries(input)){
-       formData.append(key,value);
-     }
-
-     await HttpService.post("/products",formData)
+    await HttpService.post("/products", formData);
   };
+  //-----------
+  const handleUpload=(e)=>{
+    //await HttpService.post("/products", formData);
+    console.log(e.target.value)
+  }
 
   return (
     <div>
@@ -127,7 +132,10 @@ const Basic = () => {
                   name="image"
                   type="file"
                   accept="image/webp"
-                  onChange={()=>{handleChange()}}
+                  onChange={() => {
+                    handleChange();
+                    handleUpload();
+                  }}
                   onBlur={handleBlur}
                 />
                 <Errors variant="h5">
@@ -209,7 +217,7 @@ const Basic = () => {
             <Errors variant="h5">
               {errors.description && touched.description && errors.description}
             </Errors>
-            <ButtonAdd type="submit" disabled={isSubmitting} >
+            <ButtonAdd type="submit" disabled={isSubmitting}>
               ذخیره
             </ButtonAdd>
           </EditForm>
