@@ -160,7 +160,7 @@ export default function CustomPaginationActionsTable(props) {
     "شماره ",
   ];
 
-  
+
   let dollarUSLocale = Intl.NumberFormat('en-US');
   //console.log(products);
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -225,7 +225,6 @@ export default function CustomPaginationActionsTable(props) {
                     {item.orderItems?.map((item) => {
                       price = +item.price.replace(",", "").replace(",", "");
                       sumPrice += price;
-                      console.log( dollarUSLocale.format(price))
                     })}
                     <div style={{ direction: "rtl" }}> { dollarUSLocale.format(price)} </div>
                   </TableCells>

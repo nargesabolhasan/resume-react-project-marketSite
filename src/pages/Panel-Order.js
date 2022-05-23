@@ -31,12 +31,8 @@ const PanelOrder = () => {
   }, []);
   //-----------
   const getData = async () => {
-    const res= await HttpService.get("orders")
-    setItem(res?.data)
-
-    const result= await HttpService.get("/orders?_embed=Products")
+    const result= await HttpService.get("/orders")
     setData(result?.data)
-    console.log(data)
   };
   
   return (

@@ -8,7 +8,7 @@ class HttpService {
     axios.defaults.timeout = 2000;
     axios.interceptors.request.use(
       (config) => {
-        if(config.url==="orders"){
+        if(config.url==="orders" ){
           config.headers["token"]=localStorage.getItem("token")
         }
         return config;
