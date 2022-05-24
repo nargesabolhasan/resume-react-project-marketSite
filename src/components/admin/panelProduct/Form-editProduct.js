@@ -57,9 +57,7 @@ const Basic = (props) => {
   }
 //---------patch:-----------
   const auth =  async(input) => {
-
-   // await HttpService.patch(`products/${product.id}`, changedData, { headers: {"token" : localStorage.getItem("token")}})
-    axios.patch(`products/${product.id}`, changedData, { headers: {"token" : localStorage.getItem("token")} })
+   await HttpService.patch(`products/${product.id}`, changedData, { headers: {"token" : localStorage.getItem("token")}})
     setTimeout(() => {
       window.location.reload(false);
     }, 1000);

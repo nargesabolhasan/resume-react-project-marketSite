@@ -52,18 +52,18 @@ class HttpService {
 
   };
 
-  patch = async(url,data,needToken=false) => {
+  patch = async(url,data,needToken=null) => {
     try {
-      const res = await axios.patch(url,data);
-      return res.data;
+      const res = await axios.patch(url,data,needToken);
+      return res;
     } catch (err) {
       return err;
     }
   };
 
-  delete = async(url,data) => {
+  delete = async(url,needToken=null) => {
     try {
-      const res = await axios.delete(url,data);
+      const res = await axios.delete(url,needToken);
       return res;
     } catch (err) {
       return err;
