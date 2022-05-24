@@ -55,7 +55,7 @@ const TableCells = styled("td")(({ theme }) => ({
 
 const TabLists = (props) => {
   const { items, categories, index } = props;
-
+ 
   //**modal **//
   const [open, setOpen] = useState(false);
   const [classname, setClassname] = useState("");
@@ -69,12 +69,13 @@ const TabLists = (props) => {
 
   //------------table buttons:-------------------
   const handleDelete =async (input) => {
-    await HttpService.delete(`products/${input}`, {
-      headers: { token: localStorage.getItem("token") },
-    });
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 500);
+    handleShow()
+    // await HttpService.delete(`products/${input}`, {
+    //   headers: { token: localStorage.getItem("token") },
+    // });
+    // setTimeout(() => {
+    //   window.location.reload(false);
+    // }, 500);
   };
 
   const handleEdit = (e) => {
@@ -113,7 +114,7 @@ const TabLists = (props) => {
         handleclose={() => handleClose()}
         classname={classname}
       >
-        <ModalEditProduct product={items} />
+        {<ModalEditProduct product={items} />}
       </ModalForms>
     </>
   );

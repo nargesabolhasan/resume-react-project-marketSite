@@ -42,14 +42,13 @@ class HttpService {
 
   };
 
-  post = async(url,data) => {
+  post = async(url,data,needToken=null) => {
     try {
-      const res = await axios.post(url,data);
+      const res = await axios.post(url,data,needToken);
       return res;
     } catch (err) {
       return err;
     }
-
   };
 
   patch = async(url,data,needToken=null) => {

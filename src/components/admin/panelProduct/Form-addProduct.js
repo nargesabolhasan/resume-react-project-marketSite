@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik, validateYupSchema } from "formik";
 import * as Yup from "yup";
-import { Yard } from "@mui/icons-material";
+import { UploadFile, Yard } from "@mui/icons-material";
 
 import HttpService from "../../../axios/HttpService";
 import TextField from "@mui/material/TextField";
@@ -13,6 +13,7 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
 import ButtonAdd from "../../buttons/Button-add";
+import {BASE_URL} from "../../../constants/Constants"
 
 const EditForm = styled("form")(({ theme }) => ({
   fontFamily: "koodak",
@@ -29,7 +30,8 @@ const Errors = styled("h5")(({ theme }) => ({
 }));
 
 const Basic = () => {
-  const [imageData, setImageData] = useState();
+  const [uploadedImage, setIUploadedImage] = useState("7150152c343e74a5fe4e718a39e0297a");
+  const [uploadedGallery, setIUploadedGallery] = useState("842ab4dd642dcfedf624f927aa43df87");
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
       .min(4, "نام بیشتر از 4 حرف باشد")
@@ -43,6 +45,8 @@ const Basic = () => {
         "تنها حروف لاتین امکان پذیر است"
       ),
     image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
+    thumbnail: Yup.mixed().required("تصاویر گالری محصول بار گذاری شود"),
+    
     // .test('fileFormat', '  فرمت عکس webp باشد', (value) => {
     //    return value && ['image/webp','image/png'].includes(value.type);
     // }),
@@ -63,10 +67,25 @@ const Basic = () => {
   };
   //-----------
   const handleUpload=async(e)=>{
-    //await HttpService.post("/products", formData);
-    const res=await HttpService.post("/Upload", e.target.value);
-    console.log( res?.config)
+    const image= e.target.files[0];
+    const formData = new FormData();
+    formData.append("image",image)
+
+    const res=await HttpService.post("/upload", formData);
+    setIUploadedImage( res?.data.filename)
+    console.log(res?.data.filename)
   }
+  //----------
+  const handleUploadThumbnail=async(e)=>{
+    const image= e.target.files[0];
+    const formData = new FormData();
+    formData.append("image",image)
+
+    const res=await HttpService.post("/upload", formData);
+    setIUploadedGallery( res?.data.filename)
+    console.log(res?.data.filename)
+  }
+  
 
   return (
     <div>
@@ -76,6 +95,7 @@ const Basic = () => {
           name: "",
           ENname: "",
           image: "",
+          thumbnail:"",
           categoryId: "",
           price: "",
           count: "",
@@ -126,8 +146,13 @@ const Basic = () => {
               {errors.ENname && touched.ENname && errors.ENname}
             </Errors>
             <Grid container spacing={1}>
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <TittleInputs>تصویر</TittleInputs>
+                <img
+                  src={`${BASE_URL}/files/${uploadedImage}`} 
+                  alt="Alt Text!"
+                  style={{ width: "100px" }}
+                  />
                 <TextField
                   id="image"
                   name="image"
@@ -142,7 +167,29 @@ const Basic = () => {
                   {errors.image && touched.image && errors.image}
                 </Errors>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={3}>
+                <TittleInputs>تصاویر گالری</TittleInputs>
+                <img
+                  src={`${BASE_URL}/files/${uploadedGallery}`} 
+                  alt="Alt Text!"
+                  style={{ width: "100px" }}
+                  />
+                <TextField
+                  id="image"
+                  name="thumbnail"
+                  type="file"
+                  accept="image/webp"
+                  onChange={(e) => {
+                    handleUploadThumbnail(e);
+                  }}
+                  onBlur={handleBlur}
+                />
+                <Errors variant="h5">
+                  {errors.thumbnail && touched.thumbnail && errors.thumbnail}
+                </Errors>
+              </Grid>
+              
+              <Grid item xs={3}>
                 <TittleInputs>رنگ</TittleInputs>
                 <TextField
                   type="text"
@@ -155,7 +202,7 @@ const Basic = () => {
                   {errors.color && touched.color && errors.color}
                 </Errors>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <TittleInputs>دسته بندی</TittleInputs>
                 <Select
                   id="categoryId"
@@ -177,6 +224,7 @@ const Basic = () => {
                 </Errors>
               </Grid>
             </Grid>
+            
             <Grid container spacing={1}>
               <Grid item xs={6}>
                 <TittleInputs>قیمت</TittleInputs>

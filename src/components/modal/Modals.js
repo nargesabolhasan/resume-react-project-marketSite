@@ -18,7 +18,7 @@ const style = {
 };
 
 export default function BasicModal(props) {
-  const { open, handleclose, classname, bodyMassages } = props;
+  const { open, handleclose, classname, bodyMassages,children } = props;
 
   return (
     <>
@@ -47,6 +47,7 @@ export default function BasicModal(props) {
             sx={{ mt: 2, fontSize: 20, fontFamily: "koodak", direction: "rtl",textAlign: "center"}}
           >
             {bodyMassages}
+            {children}
           </Typography>
         </Box>
       </Modal>
