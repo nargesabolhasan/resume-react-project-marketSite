@@ -7,7 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import { BASE_URL } from "../../../constants/Constants";
 import ModalForms from "../../modal/ModalForms";
 import ModalEditProduct from "./Form-editProduct";
-import { ModalAddProduct } from "../..";
+import { ModalAddProduct, Modals } from "../..";
 import axios from "axios";
 import HttpService from "../../../axios/HttpService";
 
@@ -114,8 +114,11 @@ const TabLists = (props) => {
         handleclose={() => handleClose()}
         classname={classname}
       >
-        {<ModalEditProduct product={items} />}
+        <ModalEditProduct product={items} />
       </ModalForms>
+      <Modals>
+        
+      </Modals>
     </>
   );
 };
