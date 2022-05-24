@@ -56,7 +56,9 @@ const Basic = (props) => {
     setChangedData(prev => ({ ...prev,  [e.target.name]: e.target.value}))
   }
 //---------patch:-----------
-  const auth =  (input) => {
+  const auth =  async(input) => {
+
+   // await HttpService.patch(`products/${product.id}`, changedData, { headers: {"token" : localStorage.getItem("token")}})
     axios.patch(`products/${product.id}`, changedData, { headers: {"token" : localStorage.getItem("token")} })
     setTimeout(() => {
       window.location.reload(false);

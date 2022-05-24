@@ -52,7 +52,7 @@ class HttpService {
 
   };
 
-  patch = async(url,data) => {
+  patch = async(url,data,needToken=false) => {
     try {
       const res = await axios.patch(url,data);
       return res.data;

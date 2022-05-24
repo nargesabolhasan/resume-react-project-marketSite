@@ -62,9 +62,10 @@ const Basic = () => {
     await HttpService.post("/products", formData);
   };
   //-----------
-  const handleUpload=(e)=>{
+  const handleUpload=async(e)=>{
     //await HttpService.post("/products", formData);
-    console.log(e.target.value)
+    const res=await HttpService.post("/Upload", e.target.value);
+    console.log( res?.config)
   }
 
   return (
@@ -132,9 +133,8 @@ const Basic = () => {
                   name="image"
                   type="file"
                   accept="image/webp"
-                  onChange={() => {
-                    handleChange();
-                    handleUpload();
+                  onChange={(e) => {
+                    handleUpload(e);
                   }}
                   onBlur={handleBlur}
                 />
