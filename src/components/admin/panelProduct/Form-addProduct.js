@@ -68,6 +68,9 @@ const Basic = () => {
       formData.append(key, value);
     }
    await HttpService.post("/products", formData);
+   setTimeout(() => {
+    window.location.reload(false);
+  }, 1000);
   };
   //-------uplaod one image:---------
   const handleUpload = async (e) => {

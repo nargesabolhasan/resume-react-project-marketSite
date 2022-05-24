@@ -10,6 +10,7 @@ import ModalEditProduct from "./Form-editProduct";
 import { ModalAddProduct, Modals } from "../..";
 import axios from "axios";
 import HttpService from "../../../axios/HttpService";
+import ModalDelete from "./Form-delete";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -37,7 +38,6 @@ const TableCells = styled("td")(({ theme }) => ({
     fontSize: 15,
     direction: "ltr",
     border: "2px solid #ba6b6c",
-
   },
   [theme.breakpoints.up("md")]: {
     fontSize: 15,
@@ -49,34 +49,31 @@ const TableCells = styled("td")(({ theme }) => ({
     fontSize: 20,
     border: "2px solid #ba6b6c",
     textAlign: "center",
-    height: "10px"
+    height: "10px",
   },
 }));
 
 const TabLists = (props) => {
   const { items, categories, index } = props;
- 
+
   //**modal **//
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [classname, setClassname] = useState("");
-
+  const [selectedData, setSelectedData] = useState("");
   //--------Modal open & close :----------
 
   const handleShow = () => {
     setOpen(true);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {setOpen(false);setOpenDelete(false);};
 
   //------------table buttons:-------------------
-  const handleDelete =async (input) => {
-    handleShow()
-    // await HttpService.delete(`products/${input}`, {
-    //   headers: { token: localStorage.getItem("token") },
-    // });
-    // setTimeout(() => {
-    //   window.location.reload(false);
-    // }, 500);
+  const handleDelete = async (input) => {
+    setSelectedData(input);
+    setOpenDelete(true);
   };
+  //---------------
 
   const handleEdit = (e) => {
     console.log(e.target.value);
@@ -87,7 +84,7 @@ const TabLists = (props) => {
     <>
       <TableRow key={items.id}>
         <TableCells align="left">
-          <DeleteForeverIcon onClick={() => handleDelete(items.id)} />
+          <DeleteForeverIcon onClick={() =>{ handleDelete(items.id)}} sx={{mr:3}}/>
           <DriveFileRenameOutlineIcon onClick={handleEdit} />
         </TableCells>
         <TableCells>
@@ -96,7 +93,7 @@ const TabLists = (props) => {
           )}
         </TableCells>
         <TittleCells sx={{ direction: "rtl" }}>{items.name}</TittleCells>
-        <TableCells >
+        <TableCells>
           <img
             style={{ width: "100px" }}
             src={`${BASE_URL}${items.image}`}
@@ -104,7 +101,13 @@ const TabLists = (props) => {
           />
         </TableCells>
         <TableCell
-          sx={{ backgroundColor: "primary.main",color:"white",fontSize: "20px",border: "2px solid white",textAlign: "center" }}
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: "20px",
+            border: "2px solid white",
+            textAlign: "center",
+          }}
         >
           {index + 1}
         </TableCell>
@@ -116,8 +119,8 @@ const TabLists = (props) => {
       >
         <ModalEditProduct product={items} />
       </ModalForms>
-      <Modals>
-        
+      <Modals open={openDelete} handleclose={() => handleClose()}>
+        <ModalDelete deletedItem={selectedData} />
       </Modals>
     </>
   );
