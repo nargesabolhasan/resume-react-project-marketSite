@@ -43,7 +43,7 @@ const PanelQuantity = () => {
   return (
     <Grid item container alignContent={"center"} xs={12}>
       <Root sx={{ mt: 5, fontFamily: "koodak", mx: "auto" }}>
-        <ButtonAdd> ذخیره</ButtonAdd>
+        
         <Typography
           variant="h3"
           sx={{ direction: "rtl", fontFamily: "koodak" }}

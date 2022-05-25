@@ -27,14 +27,19 @@ const TableCells = styled("td")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     width: "5px",
     padding: 0,
-    textAlign: "center",
     fontSize: 15,
-    border: "2px solid #ba6b6c",
+    border: "2px solid white",
+    backgroundColor:"#ba6b6c",
+    color:"white",
+    textAlign: "center",
   },
   [theme.breakpoints.up("md")]: {
     width: 5,
     fontSize: 15,
-    border: "2px solid #ba6b6c",
+    border: "2px solid white",
+    backgroundColor:"#ba6b6c",
+    color:"white",
+    textAlign: "center",
   },
   [theme.breakpoints.up("lg")]: {
     width: 5,

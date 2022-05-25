@@ -107,6 +107,7 @@ const TabLists = (props) => {
             fontSize: "20px",
             border: "2px solid white",
             textAlign: "center",
+            fontSize: 20, fontFamily: "SansWeb" 
           }}
         >
           {index + 1}

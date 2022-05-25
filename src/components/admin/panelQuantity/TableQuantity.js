@@ -15,11 +15,12 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import EasyEdit from "react-easy-edit";
 import { styled } from "@mui/material/styles";
-import InputChange from "../panelQuantity/InputChange";
+import HttpService from "../../../axios/HttpService";
 import TableHead from "@mui/material/TableHead";
+import ButtonAdd from "../../buttons/Button-add";
+import "./style.scss"
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -27,15 +28,19 @@ const TittleCells = styled("td")(({ theme }) => ({
     width: "5px",
     overFlow: "wrap",
     fontSize: 15,
+    border: "2px solid #ba6b6c",
   },
+  
   [theme.breakpoints.up("md")]: {
     width: 100,
     fontSize: 15,
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("lg")]: {
     width: 160,
     fontSize: 20,
     textAlign: "center",
+    border: "2px solid #ba6b6c",
   },
 }));
 const TableCells = styled("td")(({ theme }) => ({
@@ -45,14 +50,17 @@ const TableCells = styled("td")(({ theme }) => ({
     padding: 0,
     textAlign: "center",
     fontSize: 15,
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("md")]: {
     width: 5,
     fontSize: 15,
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("lg")]: {
     width: 5,
     fontSize: 20,
+    border: "2px solid #ba6b6c",
   },
 }));
 
@@ -130,49 +138,25 @@ export default function CustomPaginationActionsTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  //---input type:----
-  const [readonly, setReadonly] = React.useState(true);
-
-  const [changedCount, setChangedCount] = React.useState();
-  const [listOfCuont, setListOfCuont] = React.useState([]);
-  const [changedPrice, setChangedPrice] = React.useState();
-  const handleSubmit = () => {
-    patchData();
+  //-----savePrice:----
+  const savePrice = async (e, item) => {
+    await HttpService.patch(
+      `products/${item.id}`,
+      { ...item, price: e },
+      { headers: { token: localStorage.getItem("token") } }
+    );
   };
-  //-----------axios.patch :-----------
-  const patchData = () => {
-    console.log(changedCount.id);
-    // await HttpService.patch("products/",changedCount);
+  //-----saveCount:----
+  const saveCount = async (e, item) => {
+    await HttpService.patch(
+      `products/${item.id}`,
+      { ...item, count: e },
+      { headers: { token: localStorage.getItem("token") } }
+    );
   };
-
-  const clickHandlerCounter = (event) => {
-    event.target.disabled = false;
-  };
-
-  const changeHandlerCount = (event, textId) => {
-    setChangedCount({
-      ...changedCount,
-      count: event.target.value,
-      id: textId,
-    });
-
-    listOfCuont?.map((item) => {
-      // if(item.id=== changedCount.id && item!==undefined){
-      //   console.log("yes")
-      // }
-      console.log(item);
-    });
-    setListOfCuont([...listOfCuont, changedCount]);
-  };
-  //console.log(listOfCuont);
-
-  const changeHandlerPrice = (event, textId) => {
-    setReadonly(false);
-    setChangedPrice({
-      ...changedPrice,
-      price: event.target.value,
-      id: textId,
-    });
+  //-----saveCount:----
+  const cancel = () => {
+    //alert("Cancelled");
   };
 
   const keyDownHandlerCount = (event) => {
@@ -196,89 +180,111 @@ export default function CustomPaginationActionsTable(props) {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ mx: "auto", mt: 5 }}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHead sx={{ borderBottom: 1 }}>
-          <TableRow>
-            {headerTable.map((item,index) => (
-              <TableCells align="right" key={index}>{item}</TableCells>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody variant="h3">
-          {(rowsPerPage > 0
-            ? products.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : products
-          ).map((item, index) => (
-            <TableRow key={item.id}>
-              <TableCells align="right">
-                <InputChange
-                  inputType="text"
-                  value={String(item.count)}
-                  changeHandler={(e) => changeHandlerCount(e, item.id)}
-                  clickHandler={clickHandlerCounter}
-                  keyDownHandler={keyDownHandlerCount}
-                  disableInput={false}
-                  inputId={String(item.id)}
-                />
-              </TableCells>
-              <TableCells align="right">
-                <InputChange
-                  inputType="text"
-                  value={item.price}
-                  changeHandler={(e) => changeHandlerPrice(e, item.id)}
-                  clickHandler={clickHandlerCounter}
-                  keyDownHandler={keyDownHandlerCount}
-                  disableInput={false}
-                  inputId={String(item.id)}
-                  InputProps={{
-                    readOnly: readonly,
+    <>
+      <TableContainer component={Paper} sx={{ mx: "auto", mt: 5 }}>
+        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+          <TableHead sx={{ borderBottom: 1 }}>
+            <TableRow>
+              {headerTable.map((item, index) => (
+                <TableCell sx={{
+                  backgroundColor: "primary.main",
+                  color: "white",
+                  border: "2px solid white",
+                  textAlign: "center",
+                  fontFamily: "SansWeb" 
+                }} key={index}>
+                  {item}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody variant="h3">
+            {(rowsPerPage > 0
+              ? products.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : products
+            ).map((item, index) => (
+              <TableRow key={item.id}>
+                <TableCells
+                  align="right"
+                  sx={{ fontSize: 20, fontFamily: "SansWeb" }}
+                >
+                  <EasyEdit
+                    type="text"
+                    onSave={(e) => saveCount(e, item)}
+                    onCancel={cancel}
+                    saveButtonLabel="ذخیره "
+                    cancelButtonLabel="لغو "
+                    attributes={{ name: "awesome-input", id: 1 }}
+                    value={item.count}
+                  />
+                </TableCells>
+                <TableCells
+                  align="right"
+                  sx={{ fontSize: 20, fontFamily: "SansWeb" }}
+                >
+                  <EasyEdit
+                    type="text"
+                    onSave={(e) => savePrice(e, item)}
+                    onCancel={cancel}
+                    saveButtonLabel="ذخیره"
+                    cancelButtonLabel="لغو"
+                    attributes={{ name: "awesome-input", id: 1 }}
+                    value={item.price}
+                  />
+                </TableCells>
+
+                <TittleCells align="right" sx={{ direction: "rtl" }}>
+                  {item.name}
+                </TittleCells>
+                <TableCell
+                  align="right"
+                  sx={{
+                    backgroundColor: "primary.main",
+                    color: "white",
+                    fontSize: "20px",
+                    border: "2px solid white",
+                    textAlign: "center",
+                    fontFamily: "SansWeb" ,
+                    width:"5px"
                   }}
-                />
-              </TableCells>
+                >
+                  {index + 1}
+                </TableCell>
+              </TableRow>
+            ))}
 
-              <TittleCells align="right" sx={{ direction: "rtl" }}>
-                {item.name}
-              </TittleCells>
-              <TableCells
-                align="right"
-                sx={{ backgroundColor: "primary.main", textAlign: "center" }}
-              >
-                {index + 1}
-              </TableCells>
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={3}
+                count={products.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    "aria-label": "rows per page",
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
             </TableRow>
-          ))}
-
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={3}
-              count={products.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  "aria-label": "rows per page",
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+      {/* <ButtonAdd clickHandler={handleSubmit}> ذخیره</ButtonAdd> */}
+    </>
   );
 }

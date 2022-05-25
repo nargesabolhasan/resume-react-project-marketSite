@@ -1,4 +1,4 @@
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import HttpService from "../../../axios/HttpService";
@@ -12,7 +12,6 @@ import "./prodactStyle.scss";
 import { BASE_URL } from "../../../constants/Constants";
 import galleryIcon from "../../../assets/images/uploadImage/galleryIcon.png";
 import imageIcon from "../../../assets/images/uploadImage/imageIcon.png";
-
 
 //----component styles----------------
 
@@ -34,17 +33,16 @@ const Errors = styled("h5")(({ theme }) => ({
 
 const Basic = (props) => {
   const { product } = props;
-  const [changedData,setChangedData]=useState(product)
+  const [changedData, setChangedData] = useState(product);
   // const {data,loading,error}=usePatchAxios()
   const [uploadedImage, setIUploadedImage] = useState();
   const [uploadedGallery, setIUploadedGallery] = useState([]);
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
 
-console.log(changedData.image)
+  console.log(changedData.image);
   const LoginSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(4, "نام بیشتر از 4 حرف باشد"),
+    name: Yup.string().min(4, "نام بیشتر از 4 حرف باشد"),
     ENname: Yup.string()
       .min(3, "نام بیشتر از 3 حرف باشد")
       .matches(
@@ -59,18 +57,20 @@ console.log(changedData.image)
     description: Yup.string("توضیحات محصول را وارد کنید"),
   });
 
-  const handleChanges=(e)=>{
-    setChangedData(prev => ({ ...prev,  [e.target.name]: e.target.value}))
-  }
-//---------patch:-----------
-  const auth =  async(input) => {
-   await HttpService.patch(`products/${product.id}`, changedData, { headers: {"token" : localStorage.getItem("token")}})
+  const handleChanges = (e) => {
+    setChangedData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  //---------patch:-----------
+  const auth = async (input) => {
+    await HttpService.patch(`products/${product.id}`, changedData, {
+      headers: { token: localStorage.getItem("token") },
+    });
     setTimeout(() => {
       window.location.reload(false);
     }, 1000);
   };
-   //-------uplaod one image:---------
-   const handleUpload = async (e) => {
+  //-------uplaod one image:---------
+  const handleUpload = async (e) => {
     const image = e.target.files[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -91,7 +91,7 @@ console.log(changedData.image)
     setIUploadedGallery([...uploadedGallery, res?.data.filename]);
   };
 
-console.log(changedData.thumbnail)
+  console.log(changedData.thumbnail);
   return (
     <div>
       <h1>ویرایش کالا</h1>
@@ -126,7 +126,7 @@ console.log(changedData.thumbnail)
           /* and other goodies */
         }) => (
           <EditForm onSubmit={handleSubmit}>
-              <Grid
+            <Grid
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -134,225 +134,248 @@ console.log(changedData.thumbnail)
                 justifyContent: "space-around",
               }}
             >
-            <Grid
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-              }}
-            >
-              <Grid>
-                <TittleInputs> نام محصول</TittleInputs>
-                <TextField
-                  sx={{ m: 0 }}
-                  type="text"
-                  name="name"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={changedData.name}
-                />
-                <Errors variant="h5">
-                  {errors.name && touched.name && errors.name}
-                </Errors>
+              <Grid
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Grid>
+                  <TittleInputs> نام محصول</TittleInputs>
+                  <TextField
+                    sx={{ m: 0 }}
+                    type="text"
+                    name="name"
+                    onChange={(e) => {
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={changedData.name}
+                  />
+                  <Errors variant="h5">
+                    {errors.name && touched.name && errors.name}
+                  </Errors>
+                </Grid>
+                <Grid>
+                  <TittleInputs> نام لاتین</TittleInputs>
+                  <TextField
+                    type="text"
+                    name="ENname"
+                    onChange={(e) => {
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={changedData.ENname}
+                  />
+                  <Errors variant="h5">
+                    {errors.ENname && touched.ENname && errors.ENname}
+                  </Errors>
+                </Grid>
+                <Grid>
+                  <TittleInputs>قیمت</TittleInputs>
+                  <TextField
+                    type="number"
+                    name="price"
+                    onChange={(e) => {
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={values.price}
+                  />
+                  <Errors variant="h5">
+                    {errors.price && touched.price && errors.price}
+                  </Errors>
+                </Grid>
               </Grid>
-              <Grid>
-                <TittleInputs> نام لاتین</TittleInputs>
-                <TextField
-                  type="text"
-                  name="ENname"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={changedData.ENname}
-                />
-                <Errors variant="h5">
-                  {errors.ENname && touched.ENname && errors.ENname}
-                </Errors>
-              </Grid>
-              <Grid>
-                <TittleInputs>قیمت</TittleInputs>
-                <TextField
-                  type="number"
-                  name="price"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.price}
-                />
-                <Errors variant="h5">
-                  {errors.price && touched.price && errors.price}
-                </Errors>
-              </Grid>
-            </Grid>
-            <Grid
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-              }}
-            >
-              <Grid>
-                <TittleInputs>تعداد</TittleInputs>
-                <TextField
-                  type="number"
-                  name="count"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={changedData.count}
-                />
-                <Errors variant="h5">
-                  {errors.count && touched.count && errors.count}
-                </Errors>
+              <Grid
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Grid>
+                  <TittleInputs>تعداد</TittleInputs>
+                  <TextField
+                    type="number"
+                    name="count"
+                    onChange={(e) => {
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={changedData.count}
+                  />
+                  <Errors variant="h5">
+                    {errors.count && touched.count && errors.count}
+                  </Errors>
+                </Grid>
+
+                <Grid>
+                  <TittleInputs>رنگ</TittleInputs>
+                  <TextField
+                    type="text"
+                    name="color"
+                    onChange={(e) => {
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={changedData.color}
+                  />
+                  <Errors variant="h5">
+                    {errors.color && touched.color && errors.color}
+                  </Errors>
+                </Grid>
+                <Grid>
+                  <TittleInputs>دسته بندی</TittleInputs>
+                  <Select
+                    id="categoryId"
+                    name="categoryId"
+                    onChange={(e) => {
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={changedData.categoryId}
+                    sx={{ width: 210 }}
+                  >
+                    <MenuItem value={1}>مک مینی</MenuItem>
+                    <MenuItem value={2}>مک بوک پرو16</MenuItem>
+                    <MenuItem value={3}> 14 مک بوک پرو </MenuItem>
+                    <MenuItem value={4}>13 مک بوک پرو </MenuItem>
+                    <MenuItem value={5}>مک بوک ایر </MenuItem>
+                    <MenuItem value={6}>آیمک</MenuItem>
+                    <MenuItem value={7}>آیپد پرو</MenuItem>
+                  </Select>
+                  <Errors variant="h5">
+                    {errors.categoryId &&
+                      touched.categoryId &&
+                      errors.categoryId}
+                  </Errors>
+                </Grid>
               </Grid>
 
-              <Grid>
-                <TittleInputs>رنگ</TittleInputs>
-                <TextField
-                  type="text"
-                  name="color"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={changedData.color}
-                />
-                <Errors variant="h5">
-                  {errors.color && touched.color && errors.color}
-                </Errors>
-              </Grid>
-              <Grid>
-                <TittleInputs>دسته بندی</TittleInputs>
-                <Select
-                  id="categoryId"
-                  name="categoryId"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={changedData.categoryId}
-                  sx={{ width: 210 }}
+              <Grid
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "start",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Grid
+                  sx={{
+                    width: 210,
+                  }}
                 >
-                  <MenuItem value={1}>مک مینی</MenuItem>
-                  <MenuItem value={2}>مک بوک پرو16</MenuItem>
-                  <MenuItem value={3}> 14 مک بوک پرو </MenuItem>
-                  <MenuItem value={4}>13 مک بوک پرو </MenuItem>
-                  <MenuItem value={5}>مک بوک ایر </MenuItem>
-                  <MenuItem value={6}>آیمک</MenuItem>
-                  <MenuItem value={7}>آیپد پرو</MenuItem>
-                </Select>
-                <Errors variant="h5">
-                  {errors.categoryId && touched.categoryId && errors.categoryId}
-                </Errors>
-              </Grid>
-            </Grid>
-
-            <Grid
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "start",
-                justifyContent: "space-around",
-              }}
-            >
-              <Grid
-                sx={{
-                  width:210,
-                }}
-              >
-                <TittleInputs>تصویر</TittleInputs>
-                <Grid sx={{border:"2px solid gray",height:95,p:2}}>
-                {uploadingImage ? (
-                  <img
-                    src={`${BASE_URL}/files/${uploadedImage}`}
-                    alt="Alt Text!"
-                    style={{ width: "80px"}}
+                  <TittleInputs>تصویر</TittleInputs>
+                  <Grid sx={{ border: "2px solid gray", height: 95, p: 2 }}>
+                    {uploadingImage ? (
+                      <img
+                        src={`${BASE_URL}/files/${uploadedImage}`}
+                        alt="Alt Text!"
+                        style={{ width: "80px" }}
+                      />
+                    ) : (
+                      <img
+                        src={`${BASE_URL}${changedData.image}`}
+                        alt="Alt Text!"
+                        style={{ width: "80px" }}
+                      />
+                    )}
+                  </Grid>
+                  <TextField
+                    className="TextField"
+                    id="image"
+                    name="image"
+                    type="file"
+                    accept="image/webp"
+                    onChange={(e) => {
+                      handleUpload(e);
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
                   />
-                ) : (
-                  <img
-                  src={`${BASE_URL}${changedData.image}`}
-                    alt="Alt Text!"
-                    style={{ width: "80px" }}
-                  />
-                )}
+                  <Errors variant="h5">
+                    {errors.image && touched.image && errors.image}
+                  </Errors>
                 </Grid>
-                <TextField
-                  className="TextField"
-                  id="image"
-                  name="image"
-                  type="file"
-                  accept="image/webp"
-                  onChange={(e) => {
-                    handleUpload(e);
-                    handleChange(e);
+                <Grid
+                  sx={{
+                    width: 210,
                   }}
-                  onBlur={handleBlur}
-                />
-                <Errors variant="h5">
-                  {errors.image && touched.image && errors.image}
-                </Errors>
-              </Grid>
-              <Grid
-                sx={{
-                  width:210
-                }}
-              >
-                <TittleInputs>تصاویر گالری</TittleInputs>
-                <Grid sx={{border:"2px solid gray"}}>
-                {uploadingGallery ? (
-                  uploadedGallery.map((image, index) => (
-                    <img
-                      key={index}
-                      src={`${BASE_URL}/files/${image}`}
-                      alt="Alt Text!"
-                      style={{ width: "80px" }}
-                    />
-                  ))
-                ) : (
-                 
-                    <img
-                  src={`${BASE_URL}${changedData.image}`}
-                    alt="Alt Text!"
-                    style={{ width: "80px" }}
+                >
+                  <TittleInputs>تصاویر گالری</TittleInputs>
+                  <Grid sx={{ border: "2px solid gray" }}>
+                    {uploadingGallery ? (
+                      uploadedGallery.map((image, index) => (
+                        <img
+                          key={index}
+                          src={`${BASE_URL}/files/${image}`}
+                          alt="Alt Text!"
+                          style={{ width: "80px" }}
+                        />
+                      ))
+                    ) : (
+                      <img
+                        src={`${BASE_URL}${changedData.image}`}
+                        alt="Alt Text!"
+                        style={{ width: "80px" }}
+                      />
+                    )}
+                  </Grid>
+                  <TextField
+                    className="TextField"
+                    id="image"
+                    name="thumbnail"
+                    type="file"
+                    accept="image/webp"
+                    onChange={(e) => {
+                      handleUploadThumbnail(e);
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
                   />
-                
-                )}
+                  <Errors variant="h5">
+                    {errors.thumbnail && touched.thumbnail && errors.thumbnail}
+                  </Errors>
                 </Grid>
-                <TextField
-                  className="TextField"
-                  id="image"
-                  name="thumbnail"
-                  type="file"
-                  accept="image/webp"
-                  onChange={(e) => {
-                    handleUploadThumbnail(e);
-                    handleChange(e);
-                  }}
-                  onBlur={handleBlur}
-                />
-                <Errors variant="h5">
-                  {errors.thumbnail && touched.thumbnail && errors.thumbnail}
-                </Errors>
+                <Grid>
+                  <TittleInputs>توضیحات</TittleInputs>
+                  <TextField
+                    inputProps={{
+                      style: {
+                        height: 116,
+                      },
+                    }}
+                    type="text"
+                    name="description"
+                    onChange={(e) => {
+                      handleChanges(e);
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={changedData.description}
+                  />
+                  <Errors variant="h5">
+                    {errors.description &&
+                      touched.description &&
+                      errors.description}
+                  </Errors>
+                </Grid>
               </Grid>
-              <Grid>
-                <TittleInputs>توضیحات</TittleInputs>
-                <TextField
-                 inputProps={{
-                  style: {
-                    height:116,
-                  },
-                }}
-                  type="text"
-                  name="description"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={changedData.description}
-                />
-                <Errors variant="h5">
-                  {errors.description &&
-                    touched.description &&
-                    errors.description}
-                </Errors>
-              </Grid>
-            </Grid>
-            <ButtonAdd type="submit" disabled={isSubmitting}>
-              ذخیره
-            </ButtonAdd>
+              <ButtonAdd type="submit" disabled={isSubmitting}>
+                ذخیره
+              </ButtonAdd>
             </Grid>
           </EditForm>
         )}
@@ -361,4 +384,3 @@ console.log(changedData.thumbnail)
   );
 };
 export default Basic;
-
