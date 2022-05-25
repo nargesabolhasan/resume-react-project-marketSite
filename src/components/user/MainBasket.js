@@ -5,7 +5,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import CardProduct from "../user/home/Card-Product";
+import CardProduct from "./home/Card-Product";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";

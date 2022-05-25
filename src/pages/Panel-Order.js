@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box";
 import { styled } from '@mui/material/styles'
-import Pagination from "../components/admin/Pagination";
+import { OneKPlusOutlined } from "@mui/icons-material";
 
 const Root = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
@@ -31,15 +31,15 @@ const PanelOrder = () => {
   }, []);
   //-----------
   const getData = async () => {
-    setData(await HttpService.get("/products?_embed=exam"));
-    setItem(await HttpService.get("orders"));
+    const result= await HttpService.get("orders?_sort=orderDate")
+    setData(result?.data)
   };
   
   return (
     <Grid item container alignContent={'center'} xs={12}>
     <Root sx={{mt:5,fontFamily:"koodak",mx: "auto"}}>
-      <Typography  variant="h3" sx={{direction: 'rtl',mt:5,fontFamily:"koodak"}}>مدیریت سفارش ها</Typography>
-       <FilterOrders products={item}/> 
+      <Typography  variant="h3" sx={{direction: 'rtl',fontFamily:"koodak"}}>مدیریت سفارش ها</Typography>
+       <FilterOrders products={data}/> 
       {/* <Pagination/> */}
     </Root>
     </Grid>

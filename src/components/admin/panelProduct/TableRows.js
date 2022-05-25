@@ -7,8 +7,9 @@ import TableCell from "@mui/material/TableCell";
 import { BASE_URL } from "../../../constants/Constants";
 import ModalForms from "../../modal/ModalForms";
 import ModalEditProduct from "./Form-editProduct";
-import { ModalAddProduct } from "../..";
-import axios from "axios"
+import { ModalAddProduct, Modals } from "../..";
+import CloseIcon from '@mui/icons-material/Close';
+import ModalDelete from "./Form-delete";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -16,56 +17,65 @@ const TittleCells = styled("td")(({ theme }) => ({
     width: "5px",
     overFlow: "wrap",
     fontSize: 15,
+    fontFamily: "SansWeb"
   },
   [theme.breakpoints.up("md")]: {
     width: 100,
     fontSize: 15,
+    fontFamily: "SansWeb"
   },
   [theme.breakpoints.up("lg")]: {
     width: 160,
     fontSize: 20,
-    textAlign: "center",
+    textAlign: "start",
+    border: "2px solid #ba6b6c",
+    fontFamily: "SansWeb"
   },
 }));
 const TableCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down("md")]: {
-    width: "5px",
     padding: 0,
     textAlign: "center",
     fontSize: 15,
+    direction: "ltr",
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("md")]: {
-    width: 5,
     fontSize: 15,
+    border: "2px solid #ba6b6c",
+    textAlign: "center",
   },
+
   [theme.breakpoints.up("lg")]: {
-    width: 5,
     fontSize: 20,
+    border: "2px solid #ba6b6c",
+    textAlign: "center",
+    height: "10px",
   },
 }));
 
 const TabLists = (props) => {
   const { items, categories, index } = props;
+
   //**modal **//
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [classname, setClassname] = useState("");
+  const [selectedData, setSelectedData] = useState("");
   //--------Modal open & close :----------
 
   const handleShow = () => {
     setOpen(true);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {setOpen(false);setOpenDelete(false);};
 
   //------------table buttons:-------------------
-  const handleDelete = (input) => {
-    console.log(input);
-    axios.delete(`products/${input}`, { headers: {"token" : localStorage.getItem("token")} })
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 500);
-   
+  const handleDelete = async (input) => {
+    setSelectedData(input);
+    setOpenDelete(true);
   };
+  //---------------
 
   const handleEdit = (e) => {
     console.log(e.target.value);
@@ -76,39 +86,73 @@ const TabLists = (props) => {
     <>
       <TableRow key={items.id}>
         <TableCells align="left">
-          <DeleteForeverIcon onClick={()=>handleDelete(items.id)} />
+          <DeleteForeverIcon onClick={() =>{ handleDelete(items.id)}} sx={{mr:3}}/>
           <DriveFileRenameOutlineIcon onClick={handleEdit} />
         </TableCells>
-        <TableCells align="right">
+        <TableCells>
           {categories.map((category) =>
             category.id === items.categoryId ? category.name : ""
           )}
         </TableCells>
-        <TittleCells align="right">{items.name}</TittleCells>
-        <TableCells
-          align="right"
-          sx={{ backgroundColor: "primary.main", textAlign: "center" }}
-        >
+        <TittleCells sx={{ direction: "rtl" }}>{items.name}</TittleCells>
+        <TableCells>
           <img
-            style={{ width: "200px" }}
+            style={{ width: "80px" }}
             src={`${BASE_URL}${items.image}`}
             alt="Alt Text!"
           />
         </TableCells>
-        <TableCells
-          align="right"
-          sx={{ backgroundColor: "primary.main", textAlign: "center" }}
+        <TableCell
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: "20px",
+            border: "2px solid white",
+            textAlign: "center",
+            fontSize: 20, fontFamily: "SansWeb" 
+          }}
         >
           {index + 1}
-        </TableCells>
+        </TableCell>
       </TableRow>
       <ModalForms
         open={open}
         handleclose={() => handleClose()}
         classname={classname}
       >
-        <ModalEditProduct product={items}/>
+          <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
+        <ModalEditProduct product={items} />
       </ModalForms>
+      <Modals open={openDelete} handleclose={() => handleClose()}>
+      <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
+        <ModalDelete deletedItem={selectedData} />
+      </Modals>
     </>
   );
 };

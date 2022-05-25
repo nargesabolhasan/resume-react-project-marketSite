@@ -1,8 +1,14 @@
-//   let sortedProducts = [products.map((item=>{return item.name}))]
-//   console.log(products)
-
 import React from "react";
 import TableQuantity from "./TableQuantity";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+
+const Div = styled("td")(({ theme }) => ({
+display: "flex",
+flexDirection: "row",
+alignItems: "center"
+  }));
 
 const useSortableData = (items, config = null) => {
   const [sortConfig, setSortConfig] = React.useState(config);
@@ -11,17 +17,6 @@ const useSortableData = (items, config = null) => {
     let sortableItems = [...items];
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
-        if(sortConfig.key==="price"){
-            let numFormatA=a[sortConfig.key].replace(',', "").replace(',', '')
-            let numFormatB=b[sortConfig.key].replace(',', "").replace(',', '')
-            if (+numFormatA < +numFormatB) {
-                return sortConfig.direction === "ascending" ? -1 : 1;
-              }
-              if (+numFormatA > +numFormatB) {
-                return sortConfig.direction === "ascending" ? 1 : -1;
-              }
-
-        }else{
           if (a[sortConfig.key] < b[sortConfig.key]) {
             return sortConfig.direction === "ascending" ? -1 : 1;
           }
@@ -29,7 +24,7 @@ const useSortableData = (items, config = null) => {
             return sortConfig.direction === "ascending" ? 1 : -1;
           }
           return 0;
-        }
+        
       });
     }
     return sortableItems;
@@ -60,36 +55,43 @@ const ProductTable = (props) => {
     return sortConfig.key === name ? sortConfig.direction : undefined;
   };
   return (
-    <div>
-      <button
+    <>
+    <Div >
+      <Button
+      sx={{fontSize:15, fontFamily: "koodak"}}
+      variant="outlined"
         type="button"
         onClick={() => requestSort("name")}
         className={getClassNamesFor("name")}
       >
-        Name
-      </button>
-      <button
+        نام محصول 
+      </Button>
+      <Button
+      sx={{fontSize: 15, fontFamily: "koodak"}}
+      variant="outlined"
         type="button"
         onClick={() => requestSort("count")}
         className={getClassNamesFor("count")}
       >
-        count
-      </button>
-      <button
+        تعداد
+      </Button>
+      <Button
+      sx={{fontSize: 15, fontFamily: "koodak"}}
+      variant="outlined"
         type="button"
         onClick={() => requestSort("price")}
         className={getClassNamesFor("price")}
       >
-        Price
-      </button>
+        قیمت
+      </Button>
+      <Typography sx={{color: 'primary.main', fontFamily: "koodak"}} >  :مرتب سازی بر اساس </Typography>
+      </Div>
       <TableQuantity products={items} />
-    </div>
+    </>
   );
 };
 
 export default function App(props) {
-  //   let sortedProducts = [products.map((item=>{return item.name}))]
-  //   console.log(products)
   const { products } = props;
   return (
     <div >

@@ -4,14 +4,17 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import PropTypes from "prop-types";
+import "./modals-styles.scss"
 
 
 const style = {
   position: "absolute",
   top: "50%",
-  left: "50%",
+  left: "100%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 600,
+  height: 800,
+overflowY:"scroll",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -24,18 +27,18 @@ export default function BasicModal(props) {
   return (
     <>
       <Modal
+      className="modal"
         open={open}
         onClose={handleclose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} >
           <Typography
             id="modal-modal-title"
             variant="h6"
             component="h2"
             sx={{
-              borderBottom: 1,
               fontSize: 20,
               fontFamily: "koodak",
               direction: "rtl",

@@ -1,3 +1,4 @@
+import { React,useState } from "react";
 import { Formik } from "formik";
 import Container from "@mui/material/Container";
 import FormControl from "@mui/material/FormControl";
@@ -6,20 +7,18 @@ import Input from "@mui/material/Input";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormGroup from "@mui/material/FormGroup";
 import Button from "@mui/material/Button";
-import { Modal, Typography } from "@mui/material";
+import {Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { React, useEffect, useState, useContext } from "react";
-import HttpService from "../../axios/HttpService";
+import HttpService from "../../../axios/HttpService";
 import ShowPassword from "./ShowPassword";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../redux/userSlice";
-import ButtonAdd from "../buttons/Button-add";
-import Modals from "../modal/Modals";
-import "../../assets/Core-ui/Core-styles.scss";
+import { useDispatch} from "react-redux";
+import { setUser } from "../../../redux/userSlice";
+import ButtonAdd from "../../buttons/Button-add";
+import Modals from "../../modal/Modals";
+import "../../../assets/Core-ui/Core-styles.scss";
 
 const FormValidation = () => {
-  const [adminData, setAdminData] = useState([]);
   //**modal **//
   const [open, setOpen] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
@@ -27,15 +26,6 @@ const FormValidation = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const data = useSelector((state) => state);
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-  // //-----------axios.get :-----------
-  // const getData = async () => {
-  //   setAdminData(await HttpService.post("auth/login", values ));
-  // };
 
   //--------Modal open & close :----------
   const handleShow = () => {
@@ -43,20 +33,19 @@ const FormValidation = () => {
     setClassname("succsess");
     setBodyMassages("سلام به پنل مدیریت خوش آمدید");
   };
-  const handleClose=()=>setOpen(false);
- 
-  //-----------Authentication :-----------
-  const Authentication =async (input) => {
+  const handleClose = () => setOpen(false);
 
-    const res=await HttpService.post("auth/login", input )
-    if (res) {
-      localStorage.setItem("token",res.token)
-      handleShow()
-      setTimeout(() => {
-        navigate("/PanelProducts", { replace: true });
-        dispatch(setUser(input));
-      }, 3000);
-    } else {
+  //-----------Authentication :-----------
+  const Authentication = async (input) => {
+    const res = await HttpService.post("auth/login", input);
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.token);
+        handleShow();
+        setTimeout(() => {
+          navigate("/PanelProducts");
+          dispatch(setUser(input));
+        }, 3000);
+      }else {
       setOpen(true);
       setClassname("failer");
       setBodyMassages("رمز یا نام کاربری اشتباه است ");
@@ -64,7 +53,7 @@ const FormValidation = () => {
   };
   //-----------------handleBack--------------
   const handleBack = () => {
-    navigate("/", { replace: true });
+    navigate("/");
   };
 
   return (

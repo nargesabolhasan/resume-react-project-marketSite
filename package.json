@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^34.1.0",
+    "@ckeditor/ckeditor5-react": "^5.0.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.2",
@@ -23,20 +25,25 @@
     "lodash": "^4.17.21",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
     "loopback3-xtotalcount": "^0.1.2",
+>>>>>>> develope
+=======
 >>>>>>> develope
     "prop-types": "^15.8.1",
 >>>>>>> develope
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-easy-edit": "^1.15.0",
     "react-redux": "^8.0.1",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "sass": "^1.51.0",
+    "swiper": "^8.1.5",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },

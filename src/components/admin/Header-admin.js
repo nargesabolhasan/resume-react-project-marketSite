@@ -8,6 +8,7 @@ import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
+import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import Grid from "@mui/material/Grid";
@@ -16,8 +17,7 @@ import HttpService from "../../axios/HttpService";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/userSlice";
-
-// const settings = ["Profile", "Logout"];
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,39 +40,46 @@ const ResponsiveAppBar = () => {
   }, []);
   //-----------
   const getData = async () => {
-    setData(await HttpService.get("whoami"));
+    const res = await HttpService.get("whoami");
+    setData(res?.data);
   };
   //----------
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("state");
     dispatch(logout());
-    navigate("/", { replace: true });
+    navigate("/");
+  };
+
+  const handleBack = () => {
+    navigate("/");
   };
 
   return (
-    <AppBar position="static" sx={{ p: 3 }}>
+    <AppBar position="static">
       <Container maxWidth="xl" sx={{ m: 0, mx: "auto", width: "100%" }}>
         <Toolbar
           disableGutters
           sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}
         >
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton
-              variant="h6"
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              <NavLink
-                to="/"
-                style={({ isActive }) => ({
-                  color: isActive ? "white" : "black",
-                  textDecoration: "none",
-                })}
+              <Button
+                sx={{
+                  mt: 5,
+                  mx: "auto",
+                  fontFamily: "koodak",
+                  fontSize: 20,
+                  border: 3,
+                  borderColor: "white",
+                  color: "white",
+                  borderRadius: "11px",
+                }}
+                variant="outlined"
+                onClick={handleBack}
               >
+                <KeyboardBackspaceIcon />
                 بازگشت به سایت
-              </NavLink>
-            </IconButton>
+              </Button>
           </Box>
           <Grid
             item

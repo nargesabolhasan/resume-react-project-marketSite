@@ -1,9 +1,8 @@
 import Authentication from "./admin/Authentication";
-import FormValidation from "./admin/FormValidation";
+import FormValidation from "./admin/login/FormValidation";
 import HeaderAdmin from "./admin/Header-admin";
 import MainAdmin from "./admin/Main-Admin";
 import Modals from "./modal/Modals";
-import InputChange from "./admin/panelQuantity/InputChange";
 import TablesProduct from "./admin/panelProduct/TablesProduct";
 import TableQuantity from "./admin/panelQuantity/TableQuantity";
 import TableOrder from "./admin/panelOrder/TableOrder";
@@ -18,7 +17,6 @@ import ButtonSubmit from "./buttons/Button-submit";
 
 import Dashboards from "./user/Dashboards";
 import FooterUser from "./user/FooterUser";
-import FormValidationUser from "./user/FormValidationUser";
 import HeaderUserStore from "./user/Header-user-store";
 import MainUser from "./user/Main-product";
 
@@ -26,7 +24,6 @@ import LayoutAdmin from "./Layouts/Layout-admin";
 import LayoutUser from "./Layouts/Layout-user";
 
 export {
-  InputChange,
   Authentication,
   FormValidation,
   HeaderAdmin,
@@ -39,7 +36,6 @@ export {
   ButtonSubmit,
   Dashboards,
   FooterUser,
-  FormValidationUser,
   HeaderUserStore,
   MainUser,
   LayoutAdmin,

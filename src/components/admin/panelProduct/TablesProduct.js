@@ -20,10 +20,40 @@ import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutli
 import { styled } from "@mui/material/styles";
 import { BASE_URL } from "../../../constants/Constants";
 import TableRows from "./TableRows";
+import TableHead from '@mui/material/TableHead';
 
+const TableCells = styled("td")(({ theme }) => ({
+  padding: theme.spacing(1),
+  [theme.breakpoints.down("md")]: {
+    width: "5px",
+    padding: 0,
+    fontSize: 15,
+    border: "2px solid white",
+    backgroundColor:"#ba6b6c",
+    color:"white",
+    textAlign: "center",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: 5,
+    fontSize: 15,
+    border: "2px solid white",
+    backgroundColor:"#ba6b6c",
+    color:"white",
+    textAlign: "center",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: 5,
+    fontSize: 20,
+    border: "2px solid white",
+    backgroundColor:"#ba6b6c",
+    color:"white",
+    textAlign: "center",
+  },
+}));
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
+  
 
   const handleFirstPageButtonClick = (event) => {
     onPageChange(event, 0);
@@ -93,7 +123,8 @@ TablePaginationActions.propTypes = {
 export default function CustomPaginationActionsTable(props) {
   const { products, category } = props;
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(4);
+  const headerTable =[ "ویرایش / حذف"," دسته بندی ", " نام محصول", " تصویر ", "شماره"]
   const handleDelete=(e) => {
     console.log(e.target.value)
   }
@@ -112,8 +143,15 @@ export default function CustomPaginationActionsTable(props) {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ mx: "auto", mt: 5 }}>
+    <TableContainer component={Paper} sx={{ mx: "auto" ,mt:2}}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <TableHead sx={{ borderBottom: 1 }}>
+      <TableRow>
+     { headerTable.map((item, index )=> (
+       <TableCells  key={index}>{item}</TableCells>
+     ))}
+        </TableRow>
+      </TableHead>
         <TableBody variant="h3">
           {(rowsPerPage > 0
             ? products.slice(

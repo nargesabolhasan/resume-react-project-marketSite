@@ -4,8 +4,7 @@ import { TablesProduct } from "../components/index";
 import HttpService from "../axios/HttpService";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import CloseIcon from '@mui/icons-material/Close';
 import { styled } from "@mui/material/styles";
 import ModalForms from "../components/modal/ModalForms";
 import ModalAddProduct from "../components/admin/panelProduct/Form-addProduct";
@@ -43,23 +42,40 @@ const PanelProducts = () => {
   }, []);
   //-----------
   const getData = async () => {
-    setCategory(await HttpService.get("categories?_embed=products"));
-    setData(await HttpService.get("products"));
+    const res= await HttpService.get("products")
+    setData(res?.data)
+    const result=await HttpService.get("categories?_embed=products")
+    setCategory(result?.data);
   };
+  
 
   return (
     <Grid item container alignContent={"center"} xs={12}>
       <Root sx={{ mt: 5, fontFamily: "koodak", mx: "auto" }}>
-        <ButtonAdd clickHandler={handleShow}> افزودن کالا</ButtonAdd>
-        <Typography
+      <Typography
           variant="h3"
-          sx={{ direction: "rtl", mt: 5, fontFamily: "koodak" }}
+          sx={{ direction: "rtl", fontFamily: "koodak" }}
         >
           مدیریت کالا ها
         </Typography>
+        <ButtonAdd clickHandler={handleShow}> افزودن کالا</ButtonAdd>
         <TablesProduct products={data} category={category} />
       </Root>
       <ModalForms open={open} handleclose={() => handleClose()}>
+      <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
         <ModalAddProduct />
       </ModalForms>
     </Grid>

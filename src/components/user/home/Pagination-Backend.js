@@ -48,11 +48,11 @@ const PaginationBackend = () => {
         <Typography>Loading...</Typography>
       ) : (
         <Container spacing={1}>
-          {data?.map((record) => (
-            <>
+          {data?.data.map((record) => (
+            <Box key={record.id}>
               <Button
-                variant="outlined"
-                sx={{ fontFamily: "koodak", height: "10px", p: 4 }}
+              variant="contained"
+                sx={{ fontFamily: "koodak", height: "10px", p: 4 ,width:"100%", border:3,fontSize: 25}}
                 onClick={() => handleNavigate(record.id)}
               >
                 {record.name}
@@ -68,7 +68,7 @@ const PaginationBackend = () => {
                   <CardProduct product={item} key={item.id} />
                 ))}
               </Grid>
-            </>
+            </Box>
           ))}
         </Container>
       )}
@@ -77,7 +77,7 @@ const PaginationBackend = () => {
         color="primary"
         defaultPage={1}
         page={activePage}
-        count={Math.ceil(7 / limit)}
+        count={Math.ceil(data?.headers["x-total-count"] / limit)}
         onChange={(_, page) => setActivePage(page)}
       />
     </Div>

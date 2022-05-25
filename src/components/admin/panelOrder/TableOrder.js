@@ -10,13 +10,17 @@ import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { NavLink ,Link} from "react-router-dom";
 import { styled } from "@mui/material/styles";
+import TableHead from "@mui/material/TableHead";
+import ModalForm from "../../modal/ModalForms";
+import ModalOrders from "../panelOrder/ModalOrders";
+import CloseIcon from "@mui/icons-material/Close";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -33,6 +37,7 @@ const TittleCells = styled("td")(({ theme }) => ({
     width: 80,
     fontSize: 20,
     textAlign: "center",
+    border: "2px solid #ba6b6c",
   },
 }));
 const TableCells = styled("td")(({ theme }) => ({
@@ -42,14 +47,19 @@ const TableCells = styled("td")(({ theme }) => ({
     padding: 0,
     textAlign: "center",
     fontSize: 15,
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("md")]: {
     width: 5,
     fontSize: 15,
+    border: "2px solid #ba6b6c",
+    textAlign: "center",
   },
   [theme.breakpoints.up("lg")]: {
     width: 5,
     fontSize: 20,
+    border: "2px solid #ba6b6c",
+    textAlign: "center",
   },
 }));
 
@@ -122,13 +132,37 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
+//--------------------------------------------------------------------------------------------
+
 export default function CustomPaginationActionsTable(props) {
   const { products, orders } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [selectedData, setSelectedData] = React.useState();
+  //**modal **//
+  const [open, setOpen] = React.useState(false);
+  const [classname, setClassname] = React.useState("");
+  //--------Modal open & close :----------
 
-  //console.log(products);
-  // Avoid a layout jump when reaching the last page with empty rows.
+  const handleShow = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
+
+  const handleClick = (input) => {
+    setSelectedData(input);
+    handleShow();
+  };
+
+  const headerTable = [
+    "بررسی",
+    "  تاریخ سفارش ",
+    " قیمت (تومان) ",
+    "نام مشتری",
+    "شماره ",
+  ];
+
+  let dollarUSLocale = Intl.NumberFormat("en-US");
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
@@ -142,65 +176,123 @@ export default function CustomPaginationActionsTable(props) {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ mx: "auto", mt: 5 }}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableBody variant="h3">
-          {(rowsPerPage > 0
-            ? products.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : products
-          ).map((item, index) =>{ 
-            let sumPrice = 0;
-            let price = 0;
-            return<TableRow key={item.id}>
-              <TittleCells align="right"><Link to="/PanelOrder">بررسی سفارش</Link></TittleCells>
-              <TableCells align="right">{new Date(item.orderDate).toLocaleDateString('fa-IR')}</TableCells>
-              <TableCells align="right">
-                {item.orderItems?.map((item) => {
-                  price = +item.price.replace(",", "").replace(",", "");
-                  sumPrice += price;
-                })}
-                  <div style={{direction:"rtl"}}> {sumPrice}  تومان</div>
-
-              </TableCells>
-              <TittleCells align="right">{item.name}</TittleCells>
-              <TableCells align="left">
-                {item.customerDetail.firstName} {item.customerDetail.lastName}
-              </TableCells>
-              <TableCells
-                align="right"
-                sx={{ backgroundColor: "primary.main", textAlign: "center" }}
-              >
-                {index + 1}
-              </TableCells>
+    <>
+      <TableContainer
+        component={Paper}
+        sx={{ mx: "auto", mt: 5, fontFamily: "SansWeb" }}
+      >
+        <Table sx={{ minWidth: 300 }} aria-label="custom pagination table">
+          <TableHead sx={{ borderBottom: 1 }}>
+            <TableRow sx={{ backgroundColor: "primary.main", color: "white" }}>
+              {headerTable.map((item, key) => (
+                <TableCell
+                  sx={{
+                    backgroundColor: "primary.main",
+                    textAlign: "center",
+                    color: "white",
+                    border: "2px solid white",
+                    fontFamily: "SansWeb",
+                  }}
+                  key={key}
+                >
+                  {item}
+                </TableCell>
+              ))}
             </TableRow>
-          })}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={4}
-              count={products.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  "aria-label": "rows per page",
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody variant="h3">
+            {(rowsPerPage > 0
+              ? products.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : products
+            ).map((item, index) => {
+              let sumPrice = 0;
+              let price = 0;
+              return (
+                <TableRow key={item.id}>
+                  <TittleCells>
+                    <Button
+                      onClick={() => handleClick(item)}
+                      sx={{ fontSize: 20, fontFamily: "koodak" }}
+                    >
+                      بررسی سفارش
+                    </Button>
+                  </TittleCells>
+                  <TableCells>
+                    {new Date(item.orderDate).toLocaleDateString("fa-IR")}
+                  </TableCells>
+                  <TableCells>
+                    {item.orderItems?.map((item) => {
+                      price = +item.price;
+                      sumPrice += price;
+                    })}
+                    <div style={{ direction: "rtl" }}>
+                      {" "}
+                      {dollarUSLocale.format(price)}{" "}
+                    </div>
+                  </TableCells>
+
+                  <TableCells>
+                    {item.customerDetail.firstName}{" "}
+                    {item.customerDetail.lastName}
+                  </TableCells>
+                  <TableCell
+                    sx={{
+                      backgroundColor: "primary.main",
+                      textAlign: "center",
+                      color: "white",
+                      border: "2px solid white",
+                      width: "5px",
+                      fontFamily: "SansWeb",
+                    }}
+                  >
+                    {index + 1}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={4}
+                count={products.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    "aria-label": "rows per page",
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+      <ModalForm open={open} handleclose={() => handleClose()}>
+        <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
+        <ModalOrders info={selectedData} />
+      </ModalForm>
+    </>
   );
 }
-
-

@@ -16,31 +16,18 @@ import HttpService from "../../axios/HttpService";
 import { useNavigate, Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import logo from "../../assets/images/logo/logo.png";
-import Authentication from "../admin/Authentication"
-
-
-const AppBars = styled("nav")(({ theme }) => ({
-   background:" radial-gradient(circle, rgba(108,78,184,1) 20%, rgba(255,255,255,1) 100%)",
-   //radial-gradient(circle, rgba(166,148,233,1) 13%, rgba(238,174,202,1) 76%);
-}));
+import Authentication from "../admin/Authentication";
+import "../../assets/Core-ui/palette.scss";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [data, setData] = React.useState([]);
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    getData();
-  }, []);
-  //-----------
-  const getData = async () => {
-    setData(await HttpService.get("whoami"));
-  };
-  //----------
-
   return (
-    <AppBars position="static" sx={{ p: 3 }}>
-      <Container maxWidth="xl" sx={{ m: 0, mx: "auto", width: "100%", p: 0 }}>
+    <AppBar position="fixed" sx={{ p: 1, backgroundColor: "PDark.main" ,width:"100%"}}>
+      <Container maxWidth="xl" >
         <Toolbar
           disableGutters
           sx={{
@@ -66,12 +53,28 @@ const ResponsiveAppBar = () => {
               <IconButton
                 variant="h6"
                 component="div"
+                sx={{ mr: 5, display: { xs: "none", md: "flex", lg: "flex" } }}
+              >
+                <NavLink
+                  to="/Basket"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#fff8e1" : "black",
+                    textDecoration: "none",
+                  })}
+                >
+                  <AddShoppingCartIcon />
+                </NavLink>
+              </IconButton>
+
+              <IconButton
+                variant="h6"
+                component="div"
                 sx={{ mr: 2, display: { xs: "none", md: "flex", lg: "flex" } }}
               >
                 <NavLink
                   to="/"
                   style={({ isActive }) => ({
-                    color: isActive ? "#6c4eb8" : "black",
+                    color: isActive ? "#fff8e1" : "black",
                     textDecoration: "none",
                   })}
                 >
@@ -84,40 +87,47 @@ const ResponsiveAppBar = () => {
                 sx={{ mr: 2, display: { xs: "none", md: "flex", lg: "flex" } }}
               >
                 <NavLink
-                  to="/Basket"
+                  to="/grouping"
                   style={({ isActive }) => ({
-                    color: isActive ? "#6c4eb8" : "black",
+                    color: isActive ? "#fff8e1" : "black",
                     textDecoration: "none",
                   })}
                 >
-                  سبد خرید
+                  دسته بندی و محصولات
                 </NavLink>
               </IconButton>
 
-             <Authentication/>
+              <Authentication />
             </Grid>
             <Grid
               item
-              xs={8}
+              xs={4}
               sx={{
+                flexGrow: 1,
                 display: "flex",
-                justifyContent: "space-between",
+                flexDirection: "row",
                 alignItems: "center",
               }}
             >
-              <Typography variant="h3" sx={{ fontFamily: "koodak", mx:"auto",color: "white" }}>
+
+            </Grid>
+            <Grid item xs={4} sx={{ align: "center", ml: 5 }}>
+              <Typography
+                variant="h3"
+                sx={{ fontFamily: "koodak", color: "#fff8e1", align: "center", mr: 5, display: { xs: "none", md: "flex", lg: "flex" }  }}
+              >
                 فروشگاه آنلاین ایران سیب
               </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
               <Link to="/">
-                <img src={logo} style={{ width: "200px", float: "right" }} />
+                <img src={logo} style={{ width: "100px", float: "right" }} />
               </Link>
             </Grid>
           </Grid>
         </Toolbar>
       </Container>
-    </AppBars>
+    </AppBar>
   );
 };
 export default ResponsiveAppBar;

@@ -6,14 +6,11 @@ class HttpService {
   constructor() {
     axios.defaults.baseURL = BASE_URL;
     axios.defaults.timeout = 2000;
-    axios.defaults.headers.common["Authorization"]="Athentication"
-
     axios.interceptors.request.use(
       (config) => {
-        if(config.url==="orders"){
+        if(config.url==="orders" ){
           config.headers["token"]=localStorage.getItem("token")
         }
-        //config.headers["X-Total-Count"]=config.lenght
         return config;
       },
       (error) => {
@@ -38,41 +35,35 @@ class HttpService {
   get = async(url) => {
     try {
       const res = await axios.get(url);
-      // res.set({
-      //   'X-Total-Count': '49',
-      //   'Access-Control-Expose-Headers': 'X-Total-Count'
-      // })
-      //res.headers('Access-Control-Expose-Headers', 'X-Total-Count')
-      return res.data;
+      return res;
     } catch (err) {
       return err;
     }
 
   };
 
-  post = async(url,data) => {
+  post = async(url,data,needToken=null) => {
     try {
-      const res = await axios.post(url,data);
-      return res.data;
-    } catch (err) {
-      return err;
-    }
-
-  };
-
-  patch = async(url,data) => {
-    try {
-      const resp = await axios.patch(url,data);
-      return resp.data;
+      const res = await axios.post(url,data,needToken);
+      return res;
     } catch (err) {
       return err;
     }
   };
 
-  delete = async(url,data) => {
+  patch = async(url,data,needToken=null) => {
     try {
-      const resp = await axios.delete(url,data);
-      return resp.data;
+      const res = await axios.patch(url,data,needToken);
+      return res;
+    } catch (err) {
+      return err;
+    }
+  };
+
+  delete = async(url,needToken=null) => {
+    try {
+      const res = await axios.delete(url,needToken);
+      return res;
     } catch (err) {
       return err;
     }

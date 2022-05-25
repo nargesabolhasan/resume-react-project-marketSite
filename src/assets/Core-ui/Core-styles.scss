@@ -1,3 +1,5 @@
+@import "./palette.scss";
+
  @font-face {
     font-family: "koodak";
     src:url("../Fonts/koodak.ttf") format("ttf");
@@ -6,6 +8,8 @@
     font-display: swap;
     //background-color: #6c4eb8;
 }
+
+
 @font-face {
   font-family: "SansWeb";
   src:url("../Fonts/IRANSansWeb\(FaNum\).ttf") format("ttf"),

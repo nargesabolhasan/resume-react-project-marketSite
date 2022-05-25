@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import user from './userSlice'
+import products from './basketSlice'
 //import theme from './themeSlice'
 
 const loadPreloadState = ()=>{
@@ -27,6 +28,7 @@ export const store = configureStore({
   preloadedState: loadPreloadState(),
   reducer: {
     user,
+    products,
     //theme,
   },
 })
@@ -34,6 +36,7 @@ export const store = configureStore({
 store.subscribe(()=>{
   saveState({
     user: store.getState().user,
+    products: store.getState().products,
     // theme: store.getState().theme
    })
 })

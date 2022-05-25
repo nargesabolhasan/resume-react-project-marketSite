@@ -36,18 +36,18 @@ const PanelQuantity = () => {
   }, []);
   //-----------
   const getData = async () => {
-    setData(await HttpService.get("products"));
+    const res=await HttpService.get("products")
+    setData(res?.data);
   };
 
   return (
     <Grid item container alignContent={"center"} xs={12}>
       <Root sx={{ mt: 5, fontFamily: "koodak", mx: "auto" }}>
-        <ButtonAdd> ذخیره</ButtonAdd>
+        
         <Typography
           variant="h3"
-          sx={{ direction: "rtl", mt: 5, fontFamily: "koodak" }}
+          sx={{ direction: "rtl", fontFamily: "koodak" }}
         >
-          {" "}
           موجودی و قیمت ها
         </Typography>
         <SortData products={data} />

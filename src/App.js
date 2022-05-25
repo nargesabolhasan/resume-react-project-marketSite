@@ -11,12 +11,14 @@ import SubmitPayment from "./pages/SubmitPayment";
 import PanelProducts from "./pages/Panel-Products";
 import PanelQuantity from "./pages/Panel-Quantity";
 import PanelOrder from "./pages/Panel-Order";
+import Grouping from "./pages/Grouping";
 
 function App() {
   return (
     <div style={{ fontFamily: "koodak" }}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/grouping" element={<Grouping/>} />
         <Route path="/Basket" element={<Basket />} />
         <Route path="/PanelProducts" element={<PanelProducts />} />
         <Route path="/PanelQuantity" element={<PanelQuantity />} />

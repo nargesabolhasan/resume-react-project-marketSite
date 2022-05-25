@@ -1,0 +1,10 @@
+@import "../../../assets/Core-ui/palette.scss";
+
+.easy-edit-button{
+    background-color: $PDark;
+    color:white;
+    font-family: "SansWeb";
+    font-size: 15px;
+    padding:5px;
+    border-radius:4px
+}
