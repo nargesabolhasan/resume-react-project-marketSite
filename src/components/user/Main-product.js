@@ -24,7 +24,7 @@ const Titles = styled("h3")(({ theme }) => ({
   padding: 10,
   margin: 5,
   color: "white",
-  backgroundColor: "#4f13e3",
+  backgroundColor: "#ba6b6c",
   borderRadius: 5,
 }));
 
@@ -67,7 +67,7 @@ const Counter = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  border: "0.5px solid  #6c4eb8",
+  border: "0.5px solid  #ba6b6c",
   borderRadius: "5px",
   height: "100%",
 }));
@@ -184,7 +184,7 @@ const MainUser = (props) => {
   return (
     <>
     <Div>
-      <InfoCard sx={{ mt: 5 }}>
+      <InfoCard sx={{ mt: 5,backgroundColor: "amber.main"}}>
         <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
         <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
         <Span>
