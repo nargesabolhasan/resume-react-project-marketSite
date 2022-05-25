@@ -52,13 +52,13 @@ const PanelProducts = () => {
   return (
     <Grid item container alignContent={"center"} xs={12}>
       <Root sx={{ mt: 5, fontFamily: "koodak", mx: "auto" }}>
-        <ButtonAdd clickHandler={handleShow}> افزودن کالا</ButtonAdd>
-        <Typography
+      <Typography
           variant="h3"
           sx={{ direction: "rtl", fontFamily: "koodak" }}
         >
           مدیریت کالا ها
         </Typography>
+        <ButtonAdd clickHandler={handleShow}> افزودن کالا</ButtonAdd>
         <TablesProduct products={data} category={category} />
       </Root>
       <ModalForms open={open} handleclose={() => handleClose()}>

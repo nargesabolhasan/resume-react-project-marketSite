@@ -123,7 +123,7 @@ TablePaginationActions.propTypes = {
 export default function CustomPaginationActionsTable(props) {
   const { products, category } = props;
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(4);
   const headerTable =[ "ویرایش / حذف"," دسته بندی ", " نام محصول", " تصویر ", "شماره"]
   const handleDelete=(e) => {
     console.log(e.target.value)
@@ -143,7 +143,7 @@ export default function CustomPaginationActionsTable(props) {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ mx: "auto", mt: 5 }}>
+    <TableContainer component={Paper} sx={{ mx: "auto" ,mt:2}}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
       <TableHead sx={{ borderBottom: 1 }}>
       <TableRow>

@@ -39,8 +39,9 @@ const Basic = (props) => {
   const [uploadedGallery, setIUploadedGallery] = useState([]);
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
+    //-----dollarUSLocale:---
+    let dollarUSLocale = Intl.NumberFormat('en-US');
 
-  console.log(changedData.image);
   const LoginSchema = Yup.object().shape({
     name: Yup.string().min(4, "نام بیشتر از 4 حرف باشد"),
     ENname: Yup.string()
@@ -145,9 +146,16 @@ const Basic = (props) => {
                 <Grid>
                   <TittleInputs> نام محصول</TittleInputs>
                   <TextField
-                    sx={{ m: 0 }}
+                    sx={{ m: 0,fontFamily: "SansWeb",overflowX:"scrole"}}
                     type="text"
                     name="name"
+                    column="1"
+                    multiline
+                    inputProps={{
+                      style: {
+                        height:90,
+                      },
+                    }}
                     onChange={(e) => {
                       handleChanges(e);
                       handleChange(e);
@@ -162,8 +170,15 @@ const Basic = (props) => {
                 <Grid>
                   <TittleInputs> نام لاتین</TittleInputs>
                   <TextField
+                   column="1"
+                   multiline
                     type="text"
                     name="ENname"
+                    inputProps={{
+                      style: {
+                        height:90,
+                      },
+                    }}
                     onChange={(e) => {
                       handleChanges(e);
                       handleChange(e);
@@ -180,12 +195,17 @@ const Basic = (props) => {
                   <TextField
                     type="number"
                     name="price"
+                    inputProps={{
+                      style: {
+                        height:90,
+                      },
+                    }}
                     onChange={(e) => {
                       handleChanges(e);
                       handleChange(e);
                     }}
                     onBlur={handleBlur}
-                    value={values.price}
+                   value={changedData.price}
                   />
                   <Errors variant="h5">
                     {errors.price && touched.price && errors.price}
@@ -352,6 +372,8 @@ const Basic = (props) => {
                 <Grid>
                   <TittleInputs>توضیحات</TittleInputs>
                   <TextField
+                   rows="4"
+                   multiline
                     inputProps={{
                       style: {
                         height: 116,

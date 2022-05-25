@@ -13,7 +13,7 @@ const style = {
   left: "100%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  height: 700,
+  minHeight: 700,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,

@@ -97,7 +97,7 @@ const TabLists = (props) => {
         <TittleCells sx={{ direction: "rtl" }}>{items.name}</TittleCells>
         <TableCells>
           <img
-            style={{ width: "100px" }}
+            style={{ width: "80px" }}
             src={`${BASE_URL}${items.image}`}
             alt="Alt Text!"
           />

@@ -240,7 +240,7 @@ export default function CustomPaginationActionsTable(props) {
                     cancelButtonLabel="لغو"
                     attributes={{ name: "awesome-input", id: 1 }}
                     value={dollarUSLocale.format(item.price)}
-                    instructions="در صورت تغیر مقدار قیمت ، بدون علامت داکننده ذخیره کنید "
+                   
                   />
                 </TableCells>
 
