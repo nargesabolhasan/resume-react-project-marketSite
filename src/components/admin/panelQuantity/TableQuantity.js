@@ -29,18 +29,21 @@ const TittleCells = styled("td")(({ theme }) => ({
     overFlow: "wrap",
     fontSize: 15,
     border: "2px solid #ba6b6c",
+    fontFamily: "SansWeb" 
   },
   
   [theme.breakpoints.up("md")]: {
     width: 100,
     fontSize: 15,
     border: "2px solid #ba6b6c",
+    fontFamily: "SansWeb" 
   },
   [theme.breakpoints.up("lg")]: {
     width: 160,
     fontSize: 20,
-    textAlign: "center",
+    textAlign: "start",
     border: "2px solid #ba6b6c",
+    fontFamily: "SansWeb" 
   },
 }));
 const TableCells = styled("td")(({ theme }) => ({
@@ -65,6 +68,7 @@ const TableCells = styled("td")(({ theme }) => ({
 }));
 
 function TablePaginationActions(props) {
+
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -138,6 +142,9 @@ export default function CustomPaginationActionsTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  //-----dollarUSLocale:---
+  let dollarUSLocale = Intl.NumberFormat('en-US');
+
   //-----savePrice:----
   const savePrice = async (e, item) => {
     await HttpService.patch(
@@ -164,7 +171,7 @@ export default function CustomPaginationActionsTable(props) {
       event.target.disabled = true;
     }
   };
-  const headerTable = [" تعداد موجودی", " قیمت", "نام محصول ", "شماره"];
+  const headerTable = [" تعداد موجودی", " قیمت (تومان)", "نام محصول ", "شماره"];
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -232,7 +239,7 @@ export default function CustomPaginationActionsTable(props) {
                     saveButtonLabel="ذخیره"
                     cancelButtonLabel="لغو"
                     attributes={{ name: "awesome-input", id: 1 }}
-                    value={item.price}
+                    value={ dollarUSLocale.format(item.price)}
                   />
                 </TableCells>
 

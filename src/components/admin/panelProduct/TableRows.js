@@ -18,16 +18,19 @@ const TittleCells = styled("td")(({ theme }) => ({
     width: "5px",
     overFlow: "wrap",
     fontSize: 15,
+    fontFamily: "SansWeb"
   },
   [theme.breakpoints.up("md")]: {
     width: 100,
     fontSize: 15,
+    fontFamily: "SansWeb"
   },
   [theme.breakpoints.up("lg")]: {
     width: 160,
     fontSize: 20,
-    textAlign: "center",
+    textAlign: "start",
     border: "2px solid #ba6b6c",
+    fontFamily: "SansWeb"
   },
 }));
 const TableCells = styled("td")(({ theme }) => ({
