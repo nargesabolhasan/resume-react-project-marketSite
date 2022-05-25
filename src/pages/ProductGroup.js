@@ -59,13 +59,6 @@ const ProductGroup = () => {
         <Dashboards >
           <Container spacing={1}>
               <>
-                <Button
-                  variant="outlined"
-                  sx={{ fontFamily: "koodak", height: "10px", p: 4 }}
-                  onClick={() => handleNavigate(data?.data.id)}
-                >
-                  {data?.data.name}
-                </Button>
                 <Grid
                   container
                   item

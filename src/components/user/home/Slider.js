@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import Box from "@mui/material/Box";
 import { Swiper, SwiperSlide } from "swiper/react";
 import image1 from "../../../assets/images/slider/1.png";
 import image2 from "../../../assets/images/slider/2.webp";
@@ -25,8 +26,8 @@ const Img = styled("div")(({ theme }) => ({
 
 export default function App() {
   return (
-    <>
-      <Swiper
+    < >
+      <Swiper 
    spaceBetween={30}
    centeredSlides={true}
    autoplay={{

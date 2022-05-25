@@ -26,7 +26,7 @@ const ResponsiveAppBar = () => {
   const navigate = useNavigate();
 
   return (
-    <AppBar position="static" sx={{ p: 1, backgroundColor: "PDark.main" ,width:"100%"}}>
+    <AppBar position="fixed" sx={{ p: 1, backgroundColor: "PDark.main" ,width:"100%"}}>
       <Container maxWidth="xl" >
         <Toolbar
           disableGutters

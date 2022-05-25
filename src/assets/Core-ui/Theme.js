@@ -23,6 +23,9 @@ const theme = createTheme({
     PLight: {
       main: "#ffcccb",
     },
+    SLight: {
+      main: "#ef9a9a",
+    },
     warning: {
       main: "#ffc400",
     },

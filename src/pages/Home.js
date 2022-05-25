@@ -57,8 +57,8 @@ const Home = () => {
 
   return (
     <>
-      <Div>
-        <Slider handleOpen={handleOpen}  />
+      <Div sx={{mt:12}}>
+        <Slider handleOpen={handleOpen}/>
 <Box sx={{margin:"30px 0",boxShadow:"5px -10px 20px 2px #ba6b6c37"}}>
         <PhotoWraper>
           <Paragraph sx={{fontSize: { xs: 15, md: 20, lg: 20 },}}

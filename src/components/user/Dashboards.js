@@ -50,12 +50,12 @@ function ResponsiveDrawer(props) {
         <Box key={index} sx={{ direction: "rtl", p: 3 }}>
           <Box>
             <ListItemIcon>
-                    <ApiIcon/>
+                    <ApiIcon sx={{color: "#ba6b6c"}}/>
                   </ListItemIcon>
             <NavLink
               to={`/categories/${record.id}`}
               style={{
-                color: "6c4eb8",
+                color: "#ba6b6c",
                 textDecoration: "none",
                 fontFamily: "koodak",
               }}
@@ -66,12 +66,12 @@ function ResponsiveDrawer(props) {
           <List>
             {record.products.map((text, index) => (
               <ListItem key={text.id} disablePadding>
-                <ListItemButton>
+                <ListItemButton sx={{textAlign: "start"}}>
                   
                   <NavLink
                     to={`/products/${text.id}`}
                     style={{
-                      color: "gray",
+                      color: "black",
                       textDecoration: "none",
                       fontFamily: "koodak",
                     }}

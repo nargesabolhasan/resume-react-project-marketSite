@@ -32,11 +32,11 @@ const CardProduct = (props) => {
           <div className="content">
             <p>{product.description}</p>
             <Button
-              variant="outlined"
-              sx={{ fontFamily: "koodak" }}
+              variant="contained"
+              sx={{ fontFamily: "koodak",backgroundColor: "SLight.main",color : "black"}}
               onClick={() => handleNavigate(product.id)}
             >
-              بیشتر بخوانید ...
+               اطلاعات محصول 
             </Button>
           </div>
         </Grid>
