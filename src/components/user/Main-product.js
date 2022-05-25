@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import EasyEdit from "react-easy-edit";
 import { BASE_URL } from "../../constants/Constants";
 import Box from "@mui/material/Box";
@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
-import Modals from "../modal/Modals"
+import Modals from "../modal/Modals";
 import {
   setProducts,
   selectedProduct,
@@ -81,33 +81,35 @@ const MainUser = (props) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state);
 
-    //**modal **//
-    const [open, setOpen] = useState(false);
-    const [bodyMassages, setBodyMassages] = useState("");
-    const [classname, setClassname] = useState("");
+  //**modal **//
+  const [open, setOpen] = useState(false);
+  const [bodyMassages, setBodyMassages] = useState("");
+  const [classname, setClassname] = useState("");
+  const [thumbnails, setThumbnails] = useState([]);
 
-    //--------Modal open & close :----------
+  //--------Modal open & close :----------
   const handleShow = () => {
     setOpen(true);
     setClassname("failer");
-    setBodyMassages(`  موجودی این کالا ${info?.count} عدد است  ، تعداد مورد نظر شما از موجودی بیشتر است `);
+    setBodyMassages(
+      `  موجودی این کالا ${info?.count} عدد است  ، تعداد مورد نظر شما از موجودی بیشتر است `
+    );
   };
   const handleClose = () => setOpen(false);
 
-    //-----saveCount:----
-    const cancel = () => {
-      //alert("Cancelled");
-    };
+  //-----saveCount:----
+  const cancel = () => {
+    //alert("Cancelled");
+  };
 
-    const saveData=(input)=>{
-      if(input>Number(info?.count)){
-        setCounter(1)
-        handleShow()
-      }else{
-        setCounter(input)
-      }
-      
+  const saveData = (input) => {
+    if (input > Number(info?.count)) {
+      setCounter(1);
+      handleShow();
+    } else {
+      setCounter(input);
     }
+  };
 
   useEffect(() => {
     if (info?.count == counter) {
@@ -127,11 +129,19 @@ const MainUser = (props) => {
       setIsValidIncrease(false);
     }
   }, [counter]);
+  //------------
 
+  useEffect(() => {
+    (() => {
+      let answ = info?.thumbnail.split(",");
+      setThumbnails(answ);
+    })();
+  }, []);
+
+   //------------
   const handleIncrease = () => {
     if (info.count !== 0 && info.count > +counter) {
       setCounter(+counter + 1);
-    
     }
   };
 
@@ -140,9 +150,9 @@ const MainUser = (props) => {
       setCounter(+counter - 1);
     }
   };
-  console.log(counter)
+  console.log(counter);
 
-  const handleShopUpdate =(info, counter)=> {
+  const handleShopUpdate = (info, counter) => {
     // (info, counter) => {
     //   if(products.products){
     //     products.products?.map((item=>{
@@ -155,25 +165,24 @@ const MainUser = (props) => {
     //     }))
     //   }else{
     //     dispatch(setProducts(info))
-      //}
-  }
-    // (info, counter) => {
-    //   if(products.products){
-    //     products.products?.map((item=>{
-    //       console.log(item.id)
-    //       if(item.id==info.id){
-    //         console.log("hi")
-    //       }else{
-    //         dispatch(setProducts(info))
-    //       }
-    //     }))
-    //   }else{
-    //     dispatch(setProducts(info))
-    //   }
-      
-    
+    //}
+  };
+  // (info, counter) => {
+  //   if(products.products){
+  //     products.products?.map((item=>{
+  //       console.log(item.id)
+  //       if(item.id==info.id){
+  //         console.log("hi")
+  //       }else{
+  //         dispatch(setProducts(info))
+  //       }
+  //     }))
+  //   }else{
+  //     dispatch(setProducts(info))
+  //   }
 
   return (
+    <>
     <Div>
       <InfoCard sx={{ mt: 5 }}>
         <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
@@ -198,19 +207,18 @@ const MainUser = (props) => {
               +
             </Button>
             {/* <Typographys>{counter}</Typographys> */}
-            <Box sx={{p:3,fontSize:20,fontFamily: "SansWeb"}}>
-            <EasyEdit
-            
-                    type="text"
-                    onSave={(e) => saveData(e)}
-                    onCancel={cancel}
-                    saveButtonLabel="ذخیره "
-                    cancelButtonLabel="لغو "
-                    attributes={{ name: "awesome-input", id: 1 }}
-                    value={counter}
-                    instructions={`تعداد موجودی :${info?.count}`}
-                  />
-</Box>
+            <Box sx={{ p: 3, fontSize: 20, fontFamily: "SansWeb" }}>
+              <EasyEdit
+                type="text"
+                onSave={(e) => saveData(e)}
+                onCancel={cancel}
+                saveButtonLabel="ذخیره "
+                cancelButtonLabel="لغو "
+                attributes={{ name: "awesome-input", id: 1 }}
+                value={counter}
+                instructions={`تعداد موجودی :${info?.count}`}
+              />
+            </Box>
             <Button
               variant="outlined"
               sx={{ height: "100%", fontSize: 20, p: 0 }}
@@ -233,7 +241,7 @@ const MainUser = (props) => {
           افزودن به سبد خرید
         </Buttons>
       </InfoCard>
-      <Img src={`${BASE_URL}${info?.image}`} />
+        <Img src={`${BASE_URL}${info?.image}`} />
       <Modals
         open={open}
         handleclose={() => handleClose()}
@@ -241,6 +249,12 @@ const MainUser = (props) => {
         classname={classname}
       />
     </Div>
+          <Box sx={{display:"flex" ,flexDirection: "row",justifyContent: "space-around",alignItems: "center",width: "50%",mt:8,float : "right"}}>
+          {thumbnails?.map((image, index) => (
+            <img key={index} src={`${BASE_URL}${image}`} style={{ width: "100px" }} />
+          ))}
+        </Box>
+</>
   );
 };
 
