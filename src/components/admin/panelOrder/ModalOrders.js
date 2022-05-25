@@ -84,7 +84,7 @@ const ModalOrders = (props) => {
           </TableBody>
         </Table>
       ))}
-      <ButtonAdd clickHandler={handleSubmit}>تحویل شد</ButtonAdd>
+      {(info.orderStatus===3)?<ButtonAdd clickHandler={handleSubmit}>تحویل شد</ButtonAdd>:<h1>Add</h1>}
     </Div>
   );
 };
