@@ -149,7 +149,7 @@ export default function CustomPaginationActionsTable(props) {
   const savePrice = async (e, item) => {
     await HttpService.patch(
       `products/${item.id}`,
-      { ...item, price: e },
+      { ...item, price: Number(e.replace(",", "").replace(",", "")) },
       { headers: { token: localStorage.getItem("token") } }
     );
   };
@@ -239,7 +239,8 @@ export default function CustomPaginationActionsTable(props) {
                     saveButtonLabel="ذخیره"
                     cancelButtonLabel="لغو"
                     attributes={{ name: "awesome-input", id: 1 }}
-                    value={ dollarUSLocale.format(item.price)}
+                    value={dollarUSLocale.format(item.price)}
+                    instructions="در صورت تغیر مقدار قیمت ، بدون علامت داکننده ذخیره کنید "
                   />
                 </TableCells>
 

@@ -223,7 +223,7 @@ export default function CustomPaginationActionsTable(props) {
                   </TableCells>
                   <TableCells>
                     {item.orderItems?.map((item) => {
-                      price = +item.price.replace(",", "").replace(",", "");
+                      price = +item.price
                       sumPrice += price;
                     })}
                     <div style={{ direction: "rtl" }}> { dollarUSLocale.format(price)} </div>

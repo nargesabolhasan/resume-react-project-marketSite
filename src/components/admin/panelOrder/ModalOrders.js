@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
@@ -28,10 +28,14 @@ const Div = styled("div")(({ theme }) => ({
   justifyContent: "space-around",
   alignItems: "center",
 }));
+//--------------------------------------------
 
 const ModalOrders = (props) => {
   const { info } = props;
   const header = ["نام کالا", "قیمت"];
+  const [allPrice, setAllPrice]=useState(0);
+
+  let dollarUSLocale = Intl.NumberFormat('en-US');
 
   const handleSubmit = () => {
     axios.patch(
@@ -43,29 +47,56 @@ const ModalOrders = (props) => {
       window.location.reload(false);
     }, 1000);
   };
-  console.log(info);
+
+  //all price:
+  // (() => {
+  //   info.orderItems.map((item) =>{
+  //     setAllPrice(allPrice+item.price*item.count)
+  //   })
+  // })();
+
+
+  useEffect(() => {
+    ( () => {
+      let sum=0
+    info.orderItems.map((item) =>{
+      sum=item.price*item.count;
+      sum+=sum
+      setAllPrice(sum)
+    })
+    })();
+  }, []);
+
   return (
     <Div>
       <TittleCells>بررسی اطلاعات</TittleCells>
       <Div>
-        <Table>
+        <Table sx={{fontFamily:"SansWeb"}}>
           <TableHead sx={{ color: "white", backgroundColor: "primary.main" }}>
-            <TableCells sx={{ textAlign: "center" }}>نام </TableCells>
-            <TableCells sx={{ textAlign: "center" }}> نام خانوادگی</TableCells>
-            <TableCells sx={{ textAlign: "center" }}>شماره تماس</TableCells>
-            <TableCells sx={{ textAlign: "center" }}> محل سکونت</TableCells>
+            <TableCells sx={{ textAlign: "center",fontSize:15}}>نام </TableCells>
+            <TableCells sx={{ textAlign: "center" ,fontSize:15}}> نام خانوادگی</TableCells>
+            <TableCells sx={{ textAlign: "center",fontSize:15 }}>شماره تماس</TableCells>
+            <TableCells sx={{ textAlign: "center",fontSize:15 }}> محل سکونت</TableCells>
+            <TableCells sx={{ textAlign: "center",fontSize:15 }}>  زمان ثبت سفارش</TableCells>
+            <TableCells sx={{ textAlign: "center",fontSize:15 }}>  زمان تحویل سفارش</TableCells>
           </TableHead>
-          <TableCells sx={{ textAlign: "center" }}>
+          <TableCells sx={{ textAlign: "center" ,fontSize:15}}>
             {info.customerDetail.firstName}
           </TableCells>
-          <TableCells sx={{ textAlign: "center" }}>
+          <TableCells sx={{ textAlign: "center",fontSize:15 }}>
             {info.customerDetail.lastName}
           </TableCells>
-          <TableCells sx={{ textAlign: "center" }}>
+          <TableCells sx={{ textAlign: "center" ,fontSize:15}}>
             {info.customerDetail.phone}
           </TableCells>
-          <TableCells sx={{ textAlign: "center" }}>
+          <TableCells sx={{ textAlign: "center" ,fontSize:15}}>
             {info.customerDetail.billingAddress}
+          </TableCells>
+          <TableCells sx={{ textAlign: "center" ,fontSize:15}}>
+          {new Date(info.orderDate).toLocaleDateString("fa-IR")}
+          </TableCells>
+          <TableCells sx={{ textAlign: "center" ,fontSize:15}}>
+          {new Date(info.deliveredAt).toLocaleDateString("fa-IR")}
           </TableCells>
         </Table>
       </Div>
@@ -73,17 +104,22 @@ const ModalOrders = (props) => {
         <Table>
           <TableHead sx={{ color: "white", backgroundColor: "primary.main" }}>
             {header.map((item) => (
-              <TableCells sx={{ textAlign: "center" }}>{item}</TableCells>
+              <TableCells sx={{ textAlign: "center",fontSize:15 }}>{item}</TableCells>
             ))}
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCells> {item.name}</TableCells>
-              <TableCells> {item.price}</TableCells>
+              <TableCells sx={{ textAlign: "start",fontSize:15 }}> {item.name}</TableCells>
+              <TableCells sx={{ textAlign: "center",fontSize:15 }}> { dollarUSLocale.format(item.price)}</TableCells>
+              <TableCells sx={{ textAlign: "center",fontSize:15 }}> {item.count}</TableCells>
             </TableRow>
           </TableBody>
         </Table>
       ))}
+      <Box>
+        <Typography>قیمت نهایی:</Typography>
+        <Typography>{ dollarUSLocale.format(allPrice)}</Typography>
+      </Box>
       {(info.orderStatus===3)?<ButtonAdd clickHandler={handleSubmit}>تحویل شد</ButtonAdd>:<h1>Add</h1>}
     </Div>
   );
