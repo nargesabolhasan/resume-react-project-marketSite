@@ -20,7 +20,7 @@ const TittleCells = styled("td")(({ theme }) => ({
   textAlign: "center",
   fontSize: 20,
   padding: 5,
-  fontFamily: "koodak",
+  fontFamily: "SansWeb",
 }));
 const Div = styled("div")(({ theme }) => ({
   display: "flex",
@@ -32,7 +32,7 @@ const Div = styled("div")(({ theme }) => ({
 
 const ModalOrders = (props) => {
   const { info } = props;
-  const header = ["نام کالا", "قیمت"];
+  const header = ["نام کالا", "قیمت", "تعداد"];
   const [allPrice, setAllPrice]=useState(0);
 
   let dollarUSLocale = Intl.NumberFormat('en-US');
@@ -47,21 +47,11 @@ const ModalOrders = (props) => {
       window.location.reload(false);
     }, 1000);
   };
-
-  //all price:
-  // (() => {
-  //   info.orderItems.map((item) =>{
-  //     setAllPrice(allPrice+item.price*item.count)
-  //   })
-  // })();
-
-
   useEffect(() => {
     ( () => {
       let sum=0
     info.orderItems.map((item) =>{
-      sum=item.price*item.count;
-      sum+=sum
+      sum+=item.price*item.count
       setAllPrice(sum)
     })
     })();
@@ -69,14 +59,14 @@ const ModalOrders = (props) => {
 
   return (
     <Div>
-      <TittleCells>بررسی اطلاعات</TittleCells>
+      <TittleCells>مشتری اطلاعات</TittleCells>
       <Div>
         <Table sx={{fontFamily:"SansWeb"}}>
           <TableHead sx={{ color: "white", backgroundColor: "primary.main" }}>
             <TableCells sx={{ textAlign: "center",fontSize:15}}>نام </TableCells>
             <TableCells sx={{ textAlign: "center" ,fontSize:15}}> نام خانوادگی</TableCells>
             <TableCells sx={{ textAlign: "center",fontSize:15 }}>شماره تماس</TableCells>
-            <TableCells sx={{ textAlign: "center",fontSize:15 }}> محل سکونت</TableCells>
+            <TableCells sx={{ textAlign: "center",fontSize:15 }}> آدرس</TableCells>
             <TableCells sx={{ textAlign: "center",fontSize:15 }}>  زمان ثبت سفارش</TableCells>
             <TableCells sx={{ textAlign: "center",fontSize:15 }}>  زمان تحویل سفارش</TableCells>
           </TableHead>
@@ -100,8 +90,11 @@ const ModalOrders = (props) => {
           </TableCells>
         </Table>
       </Div>
+      <Div sx={{mt:10,mb:10,borderTop:1}}>
+      <TittleCells> اطلاعات سفارشات</TittleCells>
+
       {info.orderItems.map((item) => (
-        <Table>
+        <Table sx={{width:570, p:3, mt :3,fontFamily:"SansWeb"}}>
           <TableHead sx={{ color: "white", backgroundColor: "primary.main" }}>
             {header.map((item) => (
               <TableCells sx={{ textAlign: "center",fontSize:15 }}>{item}</TableCells>
@@ -116,11 +109,12 @@ const ModalOrders = (props) => {
           </TableBody>
         </Table>
       ))}
-      <Box>
-        <Typography>قیمت نهایی:</Typography>
-        <Typography>{ dollarUSLocale.format(allPrice)}</Typography>
+      </Div>
+      <Box sx={{mb:5,borderTop:1,borderBottom:1, p:3}}>
+        <TittleCells>قیمت نهایی:</TittleCells>
+        <TittleCells>{ dollarUSLocale.format(allPrice)}</TittleCells>
       </Box>
-      {(info.orderStatus===3)?<ButtonAdd clickHandler={handleSubmit}>تحویل شد</ButtonAdd>:<h1>Add</h1>}
+      {(info.orderStatus===3)?<ButtonAdd clickHandler={handleSubmit}>تحویل شد</ButtonAdd>:<TittleCells>تاریخ تحویل : ...</TittleCells>}
     </Div>
   );
 };

@@ -31,7 +31,7 @@ const PanelOrder = () => {
   }, []);
   //-----------
   const getData = async () => {
-    const result= await HttpService.get("orders")
+    const result= await HttpService.get("orders?_sort=orderDate")
     setData(result?.data)
   };
   

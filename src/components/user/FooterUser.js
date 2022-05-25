@@ -186,7 +186,7 @@ export default function FullWidthGrid() {
             }}
           >
             <InstagramIcon />
-            <Typography sx={{ fontFamily: "SansWeb" }}>@iranSib</Typography>
+            <Typography sx={{ fontFamily: "SansWeb" }}>iranSib@</Typography>
           </Item>
         </Grid>
         <Grid item xs={3}>
@@ -199,7 +199,7 @@ export default function FullWidthGrid() {
             }}
           >
             <TwitterIcon />
-            <Typography sx={{ fontFamily: "SansWeb" }}>@iranSib</Typography>
+            <Typography sx={{ fontFamily: "SansWeb" }}>iranSib@</Typography>
           </Item>
         </Grid>
         <Grid item xs={3}>
@@ -212,7 +212,7 @@ export default function FullWidthGrid() {
             }}
           >
             <TelegramIcon />
-            <Typography sx={{ fontFamily: "SansWeb" }}>@iranSib</Typography>
+            <Typography sx={{ fontFamily: "SansWeb" }}>iranSib@</Typography>
           </Item>
         </Grid>
         <Grid item xs={3}>
@@ -225,7 +225,7 @@ export default function FullWidthGrid() {
             }}
           >
             <WhatsAppIcon />
-            <Typography sx={{ fontFamily: "SansWeb" }}>@iranSib</Typography>
+            <Typography sx={{ fontFamily: "SansWeb" }}>iranSib@</Typography>
           </Item>
         </Grid>
       </Grid>
