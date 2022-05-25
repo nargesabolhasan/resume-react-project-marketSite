@@ -30,7 +30,8 @@ const CardProduct = (props) => {
         </Grid>
         <Grid className="face face2">
           <div className="content">
-            <p>{product.description}</p>
+            <>{product.description}</>
+            
             <Button
               variant="contained"
               sx={{ fontFamily: "koodak",backgroundColor: "SLight.main",color : "black"}}

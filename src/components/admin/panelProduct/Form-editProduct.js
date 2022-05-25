@@ -41,6 +41,7 @@ const Basic = (props) => {
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
   const [thumbnails, setThumbnails] = useState([]);
+  const [dataDesciption ,setDataDiscription]=useState();
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string().min(4, "نام بیشتر از 4 حرف باشد"),
@@ -72,9 +73,8 @@ const Basic = (props) => {
     
   };
     //-------handle Changes:---------
-    const handleCkeditore = (e,editor) => {
-    setChangedData({ ...changedData, [e.target.name]:editor.getData() });
-    console.log(e.target.getContent())
+    const handleCkeditore = (e, editor) => {
+      setDataDiscription(editor?.getData());
     };
   //---------submitEdit:-----------
   const submitEdit = async (input) => {
@@ -107,16 +107,6 @@ const Basic = (props) => {
   };
   //--------uplaod thumbnails :-------
   const handleUploadThumbnail = async (e) => {
-    // (() => {
-    //   if (!uploadingImage) {
-    //      setIUploadedImage(product);
-    //     console.log(uploadedImage);
-    //   }
-    //   if (!uploadingGallery) {
-    //      setIUploadedGallery(thumbnails);
-    //     console.log(uploadedGallery);
-    //   }
-    // })()
     const image = e.target.files[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -155,6 +145,7 @@ const Basic = (props) => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
+            values={...values,"description":dataDesciption};
             submitEdit(values);
           }, 400);
         }}
@@ -483,22 +474,9 @@ const Basic = (props) => {
                       "redo",
                     ],
                   }}
-                  onInit={(editor) => {
-                    // You can store the "editor" and use when it is needed.
-                    console.log("Editor is ready to use!", editor);
-                    console.log(
-                      "toolbar: ",
-                      Array.from(editor.ui.componentFactory.names())
-                    );
-                    console.log(
-                      "plugins: ",
-                      ClassicEditor.builtinPlugins.map(
-                        (plugin) => plugin.pluginName
-                      )
-                    );
-                  }}
+                  name="description"
                   onChange={(e,editor) => {
-                    handleCkeditore(e,editor);
+                    handleCkeditore(editor);
                     // handleChange(e,editor);
                   }}
                   onBlur={handleBlur}

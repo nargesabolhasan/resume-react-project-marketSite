@@ -11,6 +11,9 @@ import ButtonAdd from "../../buttons/Button-add";
 import { BASE_URL } from "../../../constants/Constants";
 import galleryIcon from "../../../assets/images/uploadImage/galleryIcon.png";
 import imageIcon from "../../../assets/images/uploadImage/imageIcon.png";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import CloseIcon from "@mui/icons-material/Close";
 
 const EditForm = styled("form")(({ theme }) => ({
   fontFamily: "koodak",
@@ -36,6 +39,7 @@ const Basic = () => {
   const [uploadedGallery, setIUploadedGallery] = useState([]);
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
+  const [dataDesciption ,setDataDiscription]=useState();
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
@@ -59,7 +63,7 @@ const Basic = () => {
     price: Yup.number().required("قیمت محصول را وارد کنید"),
     count: Yup.number().required(" تعداد محصول را وارد کنید "),
     color: Yup.string().required("رنگ محصول را وارد کنید "),
-    description: Yup.string().required("توضیحات محصول را وارد کنید"),
+    //description: Yup.string()("توضیحات محصول را وارد کنید"),
   });
 
   // `/files/${uploadedGallery}`
@@ -69,7 +73,7 @@ const Basic = () => {
     for (const [key, value] of Object.entries({
       ...input,
       image: `/files/${uploadedImage}`,
-      thumbnail:[uploadedGallery.map(image =>(`/files/${image}`))],
+      thumbnail: [uploadedGallery.map((image) => `/files/${image}`)],
     })) {
       formData.append(key, value);
     }
@@ -77,6 +81,7 @@ const Basic = () => {
     setTimeout(() => {
       window.location.reload(false);
     }, 1000);
+    console.log(input)
   };
   //-------uplaod one image:---------
   const handleUpload = async (e) => {
@@ -98,6 +103,16 @@ const Basic = () => {
     setIUploadingGallery(true);
     setIUploadedGallery([...uploadedGallery, res?.data.filename]);
   };
+  //-------handle Changes:---------
+  const handleCkeditore = (e, editor) => {
+    setDataDiscription(editor?.getData());
+  };
+
+    //------delete new photos:----
+    const deleteNewphotos = (input) => {
+      setIUploadedGallery(uploadedGallery.filter((i) => i !== input));
+      //console.log(input)
+    };
 
   return (
     <div>
@@ -118,6 +133,7 @@ const Basic = () => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
+            values={...values,"description":dataDesciption};
             submitAdd(values);
           }, 400);
         }}
@@ -251,24 +267,24 @@ const Basic = () => {
             >
               <Grid
                 sx={{
-                  width:210,
+                  width: 210,
                 }}
               >
                 <TittleInputs>تصویر</TittleInputs>
-                <Grid sx={{border:"2px solid gray",height:95,p:2}}>
-                {uploadingImage ? (
-                  <img
-                    src={`${BASE_URL}/files/${uploadedImage}`}
-                    alt="Alt Text!"
-                    style={{ width: "80px"}}
-                  />
-                ) : (
-                  <img
-                    src={imageIcon}
-                    alt="Alt Text!"
-                    style={{ width: "80px" }}
-                  />
-                )}
+                <Grid sx={{ border: "2px solid gray", height: 95, p: 2 }}>
+                  {uploadingImage ? (
+                    <img
+                      src={`${BASE_URL}/files/${uploadedImage}`}
+                      alt="Alt Text!"
+                      style={{ width: "80px" }}
+                    />
+                  ) : (
+                    <img
+                      src={imageIcon}
+                      alt="Alt Text!"
+                      style={{ width: "80px" }}
+                    />
+                  )}
                 </Grid>
                 <TextField
                   className="TextField"
@@ -288,30 +304,44 @@ const Basic = () => {
               </Grid>
               <Grid
                 sx={{
-                  width:210
+                  width: 210,
                 }}
               >
                 <TittleInputs>تصاویر گالری</TittleInputs>
-                <Grid sx={{border:"2px solid gray",minHeight:95}}>
-                {uploadingGallery ? (
-                  uploadedGallery.map((image, index) => (
+                <Grid sx={{ border: "2px solid gray", minHeight: 95 }}>
+                  {uploadingGallery ? (
+                    uploadedGallery.map((image, index) => (
+                      <span key={index} sx={{ width: "200px" }}>
+                      <CloseIcon
+                        sx={{
+                          backgroundColor: "primary.main",
+                          color: "white",
+                          fontSize: 20,
+                          position: "absolute",
+                          border: 3,
+                          borderColor: "primary.main",
+                          borderRadius: "11px",
+                        }}
+                        onClick={() => deleteNewphotos(image)}
+                      />
+                      <img
+                        key={index}
+                        src={`${BASE_URL}/files/${image}`}
+                        alt="Alt Text!"
+                        style={{ width: "80px" }}
+                      />
+                      </span>
+                    ))
+                  ) : (
                     <img
-                      key={index}
-                      src={`${BASE_URL}/files/${image}`}
+                      src={galleryIcon}
                       alt="Alt Text!"
                       style={{ width: "80px" }}
                     />
-                  ))
-                ) : (
-                  <img
-                    src={galleryIcon}
-                    alt="Alt Text!"
-                    style={{ width: "80px" }}
-                  />
-                )}
+                  )}
                 </Grid>
                 <TextField
-                inputProps={{ multiple: true }} 
+                  inputProps={{ multiple: true }}
                   className="TextField"
                   id="thumbnail"
                   name="thumbnail"
@@ -327,7 +357,7 @@ const Basic = () => {
                   {errors.thumbnail && touched.thumbnail && errors.thumbnail}
                 </Errors>
               </Grid>
-              <Grid>
+              {/* <Grid>
                 <TittleInputs>توضیحات</TittleInputs>
                 <TextField
                 multiline
@@ -338,7 +368,7 @@ const Basic = () => {
                   },
                 }}
                   type="text"
-                  name="description"
+                  name=""signator_text""
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.description}
@@ -348,8 +378,44 @@ const Basic = () => {
                     touched.description &&
                     errors.description}
                 </Errors>
-              </Grid>
+              </Grid> */}
             </Grid>
+            <div>
+            <TittleInputs>توضیحات</TittleInputs>
+              <CKEditor
+                editor={ClassicEditor}
+                data={values.description}
+                name="description"
+                config={{
+                  toolbar: [
+                    "heading",
+                    "|",
+                    "bold",
+                    "italic",
+                    "bulletedList",
+                    "numberedList",
+                    "blockQuote",
+                    "ckfinder",
+                    "|",
+                    "undo",
+                    "redo",
+                  ],
+                }}
+                onChange={(e, editor) => {
+                  handleCkeditore(e, editor);
+                  //handleChange(editor?.getData());
+                }}
+                onBlur={handleBlur}
+                onFocus={(editor) => {
+                  console.log("Focus.", editor);
+                }}
+              />
+               <Errors variant="h5">
+                  {errors.description &&
+                    touched.description &&
+                    errors.description}
+                </Errors>
+            </div>
 
             <ButtonAdd type="submit" disabled={isSubmitting}>
               ذخیره
