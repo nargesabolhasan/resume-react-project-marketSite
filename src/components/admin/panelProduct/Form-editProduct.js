@@ -10,8 +10,9 @@ import ButtonAdd from "../../buttons/Button-add";
 import Grid from "@mui/material/Grid";
 import "./prodactStyle.scss";
 import { BASE_URL } from "../../../constants/Constants";
-import galleryIcon from "../../../assets/images/uploadImage/galleryIcon.png";
-import imageIcon from "../../../assets/images/uploadImage/imageIcon.png";
+import CloseIcon from "@mui/icons-material/Close";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 //----component styles----------------
 
@@ -40,8 +41,6 @@ const Basic = (props) => {
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
   const [thumbnails, setThumbnails] = useState([]);
-  //-----dollarUSLocale:---
-  let dollarUSLocale = Intl.NumberFormat("en-US");
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string().min(4, "نام بیشتر از 4 حرف باشد"),
@@ -59,29 +58,42 @@ const Basic = (props) => {
     description: Yup.string("توضیحات محصول را وارد کنید"),
   });
 
+  //---------------------
+  useEffect(() => {
+    (() => {
+      let answ = changedData.thumbnail.split(",");
+      setThumbnails(answ);
+    })();
+  }, []);
+  //-------handle Changes:---------
   const handleChanges = (e) => {
-      setChangedData({ ...changedData, [e.target.name]: e.target.value });
+    setChangedData({ ...changedData, [e.target.name]: e.target.value });
 
+    
   };
-
-  //---------patch:-----------
+    //-------handle Changes:---------
+    const handleCkeditore = (e,editor) => {
+    setChangedData({ ...changedData, [e.target.name]:editor.getData() });
+    console.log(e.target.getContent())
+    };
+  //---------submitEdit:-----------
   const submitEdit = async (input) => {
-    const formData = new FormData();
-    for (const [key, value] of Object.entries({
-      ...changedData,
-      image: `/files/${uploadedImage}`,
-      thumbnail:[uploadedGallery.map(image =>(`/files/${image}`))],
-    })) {
-      formData.append(key, value);
-    }
-    await HttpService.patch(`products/${product.id}`, formData, {
-      headers: { token: localStorage.getItem("token") },
-    });
+      const formData = new FormData();
+      for (const [key, value] of Object.entries({
+        ...changedData,
+        image: `/files/${uploadedImage}`,
+        thumbnail: [uploadedGallery.map((image) => `/files/${image}`)],
+      })) {
+        formData.append(key, value);
+      }
+      await HttpService.patch(`products/${product.id}`, formData, {
+        headers: { token: localStorage.getItem("token") },
+      });
     setTimeout(() => {
       window.location.reload(false);
     }, 1000);
-
   };
+
   //-------uplaod one image:---------
   const handleUpload = async (e) => {
     const image = e.target.files[0];
@@ -95,6 +107,16 @@ const Basic = (props) => {
   };
   //--------uplaod thumbnails :-------
   const handleUploadThumbnail = async (e) => {
+    // (() => {
+    //   if (!uploadingImage) {
+    //      setIUploadedImage(product);
+    //     console.log(uploadedImage);
+    //   }
+    //   if (!uploadingGallery) {
+    //      setIUploadedGallery(thumbnails);
+    //     console.log(uploadedGallery);
+    //   }
+    // })()
     const image = e.target.files[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -103,16 +125,17 @@ const Basic = (props) => {
     setIUploadingGallery(true);
     setIUploadedGallery([...uploadedGallery, res?.data.filename]);
   };
+  //------delete Old photos:----
+  const deleteOldphotos = (input) => {
+    setThumbnails(thumbnails.filter((i) => i !== input));
+    //console.log(input)
+  };
+  //------delete new photos:----
+  const deleteNewphotos = (input) => {
+    setIUploadedGallery(uploadedGallery.filter((i) => i !== input));
+    //console.log(input)
+  };
 
-  //---------------------
-  useEffect(() => {
-    (() => {
-      let answ = changedData.thumbnail.split(",");
-      setThumbnails(answ);
-    })();
-  }, []);
-
-  console.log(thumbnails);
   return (
     <div>
       <h1>ویرایش کالا</h1>
@@ -316,7 +339,7 @@ const Basic = (props) => {
                   }}
                 >
                   <TittleInputs>تصویر</TittleInputs>
-                  <Grid sx={{ border: "2px solid gray", height: 95, p: 2 }}>
+                  <Grid sx={{ border: "2px solid gray", minHeight: 95, p: 2 }}>
                     {uploadingImage ? (
                       <img
                         src={`${BASE_URL}/files/${uploadedImage}`}
@@ -353,23 +376,50 @@ const Basic = (props) => {
                   }}
                 >
                   <TittleInputs>تصاویر گالری</TittleInputs>
-                  <Grid sx={{ border: "2px solid gray" }}>
+                  <Grid sx={{ border: "2px solid gray", minHeight: 95, p: 2 }}>
                     {uploadedGallery.map((image, index) => (
-                      <img
-                        key={index}
-                        src={`${BASE_URL}/files/${image}`}
-                        alt="Alt Text!"
-                        style={{ width: "80px" }}
-                      />
+                      <span key={index} sx={{ width: "200px" }}>
+                        <CloseIcon
+                          sx={{
+                            backgroundColor: "primary.main",
+                            color: "white",
+                            fontSize: 20,
+                            position: "absolute",
+                            border: 3,
+                            borderColor: "primary.main",
+                            borderRadius: "11px",
+                          }}
+                          onClick={() => deleteNewphotos(image)}
+                        />
+                        <img
+                          src={`${BASE_URL}/files/${image}`}
+                          alt="Alt Text!"
+                          style={{ width: "80px" }}
+                        />
+                      </span>
                     ))}
 
                     {thumbnails?.map((image, index) => (
-                      <img
-                        key={index}
-                        src={`${BASE_URL}${image}`}
-                        alt="Alt Text!"
-                        style={{ width: "80px" }}
-                      />
+                      <span key={index} sx={{ width: "200px" }}>
+                        <CloseIcon
+                          sx={{
+                            backgroundColor: "primary.main",
+                            color: "white",
+                            fontSize: 20,
+                            position: "absolute",
+                            border: 3,
+                            borderColor: "primary.main",
+                            borderRadius: "11px",
+                          }}
+                          onClick={() => deleteOldphotos(image)}
+                        />
+                        <img
+                          key={index}
+                          src={`${BASE_URL}${image}`}
+                          alt="Alt Text!"
+                          style={{ width: "80px" }}
+                        />
+                      </span>
                     ))}
                   </Grid>
                   <TextField
@@ -388,7 +438,7 @@ const Basic = (props) => {
                     {errors.thumbnail && touched.thumbnail && errors.thumbnail}
                   </Errors>
                 </Grid>
-                <Grid>
+                {/* <Grid>
                   <TittleInputs>توضیحات</TittleInputs>
                   <TextField
                     rows="4"
@@ -412,8 +462,51 @@ const Basic = (props) => {
                       touched.description &&
                       errors.description}
                   </Errors>
-                </Grid>
+                </Grid> */}
               </Grid>
+              <div >
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={changedData.description}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+                      "bulletedList",
+                      "numberedList",
+                      "blockQuote",
+                      "ckfinder",
+                      "|",
+                      "undo",
+                      "redo",
+                    ],
+                  }}
+                  onInit={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    console.log("Editor is ready to use!", editor);
+                    console.log(
+                      "toolbar: ",
+                      Array.from(editor.ui.componentFactory.names())
+                    );
+                    console.log(
+                      "plugins: ",
+                      ClassicEditor.builtinPlugins.map(
+                        (plugin) => plugin.pluginName
+                      )
+                    );
+                  }}
+                  onChange={(e,editor) => {
+                    handleCkeditore(e,editor);
+                    // handleChange(e,editor);
+                  }}
+                  onBlur={handleBlur}
+                  onFocus={(editor) => {
+                    console.log("Focus.", editor);
+                  }}
+                />
+              </div>
               <ButtonAdd type="submit" disabled={isSubmitting}>
                 ذخیره
               </ButtonAdd>

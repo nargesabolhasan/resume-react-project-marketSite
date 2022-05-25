@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useCallback } from "react";
-import HttpService from "../../axios/HttpService";
+import EasyEdit from "react-easy-edit";
 import { BASE_URL } from "../../constants/Constants";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
+import Modals from "../modal/Modals"
 import {
   setProducts,
   selectedProduct,
@@ -58,7 +59,7 @@ const Span = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   direction: "rtl",
-  height: "50px",
+  minHeight: "50px",
 }));
 
 const Counter = styled("span")(({ theme }) => ({
@@ -80,6 +81,34 @@ const MainUser = (props) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state);
 
+    //**modal **//
+    const [open, setOpen] = useState(false);
+    const [bodyMassages, setBodyMassages] = useState("");
+    const [classname, setClassname] = useState("");
+
+    //--------Modal open & close :----------
+  const handleShow = () => {
+    setOpen(true);
+    setClassname("failer");
+    setBodyMassages(`  موجودی این کالا ${info?.count} عدد است  ، تعداد مورد نظر شما از موجودی بیشتر است `);
+  };
+  const handleClose = () => setOpen(false);
+
+    //-----saveCount:----
+    const cancel = () => {
+      //alert("Cancelled");
+    };
+
+    const saveData=(input)=>{
+      if(input>Number(info?.count)){
+        setCounter(1)
+        handleShow()
+      }else{
+        setCounter(input)
+      }
+      
+    }
+
   useEffect(() => {
     if (info?.count == counter) {
       setIsValidIncrease(false);
@@ -100,16 +129,18 @@ const MainUser = (props) => {
   }, [counter]);
 
   const handleIncrease = () => {
-    if (info.count !== 0 && info.count > counter) {
-      setCounter(counter + 1);
+    if (info.count !== 0 && info.count > +counter) {
+      setCounter(+counter + 1);
+    
     }
   };
 
   const handleDicrease = () => {
-    if (counter > 1) {
-      setCounter(counter - 1);
+    if (+counter > 1) {
+      setCounter(+counter - 1);
     }
   };
+  console.log(counter)
 
   const handleShopUpdate =(info, counter)=> {
     // (info, counter) => {
@@ -142,11 +173,6 @@ const MainUser = (props) => {
       
     
 
-
-
-
-  console.log(products.products);
-
   return (
     <Div>
       <InfoCard sx={{ mt: 5 }}>
@@ -171,8 +197,20 @@ const MainUser = (props) => {
             >
               +
             </Button>
-            <Typographys>{counter}</Typographys>
-
+            {/* <Typographys>{counter}</Typographys> */}
+            <Box sx={{p:3,fontSize:20,fontFamily: "SansWeb"}}>
+            <EasyEdit
+            
+                    type="text"
+                    onSave={(e) => saveData(e)}
+                    onCancel={cancel}
+                    saveButtonLabel="ذخیره "
+                    cancelButtonLabel="لغو "
+                    attributes={{ name: "awesome-input", id: 1 }}
+                    value={counter}
+                    instructions={`تعداد موجودی :${info?.count}`}
+                  />
+</Box>
             <Button
               variant="outlined"
               sx={{ height: "100%", fontSize: 20, p: 0 }}
@@ -196,6 +234,12 @@ const MainUser = (props) => {
         </Buttons>
       </InfoCard>
       <Img src={`${BASE_URL}${info?.image}`} />
+      <Modals
+        open={open}
+        handleclose={() => handleClose()}
+        bodyMassages={bodyMassages}
+        classname={classname}
+      />
     </Div>
   );
 };
