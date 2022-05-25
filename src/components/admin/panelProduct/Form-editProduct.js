@@ -11,8 +11,8 @@ import Grid from "@mui/material/Grid";
 import "./prodactStyle.scss";
 import { BASE_URL } from "../../../constants/Constants";
 import CloseIcon from "@mui/icons-material/Close";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 //----component styles----------------
 
@@ -41,7 +41,7 @@ const Basic = (props) => {
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
   const [thumbnails, setThumbnails] = useState([]);
-  const [dataDesciption ,setDataDiscription]=useState();
+  const [dataDesciption, setDataDiscription] = useState();
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string().min(4, "نام بیشتر از 4 حرف باشد"),
@@ -69,30 +69,14 @@ const Basic = (props) => {
   //-------handle Changes:---------
   const handleChanges = (e) => {
     setChangedData({ ...changedData, [e.target.name]: e.target.value });
-
-    
   };
-    //-------handle Changes:---------
-    const handleCkeditore = (e, editor) => {
-      setDataDiscription(editor?.getData());
-    };
-  //---------submitEdit:-----------
-  const submitEdit = async (input) => {
-      const formData = new FormData();
-      for (const [key, value] of Object.entries({
-        ...changedData,
-        image: `/files/${uploadedImage}`,
-        thumbnail: [uploadedGallery.map((image) => `/files/${image}`)],
-      })) {
-        formData.append(key, value);
-      }
-      await HttpService.patch(`products/${product.id}`, formData, {
-        headers: { token: localStorage.getItem("token") },
-      });
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 1000);
+  //-------handle Changes:---------
+  const handleCkeditore = (e, editor) => {
+    // setDataDiscription(editor?.getData());
+    // setChangedData({ ...changedData, "description": editor?.getData() });
+    console.log( editor?.getData())
   };
+  
 
   //-------uplaod one image:---------
   const handleUpload = async (e) => {
@@ -125,6 +109,23 @@ const Basic = (props) => {
     setIUploadedGallery(uploadedGallery.filter((i) => i !== input));
     //console.log(input)
   };
+  //---------submitEdit:-----------
+  const submitEdit = async (input) => {
+    const formData = new FormData();
+    for (const [key, value] of Object.entries({
+      ...changedData,
+      image: `/files/${uploadedImage}`,
+      thumbnail: [uploadedGallery.map((image) => `/files/${image}`)],
+    })) {
+      formData.append(key, value);
+    }
+    await HttpService.patch(`products/${product.id}`, formData, {
+      headers: { token: localStorage.getItem("token") },
+    });
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 1000);
+  };
 
   return (
     <div>
@@ -145,7 +146,7 @@ const Basic = (props) => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            values={...values,"description":dataDesciption};
+            values = { ...values, description: dataDesciption };
             submitEdit(values);
           }, 400);
         }}
@@ -455,7 +456,7 @@ const Basic = (props) => {
                   </Errors>
                 </Grid> */}
               </Grid>
-              <div >
+              <div>
                 <CKEditor
                   editor={ClassicEditor}
                   data={changedData.description}
@@ -475,14 +476,11 @@ const Basic = (props) => {
                     ],
                   }}
                   name="description"
-                  onChange={(e,editor) => {
-                    handleCkeditore(editor);
-                    // handleChange(e,editor);
+                  onChange={(e, editor) => {
+                    handleCkeditore(e,editor);
+                    handleChange(e,editor);
                   }}
                   onBlur={handleBlur}
-                  onFocus={(editor) => {
-                    console.log("Focus.", editor);
-                  }}
                 />
               </div>
               <ButtonAdd type="submit" disabled={isSubmitting}>

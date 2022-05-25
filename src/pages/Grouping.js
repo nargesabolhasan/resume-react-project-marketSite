@@ -16,7 +16,7 @@ const Div = styled("div")(({ theme }) => ({
 
 const Grouping = () => {
   return (
-    <Div>
+    <Div sx={{ mt:20}}>
       <img src={carousel} style={{margin:"30px",width: "60%"}}/>
       <PaginationBackend/>
     </Div>
