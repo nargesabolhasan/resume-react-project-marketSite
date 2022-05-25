@@ -131,7 +131,9 @@ TablePaginationActions.propTypes = {
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
+
 //--------------------------------------------------------------------------------------------
+
 export default function CustomPaginationActionsTable(props) {
   const { products, orders } = props;
   const [page, setPage] = React.useState(0);
@@ -162,8 +164,6 @@ export default function CustomPaginationActionsTable(props) {
 
 
   let dollarUSLocale = Intl.NumberFormat('en-US');
-  //console.log(products);
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
