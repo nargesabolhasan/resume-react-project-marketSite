@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import HttpService from "../../../axios/HttpService";
@@ -34,13 +34,14 @@ const Errors = styled("h5")(({ theme }) => ({
 const Basic = (props) => {
   const { product } = props;
   const [changedData, setChangedData] = useState(product);
-  // const {data,loading,error}=usePatchAxios()
+
   const [uploadedImage, setIUploadedImage] = useState();
   const [uploadedGallery, setIUploadedGallery] = useState([]);
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
-    //-----dollarUSLocale:---
-    let dollarUSLocale = Intl.NumberFormat('en-US');
+  const [thumbnails, setThumbnails] = useState([]);
+  //-----dollarUSLocale:---
+  let dollarUSLocale = Intl.NumberFormat("en-US");
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string().min(4, "نام بیشتر از 4 حرف باشد"),
@@ -59,16 +60,27 @@ const Basic = (props) => {
   });
 
   const handleChanges = (e) => {
-    setChangedData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+      setChangedData({ ...changedData, [e.target.name]: e.target.value });
+
   };
+
   //---------patch:-----------
-  const auth = async (input) => {
-    await HttpService.patch(`products/${product.id}`, changedData, {
+  const submitEdit = async (input) => {
+    const formData = new FormData();
+    for (const [key, value] of Object.entries({
+      ...changedData,
+      image: `/files/${uploadedImage}`,
+      thumbnail:[uploadedGallery.map(image =>(`/files/${image}`))],
+    })) {
+      formData.append(key, value);
+    }
+    await HttpService.patch(`products/${product.id}`, formData, {
       headers: { token: localStorage.getItem("token") },
     });
     setTimeout(() => {
       window.location.reload(false);
     }, 1000);
+
   };
   //-------uplaod one image:---------
   const handleUpload = async (e) => {
@@ -79,7 +91,7 @@ const Basic = (props) => {
     const res = await HttpService.post("/upload", formData);
     setIUploadingImage(true);
     setIUploadedImage(res?.data.filename);
-    console.log(res?.data.filename);
+    console.log();
   };
   //--------uplaod thumbnails :-------
   const handleUploadThumbnail = async (e) => {
@@ -92,7 +104,15 @@ const Basic = (props) => {
     setIUploadedGallery([...uploadedGallery, res?.data.filename]);
   };
 
-  console.log(changedData.thumbnail);
+  //---------------------
+  useEffect(() => {
+    (() => {
+      let answ = changedData.thumbnail.split(",");
+      setThumbnails(answ);
+    })();
+  }, []);
+
+  console.log(thumbnails);
   return (
     <div>
       <h1>ویرایش کالا</h1>
@@ -112,7 +132,7 @@ const Basic = (props) => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            auth(values);
+            submitEdit(values);
           }, 400);
         }}
       >
@@ -146,14 +166,14 @@ const Basic = (props) => {
                 <Grid>
                   <TittleInputs> نام محصول</TittleInputs>
                   <TextField
-                    sx={{ m: 0,fontFamily: "SansWeb",overflowX:"scrole"}}
+                    sx={{ m: 0, fontFamily: "SansWeb", overflowX: "scrole" }}
                     type="text"
                     name="name"
                     column="1"
                     multiline
                     inputProps={{
                       style: {
-                        height:90,
+                        height: 90,
                       },
                     }}
                     onChange={(e) => {
@@ -170,13 +190,13 @@ const Basic = (props) => {
                 <Grid>
                   <TittleInputs> نام لاتین</TittleInputs>
                   <TextField
-                   column="1"
-                   multiline
+                    column="1"
+                    multiline
                     type="text"
                     name="ENname"
                     inputProps={{
                       style: {
-                        height:90,
+                        height: 90,
                       },
                     }}
                     onChange={(e) => {
@@ -197,7 +217,7 @@ const Basic = (props) => {
                     name="price"
                     inputProps={{
                       style: {
-                        height:90,
+                        height: 90,
                       },
                     }}
                     onChange={(e) => {
@@ -205,7 +225,7 @@ const Basic = (props) => {
                       handleChange(e);
                     }}
                     onBlur={handleBlur}
-                   value={changedData.price}
+                    value={changedData.price}
                   />
                   <Errors variant="h5">
                     {errors.price && touched.price && errors.price}
@@ -319,7 +339,6 @@ const Basic = (props) => {
                     accept="image/webp"
                     onChange={(e) => {
                       handleUpload(e);
-                      handleChanges(e);
                       handleChange(e);
                     }}
                     onBlur={handleBlur}
@@ -335,22 +354,23 @@ const Basic = (props) => {
                 >
                   <TittleInputs>تصاویر گالری</TittleInputs>
                   <Grid sx={{ border: "2px solid gray" }}>
-                    {uploadingGallery ? (
-                      uploadedGallery.map((image, index) => (
-                        <img
-                          key={index}
-                          src={`${BASE_URL}/files/${image}`}
-                          alt="Alt Text!"
-                          style={{ width: "80px" }}
-                        />
-                      ))
-                    ) : (
+                    {uploadedGallery.map((image, index) => (
                       <img
-                        src={`${BASE_URL}${changedData.image}`}
+                        key={index}
+                        src={`${BASE_URL}/files/${image}`}
                         alt="Alt Text!"
                         style={{ width: "80px" }}
                       />
-                    )}
+                    ))}
+
+                    {thumbnails?.map((image, index) => (
+                      <img
+                        key={index}
+                        src={`${BASE_URL}${image}`}
+                        alt="Alt Text!"
+                        style={{ width: "80px" }}
+                      />
+                    ))}
                   </Grid>
                   <TextField
                     className="TextField"
@@ -360,7 +380,6 @@ const Basic = (props) => {
                     accept="image/webp"
                     onChange={(e) => {
                       handleUploadThumbnail(e);
-                      handleChanges(e);
                       handleChange(e);
                     }}
                     onBlur={handleBlur}
@@ -372,8 +391,8 @@ const Basic = (props) => {
                 <Grid>
                   <TittleInputs>توضیحات</TittleInputs>
                   <TextField
-                   rows="4"
-                   multiline
+                    rows="4"
+                    multiline
                     inputProps={{
                       style: {
                         height: 116,

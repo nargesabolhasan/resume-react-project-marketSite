@@ -47,6 +47,7 @@ const ModalOrders = (props) => {
       window.location.reload(false);
     }, 1000);
   };
+  //-----all price:------
   useEffect(() => {
     ( () => {
       let sum=0

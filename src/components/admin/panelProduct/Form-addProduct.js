@@ -61,13 +61,15 @@ const Basic = () => {
     color: Yup.string().required("رنگ محصول را وارد کنید "),
     description: Yup.string().required("توضیحات محصول را وارد کنید"),
   });
-  //-----------
-  const auth = async (input) => {
+
+  // `/files/${uploadedGallery}`
+  //-------submit add:----------
+  const submitAdd = async (input) => {
     const formData = new FormData();
     for (const [key, value] of Object.entries({
       ...input,
       image: `/files/${uploadedImage}`,
-      thumbnail: `/files/${uploadedGallery}`,
+      thumbnail:[uploadedGallery.map(image =>(`/files/${image}`))],
     })) {
       formData.append(key, value);
     }
@@ -85,7 +87,6 @@ const Basic = () => {
     const res = await HttpService.post("/upload", formData);
     setIUploadingImage(true);
     setIUploadedImage(res?.data.filename);
-    console.log(res?.data.filename);
   };
   //--------uplaod thumbnails :-------
   const handleUploadThumbnail = async (e) => {
@@ -117,7 +118,7 @@ const Basic = () => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            auth(values);
+            submitAdd(values);
           }, 400);
         }}
       >
@@ -310,8 +311,9 @@ const Basic = () => {
                 )}
                 </Grid>
                 <TextField
+                inputProps={{ multiple: true }} 
                   className="TextField"
-                  id="image"
+                  id="thumbnail"
                   name="thumbnail"
                   type="file"
                   accept="image/webp"
