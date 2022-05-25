@@ -4,8 +4,7 @@ import { TablesProduct } from "../components/index";
 import HttpService from "../axios/HttpService";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import CloseIcon from '@mui/icons-material/Close';
 import { styled } from "@mui/material/styles";
 import ModalForms from "../components/modal/ModalForms";
 import ModalAddProduct from "../components/admin/panelProduct/Form-addProduct";
@@ -63,6 +62,20 @@ const PanelProducts = () => {
         <TablesProduct products={data} category={category} />
       </Root>
       <ModalForms open={open} handleclose={() => handleClose()}>
+      <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
         <ModalAddProduct />
       </ModalForms>
     </Grid>

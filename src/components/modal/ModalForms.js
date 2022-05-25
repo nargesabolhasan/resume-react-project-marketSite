@@ -38,7 +38,6 @@ export default function BasicModal(props) {
             variant="h6"
             component="h2"
             sx={{
-              borderBottom: 1,
               fontSize: 20,
               fontFamily: "koodak",
               direction: "rtl",

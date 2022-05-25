@@ -21,6 +21,7 @@ import { styled } from "@mui/material/styles";
 import TableHead from "@mui/material/TableHead";
 import ModalForm from "../../modal/ModalForms";
 import ModalOrders from "../panelOrder/ModalOrders";
+import CloseIcon from "@mui/icons-material/Close";
 
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -162,8 +163,7 @@ export default function CustomPaginationActionsTable(props) {
     "شماره ",
   ];
 
-
-  let dollarUSLocale = Intl.NumberFormat('en-US');
+  let dollarUSLocale = Intl.NumberFormat("en-US");
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
@@ -178,7 +178,10 @@ export default function CustomPaginationActionsTable(props) {
 
   return (
     <>
-      <TableContainer component={Paper} sx={{ mx: "auto", mt: 5,fontFamily:"SansWeb" }}>
+      <TableContainer
+        component={Paper}
+        sx={{ mx: "auto", mt: 5, fontFamily: "SansWeb" }}
+      >
         <Table sx={{ minWidth: 300 }} aria-label="custom pagination table">
           <TableHead sx={{ borderBottom: 1 }}>
             <TableRow sx={{ backgroundColor: "primary.main", color: "white" }}>
@@ -189,7 +192,7 @@ export default function CustomPaginationActionsTable(props) {
                     textAlign: "center",
                     color: "white",
                     border: "2px solid white",
-                    fontFamily:"SansWeb"
+                    fontFamily: "SansWeb",
                   }}
                   key={key}
                 >
@@ -223,10 +226,13 @@ export default function CustomPaginationActionsTable(props) {
                   </TableCells>
                   <TableCells>
                     {item.orderItems?.map((item) => {
-                      price = +item.price
+                      price = +item.price;
                       sumPrice += price;
                     })}
-                    <div style={{ direction: "rtl" }}> { dollarUSLocale.format(price)} </div>
+                    <div style={{ direction: "rtl" }}>
+                      {" "}
+                      {dollarUSLocale.format(price)}{" "}
+                    </div>
                   </TableCells>
 
                   <TableCells>
@@ -239,8 +245,8 @@ export default function CustomPaginationActionsTable(props) {
                       textAlign: "center",
                       color: "white",
                       border: "2px solid white",
-                      width:"5px",
-                      fontFamily:"SansWeb"
+                      width: "5px",
+                      fontFamily: "SansWeb",
                     }}
                   >
                     {index + 1}
@@ -250,7 +256,7 @@ export default function CustomPaginationActionsTable(props) {
             })}
           </TableBody>
           <TableFooter>
-            <TableRow >
+            <TableRow>
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                 colSpan={4}
@@ -272,6 +278,20 @@ export default function CustomPaginationActionsTable(props) {
         </Table>
       </TableContainer>
       <ModalForm open={open} handleclose={() => handleClose()}>
+        <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
         <ModalOrders info={selectedData} />
       </ModalForm>
     </>

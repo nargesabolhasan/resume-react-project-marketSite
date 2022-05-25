@@ -8,8 +8,7 @@ import { BASE_URL } from "../../../constants/Constants";
 import ModalForms from "../../modal/ModalForms";
 import ModalEditProduct from "./Form-editProduct";
 import { ModalAddProduct, Modals } from "../..";
-import axios from "axios";
-import HttpService from "../../../axios/HttpService";
+import CloseIcon from '@mui/icons-material/Close';
 import ModalDelete from "./Form-delete";
 
 const TittleCells = styled("td")(({ theme }) => ({
@@ -121,9 +120,37 @@ const TabLists = (props) => {
         handleclose={() => handleClose()}
         classname={classname}
       >
+          <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
         <ModalEditProduct product={items} />
       </ModalForms>
       <Modals open={openDelete} handleclose={() => handleClose()}>
+      <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
         <ModalDelete deletedItem={selectedData} />
       </Modals>
     </>

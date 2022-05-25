@@ -58,7 +58,7 @@ const ModalOrders = (props) => {
   }, []);
 
   return (
-    <Div>
+    <Div sx={{mt:6}}>
       <TittleCells>مشتری اطلاعات</TittleCells>
       <Div>
         <Table sx={{fontFamily:"SansWeb"}}>
