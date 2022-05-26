@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ButtonAdd, LayoutAdmin } from "../components/index";
 import { TablesProduct } from "../components/index";
 import HttpService from "../axios/HttpService";
+import useGetAxios from "../axios/useGetAxios";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CloseIcon from '@mui/icons-material/Close';
@@ -25,6 +26,7 @@ const Root = styled("div")(({ theme }) => ({
 
 const PanelProducts = () => {
   const [category, setCategory] = useState([]);
+  // const { data, loading, error }=useGetAxios("products")
   const [data, setData] = useState([]);
 
   //**modal **//
@@ -42,12 +44,11 @@ const PanelProducts = () => {
   }, []);
   //-----------
   const getData = async () => {
-    const res= await HttpService.get("products")
-    setData(res?.data)
+     const res= await HttpService.get("products")
+     setData(res?.data)
     const result=await HttpService.get("categories?_embed=products")
     setCategory(result?.data);
   };
-  
 
   return (
     <Grid item container alignContent={"center"} xs={12}>
@@ -58,8 +59,9 @@ const PanelProducts = () => {
         >
           مدیریت کالا ها
         </Typography>
-        <ButtonAdd clickHandler={handleShow}> افزودن کالا</ButtonAdd>
+        <ButtonAdd clickHandler={handleShow} > افزودن کالا</ButtonAdd>
         <TablesProduct products={data} category={category} />
+       
       </Root>
       <ModalForms open={open} handleclose={() => handleClose()}>
       <CloseIcon
@@ -76,7 +78,7 @@ const PanelProducts = () => {
           }}
           onClick={handleClose}
         />
-        <ModalAddProduct />
+        <ModalAddProduct updateData={getData}/>
       </ModalForms>
     </Grid>
   );

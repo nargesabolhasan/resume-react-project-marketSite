@@ -70,7 +70,7 @@ export default function FullWidthGrid() {
                 color: "white",
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "space-around",
+                justifyContent: "space-between",
               }}
             >
               <AddLocationAltIcon />
@@ -85,7 +85,7 @@ export default function FullWidthGrid() {
                 color: "white",
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "space-around",
+                justifyContent: "space-between",
               }}
             >
               <LocalPhoneIcon />

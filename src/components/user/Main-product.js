@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback,useRef } from "react";
 import EasyEdit from "react-easy-edit";
 import { BASE_URL } from "../../constants/Constants";
 import Box from "@mui/material/Box";
@@ -9,13 +9,14 @@ import { styled } from "@mui/material/styles";
 import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
-import {
-  setProducts,
-  selectedProduct,
-  removeSelectedProduct,
-} from "../../redux/basketSlice";
-import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
+// import {
+//   setProducts,
+//   selectedProduct,
+//   removeSelectedProduct,
+// } from "../../redux/basketSlice";
+// import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 //import { selectedProduct ,setProducts} from "../../redux/basketRedux/actions/productActions";
+
 const Img = styled("img")(({ theme }) => ({
   width: "50%",
 }));
@@ -78,6 +79,7 @@ const MainUser = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
+  const caption = useRef();
   const dispatch = useDispatch();
   const products = useSelector((state) => state);
 
@@ -86,7 +88,11 @@ const MainUser = (props) => {
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
   const [thumbnails, setThumbnails] = useState([]);
+  
 
+  useEffect(() => {
+    caption.current.innerHTML =info?.description
+  },[])
   //--------Modal open & close :----------
   const handleShow = () => {
     setOpen(true);
@@ -150,7 +156,6 @@ const MainUser = (props) => {
       setCounter(+counter - 1);
     }
   };
-  console.log(counter);
 
   const handleShopUpdate = (info, counter) => {
     // (info, counter) => {
@@ -209,7 +214,7 @@ const MainUser = (props) => {
             {/* <Typographys>{counter}</Typographys> */}
             <Box sx={{ p: 3, fontSize: 20, fontFamily: "SansWeb" }}>
               <EasyEdit
-                type="text"
+                type="number"
                 onSave={(e) => saveData(e)}
                 onCancel={cancel}
                 saveButtonLabel="ذخیره "
@@ -231,11 +236,11 @@ const MainUser = (props) => {
         </Span>
         <Span>
           <Titles>رنگ :</Titles>
-          <Typographys>{info?.color}</Typographys>
+          <Typographys ref={caption}></Typographys>
         </Span>
         <Box>
           <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
-          <Typographys>{info?.description}</Typographys>
+          <Typographys ref={caption}> </Typographys>
         </Box>
         <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
           افزودن به سبد خرید

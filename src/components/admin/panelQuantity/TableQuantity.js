@@ -147,6 +147,8 @@ export default function CustomPaginationActionsTable(props) {
 
   //-----savePrice:----
   const savePrice = async (e, item) => {
+  //   var letters = /^[A-Za-z]+$/
+  //  if( e.value.match(letters)){console.log(e)}
     await HttpService.patch(
       `products/${item.id}`,
       { ...item, price: Number(e.replace(",", "").replace(",", "")) },

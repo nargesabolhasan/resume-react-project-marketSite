@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useRef,useEffect} from "react";
 import { BASE_URL } from "../../../constants/Constants";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -16,10 +16,15 @@ const CardProduct = (props) => {
 
   let navigate = useNavigate();
   const { product } = props;
+  const caption = useRef();
 
   const handleNavigate = (name) => {
     navigate(`/products/${name}`);
   };
+
+  useEffect(() => {
+    caption.current.innerHTML =product?.description
+  },[])
   return (
       <Grid className="card" item xs={4} sx={{mt:4}}>
         <Grid className="face face1">
@@ -30,7 +35,7 @@ const CardProduct = (props) => {
         </Grid>
         <Grid className="face face2">
           <div className="content">
-            <>{product.description}</>
+            <Box ref={caption}></Box>
             
             <Button
               variant="contained"

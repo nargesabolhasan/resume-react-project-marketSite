@@ -34,7 +34,7 @@ const Errors = styled("h5")(({ theme }) => ({
   color: "red",
 }));
 
-const Basic = () => {
+const Basic = (props) => {
   const [uploadedImage, setIUploadedImage] = useState();
   const [uploadedGallery, setIUploadedGallery] = useState([]);
   const [uploadingGallery, setIUploadingGallery] = useState(false);
@@ -78,10 +78,10 @@ const Basic = () => {
       formData.append(key, value);
     }
     await HttpService.post("/products", formData);
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 1000);
-    console.log(input)
+    props.updateData()
+    // setTimeout(() => {
+    //   window.location.reload(false);
+    // }, 1000);
   };
   //-------uplaod one image:---------
   const handleUpload = async (e) => {
@@ -383,6 +383,7 @@ const Basic = () => {
             <div>
             <TittleInputs>توضیحات</TittleInputs>
               <CKEditor
+
                 editor={ClassicEditor}
                 data={values.description}
                 name="description"
@@ -406,9 +407,6 @@ const Basic = () => {
                   //handleChange(editor?.getData());
                 }}
                 onBlur={handleBlur}
-                onFocus={(editor) => {
-                  console.log("Focus.", editor);
-                }}
               />
                <Errors variant="h5">
                   {errors.description &&

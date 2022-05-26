@@ -16,7 +16,7 @@ const Product = () => {
   const { data, loading, error } = useGetAxios(`/Products/${name}`);
 
   return (
-    <Box>
+    <Box >
       {loading ? <h1>Loading...</h1> : <Box>
       <MainUser info={data?.data}/>
       </Box>}
