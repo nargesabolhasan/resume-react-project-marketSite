@@ -60,7 +60,7 @@ const PanelProducts = () => {
           مدیریت کالا ها
         </Typography>
         <ButtonAdd clickHandler={handleShow} > افزودن کالا</ButtonAdd>
-        <TablesProduct products={data} category={category} />
+        <TablesProduct products={data} category={category} updateData={getData} handleClose={handleClose}/>
        
       </Root>
       <ModalForms open={open} handleclose={() => handleClose()}>
@@ -78,7 +78,7 @@ const PanelProducts = () => {
           }}
           onClick={handleClose}
         />
-        <ModalAddProduct updateData={getData}/>
+        <ModalAddProduct updateData={getData} handleClose={handleClose}/>
       </ModalForms>
     </Grid>
   );

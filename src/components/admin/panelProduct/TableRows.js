@@ -56,7 +56,7 @@ const TableCells = styled("td")(({ theme }) => ({
 }));
 
 const TabLists = (props) => {
-  const { items, categories, index } = props;
+  const { items, categories, index ,updateData,handleCloseModal} = props;
 
   //**modal **//
   const [open, setOpen] = useState(false);
@@ -134,7 +134,7 @@ const TabLists = (props) => {
           }}
           onClick={handleClose}
         />
-        <ModalEditProduct product={items} />
+        <ModalEditProduct product={items} updateData={updateData} handleCloseModal={handleClose}/>
       </ModalForms>
       <Modals open={openDelete} handleclose={() => handleClose()}>
       <CloseIcon
@@ -151,7 +151,7 @@ const TabLists = (props) => {
           }}
           onClick={handleClose}
         />
-        <ModalDelete deletedItem={selectedData} />
+        <ModalDelete deletedItem={selectedData} updateData={updateData} handleCloseModal={handleCloseModal}/>
       </Modals>
     </>
   );

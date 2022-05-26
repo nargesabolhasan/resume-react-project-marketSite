@@ -52,9 +52,8 @@ const TableCells = styled("td")(({ theme }) => ({
 }));
 function TablePaginationActions(props) {
   const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
+  const { count, page, rowsPerPage, onPageChange,updateData,handleClose } = props;
   
-
   const handleFirstPageButtonClick = (event) => {
     onPageChange(event, 0);
   };
@@ -160,7 +159,7 @@ export default function CustomPaginationActionsTable(props) {
               )
             : products
           ).map((item, index) => (
-            <TableRows items={item} categories={category} index={index} key={index}/>
+            <TableRows items={item} categories={category} index={index} key={index}  handleCloseModal={props.handleClose} updateData={props.updateData}/>
           ))}
 
           {emptyRows > 0 && (

@@ -3,13 +3,14 @@ import ButtonAdd from "../../buttons/Button-add";
 import HttpService from "../../../axios/HttpService";
 
 const ModalDelete = (props) => {
-  const { deletedItem } = props;
+  const { deletedItem ,handleCloseModal,updateData} = props;
   const handleDelete = async (item) => {
     await HttpService.delete(`products/${item}`, {
       headers: { token: localStorage.getItem("token") },
     });
+    updateData()
     setTimeout(() => {
-      window.location.reload(false);
+      handleCloseModal()
     }, 1000);
   };
 

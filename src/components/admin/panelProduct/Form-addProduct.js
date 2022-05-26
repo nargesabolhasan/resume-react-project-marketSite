@@ -47,12 +47,7 @@ const Basic = (props) => {
       .required("نام محصول را وارد کنید "),
     ENname: Yup.string()
       .min(3, "نام بیشتر از 3 حرف باشد")
-      .required("نام لاتین محصول را وارد کنید")
-      .matches(
-        /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi ||
-          /^[0-9a-zA-Z]+$/,
-        "تنها حروف لاتین امکان پذیر است"
-      ),
+      .required("نام لاتین محصول را وارد کنید"),
     image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
     thumbnail: Yup.mixed().required("تصاویر گالری محصول بار گذاری شود"),
 
@@ -79,8 +74,10 @@ const Basic = (props) => {
     }
     await HttpService.post("/products", formData);
     props.updateData()
+    props.handleClose()
     // setTimeout(() => {
     //   window.location.reload(false);
+
     // }, 1000);
   };
   //-------uplaod one image:---------
@@ -161,6 +158,8 @@ const Basic = (props) => {
                 <TittleInputs> نام محصول</TittleInputs>
                 <TextField
                   sx={{ m: 0 }}
+                  column="1"
+                  multiline
                   type="text"
                   name="name"
                   onChange={handleChange}
@@ -174,6 +173,8 @@ const Basic = (props) => {
               <Grid>
                 <TittleInputs> نام لاتین</TittleInputs>
                 <TextField
+                 column="1"
+                 multiline
                   type="text"
                   name="ENname"
                   onChange={handleChange}
@@ -267,11 +268,11 @@ const Basic = (props) => {
             >
               <Grid
                 sx={{
-                  width: 210,
+                  width: 220,
                 }}
               >
                 <TittleInputs>تصویر</TittleInputs>
-                <Grid sx={{ border: "2px solid gray", height: 95, p: 2 }}>
+                <Grid sx={{ border: "2px solid gray", height: 95, p: 2,flexDirection: "row",flexWrap: "wrap",justifyContent: "space-around",alignItems: "center"}}>
                   {uploadingImage ? (
                     <img
                       src={`${BASE_URL}/files/${uploadedImage}`}
@@ -304,14 +305,14 @@ const Basic = (props) => {
               </Grid>
               <Grid
                 sx={{
-                  width: 210,
+                  width:220,
                 }}
               >
                 <TittleInputs>تصاویر گالری</TittleInputs>
-                <Grid sx={{ border: "2px solid gray", minHeight: 95 }}>
+                <Grid sx={{p:2, border: "2px solid gray", minHeight: 95, display: "flex",flexDirection: "row",flexWrap: "wrap",justifyContent: "space-around",alignItems: "center"}}>
                   {uploadingGallery ? (
                     uploadedGallery.map((image, index) => (
-                      <span key={index} sx={{ width: "200px" }}>
+                      <span key={index} sx={{ width: "30%" }}>
                       <CloseIcon
                         sx={{
                           backgroundColor: "primary.main",

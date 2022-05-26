@@ -33,7 +33,7 @@ const Errors = styled("h5")(({ theme }) => ({
 //---------------------------------------------------------
 
 const Basic = (props) => {
-  const { product } = props;
+  const { product,handleCloseModal,updateData } = props;
   const [changedData, setChangedData] = useState(product);
 
   const [uploadedImage, setIUploadedImage] = useState();
@@ -122,9 +122,10 @@ const Basic = (props) => {
     await HttpService.patch(`products/${product.id}`, formData, {
       headers: { token: localStorage.getItem("token") },
     });
+    updateData()
     setTimeout(() => {
-      window.location.reload(false);
-    }, 1000);
+      handleCloseModal()
+    }, 600);
   };
 
   return (
