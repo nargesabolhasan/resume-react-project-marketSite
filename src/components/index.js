@@ -1,7 +1,6 @@
 import Authentication from "./configRoutes/ProtectedRoutes";
 import FormValidation from "./admin/login/FormValidation";
 import HeaderAdmin from "./admin/Header-admin";
-import MainAdmin from "./admin/Main-Admin";
 import Modals from "./modal/Modals";
 import TablesProduct from "./admin/panelProduct/TablesProduct";
 import TableQuantity from "./admin/panelQuantity/TableQuantity";
@@ -31,7 +30,6 @@ export {
   Authentication,
   FormValidation,
   HeaderAdmin,
-  MainAdmin,
   Modals,
   TablesProduct,
   TableQuantity,
