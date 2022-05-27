@@ -54,7 +54,7 @@ const Home = () => {
 
   return (
     <>
-      <Div sx={{mt:10}}>
+      <Div sx={{mt:15}}>
         <Slider handleOpen={handleOpen} />
         <Box
           sx={{ margin: "30px 0", boxShadow: "5px -10px 20px 2px #ba6b6c37" }}

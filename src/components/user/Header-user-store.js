@@ -1,30 +1,18 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import { NavLink, Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import HttpService from "../../axios/HttpService";
 import { useNavigate, Outlet } from "react-router-dom";
-import { styled } from "@mui/material/styles";
 import logo from "../../assets/images/logo/logo.png";
 import Authentication from "../admin/Authentication";
 import "../../assets/Core-ui/palette.scss";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const ResponsiveAppBar = () => {
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [data, setData] = React.useState([]);
-  const navigate = useNavigate();
-
   return (
     <AppBar position="fixed" sx={{ p: 1, backgroundColor: "PDark.main" ,width:"100%"}}>
       <Container maxWidth="xl" >
