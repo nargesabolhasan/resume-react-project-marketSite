@@ -56,7 +56,7 @@ const TableCells = styled("td")(({ theme }) => ({
 }));
 
 const TabLists = (props) => {
-  const { items, categories, index ,updateData,handleCloseModal} = props;
+  const { items, index ,updateData,handleCloseModal} = props;
 
   //**modal **//
   const [open, setOpen] = useState(false);
@@ -89,10 +89,8 @@ const TabLists = (props) => {
           <DeleteForeverIcon onClick={() =>{ handleDelete(items.id)}} sx={{mr:3}}/>
           <DriveFileRenameOutlineIcon onClick={handleEdit} />
         </TableCells>
-        <TableCells>
-          {categories.map((category) =>
-            category.id === items.categoryId ? category.name : ""
-          )}
+        <TableCells sx={{ fontSize: 20, fontFamily: "SansWeb"}} >
+          {items?.category.name}
         </TableCells>
         <TittleCells sx={{ direction: "rtl" }}>{items.name}</TittleCells>
         <TableCells>
@@ -151,7 +149,7 @@ const TabLists = (props) => {
           }}
           onClick={handleClose}
         />
-        <ModalDelete deletedItem={selectedData} updateData={updateData} handleCloseModal={handleCloseModal}/>
+        <ModalDelete deletedItem={selectedData} updateData={updateData} handleCloseModal={handleClose}/>
       </Modals>
     </>
   );

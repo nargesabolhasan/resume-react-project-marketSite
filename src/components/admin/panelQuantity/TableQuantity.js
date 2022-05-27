@@ -141,7 +141,14 @@ export default function CustomPaginationActionsTable(props) {
   const { products, category } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const[changePrice,setChangePrice]= React.useState();
+  const[changeCount,setChangeCount]= React.useState();
+  const [notTrue,setNotTrue]= React.useState();
 
+  // React.useEffect(() => {
+  //   setChangeCount(products?.count)
+  //   setChangePrice(products?.price)
+  // },[])
   //-----dollarUSLocale:---
   let dollarUSLocale = Intl.NumberFormat('en-US');
 
@@ -157,22 +164,21 @@ export default function CustomPaginationActionsTable(props) {
   };
   //-----saveCount:----
   const saveCount = async (e, item) => {
+    if(e> 0){
     await HttpService.patch(
       `products/${item.id}`,
       { ...item, count: e },
       { headers: { token: localStorage.getItem("token") } }
-    );
+    )}else{
+      alert("تعداد بزرگتر از 0 باشد")
+
+    }
   };
   //-----saveCount:----
   const cancel = () => {
     //alert("Cancelled");
   };
 
-  const keyDownHandlerCount = (event) => {
-    if (event.key === "Enter") {
-      event.target.disabled = true;
-    }
-  };
   const headerTable = [" تعداد موجودی", " قیمت (تومان)", "نام محصول ", "شماره"];
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -227,7 +233,7 @@ export default function CustomPaginationActionsTable(props) {
                     saveButtonLabel="ذخیره "
                     cancelButtonLabel="لغو "
                     attributes={{ name: "awesome-input", id: 1 }}
-                    value={item.count}
+                    value={item?.count}
                   />
                 </TableCells>
                 <TableCells

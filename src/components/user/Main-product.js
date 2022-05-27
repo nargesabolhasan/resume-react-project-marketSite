@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback,useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import EasyEdit from "react-easy-edit";
 import { BASE_URL } from "../../constants/Constants";
 import Box from "@mui/material/Box";
@@ -18,7 +18,7 @@ import Modals from "../modal/Modals";
 //import { selectedProduct ,setProducts} from "../../redux/basketRedux/actions/productActions";
 
 const Img = styled("img")(({ theme }) => ({
-  width: "50%",
+  width: "80%",
 }));
 const Titles = styled("h3")(({ theme }) => ({
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
@@ -30,19 +30,20 @@ const Titles = styled("h3")(({ theme }) => ({
 }));
 
 const Div = styled("div")(({ theme }) => ({
-  width: "100%",
   display: "flex",
   flexDirection: "row",
-  justifyContent: "space-around",
   alignItems: "center",
+  justifyContent: "center",
+  padding:"10px"
 }));
 const InfoCard = styled("div")(({ theme }) => ({
-  width: "40%",
+  width: "60%",
   height: "700px",
+  margin :"0 auto",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-around",
-  alignItems: "end",
+  alignItems: "center",
   padding: "20px",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
 }));
@@ -88,20 +89,18 @@ const MainUser = (props) => {
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
   const [thumbnails, setThumbnails] = useState([]);
-  
 
   useEffect(() => {
-    caption.current.innerHTML =info?.description
-  },[])
+    caption.current.innerHTML = info?.description;
+  }, []);
   //--------Modal open & close :----------
   const handleShow = () => {
     setOpen(true);
     setClassname("failer");
-    setBodyMassages(
-      `  موجودی این کالا ${info?.count} عدد است  ، تعداد مورد نظر شما از موجودی بیشتر است `
-    );
   };
   const handleClose = () => setOpen(false);
+  //-----dollarUSLocale:---
+  let dollarUSLocale = Intl.NumberFormat("en-US");
 
   //-----saveCount:----
   const cancel = () => {
@@ -110,7 +109,14 @@ const MainUser = (props) => {
 
   const saveData = (input) => {
     if (input > Number(info?.count)) {
-      setCounter(1);
+      setCounter("1");
+      setBodyMassages(
+        `  موجودی این کالا ${info?.count} عدد است  ، تعداد مورد نظر شما از موجودی بیشتر است `
+      );
+      handleShow();
+    } else if (input <= 0) {
+      setCounter("1");
+      setBodyMassages(` عدد بزرگتر از 1 وارد کنید`);
       handleShow();
     } else {
       setCounter(input);
@@ -144,13 +150,13 @@ const MainUser = (props) => {
     })();
   }, []);
 
-   //------------
+  //------------
   const handleIncrease = () => {
     if (info.count !== 0 && info.count > +counter) {
       setCounter(+counter + 1);
     }
   };
-
+  //------------
   const handleDicrease = () => {
     if (+counter > 1) {
       setCounter(+counter - 1);
@@ -188,78 +194,98 @@ const MainUser = (props) => {
 
   return (
     <>
-    <Div>
-      <InfoCard sx={{ mt: 5,backgroundColor: "amber.main"}}>
-        <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
-        <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
-        <Span>
-          <Titles>قیمت :</Titles>
-          {notValid ? (
-            <Typographys>عدم موجودی</Typographys>
-          ) : (
-            <Typographys>{info?.price} تومان</Typographys>
-          )}
-        </Span>
-        <Span>
-          <Titles>تعداد :</Titles>
-          <Counter>
-            <Button
-              variant="outlined"
-              sx={{ height: "100%", fontSize: 20, p: 0 }}
-              onClick={handleIncrease}
-              disabled={!isValidIncrease}
-            >
-              +
-            </Button>
-            {/* <Typographys>{counter}</Typographys> */}
-            <Box sx={{ p: 3, fontSize: 20, fontFamily: "SansWeb" }}>
-              <EasyEdit
-                type="number"
-                onSave={(e) => saveData(e)}
-                onCancel={cancel}
-                saveButtonLabel="ذخیره "
-                cancelButtonLabel="لغو "
-                attributes={{ name: "awesome-input", id: 1 }}
-                value={counter}
-                instructions={`تعداد موجودی :${info?.count}`}
+      <Div sx={{mt:10}}>
+        <Grid item xs={6}>
+        <InfoCard sx={{ mt: 5, backgroundColor: "amber.main" }} >
+          <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
+          <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
+          <Span>
+            <Titles>قیمت :</Titles>
+            {notValid ? (
+              <Typographys>عدم موجودی</Typographys>
+            ) : (
+              <Typographys>
+                {dollarUSLocale.format(info?.price)} تومان
+              </Typographys>
+            )}
+          </Span>
+          <Span>
+            <Titles>تعداد :</Titles>
+            <Counter sx={{ height: "45px" }}>
+              <Button
+                variant="outlined"
+                sx={{ height: "100%", fontSize: 20, p: 0 }}
+                onClick={handleIncrease}
+                disabled={!isValidIncrease}
+              >
+                +
+              </Button>
+              {/* <Typographys>{counter}</Typographys> */}
+              <Box sx={{ p: 3, fontSize: 20, fontFamily: "SansWeb" }}>
+                <EasyEdit
+                  type="number"
+                  onSave={(e) => saveData(e)}
+                  onCancel={cancel}
+                  saveButtonLabel="ذخیره "
+                  cancelButtonLabel="لغو "
+                  attributes={{ name: "awesome-input", id: 1 }}
+                  value={counter}
+                  instructions={`تعداد موجودی :${info?.count}`}
+                />
+              </Box>
+              <Button
+                variant="outlined"
+                sx={{ height: "100%", fontSize: 20, p: 0 }}
+                onClick={handleDicrease}
+                disabled={!isValidDicrease}
+              >
+                -
+              </Button>
+            </Counter>
+          </Span>
+          <Span>
+            <Titles>رنگ :</Titles>
+            <Typographys>{info?.color}</Typographys>
+          </Span>
+          <Box>
+            <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
+            <Typographys ref={caption}> </Typographys>
+          </Box>
+          <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
+            افزودن به سبد خرید
+          </Buttons>
+        </InfoCard>
+        </Grid>
+        <Grid item xs={6}>
+          <Img src={`${BASE_URL}${info?.image}`} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-around",
+              alignItems: "center",
+              width: "15%",
+              mt: 8,
+              float: "right",
+            }}
+          >
+            {thumbnails?.map((image, index) => (
+              <img
+                key={index}
+                src={`${BASE_URL}${image}`}
+                style={{ width: "100px" }}
               />
-            </Box>
-            <Button
-              variant="outlined"
-              sx={{ height: "100%", fontSize: 20, p: 0 }}
-              onClick={handleDicrease}
-              disabled={!isValidDicrease}
-            >
-              -
-            </Button>
-          </Counter>
-        </Span>
-        <Span>
-          <Titles>رنگ :</Titles>
-          <Typographys ref={caption}></Typographys>
-        </Span>
-        <Box>
-          <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
-          <Typographys ref={caption}> </Typographys>
-        </Box>
-        <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
-          افزودن به سبد خرید
-        </Buttons>
-      </InfoCard>
-        <Img src={`${BASE_URL}${info?.image}`} />
+            ))}
+          </Box>
+        </Grid>
+      </Div>
       <Modals
         open={open}
         handleclose={() => handleClose()}
         bodyMassages={bodyMassages}
         classname={classname}
       />
-    </Div>
-          <Box sx={{display:"flex" ,flexDirection: "row",justifyContent: "space-around",alignItems: "center",width: "50%",mt:8,float : "right"}}>
-          {thumbnails?.map((image, index) => (
-            <img key={index} src={`${BASE_URL}${image}`} style={{ width: "100px" }} />
-          ))}
-        </Box>
-</>
+    </>
   );
 };
 

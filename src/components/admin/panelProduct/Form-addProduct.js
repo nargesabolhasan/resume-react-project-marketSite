@@ -55,8 +55,8 @@ const Basic = (props) => {
     //    return value && ['image/webp','image/png'].includes(value.type);
     // }),
     categoryId: Yup.number().required("دسته بندی  را انتخاب کنید"),
-    price: Yup.number().required("قیمت محصول را وارد کنید"),
-    count: Yup.number().required(" تعداد محصول را وارد کنید "),
+    price: Yup.number().required("قیمت محصول را وارد کنید").positive("بزرگتر از 0 باشد"),
+    count: Yup.number().required(" تعداد محصول را وارد کنید ").positive("بزرگتر از 0 باشد"),
     color: Yup.string().required("رنگ محصول را وارد کنید "),
     //description: Yup.string()("توضیحات محصول را وارد کنید"),
   });
@@ -358,33 +358,10 @@ const Basic = (props) => {
                   {errors.thumbnail && touched.thumbnail && errors.thumbnail}
                 </Errors>
               </Grid>
-              {/* <Grid>
-                <TittleInputs>توضیحات</TittleInputs>
-                <TextField
-                multiline
-                 inputProps={{
-                  style: {
-                    height:116,
-                    overflowY:"scroll",
-                  },
-                }}
-                  type="text"
-                  name=""signator_text""
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.description}
-                />
-                <Errors variant="h5">
-                  {errors.description &&
-                    touched.description &&
-                    errors.description}
-                </Errors>
-              </Grid> */}
             </Grid>
             <div>
             <TittleInputs>توضیحات</TittleInputs>
               <CKEditor
-
                 editor={ClassicEditor}
                 data={values.description}
                 name="description"

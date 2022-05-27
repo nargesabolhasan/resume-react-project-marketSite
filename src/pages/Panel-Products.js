@@ -44,10 +44,8 @@ const PanelProducts = () => {
   }, []);
   //-----------
   const getData = async () => {
-     const res= await HttpService.get("products")
+     const res= await HttpService.get("products?_expand=category")
      setData(res?.data)
-    const result=await HttpService.get("categories?_embed=products")
-    setCategory(result?.data);
   };
 
   return (
@@ -60,7 +58,7 @@ const PanelProducts = () => {
           مدیریت کالا ها
         </Typography>
         <ButtonAdd clickHandler={handleShow} > افزودن کالا</ButtonAdd>
-        <TablesProduct products={data} category={category} updateData={getData} handleClose={handleClose}/>
+        <TablesProduct products={data} updateData={getData} handleClose={handleClose}/>
        
       </Root>
       <ModalForms open={open} handleclose={() => handleClose()}>

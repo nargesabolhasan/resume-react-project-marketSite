@@ -1,9 +1,6 @@
 import React, { useMemo, useState } from "react";
 import useGetAxios from "../../../axios/useGetAxios";
 import Pagination from "@mui/material/Pagination";
-import PaginationItem from "@mui/material/PaginationItem";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import CardProduct from "./Card-Product";
@@ -12,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+
 
 const Div = styled("div")(({ theme }) => ({
   width: "100%",
@@ -30,7 +28,7 @@ const Span = styled("div")(({ theme }) => ({
 }));
 
 const PaginationBackend = () => {
-  const limit = useMemo(() => 2, []);
+  const limit = 2;
   const [activePage, setActivePage] = useState(1);
   let navigate = useNavigate();
 
@@ -47,12 +45,30 @@ const PaginationBackend = () => {
       {loading ? (
         <Typography>Loading...</Typography>
       ) : (
-        <Container spacing={1}>
+        <Container
+          spacing={1}
+          sx={{
+            pt: 3,
+            pb:8,
+            backgroundColor: "rgb(227, 227, 227)",
+            borderRadius: "10px",
+            boxShadow: "-2px 2px 10px rgba(0,0,0,0.5)",
+          }}
+        >
           {data?.data.map((record) => (
             <Box key={record.id}>
               <Button
-              variant="contained"
-                sx={{ fontFamily: "koodak", height: "10px", p: 4 ,width:"100%", border:3,fontSize: 25}}
+                variant="contained"
+                sx={{
+                  fontFamily: "koodak",
+                  height: "10px",
+                  p: 4,
+                  width: "100%",
+                  border: 3,
+                  fontSize: 25,
+                  mb:3,
+                  mt:3,
+                }}
                 onClick={() => handleNavigate(record.id)}
               >
                 {record.name}
@@ -73,6 +89,7 @@ const PaginationBackend = () => {
         </Container>
       )}
       <Pagination
+      sx={{m:6,p:3, border:3, borderColor:"primary.main",borderRadius:3}}
         variant="outlined"
         color="primary"
         defaultPage={1}

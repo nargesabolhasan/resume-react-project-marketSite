@@ -24,6 +24,7 @@
   background:$primary;
   transform: translateY(0);
   border-radius:0px;
+  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.3);
 }
 .card .face.face1 .content {
   opacity:100%;
@@ -54,7 +55,7 @@ color:black
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   transform: translateY(-100px);
   opacity:0%;
   height:300px;

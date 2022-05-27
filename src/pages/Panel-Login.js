@@ -8,10 +8,12 @@ import LayoutUser from "../components/Layouts/Layout-user"
 import Container from "@mui/material/Container";
 const PanelLogin = () => {
   return (
-    <Container sx={{mr:0,display: 'flex',flexDirection: 'row',width: '100%',m:0,justifyContent: 'center',alignItems: 'center',spacing:4}} >
+    <Container  >
       <FormValidation />
     </Container>
   );
 };
 
 export default LayoutUser(PanelLogin);
+
+//sx={{mr:0,display: 'flex',flexDirection: 'row',width: '100%',m:0,justifyContent: 'center',alignItems: 'center',spacing:4}}

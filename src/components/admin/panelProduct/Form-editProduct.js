@@ -33,14 +33,14 @@ const Errors = styled("h5")(({ theme }) => ({
 //---------------------------------------------------------
 
 const Basic = (props) => {
-  const { product,handleCloseModal,updateData } = props;
+  const { product, handleCloseModal, updateData } = props;
   const [changedData, setChangedData] = useState(product);
 
-  const [uploadedImage, setIUploadedImage] = useState();
+  const [thumbnails, setThumbnails] = useState([]);
+  const [uploadedImage, setIUploadedImage] = useState(null);
   const [uploadedGallery, setIUploadedGallery] = useState([]);
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
-  const [thumbnails, setThumbnails] = useState([]);
   const [dataDesciption, setDataDiscription] = useState();
 
   const LoginSchema = Yup.object().shape({
@@ -53,8 +53,8 @@ const Basic = (props) => {
       ),
     image: Yup.mixed("تصویر محصول بار گذاری شود"),
     categoryId: Yup.number("دسته بندی  را انتخاب کنید"),
-    price: Yup.number("قیمت محصول را وارد کنید"),
-    count: Yup.number(" تعداد محصول را وارد کنید "),
+    price: Yup.number("قیمت محصول را وارد کنید").positive("بزرگتر از 0 باشد"),
+    count: Yup.number(" تعداد محصول را وارد کنید ").positive("بزرگتر از 0 باشد"),
     color: Yup.string("رنگ محصول را وارد کنید "),
     description: Yup.string("توضیحات محصول را وارد کنید"),
   });
@@ -72,11 +72,8 @@ const Basic = (props) => {
   };
   //-------handle Changes:---------
   const handleCkeditore = (e, editor) => {
-    // setDataDiscription(editor?.getData());
-    // setChangedData({ ...changedData, "description": editor?.getData() });
-    console.log( editor?.getData())
+    setChangedData({ ...changedData, description: editor?.getData() });
   };
-  
 
   //-------uplaod one image:---------
   const handleUpload = async (e) => {
@@ -87,7 +84,6 @@ const Basic = (props) => {
     const res = await HttpService.post("/upload", formData);
     setIUploadingImage(true);
     setIUploadedImage(res?.data.filename);
-    console.log();
   };
   //--------uplaod thumbnails :-------
   const handleUploadThumbnail = async (e) => {
@@ -112,20 +108,43 @@ const Basic = (props) => {
   //---------submitEdit:-----------
   const submitEdit = async (input) => {
     const formData = new FormData();
-    for (const [key, value] of Object.entries({
-      ...changedData,
-      image: `/files/${uploadedImage}`,
-      thumbnail: [uploadedGallery.map((image) => `/files/${image}`)],
-    })) {
-      formData.append(key, value);
+    if (!uploadedImage) {
+      for (const [key, value] of Object.entries({
+        ...changedData,
+        image:product?.image,
+        thumbnail: [
+          uploadedGallery.map((image) => `/files/${image}`),
+          thumbnails.map((image) => image),
+        ],
+      })) {
+        formData.append(key, value);
+      }
+      await HttpService.patch(`products/${product.id}`, formData, {
+        headers: { token: localStorage.getItem("token") },
+      });
+      updateData();
+      setTimeout(() => {
+        handleCloseModal();
+      }, 600);
+    } else {
+      for (const [key, value] of Object.entries({
+        ...changedData,
+        image: `/files/${uploadedImage}`,
+        thumbnail: [
+          uploadedGallery.map((image) => `/files/${image}`),
+          thumbnails.map((image) => image),
+        ],
+      })) {
+        formData.append(key, value);
+      }
+      await HttpService.patch(`products/${product.id}`, formData, {
+        headers: { token: localStorage.getItem("token") },
+      });
+      updateData();
+      setTimeout(() => {
+        handleCloseModal();
+      }, 600);
     }
-    await HttpService.patch(`products/${product.id}`, formData, {
-      headers: { token: localStorage.getItem("token") },
-    });
-    updateData()
-    setTimeout(() => {
-      handleCloseModal()
-    }, 600);
   };
 
   return (
@@ -328,7 +347,7 @@ const Basic = (props) => {
               >
                 <Grid
                   sx={{
-                    width: 210,
+                    width: 220,
                   }}
                 >
                   <TittleInputs>تصویر</TittleInputs>
@@ -365,12 +384,12 @@ const Basic = (props) => {
                 </Grid>
                 <Grid
                   sx={{
-                    width: 210,
+                    width: 220,
                   }}
                 >
                   <TittleInputs>تصاویر گالری</TittleInputs>
-                  <Grid sx={{ border: "2px solid gray", minHeight: 95, p: 2 }}>
-                    {uploadedGallery.map((image, index) => (
+                  <Grid sx={{ border: "2px solid gray", minHeight: 95, p: 2,  display: "flex",flexDirection: "row",flexWrap: "wrap",justifyContent: "space-around",alignItems: "center"}}>
+                    {uploadedGallery?.map((image, index) => (
                       <span key={index} sx={{ width: "200px" }}>
                         <CloseIcon
                           sx={{
@@ -431,36 +450,12 @@ const Basic = (props) => {
                     {errors.thumbnail && touched.thumbnail && errors.thumbnail}
                   </Errors>
                 </Grid>
-                {/* <Grid>
-                  <TittleInputs>توضیحات</TittleInputs>
-                  <TextField
-                    rows="4"
-                    multiline
-                    inputProps={{
-                      style: {
-                        height: 116,
-                      },
-                    }}
-                    type="text"
-                    name="description"
-                    onChange={(e) => {
-                      handleChanges(e);
-                      handleChange(e);
-                    }}
-                    onBlur={handleBlur}
-                    value={changedData.description}
-                  />
-                  <Errors variant="h5">
-                    {errors.description &&
-                      touched.description &&
-                      errors.description}
-                  </Errors>
-                </Grid> */}
               </Grid>
               <div>
                 <CKEditor
                   editor={ClassicEditor}
-                  data={changedData.description}
+                  data={product?.description}
+                  name="description"
                   config={{
                     toolbar: [
                       "heading",
@@ -476,10 +471,8 @@ const Basic = (props) => {
                       "redo",
                     ],
                   }}
-                  name="description"
                   onChange={(e, editor) => {
-                    handleCkeditore(e,editor);
-                    handleChange(e,editor);
+                    handleCkeditore(e, editor);
                   }}
                   onBlur={handleBlur}
                 />
