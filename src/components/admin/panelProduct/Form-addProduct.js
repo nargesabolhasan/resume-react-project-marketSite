@@ -39,7 +39,7 @@ const Basic = (props) => {
   const [uploadedGallery, setIUploadedGallery] = useState([]);
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
-  const [dataDesciption ,setDataDiscription]=useState();
+  const [dataDesciption, setDataDiscription] = useState();
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
@@ -55,8 +55,12 @@ const Basic = (props) => {
     //    return value && ['image/webp','image/png'].includes(value.type);
     // }),
     categoryId: Yup.number().required("دسته بندی  را انتخاب کنید"),
-    price: Yup.number().required("قیمت محصول را وارد کنید").positive("بزرگتر از 0 باشد"),
-    count: Yup.number().required(" تعداد محصول را وارد کنید ").positive("بزرگتر از 0 باشد"),
+    price: Yup.number()
+      .required("قیمت محصول را وارد کنید")
+      .positive("بزرگتر از 0 باشد"),
+    count: Yup.number()
+      .required(" تعداد محصول را وارد کنید ")
+      .positive("بزرگتر از 0 باشد"),
     color: Yup.string().required("رنگ محصول را وارد کنید "),
     //description: Yup.string()("توضیحات محصول را وارد کنید"),
   });
@@ -73,8 +77,8 @@ const Basic = (props) => {
       formData.append(key, value);
     }
     await HttpService.post("/products", formData);
-    props.updateData()
-    props.handleClose()
+    props.updateData();
+    props.handleClose();
     // setTimeout(() => {
     //   window.location.reload(false);
 
@@ -105,11 +109,11 @@ const Basic = (props) => {
     setDataDiscription(editor?.getData());
   };
 
-    //------delete new photos:----
-    const deleteNewphotos = (input) => {
-      setIUploadedGallery(uploadedGallery.filter((i) => i !== input));
-      //console.log(input)
-    };
+  //------delete new photos:----
+  const deleteNewphotos = (input) => {
+    setIUploadedGallery(uploadedGallery.filter((i) => i !== input));
+    //console.log(input)
+  };
 
   return (
     <div>
@@ -130,7 +134,7 @@ const Basic = (props) => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            values={...values,"description":dataDesciption};
+            values = { ...values, description: dataDesciption };
             submitAdd(values);
           }, 400);
         }}
@@ -173,8 +177,8 @@ const Basic = (props) => {
               <Grid>
                 <TittleInputs> نام لاتین</TittleInputs>
                 <TextField
-                 column="1"
-                 multiline
+                  column="1"
+                  multiline
                   type="text"
                   name="ENname"
                   onChange={handleChange}
@@ -272,18 +276,29 @@ const Basic = (props) => {
                 }}
               >
                 <TittleInputs>تصویر</TittleInputs>
-                <Grid sx={{ border: "2px solid gray", height: 95, p: 2,flexDirection: "row",flexWrap: "wrap",justifyContent: "space-around",alignItems: "center"}}>
+                <Grid
+                  sx={{
+                    border: "2px dashed gray",
+                    height: 260,
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   {uploadingImage ? (
                     <img
                       src={`${BASE_URL}/files/${uploadedImage}`}
                       alt="Alt Text!"
-                      style={{ width: "80px" }}
+                      style={{ width: "200px" }}
                     />
                   ) : (
                     <img
                       src={imageIcon}
                       alt="Alt Text!"
-                      style={{ width: "80px" }}
+                      style={{ width: "80px", margin: "0 auto" }}
                     />
                   )}
                 </Grid>
@@ -305,33 +320,47 @@ const Basic = (props) => {
               </Grid>
               <Grid
                 sx={{
-                  width:220,
+                  width: 220,
                 }}
               >
                 <TittleInputs>تصاویر گالری</TittleInputs>
-                <Grid sx={{p:2, border: "2px solid gray", minHeight: 95, display: "flex",flexDirection: "row",flexWrap: "wrap",justifyContent: "space-around",alignItems: "center"}}>
+                <Grid
+                  sx={{
+                    border: "2px dashed gray",
+                    maxHeight: 260,
+                    minHeight: 260,
+                    overflowY: "scroll",
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                  }}
+                >
                   {uploadingGallery ? (
                     uploadedGallery.map((image, index) => (
-                      <span key={index} sx={{ width: "30%" }}>
-                      <CloseIcon
+                      <div key={index*2} style={{borderBottom:"2px dashed gray", paddingTop:"20px",paddingRight:"20px",marginTop:"25px",width: "100%",minHeight:"90px"}}>
+                        <CloseIcon
                         sx={{
+                          mx: "auto",
                           backgroundColor: "primary.main",
                           color: "white",
                           fontSize: 20,
-                          position: "absolute",
+                          position: "relative",
+                          bottom:"50px",
                           border: 3,
                           borderColor: "primary.main",
                           borderRadius: "11px",
                         }}
-                        onClick={() => deleteNewphotos(image)}
-                      />
-                      <img
-                        key={index}
-                        src={`${BASE_URL}/files/${image}`}
-                        alt="Alt Text!"
-                        style={{ width: "80px" }}
-                      />
-                      </span>
+                          onClick={() => deleteNewphotos(image)}
+                        />
+                        <img
+                          key={index}
+                          src={`${BASE_URL}/files/${image}`}
+                          alt="Alt Text!"
+                          style={{ width: "80px" }}
+                        />
+                      </div>
                     ))
                   ) : (
                     <img
@@ -360,7 +389,7 @@ const Basic = (props) => {
               </Grid>
             </Grid>
             <div>
-            <TittleInputs>توضیحات</TittleInputs>
+              <TittleInputs>توضیحات</TittleInputs>
               <CKEditor
                 editor={ClassicEditor}
                 data={values.description}
@@ -386,11 +415,11 @@ const Basic = (props) => {
                 }}
                 onBlur={handleBlur}
               />
-               <Errors variant="h5">
-                  {errors.description &&
-                    touched.description &&
-                    errors.description}
-                </Errors>
+              <Errors variant="h5">
+                {errors.description &&
+                  touched.description &&
+                  errors.description}
+              </Errors>
             </div>
 
             <ButtonAdd type="submit" disabled={isSubmitting}>

@@ -60,6 +60,7 @@ color:black
   opacity:0%;
   height:300px;
   direction: rtl;
+  text-overflow: ellipsis;
 }
 .card:hover .face.face2 {
   transform: translateY(0);
@@ -67,8 +68,9 @@ color:black
   height:300px;
 }
 .card .face.face2 .content p {
-  margin: 0;
   padding: 2px;
+  margin-bottom :5px;
+
 }
 .card .face.face2 .content a {
   margin: 15px 0 0;

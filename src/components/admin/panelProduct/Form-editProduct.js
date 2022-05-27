@@ -351,7 +351,16 @@ const Basic = (props) => {
                   }}
                 >
                   <TittleInputs>تصویر</TittleInputs>
-                  <Grid sx={{ border: "2px solid gray", minHeight: 95, p: 2 }}>
+                  <Grid   sx={{
+                    border: "2px dashed gray",
+                    height: 260,
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}>
                     {uploadingImage ? (
                       <img
                         src={`${BASE_URL}/files/${uploadedImage}`}
@@ -362,7 +371,7 @@ const Basic = (props) => {
                       <img
                         src={`${BASE_URL}${changedData.image}`}
                         alt="Alt Text!"
-                        style={{ width: "80px" }}
+                        style={{ width: "200px" }}
                       />
                     )}
                   </Grid>
@@ -388,19 +397,21 @@ const Basic = (props) => {
                   }}
                 >
                   <TittleInputs>تصاویر گالری</TittleInputs>
-                  <Grid sx={{ border: "2px solid gray", minHeight: 95, p: 2,  display: "flex",flexDirection: "row",flexWrap: "wrap",justifyContent: "space-around",alignItems: "center"}}>
+                  <Grid sx={{ border: "2px dashed gray", maxHeight:260,minHeight:260,overflowY:"scroll",display: "flex",flexDirection: "row",flexWrap: "wrap",justifyContent: "space-around",alignItems: "center"}}>
                     {uploadedGallery?.map((image, index) => (
-                      <span key={index} sx={{ width: "200px" }}>
-                        <CloseIcon
-                          sx={{
-                            backgroundColor: "primary.main",
-                            color: "white",
-                            fontSize: 20,
-                            position: "absolute",
-                            border: 3,
-                            borderColor: "primary.main",
-                            borderRadius: "11px",
-                          }}
+                      <div key={index} style={{borderBottom:"2px dashed gray", paddingTop:"20px",paddingRight:"20px",marginTop:"25px",width: "100%",minHeight:"90px"}}>
+                      <CloseIcon
+                        sx={{
+                          mx: "auto",
+                          backgroundColor: "primary.main",
+                          color: "white",
+                          fontSize: 20,
+                          position: "relative",
+                          bottom:"50px",
+                          border: 3,
+                          borderColor: "primary.main",
+                          borderRadius: "11px",
+                        }}
                           onClick={() => deleteNewphotos(image)}
                         />
                         <img
@@ -408,17 +419,19 @@ const Basic = (props) => {
                           alt="Alt Text!"
                           style={{ width: "80px" }}
                         />
-                      </span>
+                      </div>
                     ))}
 
                     {thumbnails?.map((image, index) => (
-                      <span key={index} sx={{ width: "200px" }}>
+                       <div key={index*2} style={{borderBottom:"2px dashed gray", paddingTop:"20px",paddingRight:"20px",marginTop:"25px",width: "100%",minHeight:"90px"}}>
                         <CloseIcon
                           sx={{
+                            mx: "auto",
                             backgroundColor: "primary.main",
                             color: "white",
                             fontSize: 20,
-                            position: "absolute",
+                            position: "relative",
+                            bottom:"50px",
                             border: 3,
                             borderColor: "primary.main",
                             borderRadius: "11px",
@@ -426,12 +439,13 @@ const Basic = (props) => {
                           onClick={() => deleteOldphotos(image)}
                         />
                         <img
+                        sx={{border:"2px solid black"}}
                           key={index}
                           src={`${BASE_URL}${image}`}
                           alt="Alt Text!"
                           style={{ width: "80px" }}
                         />
-                      </span>
+                      </div>
                     ))}
                   </Grid>
                   <TextField
