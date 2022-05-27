@@ -13,6 +13,7 @@ import { BASE_URL } from "../../../constants/Constants";
 import CloseIcon from "@mui/icons-material/Close";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useSelector } from "react-redux";
 
 //----component styles----------------
 
@@ -42,6 +43,8 @@ const Basic = (props) => {
   const [uploadingGallery, setIUploadingGallery] = useState(false);
   const [uploadingImage, setIUploadingImage] = useState(false);
   const [dataDesciption, setDataDiscription] = useState();
+
+  const state = useSelector((state) => state);
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string().min(4, "نام بیشتر از 4 حرف باشد"),
@@ -80,7 +83,6 @@ const Basic = (props) => {
     const image = e.target.files[0];
     const formData = new FormData();
     formData.append("image", image);
-
     const res = await HttpService.post("/upload", formData);
     setIUploadingImage(true);
     setIUploadedImage(res?.data.filename);
@@ -120,7 +122,7 @@ const Basic = (props) => {
         formData.append(key, value);
       }
       await HttpService.patch(`products/${product.id}`, formData, {
-        headers: { token: localStorage.getItem("token") },
+        headers: { token: localStorage.getItem(state.token) },
       });
       updateData();
       setTimeout(() => {

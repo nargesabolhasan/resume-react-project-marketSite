@@ -2,7 +2,6 @@
  import { BASE_URL } from "../constants/Constants";
 
 class HttpService {
-   
   constructor() {
     axios.defaults.baseURL = BASE_URL;
     axios.defaults.timeout = 2000;

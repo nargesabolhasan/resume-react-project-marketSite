@@ -14,6 +14,7 @@ import HttpService from "../../../axios/HttpService";
 import ShowPassword from "./ShowPassword";
 import { useDispatch} from "react-redux";
 import { setUser } from "../../../redux/userSlice";
+import { setToken } from "../../../redux/tokenSlice";
 import ButtonAdd from "../../buttons/Button-add";
 import Modals from "../../modal/Modals";
 import "../../../assets/Core-ui/Core-styles.scss";
@@ -40,6 +41,7 @@ const FormValidation = () => {
     const res = await HttpService.post("auth/login", input);
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token);
+        dispatch(setToken(res.data.token))
         handleShow();
         setTimeout(() => {
           navigate("/PanelProducts");

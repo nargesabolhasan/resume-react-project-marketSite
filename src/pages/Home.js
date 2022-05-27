@@ -9,6 +9,8 @@ import { styled } from "@mui/material/styles";
 import useGetAxios from "../axios/useGetAxios";
 import Box from "@mui/material/Box";
 import Slider from "../components/user/home/Slider";
+import { useSelector } from "react-redux";
+
 
 const Div = styled("div")(({ theme }) => ({
   display: "flex",
@@ -51,6 +53,8 @@ const Home = () => {
   const handleNavigate = (id) => {
     navigate(`/categories/${id}`, { replace: true });
   };
+   const user = useSelector((state) => state);
+   console.log(user.token)
 
   return (
     <>

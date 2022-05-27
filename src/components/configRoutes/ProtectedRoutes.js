@@ -8,9 +8,12 @@ const PublicRoutes = () => {
     const user = useSelector((state) => state);
     if (Object.keys(user.user).length !== 0) {
       return true;
+    } else if (localStorage.length === 0) {
+      return false;
     } else {
       return false;
     }
+  
   };
 
   useEffect(() => {
