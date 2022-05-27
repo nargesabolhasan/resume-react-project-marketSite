@@ -12,23 +12,29 @@ import PanelProducts from "./pages/Panel-Products";
 import PanelQuantity from "./pages/Panel-Quantity";
 import PanelOrder from "./pages/Panel-Order";
 import Grouping from "./pages/Grouping";
+import {ProtectedRoutes,PublicRoutes } from "./components/index";
 
 function App() {
   return (
     <div style={{ fontFamily: "koodak" }}>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/grouping" element={<Grouping/>} />
-        <Route path="/Basket" element={<Basket />} />
-        <Route path="/PanelProducts" element={<PanelProducts />} />
-        <Route path="/PanelQuantity" element={<PanelQuantity />} />
-        <Route path="/PanelOrder" element={<PanelOrder />} />
-        <Route path="/PanelLogin" element={<PanelLogin />} />
-        <Route path="/Payment" element={<Payment />} />
-        <Route path="/Products/:name" element={<Product />} />
-        <Route path="/categories/:id" element={<ProductGroup />} />
-        <Route path="/ResultPayment" element={<ResultPayment />} />
-        <Route path="/SubmitPayment" element={<SubmitPayment />} />
+        <Route element={<PublicRoutes />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/grouping" element={<Grouping />} />
+          <Route path="/Basket" element={<Basket />} />
+          <Route path="/PanelLogin" element={<PanelLogin />} />
+          <Route path="/Payment" element={<Payment />} />
+          <Route path="/Products/:name" element={<Product />} />
+          <Route path="/categories/:id" element={<ProductGroup />} />
+          <Route path="/ResultPayment" element={<ResultPayment />} />
+          <Route path="/SubmitPayment" element={<SubmitPayment />} />
+        </Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/PanelProducts" element={<PanelProducts />} />
+          <Route path="/PanelQuantity" element={<PanelQuantity />} />
+          <Route path="/PanelOrder" element={<PanelOrder />} />
+        </Route>
+
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>

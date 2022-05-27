@@ -14,7 +14,6 @@ const Authentication = () => {
     } else {
       navigate("/PanelLogin");
     }
-    console.log(user)
   };
   return (
     <IconButton

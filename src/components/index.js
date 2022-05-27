@@ -1,4 +1,4 @@
-import Authentication from "./admin/Authentication";
+import Authentication from "./configRoutes/ProtectedRoutes";
 import FormValidation from "./admin/login/FormValidation";
 import HeaderAdmin from "./admin/Header-admin";
 import MainAdmin from "./admin/Main-Admin";
@@ -11,6 +11,8 @@ import FilterOrders from "./admin/panelOrder/FilterOrders";
 import ModalAddProduct from "./admin/panelProduct/Form-addProduct";
 import ModalEditProduct from "./admin/panelProduct/Form-editProduct";
 
+import ProtectedRoutes from "./configRoutes/ProtectedRoutes";
+import PublicRoutes from "./configRoutes/PublicRoutes";
 
 import ButtonAdd from "./buttons/Button-add";
 import ButtonSubmit from "./buttons/Button-submit";
@@ -24,6 +26,8 @@ import LayoutAdmin from "./Layouts/Layout-admin";
 import LayoutUser from "./Layouts/Layout-user";
 
 export {
+  ProtectedRoutes,
+  PublicRoutes,
   Authentication,
   FormValidation,
   HeaderAdmin,
