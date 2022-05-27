@@ -13,7 +13,7 @@ const Product = () => {
   let { name } = useParams();
 
 
-  const { data, loading, error } = useGetAxios(`/Products/${name}`);
+  const { data, loading, error } = useGetAxios(`products/${name}?_expand=category`);
 
   return (
     <Box >

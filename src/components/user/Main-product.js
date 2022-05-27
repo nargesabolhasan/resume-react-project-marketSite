@@ -34,12 +34,12 @@ const Div = styled("div")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
-  padding:"10px"
+  padding: "10px",
 }));
 const InfoCard = styled("div")(({ theme }) => ({
   width: "60%",
   height: "700px",
-  margin :"0 auto",
+  margin: "0 auto",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-around",
@@ -194,67 +194,71 @@ const MainUser = (props) => {
 
   return (
     <>
-      <Div sx={{mt:10}}>
+      <Div sx={{ mt: 10 }}>
         <Grid item xs={6}>
-        <InfoCard sx={{ mt: 5, backgroundColor: "amber.main" }} >
-          <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
-          <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
-          <Span>
-            <Titles>قیمت :</Titles>
-            {notValid ? (
-              <Typographys>عدم موجودی</Typographys>
-            ) : (
-              <Typographys>
-                {dollarUSLocale.format(info?.price)} تومان
-              </Typographys>
-            )}
-          </Span>
-          <Span>
-            <Titles>تعداد :</Titles>
-            <Counter sx={{ height: "45px" }}>
-              <Button
-                variant="outlined"
-                sx={{ height: "100%", fontSize: 20, p: 0 }}
-                onClick={handleIncrease}
-                disabled={!isValidIncrease}
-              >
-                +
-              </Button>
-              {/* <Typographys>{counter}</Typographys> */}
-              <Box sx={{ p: 3, fontSize: 20, fontFamily: "SansWeb" }}>
-                <EasyEdit
-                  type="number"
-                  onSave={(e) => saveData(e)}
-                  onCancel={cancel}
-                  saveButtonLabel="ذخیره "
-                  cancelButtonLabel="لغو "
-                  attributes={{ name: "awesome-input", id: 1 }}
-                  value={counter}
-                  instructions={`تعداد موجودی :${info?.count}`}
-                />
-              </Box>
-              <Button
-                variant="outlined"
-                sx={{ height: "100%", fontSize: 20, p: 0 }}
-                onClick={handleDicrease}
-                disabled={!isValidDicrease}
-              >
-                -
-              </Button>
-            </Counter>
-          </Span>
-          <Span>
-            <Titles>رنگ :</Titles>
-            <Typographys>{info?.color}</Typographys>
-          </Span>
-          <Box>
-            <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
-            <Typographys ref={caption}> </Typographys>
-          </Box>
-          <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
-            افزودن به سبد خرید
-          </Buttons>
-        </InfoCard>
+          <InfoCard sx={{ mt: 5, backgroundColor: "amber.main" }}>
+            <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
+            <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
+            <Span>
+            <Titles>دسته بندی :</Titles>
+              <Box>{info?.category.name}</Box>
+              </Span>
+            <Span>
+              <Titles>قیمت :</Titles>
+              {notValid ? (
+                <Typographys>عدم موجودی</Typographys>
+              ) : (
+                <Typographys>
+                  {dollarUSLocale.format(info?.price)} تومان
+                </Typographys>
+              )}
+            </Span>
+            <Span>
+              <Titles>تعداد :</Titles>
+              <Counter sx={{ height: "45px" }}>
+                <Button
+                  variant="outlined"
+                  sx={{ height: "100%", fontSize: 20, p: 0 }}
+                  onClick={handleIncrease}
+                  disabled={!isValidIncrease}
+                >
+                  +
+                </Button>
+                {/* <Typographys>{counter}</Typographys> */}
+                <Box sx={{ p: 3, fontSize: 20, fontFamily: "SansWeb" }}>
+                  <EasyEdit
+                    type="number"
+                    onSave={(e) => saveData(e)}
+                    onCancel={cancel}
+                    saveButtonLabel="ذخیره "
+                    cancelButtonLabel="لغو "
+                    attributes={{ name: "awesome-input", id: 1 }}
+                    value={counter}
+                    instructions={`تعداد موجودی :${info?.count}`}
+                  />
+                </Box>
+                <Button
+                  variant="outlined"
+                  sx={{ height: "100%", fontSize: 20, p: 0 }}
+                  onClick={handleDicrease}
+                  disabled={!isValidDicrease}
+                >
+                  -
+                </Button>
+              </Counter>
+            </Span>
+            <Span>
+              <Titles>رنگ :</Titles>
+              <Typographys>{info?.color}</Typographys>
+            </Span>
+            <Box>
+              <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
+              <Typographys ref={caption}> </Typographys>
+            </Box>
+            <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
+              افزودن به سبد خرید
+            </Buttons>
+          </InfoCard>
         </Grid>
         <Grid item xs={6}>
           <Img src={`${BASE_URL}${info?.image}`} />
