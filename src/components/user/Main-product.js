@@ -73,6 +73,7 @@ const Counter = styled("span")(({ theme }) => ({
 const MainUser = (props) => {
   const { info } = props;
   const [counter, setCounter] = useState(1);
+  const [isValidShopping,setIsValidShopping] = useState(true)
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
@@ -135,6 +136,7 @@ const MainUser = (props) => {
       setNotValid(true);
       setIsValidDicrease(false);
       setIsValidIncrease(false);
+      setIsValidShopping(false)
     }
   }, [counter]);
   //------------
@@ -171,7 +173,6 @@ const MainUser = (props) => {
     dispatch(setProducts(data));
   };
  
-  console.log(products.products);
   return (
     <>
       <Div sx={{ mt: 10 }}>
@@ -235,7 +236,7 @@ const MainUser = (props) => {
               <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
               <Typographys ref={caption}> </Typographys>
             </Box>
-            <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
+            <Buttons clickHandler={() => handleShopUpdate(info, counter)} disabled={!isValidShopping}>
               افزودن به سبد خرید
             </Buttons>
           </InfoCard>

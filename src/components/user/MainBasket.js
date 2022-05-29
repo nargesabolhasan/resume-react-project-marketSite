@@ -10,16 +10,18 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
 
 
 
-const MainCategory = (props) => {
+const MainBasket = (props) => {
     const { data } = props;
-
-
-  return (
-  <></>
-  );
+    return (
+      <Badge badgeContent={4} color="black">
+        <MailIcon color="action" />
+      </Badge>
+    );
 };
 
-export default MainCategory;
+export default MainBasket;

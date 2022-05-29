@@ -9,34 +9,35 @@ import { styled } from "@mui/material/styles";
 import Buttons from "../components/buttons/Button-add";
 import LayoutUser from "../components/Layouts/Layout-user";
 import { useDispatch, useSelector } from "react-redux";  
-//import { useDispatch, useSelector } from "react-redux";
-//import { setUser } from "../../../redux/userSlice";
+import {MainBasket} from "../components/index";
+
 const Img = styled("img")(({ theme }) => ({
-  width: "50%",
+  width: "80%",
 }));
 const Titles = styled("h3")(({ theme }) => ({
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   padding: 10,
   margin: 5,
-  color:"white",
-  backgroundColor: "#4f13e3",
-  borderRadius: 5
+  color: "white",
+  backgroundColor: "#ba6b6c",
+  borderRadius: 5,
 }));
 
 const Div = styled("div")(({ theme }) => ({
-  width: "100%",
   display: "flex",
   flexDirection: "row",
-  justifyContent: "space-around",
   alignItems: "center",
+  justifyContent: "center",
+  padding: "10px",
 }));
 const InfoCard = styled("div")(({ theme }) => ({
-  width: "40%",
+  width: "60%",
   height: "700px",
+  margin: "0 auto",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-around",
-  alignItems: "end",
+  alignItems: "center",
   padding: "20px",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
 }));
@@ -54,7 +55,7 @@ const Span = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   direction: "rtl",
-  height: "50px",
+  minHeight: "50px",
 }));
 
 const Counter = styled("span")(({ theme }) => ({
@@ -62,7 +63,7 @@ const Counter = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  border: "0.5px solid  #6c4eb8",
+  border: "0.5px solid  #ba6b6c",
   borderRadius: "5px",
   height: "100%",
 }));
@@ -73,89 +74,69 @@ const Basket = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const[notValid ,setNotValid] = useState(false)
- 
-  //const dispatch = useDispatch();
-  //const data = useSelector((state) => state);
-  //dispatch(setUser(input));
-  //import { useDispatch, useSelector } from "react-redux";
-//import { setUser } from "../../../redux/userSlice";
+  const products = useSelector((state) => state);
 
-  useEffect(() => {
-    if (info?.count == counter) {
-      setIsValidIncrease(false);
-    } else {
-      setIsValidIncrease(true);
-    }
-    if (counter == 0) {
-      setIsValidDicrease(false);
-    } else {
-      setIsValidDicrease(true);
-    }
-    if(info?.count ==0){
-      setCounter(0)
-      setNotValid(true)
-      setIsValidDicrease(false);
-      setIsValidIncrease(false);
-    }
-  }, [counter]);
 
-  const handleIncrease = () => {
-    if (info.count !== 0 && info.count > counter) {
-      setCounter(counter + 1);
-    }
-  };
+  // useEffect(() => {
+  //   if (info?.count == counter) {
+  //     setIsValidIncrease(false);
+  //   } else {
+  //     setIsValidIncrease(true);
+  //   }
+  //   if (counter == 0) {
+  //     setIsValidDicrease(false);
+  //   } else {
+  //     setIsValidDicrease(true);
+  //   }
+  //   if(info?.count ==0){
+  //     setCounter(0)
+  //     setNotValid(true)
+  //     setIsValidDicrease(false);
+  //     setIsValidIncrease(false);
+  //   }
+  // }, [counter]);
 
-  const handleDicrease = () => {
-    if (counter > 0) {
-      setCounter(counter - 1);
-    }
-  };
+  // const handleIncrease = () => {
+  //   if (info.count !== 0 && info.count > counter) {
+  //     setCounter(counter + 1);
+  //   }
+  // };
+
+  // const handleDicrease = () => {
+  //   if (counter > 0) {
+  //     setCounter(counter - 1);
+  //   }
+  // };
 
   return (
-    <Div>
-      <InfoCard sx={{ mt: 5 }}>
+    <Div sx={{mt:50}}>
+    <div>
+    {products.products?.map((item) =>(
+         <Div>
+      <InfoCard sx={{ mt: 5 }} key={item.id}>
         <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
         <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
         <Span>
           <Titles>قیمت :</Titles>
-          {notValid ? <Typographys>عدم موجودی</Typographys>:<Typographys>{info?.price} تومان</Typographys>}
+          {notValid ? <Typographys>عدم موجودی</Typographys>:<Typographys>{item?.price} تومان</Typographys>}
           
         </Span>
-        <Span>
-          <Titles>تعداد :</Titles>
-          <Counter>
-            <Button
-              variant="outlined"
-              sx={{ height: "100%", fontSize: 20, p: 0 }}
-              onClick={handleIncrease}
-              disabled={!isValidIncrease}
-            >
-              +
-            </Button>
-            <Typographys>{counter}</Typographys>
 
-            <Button
-              variant="outlined"
-              sx={{ height: "100%", fontSize: 20, p: 0 }}
-              onClick={handleDicrease}
-              disabled={!isValidDicrease}
-            >
-              -
-            </Button>
-          </Counter>
-        </Span>
         <Span>
           <Titles>رنگ :</Titles>
-        <Typographys>{info?.color}</Typographys>
+        <Typographys>{item?.color}</Typographys>
         </Span>
         <Box >
           <Titles sx={{direction: "rtl"}}>توضیحات :</Titles>
-        <Typographys>{info?.description}</Typographys>
+        <Typographys>{item?.description}</Typographys>
     </Box>
         <Buttons>افزودن به سبد خرید</Buttons>
       </InfoCard>
-      <Img src={`${BASE_URL}${info?.image}`} />
-    </Div>
+      <Img src={`${BASE_URL}${item?.image}`} />
+    </Div> 
+    ))}
+</div>
+   </Div>
   );
 };
 

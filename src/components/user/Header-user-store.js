@@ -11,11 +11,18 @@ import logo from "../../assets/images/logo/logo.png";
 import Authentication from "../admin/Authentication";
 import "../../assets/Core-ui/palette.scss";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import Badge from "@mui/material/Badge";
+import { useSelector } from "react-redux";
+
 
 const ResponsiveAppBar = () => {
+  const products = useSelector((state) => state);
   return (
-    <AppBar position="fixed" sx={{ p: 1, backgroundColor: "PDark.main" ,width:"100%"}}>
-      <Container maxWidth="xl" >
+    <AppBar
+      position="fixed"
+      sx={{ p: 1, backgroundColor: "PDark.main", width: "100%" }}
+    >
+      <Container maxWidth="xl">
         <Toolbar
           disableGutters
           sx={{
@@ -41,17 +48,19 @@ const ResponsiveAppBar = () => {
               <IconButton
                 variant="h6"
                 component="div"
-                sx={{ mr: 5, display: { xs: "none", md: "flex", lg: "flex" } }}
+                sx={{ mr: 5, display: {xs: "none", md: "flex", lg: "flex"}}}
               >
-                <NavLink
-                  to="/Basket"
-                  style={({ isActive }) => ({
-                    color: isActive ? "#fff8e1" : "black",
-                    textDecoration: "none",
-                  })}
-                >
-                  <AddShoppingCartIcon />
-                </NavLink>
+                <Badge badgeContent={products?.products.length} color="PLight">
+                  <NavLink
+                    to="/Basket"
+                    style={({ isActive }) => ({
+                      color: isActive ? "#fff8e1" : "black",
+                      textDecoration: "none",
+                    })}
+                  >
+                    <AddShoppingCartIcon />
+                  </NavLink>
+                </Badge>
               </IconButton>
 
               <IconButton
@@ -96,13 +105,17 @@ const ResponsiveAppBar = () => {
                 flexDirection: "row",
                 alignItems: "center",
               }}
-            >
-
-            </Grid>
+            ></Grid>
             <Grid item xs={4} sx={{ align: "center", ml: 5 }}>
               <Typography
                 variant="h3"
-                sx={{ fontFamily: "koodak", color: "#fff8e1", align: "center", mr: 5, display: { xs: "none", md: "flex", lg: "flex" }  }}
+                sx={{
+                  fontFamily: "koodak",
+                  color: "#fff8e1",
+                  align: "center",
+                  mr: 5,
+                  display: { xs: "none", md: "flex", lg: "flex" },
+                }}
               >
                 فروشگاه آنلاین ایران سیب
               </Typography>

@@ -16,10 +16,12 @@ import PublicRoutes from "./configRoutes/PublicRoutes";
 import ButtonAdd from "./buttons/Button-add";
 import ButtonSubmit from "./buttons/Button-submit";
 
+
 import Dashboards from "./user/Dashboards";
 import FooterUser from "./user/FooterUser";
 import HeaderUserStore from "./user/Header-user-store";
 import MainUser from "./user/Main-product";
+import MainBasket from "./user/MainBasket";
 
 import LayoutAdmin from "./Layouts/Layout-admin";
 import LayoutUser from "./Layouts/Layout-user";
@@ -35,6 +37,7 @@ export {
   TableQuantity,
   TableOrder,
   ButtonAdd,
+  MainBasket,
   ButtonSubmit,
   Dashboards,
   FooterUser,
