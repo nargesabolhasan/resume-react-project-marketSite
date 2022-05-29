@@ -9,13 +9,9 @@ import { styled } from "@mui/material/styles";
 import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
-// import {
-//   setProducts,
-//   selectedProduct,
-//   removeSelectedProduct,
-// } from "../../redux/basketSlice";
-// import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
-//import { selectedProduct ,setProducts} from "../../redux/basketRedux/actions/productActions";
+import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
+import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
+//import { selectedProduct ,removeSelectedProduct} from "../../redux/basketRedux/actions/productActions";
 
 const Img = styled("img")(({ theme }) => ({
   width: "80%",
@@ -164,34 +160,18 @@ const MainUser = (props) => {
   };
 
   const handleShopUpdate = (info, counter) => {
-    // (info, counter) => {
-    //   if(products.products){
-    //     products.products?.map((item=>{
-    //       console.log(item.id)
-    //       if(item.id==info.id){
-    //         console.log("hi")
-    //       }else{
-    //         dispatch(setProducts(info))
-    //       }
-    //     }))
-    //   }else{
-    //     dispatch(setProducts(info))
-    //}
+    const data={...info,orderCount:counter}
+    if (products.products) {
+      products.products?.map((item) => {
+        if (item.id == info.id) {
+          dispatch(removeSelectedProduct(item));
+        } 
+      })
+    }
+    dispatch(setProducts(data));
   };
-  // (info, counter) => {
-  //   if(products.products){
-  //     products.products?.map((item=>{
-  //       console.log(item.id)
-  //       if(item.id==info.id){
-  //         console.log("hi")
-  //       }else{
-  //         dispatch(setProducts(info))
-  //       }
-  //     }))
-  //   }else{
-  //     dispatch(setProducts(info))
-  //   }
-
+ 
+  console.log(products.products);
   return (
     <>
       <Div sx={{ mt: 10 }}>
@@ -200,9 +180,9 @@ const MainUser = (props) => {
             <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
             <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
             <Span>
-            <Titles>دسته بندی :</Titles>
+              <Titles>دسته بندی :</Titles>
               <Box>{info?.category.name}</Box>
-              </Span>
+            </Span>
             <Span>
               <Titles>قیمت :</Titles>
               {notValid ? (

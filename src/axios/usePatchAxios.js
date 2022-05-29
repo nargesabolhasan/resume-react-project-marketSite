@@ -11,7 +11,7 @@ const usePatchAxios = (url ,changedData,needToken=false) => {
                 setLoding(true);
                 const response=await HttpService.patch(url, changedData,
                     needToken&&
-                    { headers: {"token" :localStorage.getItem("token")} }
+                    { headers: {"token":localStorage.getItem("token")} }
                     );
                 const result = await response.json()
                 setData(result)

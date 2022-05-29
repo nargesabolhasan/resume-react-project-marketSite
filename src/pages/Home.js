@@ -54,7 +54,7 @@ const Home = () => {
     navigate(`/categories/${id}`, { replace: true });
   };
    const user = useSelector((state) => state);
-   console.log(user.token)
+
 
   return (
     <>
