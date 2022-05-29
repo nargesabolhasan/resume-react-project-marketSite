@@ -70,11 +70,11 @@ const TableBasket = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
   const dispatch = useDispatch();
   const products = useSelector((state) => state);
   //**modal **//
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
 
@@ -140,7 +140,7 @@ const TableBasket = (props) => {
     }
   };
 
-  const handleShopUpdate = (info, counter) => {
+  const handleDelete = (info, counter) => {
     dispatch(removeSelectedProduct(info));
   };
 
@@ -150,7 +150,7 @@ const TableBasket = (props) => {
         <TableRow key={info?.id}>
           <TableCells align="left">
             <DeleteForeverIcon
-              clickHandler={() => handleShopUpdate(info, counter)}
+              clickHandler={() =>{ handleDelete(info, counter)}}
               sx={{ mr: 3 }}
             />
           </TableCells>
@@ -213,42 +213,13 @@ const TableBasket = (props) => {
             {index + 1}
           </TableCell>
         </TableRow>
-        <ModalForms
-          open={open}
-          handleclose={() => handleClose()}
-          classname={classname}
-        >
-          <CloseIcon
-            sx={{
-              backgroundColor: "primary.main",
-              color: "white",
-              fontSize: 32,
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              border: 3,
-              borderColor: "primary.main",
-              borderRadius: "11px",
-            }}
-            onClick={handleClose}
-          />
-        </ModalForms>
-        <Modals open={openDelete} handleclose={() => handleClose()}>
-          <CloseIcon
-            sx={{
-              backgroundColor: "primary.main",
-              color: "white",
-              fontSize: 32,
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              border: 3,
-              borderColor: "primary.main",
-              borderRadius: "11px",
-            }}
-            onClick={handleClose}
-          />
-        </Modals>
+        <Modals
+        open={open}
+        handleclose={() => handleClose()}
+        bodyMassages={bodyMassages}
+        classname={classname}
+      />
+       
       </Table>
     </TableContainer>
   );

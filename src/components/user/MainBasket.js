@@ -9,9 +9,10 @@ import { styled } from "@mui/material/styles";
 import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
-import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
+import ModalForm from "../modal/ModalForms";
+import ModalDelete from "../user/ModalDelete";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import CloseIcon from '@mui/icons-material/Close';
 
 const Img = styled("img")(({ theme }) => ({
   width: "60%",
@@ -64,7 +65,7 @@ const Counter = styled("span")(({ theme }) => ({
   alignItems: "center",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   border: "0.5px solid  #fff8e1",
-  background:"#fff8e1",
+  background: "#fff8e1",
   borderRadius: "5px",
   height: "100%",
 }));
@@ -76,11 +77,11 @@ const MainBasket = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
-  const dispatch = useDispatch();
   const products = useSelector((state) => state);
 
   //**modal **//
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
 
@@ -89,7 +90,7 @@ const MainBasket = (props) => {
     setOpen(true);
     setClassname("failer");
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {setOpen(false);setOpenDelete(false)};
   //-----dollarUSLocale:---
   let dollarUSLocale = Intl.NumberFormat("en-US");
 
@@ -147,12 +148,12 @@ const MainBasket = (props) => {
   };
 
   const handleShopUpdate = (info, counter) => {
-    dispatch(removeSelectedProduct(info));
+    setOpenDelete(true)
   };
   return (
-    <Grid  item xs={4} sx={{mt:4}}>
+    <Grid item xs={4} sx={{ mt: 4 }}>
       <Div>
-      <Grid >
+        <Grid>
           <InfoCard sx={{ backgroundColor: "PLight.main" }}>
             <Img src={`${BASE_URL}${info?.image}`} />
             <Typographys sx={{ fontSize: "22px" }}>{info?.name}</Typographys>
@@ -171,7 +172,7 @@ const MainBasket = (props) => {
               )}
             </Span>
             <Span>
-              <Titles >تعداد :</Titles>
+              <Titles>تعداد :</Titles>
               <Counter sx={{ minHeight: "45px" }}>
                 <Button
                   variant="outlined"
@@ -181,7 +182,7 @@ const MainBasket = (props) => {
                 >
                   +
                 </Button>
-                <Box sx={{ p: 3, fontSize:15, fontFamily: "SansWeb" }}>
+                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" }}>
                   <EasyEdit
                     type="number"
                     onSave={(e) => saveData(e)}
@@ -207,9 +208,8 @@ const MainBasket = (props) => {
               <Titles>رنگ :</Titles>
               <Typographys>{info?.color}</Typographys>
             </Span>
-            <Buttons
-              clickHandler={() => handleShopUpdate(info, counter)}>
-              <DeleteForeverIcon/>
+            <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
+              <DeleteForeverIcon />
               حذف از سبد خرید
             </Buttons>
           </InfoCard>
@@ -221,6 +221,23 @@ const MainBasket = (props) => {
         bodyMassages={bodyMassages}
         classname={classname}
       />
+      <Modals open={openDelete} handleclose={() => handleClose()}>
+        <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
+        <ModalDelete handleCloseModal={handleClose} deletedItem={info}/>
+      </Modals>
     </Grid>
   );
 };
