@@ -1,27 +1,228 @@
-import React from "react";
-import Pagination from "@mui/material/Pagination";
-import PaginationItem from "@mui/material/PaginationItem";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { useNavigate, NavLink, useParams } from "react-router-dom";
-import { styled } from "@mui/material/styles";
-import CardProduct from "./home/Card-Product";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import EasyEdit from "react-easy-edit";
+import { BASE_URL } from "../../constants/Constants";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+import Buttons from "../buttons/Button-add";
+import { useDispatch, useSelector } from "react-redux";
+import Modals from "../modal/Modals";
+import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
+import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 
+const Img = styled("img")(({ theme }) => ({
+  width: "60%",
+}));
+const Titles = styled("h3")(({ theme }) => ({
+  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  padding: 10,
+  margin: 5,
+  color: "white",
+  backgroundColor: "#ba6b6c",
+  borderRadius: 5,
+}));
 
+const Div = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "10px",
+}));
+const InfoCard = styled("div")(({ theme }) => ({
+  height: "800px",
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-around",
+  alignItems: "center",
+  padding: "20px",
+  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+}));
+
+const Typographys = styled("div")(({ theme }) => ({
+  direction: "rtl",
+  fontSize: "20px",
+  fontFamily: "SansWeb",
+  padding: "5px",
+}));
+
+const Span = styled("span")(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  direction: "rtl",
+  minHeight: "50px",
+}));
+
+const Counter = styled("span")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  border: "0.5px solid  #ba6b6c",
+  borderRadius: "5px",
+  height: "100%",
+}));
 
 const MainBasket = (props) => {
-    const { data } = props;
-    return (
-      <Badge badgeContent={4} color="black">
-        <MailIcon color="action" />
-      </Badge>
-    );
+  const { info } = props;
+  const [counter, setCounter] = useState(info?.orderCount);
+  const [isValidShopping, setIsValidShopping] = useState(true);
+  const [isValidIncrease, setIsValidIncrease] = useState(true);
+  const [isValidDicrease, setIsValidDicrease] = useState(true);
+  const [notValid, setNotValid] = useState(false);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state);
+
+  //**modal **//
+  const [open, setOpen] = useState(false);
+  const [bodyMassages, setBodyMassages] = useState("");
+  const [classname, setClassname] = useState("");
+
+  //--------Modal open & close :----------
+  const handleShow = () => {
+    setOpen(true);
+    setClassname("failer");
+  };
+  const handleClose = () => setOpen(false);
+  //-----dollarUSLocale:---
+  let dollarUSLocale = Intl.NumberFormat("en-US");
+
+  //-----saveCount:----
+  const cancel = () => {
+    //alert("Cancelled");
+  };
+
+  const saveData = (input) => {
+    if (input > Number(info?.count)) {
+      setCounter("1");
+      setBodyMassages(
+        `  موجودی این کالا ${info?.count} عدد است  ، تعداد مورد نظر شما از موجودی بیشتر است `
+      );
+      handleShow();
+    } else if (input <= 0) {
+      setCounter("1");
+      setBodyMassages(` عدد بزرگتر از 1 وارد کنید`);
+      handleShow();
+    } else {
+      setCounter(input);
+    }
+  };
+
+  useEffect(() => {
+    if (info?.count == counter) {
+      setIsValidIncrease(false);
+    } else {
+      setIsValidIncrease(true);
+    }
+    if (counter == 1) {
+      setIsValidDicrease(false);
+    } else {
+      setIsValidDicrease(true);
+    }
+    if (info?.count == 0) {
+      setCounter(0);
+      setNotValid(true);
+      setIsValidDicrease(false);
+      setIsValidIncrease(false);
+      setIsValidShopping(false);
+    }
+  }, [counter]);
+  //------------
+  const handleIncrease = () => {
+    if (info.count !== 0 && info.count > +counter) {
+      setCounter(+counter + 1);
+    }
+  };
+  //------------
+  const handleDicrease = () => {
+    if (+counter > 1) {
+      setCounter(+counter - 1);
+    }
+  };
+
+  const handleShopUpdate = (info, counter) => {
+    dispatch(removeSelectedProduct(info));
+  };
+  return (
+    <Grid  item xs={6} sx={{mt:4}}>
+      <Div>
+      <Grid >
+          <InfoCard sx={{ backgroundColor: "amber.main" }}>
+            <Img src={`${BASE_URL}${info?.image}`} />
+            <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
+            <Span>
+              <Titles>دسته بندی :</Titles>
+              <Typographys>{info?.category.name}</Typographys>
+            </Span>
+            <Span>
+              <Titles>قیمت :</Titles>
+              {notValid ? (
+                <Typographys>عدم موجودی</Typographys>
+              ) : (
+                <Typographys>
+                  {dollarUSLocale.format(info?.price * counter)} تومان
+                </Typographys>
+              )}
+            </Span>
+            <Span>
+              <Titles>تعداد :</Titles>
+              <Counter sx={{ minHeight: "45px" }}>
+                <Button
+                  variant="outlined"
+                  sx={{ height: "100%", fontSize: 20, p: 0 }}
+                  onClick={handleIncrease}
+                  disabled={!isValidIncrease}
+                >
+                  +
+                </Button>
+                <Box sx={{ p: 3, fontSize:15, fontFamily: "SansWeb" }}>
+                  <EasyEdit
+                    type="number"
+                    onSave={(e) => saveData(e)}
+                    onCancel={cancel}
+                    saveButtonLabel="ذخیره "
+                    cancelButtonLabel="لغو "
+                    attributes={{ name: "awesome-input", id: 1 }}
+                    value={counter}
+                    instructions={`تعداد موجودی :${info?.count}`}
+                  />
+                </Box>
+                <Button
+                  variant="outlined"
+                  sx={{ height: "100%", fontSize: 20, p: 0 }}
+                  onClick={handleDicrease}
+                  disabled={!isValidDicrease}
+                >
+                  -
+                </Button>
+              </Counter>
+            </Span>
+            <Span>
+              <Titles>رنگ :</Titles>
+              <Typographys>{info?.color}</Typographys>
+            </Span>
+            <Buttons
+              clickHandler={() => handleShopUpdate(info, counter)}
+              disabled={!isValidShopping}
+            >
+              حذف از سبد خرید
+            </Buttons>
+          </InfoCard>
+        </Grid>
+      </Div>
+      <Modals
+        open={open}
+        handleclose={() => handleClose()}
+        bodyMassages={bodyMassages}
+        classname={classname}
+      />
+    </Grid>
+  );
 };
 
 export default MainBasket;
