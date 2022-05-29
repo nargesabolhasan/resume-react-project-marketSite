@@ -10,7 +10,8 @@ import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
-import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 
 const Img = styled("img")(({ theme }) => ({
   width: "60%",
@@ -19,8 +20,8 @@ const Titles = styled("h3")(({ theme }) => ({
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   padding: 10,
   margin: 5,
-  color: "white",
-  backgroundColor: "#ba6b6c",
+  color: "black",
+  backgroundColor: "#fff8e1",
   borderRadius: 5,
 }));
 
@@ -63,7 +64,8 @@ const Counter = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  border: "0.5px solid  #ba6b6c",
+  border: "0.5px solid  #fff8e1",
+  background:"#fff8e1",
   borderRadius: "5px",
   height: "100%",
 }));
@@ -149,12 +151,12 @@ const MainBasket = (props) => {
     dispatch(removeSelectedProduct(info));
   };
   return (
-    <Grid  item xs={6} sx={{mt:4}}>
+    <Grid  item xs={4} sx={{mt:4}}>
       <Div>
       <Grid >
-          <InfoCard sx={{ backgroundColor: "amber.main" }}>
+          <InfoCard sx={{ backgroundColor: "PLight.main" }}>
             <Img src={`${BASE_URL}${info?.image}`} />
-            <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
+            <Typographys sx={{ fontSize: "22px" }}>{info?.name}</Typographys>
             <Span>
               <Titles>دسته بندی :</Titles>
               <Typographys>{info?.category.name}</Typographys>
@@ -210,6 +212,7 @@ const MainBasket = (props) => {
               clickHandler={() => handleShopUpdate(info, counter)}
               disabled={!isValidShopping}
             >
+              <DeleteForeverIcon/>
               حذف از سبد خرید
             </Buttons>
           </InfoCard>

@@ -11,8 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Modals from "../components/modal/Modals";
 import { setProducts, removeSelectedProduct } from "../redux/basketSlice";
 import LayoutUser from "../components/Layouts/Layout-user";
-import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
-import { MainBasket } from "../components/index";
+import ViewListIcon from "@mui/icons-material/ViewList";
+import GridViewIcon from "@mui/icons-material/GridView";
+import { MainBasket, TableBasket } from "../components/index";
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -30,21 +31,35 @@ const Root = styled("div")(({ theme }) => ({
 
 const Basket = (props) => {
   const products = useSelector((state) => state);
+  const [showTable, setShowTable] = useState(false);
   return (
     <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto" }}>
       <Typography variant="h3" sx={{ direction: "rtl", fontFamily: "koodak" }}>
-          سبد خرید
-      </Typography >
-      <Typography  variant="h5" sx={{ direction: "rtl", fontFamily: "SansWeb",mt:3 }}> {products?.products.length} کالا در سبد شما است</Typography>
+        سبد خرید
+      </Typography>
+      <ViewListIcon onClick={() => setShowTable(true)} />
+      <GridViewIcon onClick={() => setShowTable(false)} />
+
+      <Typography
+        variant="h5"
+        sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3 }}
+      >
+        {" "}
+        {products?.products.length} کالا در سبد شما است
+      </Typography>
       <Grid
         container
         item
         xs={12}
-        sx={{ direction: "rtl" ,display:'flex',flexDirection :"row"}}
+        sx={{ direction: "rtl", display: "flex", flexDirection: "row" }}
       >
-        {products.products?.map((product) => (
-          <MainBasket info={product} key={product.id} />
-        ))}
+        {products.products?.map((product,index) =>
+          showTable ? (
+            <TableBasket info={product} key={product.id} index={index}/>
+          ) : (
+            <MainBasket info={product} key={product.id} />
+          )
+        )}
       </Grid>
     </Root>
   );

@@ -22,6 +22,7 @@ import FooterUser from "./user/FooterUser";
 import HeaderUserStore from "./user/Header-user-store";
 import MainUser from "./user/Main-product";
 import MainBasket from "./user/MainBasket";
+import TableBasket from "./user/TableBasket";
 
 import LayoutAdmin from "./Layouts/Layout-admin";
 import LayoutUser from "./Layouts/Layout-user";
@@ -38,6 +39,7 @@ export {
   TableOrder,
   ButtonAdd,
   MainBasket,
+  TableBasket,
   ButtonSubmit,
   Dashboards,
   FooterUser,
