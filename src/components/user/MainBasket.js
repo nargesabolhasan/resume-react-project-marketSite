@@ -16,13 +16,12 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 const Img = styled("img")(({ theme }) => ({
   width: "60%",
 }));
-const Titles = styled("h3")(({ theme }) => ({
-  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+const Titles = styled("h2")(({ theme }) => ({
   padding: 10,
   margin: 5,
-  color: "black",
-  backgroundColor: "#fff8e1",
+  color: "#ba6b6c",
   borderRadius: 5,
+  fontFamily: "SansWeb",
 }));
 
 const Div = styled("div")(({ theme }) => ({
@@ -172,7 +171,7 @@ const MainBasket = (props) => {
               )}
             </Span>
             <Span>
-              <Titles>تعداد :</Titles>
+              <Titles >تعداد :</Titles>
               <Counter sx={{ minHeight: "45px" }}>
                 <Button
                   variant="outlined"
