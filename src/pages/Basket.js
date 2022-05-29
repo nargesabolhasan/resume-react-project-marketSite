@@ -33,8 +33,9 @@ const Basket = (props) => {
   return (
     <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto" }}>
       <Typography variant="h3" sx={{ direction: "rtl", fontFamily: "koodak" }}>
-        مدیریت کالا ها
-      </Typography>
+          سبد خرید
+      </Typography >
+      <Typography  variant="h5" sx={{ direction: "rtl", fontFamily: "SansWeb",mt:3 }}> {products?.products.length} کالا در سبد شما است</Typography>
       <Grid
         container
         item
