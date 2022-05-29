@@ -14,6 +14,7 @@ import LayoutUser from "../components/Layouts/Layout-user";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { MainBasket, TableBasket } from "../components/index";
+import emptyBasket from "../assets/images/logo/emptyBasket.png"
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -36,6 +37,13 @@ const Div = styled("div")(({ theme }) => ({
   alignItems: "end",
   borderLeft: "2px solid #ba6b6c",
   width: "100%",
+}))
+const IMG = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+
 }))
 
 const Titles = styled("div")(({ theme }) => ({
@@ -60,11 +68,20 @@ const Titles = styled("div")(({ theme }) => ({
 const Basket = (props) => {
   const products = useSelector((state) => state);
   const [showTable, setShowTable] = useState(false);
+  const[basketIsEmpty,setBasketIsEmpty] = useState(false)
+  useEffect(() => {
+if(products.products.length > 0) {
+  setBasketIsEmpty(false);
+}else{
+  setBasketIsEmpty(true);
+}
+  },[])
   return (
     <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto",direction:"rtl" }}>
       <Typography variant="h3" sx={{fontFamily: "koodak" }}>
         سبد خرید
       </Typography>
+      {!basketIsEmpty?(<>
       <Grid
         sx={{
           display: "flex",
@@ -117,6 +134,7 @@ const Basket = (props) => {
           )
         )}
       </Grid>
+      </>):(<IMG><img src={emptyBasket} sx={{mx: "auto"}}/></IMG>)}
     </Root>
   );
 };
