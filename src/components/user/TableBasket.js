@@ -145,7 +145,7 @@ const TableBasket = (props) => {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ mx: "auto", mt: 2 }}>
+    <TableContainer component={Paper} sx={{ mx: "auto", mt: 2,direction:"ltr" }}>
       <Table>
         <TableRow key={info?.id}>
           <TableCells align="left">

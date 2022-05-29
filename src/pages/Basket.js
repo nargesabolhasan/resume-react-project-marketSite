@@ -28,34 +28,90 @@ const Root = styled("div")(({ theme }) => ({
     width: "70%",
   },
 }));
+const Div = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  color: "primary.main",
+  float:"left",
+  alignItems: "end",
+  borderLeft: "2px solid #ba6b6c",
+  width: "100%",
+}))
+
+const Titles = styled("div")(({ theme }) => ({
+  padding: theme.spacing(1),
+  [theme.breakpoints.down("md")]: {
+    width: "90%",
+    textAlign: "center",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "80%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "70%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    ontFamily: "SansWeb",
+    fontSize: "30px",
+  },
+}));
 
 const Basket = (props) => {
   const products = useSelector((state) => state);
   const [showTable, setShowTable] = useState(false);
   return (
-    <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto" }}>
-      <Typography variant="h3" sx={{ direction: "rtl", fontFamily: "koodak" }}>
+    <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto",direction:"rtl" }}>
+      <Typography variant="h3" sx={{fontFamily: "koodak" }}>
         سبد خرید
       </Typography>
-      <ViewListIcon onClick={() => setShowTable(true)} />
-      <GridViewIcon onClick={() => setShowTable(false)} />
+      <Grid
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          mt: 3,
+          color: "primary.main",
+          float:"left",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h5" sx={{ fontFamily: "SansWeb" }}>
+            حالت نمایش محصولات :
+        </Typography>
+        <Div >
+        <Titles>
+          جدول :{" "}
+          <ViewListIcon
+            sx={{ fontSize: 50 }}
+            onClick={() => setShowTable(true)}
+          />
+        </Titles>
+        <Titles>
+          کارت :{" "}
+          <GridViewIcon
+            sx={{ fontSize: 50 }}
+            onClick={() => setShowTable(false)}
+          />
+        </Titles>
+        </Div>
+      </Grid>
 
       <Typography
         variant="h5"
         sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3 }}
       >
         {" "}
-        {products?.products.length} کالا در سبد شما است
+        {products?.products.length} محصول در سبد شما است
       </Typography>
       <Grid
         container
         item
         xs={12}
-        sx={{display: "flex", flexDirection: "row" }}
+        sx={{ display: "flex", flexDirection: "row" }}
       >
-        {products.products?.map((product,index) =>
+        {products.products?.map((product, index) =>
           showTable ? (
-            <TableBasket info={product} key={product.id} index={index}/>
+            <TableBasket info={product} key={product.id} index={index} />
           ) : (
             <MainBasket info={product} key={product.id} />
           )
