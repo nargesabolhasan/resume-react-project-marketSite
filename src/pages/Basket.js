@@ -51,7 +51,7 @@ const Basket = (props) => {
         container
         item
         xs={12}
-        sx={{ direction: "rtl", display: "flex", flexDirection: "row" }}
+        sx={{display: "flex", flexDirection: "row" }}
       >
         {products.products?.map((product,index) =>
           showTable ? (

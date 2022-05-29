@@ -209,9 +209,7 @@ const MainBasket = (props) => {
               <Typographys>{info?.color}</Typographys>
             </Span>
             <Buttons
-              clickHandler={() => handleShopUpdate(info, counter)}
-              disabled={!isValidShopping}
-            >
+              clickHandler={() => handleShopUpdate(info, counter)}>
               <DeleteForeverIcon/>
               حذف از سبد خرید
             </Buttons>
