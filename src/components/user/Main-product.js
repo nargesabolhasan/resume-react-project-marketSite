@@ -162,7 +162,7 @@ const MainUser = (props) => {
   };
 
   const handleShopUpdate = (info, counter) => {
-    const data={...info,orderCount:counter}
+    const data={...info,orderCount:counter,count:info.count-counter}
     if (products.products) {
       products.products?.map((item) => {
         if (item.id == info.id) {
@@ -276,11 +276,3 @@ const MainUser = (props) => {
 
 export default MainUser;
 
-//let orderCount=products.orderCount + input.orderCount
-// dispatch(removeSelectedProduct(input))
-// // input = { ...input, "orderCount": orderCount };
-// // dispatch(setProducts(input));
-// console.log(product.id )
-// } else {
-// input = { ...input, "orderCount": counter };
-// dispatch(setProducts(input));

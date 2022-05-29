@@ -75,7 +75,7 @@ if(products.products.length > 0) {
 }else{
   setBasketIsEmpty(true);
 }
-  },[])
+  },[products.products.length ])
   return (
     <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto",direction:"rtl" }}>
       <Typography variant="h3" sx={{fontFamily: "koodak" }}>
