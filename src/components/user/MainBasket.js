@@ -126,7 +126,7 @@ const MainBasket = (props) => {
     } else {
       setIsValidDicrease(true);
     }
-    if (info?.count == 0) {
+    if (counter == 0) {
       setNotValid(true);
       setIsValidDicrease(false);
       setIsValidIncrease(false);

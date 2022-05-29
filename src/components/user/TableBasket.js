@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import TableRow from "@mui/material/TableRow";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
 import ModalForms from "../modal/ModalForms";
 import { ModalAddProduct, Modals } from "../index";
 import CloseIcon from "@mui/icons-material/Close";
@@ -70,8 +71,7 @@ const TableBasket = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state);
+const tableHeader=["حذف","تعداد","قیمت","دسته بندی","نام ","تصویر کالا","شماره"]
   //**modal **//
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -150,6 +150,24 @@ const TableBasket = (props) => {
       sx={{ mx: "auto", mt: 2, direction: "ltr" }}
     >
       <Table>
+      <TableHead sx={{ borderBottom: 1 }}>
+            <TableRow sx={{ backgroundColor: "primary.main", color: "white" }}>
+              {tableHeader.map((item, key) => (
+                <TableCell
+                  sx={{
+                    backgroundColor: "primary.main",
+                    textAlign: "center",
+                    color: "white",
+                    border: "2px solid white",
+                    fontFamily: "SansWeb",
+                  }}
+                  key={key}
+                >
+                  {item}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
         <TableRow key={info?.id}>
           <TableCells align="left">
           <Buttons clickHandler={() => handleDelete(info, counter)}>
@@ -157,7 +175,7 @@ const TableBasket = (props) => {
             </Buttons>
           </TableCells>
           <TableCells>
-            <Counter sx={{ weight: "100%" }}>
+            <Counter sx={{ weight: "100%"}}>
               <Button
                 variant="outlined"
                 sx={{ height: "100%", fontSize: 20, p: 0 }}
@@ -188,7 +206,7 @@ const TableBasket = (props) => {
               </Button>
             </Counter>
           </TableCells>
-          <TableCells>{info?.price}</TableCells>
+          <TableCells sx={{ fontSize: 20, fontFamily: "SansWeb" }}>{dollarUSLocale.format(info?.price)}</TableCells>
           <TableCells sx={{ fontSize: 20, fontFamily: "SansWeb" }}>
             {info?.category.name}
           </TableCells>
