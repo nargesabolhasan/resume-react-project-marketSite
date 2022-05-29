@@ -3,6 +3,7 @@ import ButtonAdd from "../../components/buttons/Button-add";
 import { useSelector, useDispatch } from "react-redux";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
 
+
 const ModalDelete = (props) => {
   const { deletedItem, handleCloseModal } = props;
   const products = useSelector((state) => state);

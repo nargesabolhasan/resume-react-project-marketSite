@@ -15,10 +15,10 @@ import EasyEdit from "react-easy-edit";
 import { BASE_URL } from "../../constants/Constants";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Buttons from "../buttons/Button-add";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
+import ModalDelete from "../user/ModalDelete";
 
 const TableCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -83,7 +83,7 @@ const TableBasket = (props) => {
     setOpen(true);
     setClassname("failer");
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {setOpen(false);setOpenDelete(false)};
   //-----dollarUSLocale:---
   let dollarUSLocale = Intl.NumberFormat("en-US");
 
@@ -140,19 +140,21 @@ const TableBasket = (props) => {
     }
   };
 
-  const handleDelete = (info, counter) => {
-    dispatch(removeSelectedProduct(info));
+  const handleDelete = () => {
+    setOpenDelete(true)
   };
 
   return (
-    <TableContainer component={Paper} sx={{ mx: "auto", mt: 2,direction:"ltr" }}>
+    <TableContainer
+      component={Paper}
+      sx={{ mx: "auto", mt: 2, direction: "ltr" }}
+    >
       <Table>
         <TableRow key={info?.id}>
           <TableCells align="left">
-            <DeleteForeverIcon
-              clickHandler={() =>{ handleDelete(info, counter)}}
-              sx={{ mr: 3 }}
-            />
+          <Buttons clickHandler={() => handleDelete(info, counter)}>
+              <DeleteForeverIcon />
+            </Buttons>
           </TableCells>
           <TableCells>
             <Counter sx={{ weight: "100%" }}>
@@ -214,12 +216,28 @@ const TableBasket = (props) => {
           </TableCell>
         </TableRow>
         <Modals
-        open={open}
-        handleclose={() => handleClose()}
-        bodyMassages={bodyMassages}
-        classname={classname}
-      />
-       
+          open={open}
+          handleclose={() => handleClose()}
+          bodyMassages={bodyMassages}
+          classname={classname}
+        />
+        <Modals open={openDelete} handleclose={() => handleClose()}>
+          <CloseIcon
+            sx={{
+              backgroundColor: "primary.main",
+              color: "white",
+              fontSize: 32,
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              border: 3,
+              borderColor: "primary.main",
+              borderRadius: "11px",
+            }}
+            onClick={handleClose}
+          />
+          <ModalDelete handleCloseModal={handleClose} deletedItem={info} />
+        </Modals>
       </Table>
     </TableContainer>
   );
