@@ -19,8 +19,21 @@ import ButtonAdd from "../components/buttons/Button-add";
 import Modals from "../components/modal/Modals";
 import "../assets/Core-ui/Core-styles.scss";
 import LayoutUser from "../components/Layouts/Layout-user";
+import * as Yup from "yup";
 
 const SubmitPayment = () => {
+  const LoginSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "نام بیشتر از 2 حرف باشد")
+      .required("نام خود را وارد کنید "),
+      lastName: Yup.string()
+      .min(3, "نام خانوادگی بیشتر از 3 حرف باشد")
+      .required("نام خانوادگی خود را وارد کنید"),
+      address: Yup.string().required("آدرس خود را وارد کنید "),
+
+      phone: Yup.number().required("شماره تماس خود را وارد کنید"),
+  });
+
   //**modal **//
   const [open, setOpen] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
@@ -71,25 +84,8 @@ const SubmitPayment = () => {
       }}
     >
       <Formik
-        initialValues={{ name: "", lastName: "",address:"",phone:"" }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.name) {
-            errors.name = "اجباری";
-          } else if (
-            // !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.name)
-            //) {
-            values.name.length < 3
-          ) {
-            errors.name = "حداقل 3 کاراکتر لازم است";
-          }
-          if (!values.password) {
-            errors.password = "اجباری";
-          } else if (values.password.length < 3) {
-            errors.password = "حداقل 3 کاراکتر لازم است";
-          }
-          return errors;
-        }}
+        initialValues={{ name: "", lastName: "", address: "", phone: "" }}
+        validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
