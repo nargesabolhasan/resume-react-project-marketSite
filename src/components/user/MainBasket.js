@@ -64,7 +64,7 @@ const Counter = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  border: "0.5px solid  #fff8e1",
+  border: "2px solid  #fff8e1",
   background: "#fff8e1",
   borderRadius: "5px",
   height: "100%",
@@ -175,13 +175,13 @@ const MainBasket = (props) => {
               <Counter sx={{ minHeight: "45px" }}>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0 }}
+                  sx={{ height: "100%", fontSize: 20, p: 0,border:2  }}
                   onClick={handleIncrease}
                   disabled={!isValidIncrease}
                 >
                   +
                 </Button>
-                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" }}>
+                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb"}}>
                   <EasyEdit
                     type="number"
                     onSave={(e) => saveData(e)}
@@ -195,7 +195,7 @@ const MainBasket = (props) => {
                 </Box>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0 }}
+                  sx={{ height: "100%", fontSize: 20, p: 0,border:2 }}
                   onClick={handleDicrease}
                   disabled={!isValidDicrease}
                 >

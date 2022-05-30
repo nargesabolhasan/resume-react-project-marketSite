@@ -8,10 +8,8 @@ const Authentication = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state);
   const handleAuthentication = () => {
-    if (Object.keys(user.user).length !== 0) {
+    if (Object.keys(user?.user).length !== 0 ) {
       navigate("/PanelProducts");
-    } else if (localStorage.length === 0) {
-      navigate("/PanelLogin");
     } else {
       navigate("/PanelLogin");
     }

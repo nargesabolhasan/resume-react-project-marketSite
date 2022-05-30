@@ -122,7 +122,7 @@ const Basic = (props) => {
         formData.append(key, value);
       }
       await HttpService.patch(`products/${product.id}`, formData, {
-        headers: { token: localStorage.getItem(state.token) },
+        headers: { token: localStorage.getItem(("token")) },
       });
       updateData();
       setTimeout(() => {

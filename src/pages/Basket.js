@@ -34,7 +34,7 @@ const Div = styled("div")(({ theme }) => ({
   flexDirection: "column",
   color: "primary.main",
   float:"left",
-  alignItems: "end",
+  alignItems: "center",
   borderLeft: "2px solid #ba6b6c",
   width: "100%",
 }))
@@ -46,7 +46,7 @@ const IMG = styled("div")(({ theme }) => ({
 
 }))
 
-const Titles = styled("div")(({ theme }) => ({
+const Titles = styled("button")(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down("md")]: {
     width: "90%",
@@ -60,8 +60,11 @@ const Titles = styled("div")(({ theme }) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    ontFamily: "SansWeb",
+    justifyContent: "end",
+    fontFamily: "SansWeb",
     fontSize: "30px",
+    border:"none",
+    color: "#ba6b6c",
   },
 }));
 
@@ -96,18 +99,16 @@ if(products.products.length > 0) {
             حالت نمایش محصولات :
         </Typography>
         <Div >
-        <Titles>
+        <Titles onClick={() => setShowTable(true)}>
           جدول :{" "}
           <ViewListIcon
             sx={{ fontSize: 50 }}
-            onClick={() => setShowTable(true)}
           />
         </Titles>
-        <Titles>
+        <Titles onClick={() => setShowTable(false)}>
           کارت :{" "}
           <GridViewIcon
             sx={{ fontSize: 50 }}
-            onClick={() => setShowTable(false)}
           />
         </Titles>
         </Div>

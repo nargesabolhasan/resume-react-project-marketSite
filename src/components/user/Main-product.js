@@ -14,7 +14,7 @@ import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 //import { selectedProduct ,removeSelectedProduct} from "../../redux/basketRedux/actions/productActions";
 
 const Img = styled("img")(({ theme }) => ({
-  width: "80%",
+  width: "70%",
 }));
 const Titles = styled("h3")(({ theme }) => ({
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
@@ -29,11 +29,11 @@ const Div = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "space-around",
   padding: "10px",
 }));
 const InfoCard = styled("div")(({ theme }) => ({
-  width: "60%",
+  width: "50%",
   height: "700px",
   margin: "0 auto",
   display: "flex",
@@ -65,7 +65,7 @@ const Counter = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  border: "0.5px solid  #ba6b6c",
+  border: "1px solid  #ba6b6c",
   borderRadius: "5px",
   height: "100%",
 }));
@@ -73,7 +73,7 @@ const Counter = styled("span")(({ theme }) => ({
 const MainUser = (props) => {
   const { info } = props;
   const [counter, setCounter] = useState(1);
-  const [isValidShopping,setIsValidShopping] = useState(true)
+  const [isValidShopping, setIsValidShopping] = useState(true);
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
@@ -86,10 +86,12 @@ const MainUser = (props) => {
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
   const [thumbnails, setThumbnails] = useState([]);
+  const [galleryIsEmpty, setGalleryIsEmpty] = useState(false);
 
   useEffect(() => {
     caption.current.innerHTML = info?.description;
   }, []);
+
   //--------Modal open & close :----------
   const handleShow = () => {
     setOpen(true);
@@ -136,7 +138,7 @@ const MainUser = (props) => {
       setNotValid(true);
       setIsValidDicrease(false);
       setIsValidIncrease(false);
-      setIsValidShopping(false)
+      setIsValidShopping(false);
     }
   }, [counter]);
   //------------
@@ -147,6 +149,14 @@ const MainUser = (props) => {
       setThumbnails(answ);
     })();
   }, []);
+  //------------
+  useEffect(() => {
+    if (thumbnails.length > 0) {
+      setGalleryIsEmpty(false);
+    } else {
+      setGalleryIsEmpty(true);
+    }
+  }, [thumbnails.length]);
 
   //------------
   const handleIncrease = () => {
@@ -162,27 +172,29 @@ const MainUser = (props) => {
   };
 
   const handleShopUpdate = (info, counter) => {
-    const data={...info,orderCount:counter,count:info.count-counter}
+    const data = { ...info, orderCount: counter };
     if (products.products) {
       products.products?.map((item) => {
         if (item.id == info.id) {
           dispatch(removeSelectedProduct(item));
-        } 
-      })
+        }
+      });
     }
     dispatch(setProducts(data));
   };
- 
+
   return (
     <>
-      <Div sx={{ mt: 10 }}>
-        <Grid item xs={6}>
-          <InfoCard sx={{ mt: 5, backgroundColor: "amber.main" }}>
+      <Div sx={{ mt: 10}}xs={12}>
+        <Grid item xs={6} sx={{width:"50%"}}>
+          <InfoCard sx={{ mt: 5, backgroundColor: "amber.main" ,mx:'auto'}}>
             <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
             <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
             <Span>
               <Titles>دسته بندی :</Titles>
-              <Box>{info?.category.name}</Box>
+              <Typographys sx={{ fontSize: "25px" }}>
+                {info?.category.name}
+              </Typographys>
             </Span>
             <Span>
               <Titles>قیمت :</Titles>
@@ -196,17 +208,16 @@ const MainUser = (props) => {
             </Span>
             <Span>
               <Titles>تعداد :</Titles>
-              <Counter sx={{ height: "45px" }}>
+              <Counter sx={{ maxHeight: "80px",}}>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0 }}
+                  sx={{ height: "100%", fontSize: 20, p: 0 ,border:2}}
                   onClick={handleIncrease}
                   disabled={!isValidIncrease}
                 >
                   +
                 </Button>
-                {/* <Typographys>{counter}</Typographys> */}
-                <Box sx={{ p: 3, fontSize: 20, fontFamily: "SansWeb" }}>
+                <Box sx={{ p: 3, fontSize:15, fontFamily: "SansWeb" }}>
                   <EasyEdit
                     type="number"
                     onSave={(e) => saveData(e)}
@@ -220,7 +231,7 @@ const MainUser = (props) => {
                 </Box>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0 }}
+                  sx={{ height: "100%", fontSize: 20, p: 0 ,border:2}}
                   onClick={handleDicrease}
                   disabled={!isValidDicrease}
                 >
@@ -236,32 +247,38 @@ const MainUser = (props) => {
               <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
               <Typographys ref={caption}> </Typographys>
             </Box>
-            <Buttons clickHandler={() => handleShopUpdate(info, counter)} disabled={!isValidShopping}>
+            <Buttons
+              clickHandler={() => handleShopUpdate(info, counter)}
+              disabled={!isValidShopping}
+            >
               افزودن به سبد خرید
             </Buttons>
           </InfoCard>
         </Grid>
-        <Grid item xs={6}>
-          <Img src={`${BASE_URL}${info?.image}`} />
+        <Grid item xs={6} sx={{width:"50%"}}>
+          <Img src={`${BASE_URL}${info?.image}`} sx={{mx:'auto'}}/>
+          {!galleryIsEmpty ?(
           <Box
             sx={{
+              mx:'auto',
               display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-around",
-              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "end",
+              alignItems: "end",
               width: "15%",
-              mt: 8,
-              float: "right",
             }}
           >
-            {thumbnails?.map((image, index) => (
-              <img
-                key={index}
-                src={`${BASE_URL}${image}`}
-                style={{ width: "100px" }}
-              />
-            ))}
-          </Box>
+       {       thumbnails?.map((image, index) => (
+                <img
+                  key={index}
+                  src={`${BASE_URL}${image}`}
+                  style={{ width: "100px" }}
+                />
+              ))}
+              </Box>) : (
+              <></>
+            )}
+          
         </Grid>
       </Div>
       <Modals
@@ -275,4 +292,3 @@ const MainUser = (props) => {
 };
 
 export default MainUser;
-
