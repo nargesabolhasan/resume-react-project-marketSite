@@ -5,10 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>paymentLink</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <button class="btn-success" type="button" onclick="succsessHandler()" >موفقیت</button>
-    <button class="btn-faile" type="button" onclick="faileHandler()" >شکست</button>
+    <div class="container">
+        <img src="./assets/background/psp.png" class="background" alt="test"></img>
+        <div class="btn-container">
+            <button class="btn-failer" type="button" onclick="faileHandler()" >انصراف</button>
+            <button class="btn-success" type="button" onclick="succsessHandler()" >پرداخت</button>
+        </div>
+    </div>
     <script src="./main.js"></script>
 </body>
 </html>
