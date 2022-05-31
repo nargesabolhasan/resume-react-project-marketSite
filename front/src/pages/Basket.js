@@ -15,6 +15,12 @@ import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { MainBasket, TableBasket } from "../components/index";
 import emptyBasket from "../assets/images/logo/emptyBasket.png";
+import Table from "@mui/material/Table";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableContainer from "@mui/material/TableContainer";
+import Paper from "@mui/material/Paper";
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -72,6 +78,7 @@ const Basket = (props) => {
   const [showTable, setShowTable] = useState(false);
   const [basketIsEmpty, setBasketIsEmpty] = useState(false);
   const [allPrice, setAllPrice] = useState(0);
+  const tableHeader=["حذف","تعداد","قیمت","دسته بندی","نام ","تصویر کالا","شماره"]
   let dollarUSLocale = Intl.NumberFormat("en-US");
 
   useEffect(() => {
@@ -141,13 +148,42 @@ const Basket = (props) => {
             xs={12}
             sx={{ display: "flex", flexDirection: "row" }}
           >
-            {products.products?.map((product, index) =>
-              showTable ? (
-                <TableBasket info={product} key={product.id} index={index} />
+            { showTable ? 
+            (
+              <TableContainer
+              component={Paper}
+              sx={{ mx: "auto", mt: 8, direction: "ltr" }}
+            >
+            <Table >
+                <TableHead sx={{ borderBottom: 1 }}>
+            <TableRow sx={{ backgroundColor: "primary.main", color: "white" }}>
+              {tableHeader.map((item, key) => (
+                <TableCell
+                  sx={{
+                    backgroundColor: "primary.main",
+                    textAlign: "center",
+                    color: "white",
+                    border: "2px solid white",
+                    fontFamily: "SansWeb",
+                  }}
+                  key={key}
+                >
+                  {item}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          {products.products?.map((item, index) => (<TableBasket info={item} key={item.id} index={index} />))}
+          
+          </Table>
+          </TableContainer>
+     
               ) : (
-                <MainBasket info={product} key={product.id} />
+                <>
+                {products.products?.map((item, key) => (<MainBasket info={item} key={item.id} />))}
+                </>
               )
-            )}
+          }
           </Grid>
           <Div
             sx={{

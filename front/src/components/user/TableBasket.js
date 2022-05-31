@@ -71,7 +71,7 @@ const TableBasket = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
-const tableHeader=["حذف","تعداد","قیمت","دسته بندی","نام ","تصویر کالا","شماره"]
+
   //**modal **//
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -83,7 +83,10 @@ const tableHeader=["حذف","تعداد","قیمت","دسته بندی","نام 
     setOpen(true);
     setClassname("failer");
   };
-  const handleClose = () => {setOpen(false);setOpenDelete(false)};
+  const handleClose = () => {
+    setOpen(false);
+    setOpenDelete(false);
+  };
   //-----dollarUSLocale:---
   let dollarUSLocale = Intl.NumberFormat("en-US");
 
@@ -141,123 +144,102 @@ const tableHeader=["حذف","تعداد","قیمت","دسته بندی","نام 
   };
 
   const handleDelete = () => {
-    setOpenDelete(true)
+    setOpenDelete(true);
   };
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ mx: "auto", mt: 2, direction: "ltr" }}
-    >
-      <Table>
-      <TableHead sx={{ borderBottom: 1 }}>
-            <TableRow sx={{ backgroundColor: "primary.main", color: "white" }}>
-              {tableHeader.map((item, key) => (
-                <TableCell
-                  sx={{
-                    backgroundColor: "primary.main",
-                    textAlign: "center",
-                    color: "white",
-                    border: "2px solid white",
-                    fontFamily: "SansWeb",
-                  }}
-                  key={key}
-                >
-                  {item}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-        <TableRow key={info?.id}>
-          <TableCells align="left">
+    <>
+      <TableRow key={info?.id}>
+        <TableCells align="left">
           <Buttons clickHandler={() => handleDelete(info, counter)}>
-              <DeleteForeverIcon />
-            </Buttons>
-          </TableCells>
-          <TableCells>
-            <Counter sx={{ weight: "100%"}}>
-              <Button
-                variant="outlined"
-                sx={{ height: "100%", fontSize: 20, p: 0 }}
-                onClick={handleDicrease}
-                disabled={!isValidDicrease}
-              >
-                -
-              </Button>
-              <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" }}>
-                <EasyEdit
-                  type="number"
-                  onSave={(e) => saveData(e)}
-                  onCancel={cancel}
-                  saveButtonLabel="ذخیره "
-                  cancelButtonLabel="لغو "
-                  attributes={{ name: "awesome-input", id: 1 }}
-                  value={counter}
-                  instructions={`تعداد موجودی :${info?.count}`}
-                />
-              </Box>
-              <Button
-                variant="outlined"
-                sx={{ height: "100%", fontSize: 20, p: 0 }}
-                onClick={handleIncrease}
-                disabled={!isValidIncrease}
-              >
-                +
-              </Button>
-            </Counter>
-          </TableCells>
-          <TableCells sx={{ fontSize: 20, fontFamily: "SansWeb" }}>{dollarUSLocale.format(info?.price)}</TableCells>
-          <TableCells sx={{ fontSize: 20, fontFamily: "SansWeb" }}>
-            {info?.category.name}
-          </TableCells>
+            <DeleteForeverIcon />
+          </Buttons>
+        </TableCells>
+        <TableCells>
+          <Counter sx={{ weight: "100%" }}>
+            <Button
+              variant="outlined"
+              sx={{ height: "100%", fontSize: 20, p: 0 }}
+              onClick={handleDicrease}
+              disabled={!isValidDicrease}
+            >
+              -
+            </Button>
+            <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" }}>
+              <EasyEdit
+                type="number"
+                onSave={(e) => saveData(e)}
+                onCancel={cancel}
+                saveButtonLabel="ذخیره "
+                cancelButtonLabel="لغو "
+                attributes={{ name: "awesome-input", id: 1 }}
+                value={counter}
+                instructions={`تعداد موجودی :${info?.count}`}
+              />
+            </Box>
+            <Button
+              variant="outlined"
+              sx={{ height: "100%", fontSize: 20, p: 0 }}
+              onClick={handleIncrease}
+              disabled={!isValidIncrease}
+            >
+              +
+            </Button>
+          </Counter>
+        </TableCells>
+        <TableCells sx={{ fontSize: 20, fontFamily: "SansWeb" }}>
+          {dollarUSLocale.format(info?.price)}
+        </TableCells>
+        <TableCells sx={{ fontSize: 20, fontFamily: "SansWeb" }}>
+          {info?.category.name}
+        </TableCells>
 
-          <TableCells>{info?.name}</TableCells>
-          <TableCells>
-            <img
-              style={{ width: "80px" }}
-              src={`${BASE_URL}${info?.image}`}
-              alt="Alt Text!"
-            />
-          </TableCells>
-          <TableCell
-            sx={{
-              backgroundColor: "primary.main",
-              color: "white",
-              fontSize: "20px",
-              border: "2px solid #ba6b6c",
-              textAlign: "center",
-              fontSize: 20,
-              fontFamily: "SansWeb",
-            }}
-          >
-            {index + 1}
-          </TableCell>
-        </TableRow>
-        <Modals
-          open={open}
-          handleclose={() => handleClose()}
-          bodyMassages={bodyMassages}
-          classname={classname}
-        />
-        <Modals open={openDelete} handleclose={() => handleClose()}>
-          <CloseIcon
-            sx={{
-              backgroundColor: "primary.main",
-              color: "white",
-              fontSize: 32,
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              border: 3,
-              borderColor: "primary.main",
-              borderRadius: "11px",
-            }}
-            onClick={handleClose}
+        <TableCells>{info?.name}</TableCells>
+        <TableCells>
+          <img
+            style={{ width: "80px" }}
+            src={`${BASE_URL}${info?.image}`}
+            alt="Alt Text!"
           />
-          <ModalDelete handleCloseModal={handleClose} deletedItem={info} />
-        </Modals>
-      </Table>
-    </TableContainer>
+        </TableCells>
+        <TableCell
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: "20px",
+            border: "2px solid #ba6b6c",
+            textAlign: "center",
+            fontSize: 20,
+            fontFamily: "SansWeb",
+          }}
+        >
+          {index + 1}
+        </TableCell>
+      </TableRow>
+      <Modals
+        open={open}
+        handleclose={() => handleClose()}
+        bodyMassages={bodyMassages}
+        classname={classname}
+      />
+      <Modals open={openDelete} handleclose={() => handleClose()}>
+        <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
+        <ModalDelete handleCloseModal={handleClose} deletedItem={info} />
+      </Modals>
+    </>
   );
 };
 
