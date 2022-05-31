@@ -44,6 +44,7 @@ const SubmitPayment = () => {
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
   const [resiveDate, setResiveDate] = useState();
+  const [resiveNewDate, setResiveNewDate] = useState();
   const rtl = document.dir === "rtl";
 
   useEffect(() => {
@@ -66,21 +67,8 @@ const SubmitPayment = () => {
 
   //-----------Authentication :-----------
   const Authentication = async (input) => {
-    // const res = await HttpService.post("auth/login", input);
-    // if (res.status === 200) {
-    //   localStorage.setItem("token", res.data.token);
-    //   dispatch(setToken(res.data.token));
-    //   handleShow();
-    //   setTimeout(() => {
-    //     navigate("/PanelProducts");
-    //     dispatch(setUser(input));
-    //   }, 3000);
-    // } else {
-    //   setOpen(true);
-    //   setClassname("failer");
-    //   setBodyMassages("رمز یا نام کاربری اشتباه است ");
-    // }
     console.log(input);
+    window.open("http://127.0.0.1:5500/paymentHTML/index.html");
   };
   //-----------------handleBack--------------
   const handleBack = () => {
@@ -111,7 +99,11 @@ const SubmitPayment = () => {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               setSubmitting(false);
-              Authentication({ ...values, resiveDate: resiveDate });
+              if (resiveNewDate) {
+                Authentication({ ...values, resiveDate: resiveNewDate.toDate() });
+              } else {
+                Authentication({ ...values, resiveDate: resiveDate });
+              }
             }, 400);
           }}
         >
@@ -152,7 +144,12 @@ const SubmitPayment = () => {
                 </Typography>
                 <FormControl>
                   <InputLabel
-                    sx={{ fontSize: 20, fontFamily: "koodak" ,position:"absolute",right:"13px"}}
+                    sx={{
+                      fontSize: 20,
+                      fontFamily: "koodak",
+                      position: "absolute",
+                      right: "13px",
+                    }}
                     htmlFor="name"
                   >
                     نام
@@ -179,7 +176,12 @@ const SubmitPayment = () => {
                 </Typography>
                 <FormControl>
                   <InputLabel
-                    sx={{ fontSize: 20, fontFamily: "koodak",position:"absolute",right:"13px" }}
+                    sx={{
+                      fontSize: 20,
+                      fontFamily: "koodak",
+                      position: "absolute",
+                      right: "13px",
+                    }}
                     htmlFor="lastName"
                   >
                     نام خانوادگی
@@ -206,7 +208,12 @@ const SubmitPayment = () => {
                 </Typography>
                 <FormControl>
                   <InputLabel
-                    sx={{ fontSize: 20, fontFamily: "koodak",position:"absolute",right:"13px" }}
+                    sx={{
+                      fontSize: 20,
+                      fontFamily: "koodak",
+                      position: "absolute",
+                      right: "13px",
+                    }}
                     htmlFor="address"
                   >
                     آدرس
@@ -234,7 +241,12 @@ const SubmitPayment = () => {
                 </Typography>
                 <FormControl>
                   <InputLabel
-                    sx={{ fontSize: 20, fontFamily: "koodak",position:"absolute",right:"13px" }}
+                    sx={{
+                      fontSize: 20,
+                      fontFamily: "koodak",
+                      position: "absolute",
+                      right: "13px",
+                    }}
                     htmlFor="phone"
                   >
                     شماره تماس
@@ -282,7 +294,7 @@ const SubmitPayment = () => {
                     calendar={persian}
                     locale={persian_fa}
                     calendarPosition="bottom-right"
-                    onChange={setResiveDate}
+                    onChange={setResiveNewDate}
                     value={resiveDate}
                     onBlur={handleBlur}
                   />
