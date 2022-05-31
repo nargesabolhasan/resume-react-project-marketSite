@@ -89,7 +89,13 @@ const SubmitPayment = () => {
       }}
     >
       <Formik
-        initialValues={{ name: "", lastName: "", address: "", phone: "" }}
+        initialValues={{
+          name: "",
+          lastName: "",
+          address: "",
+          phone: "",
+          date: "",
+        }}
         validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
@@ -223,13 +229,22 @@ const SubmitPayment = () => {
               >
                 {errors.phone && touched.phone && errors.phone}
               </Typography>
-              <div style={{ direction: "rtl" }}>
+              <Box sx={{ direction: "rtl" }}>
                 <DatePicker
                   calendar={persian}
                   locale={persian_fa}
                   calendarPosition="bottom-right"
                 />
-              </div>
+                <Typography
+                  sx={{
+                    color: "error.main",
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                  }}
+                >
+                  {errors.date && touched.date && errors.date}
+                </Typography>
+              </Box>
               <ButtonAdd disabled={!isValid}>ورود</ButtonAdd>
             </FormGroup>
           </form>
