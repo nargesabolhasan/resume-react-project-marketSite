@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Basket from "./pages/Basket";
 import PanelLogin from "./pages/Panel-Login";
-import Payment from "./pages/Payment";
 import Product from "./pages/Product";
 import ProductGroup from "./pages/ProductGroup";
 import ResultPayment from "./pages/ResultPayment";
@@ -23,7 +22,6 @@ function App() {
           <Route path="/grouping" element={<Grouping />} />
           <Route path="/Basket" element={<Basket />} />
           <Route path="/PanelLogin" element={<PanelLogin />} />
-          <Route path="/Payment" element={<Payment />} />
           <Route path="/Products/:name" element={<Product />} />
           <Route path="/categories/:id" element={<ProductGroup />} />
           <Route path="/ResultPayment" element={<ResultPayment />} />
