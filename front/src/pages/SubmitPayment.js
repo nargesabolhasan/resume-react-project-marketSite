@@ -20,24 +20,29 @@ import Modals from "../components/modal/Modals";
 import "../assets/Core-ui/Core-styles.scss";
 import LayoutUser from "../components/Layouts/Layout-user";
 import * as Yup from "yup";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+//import { Calendar, DatePicker } from 'react-persian-datepicker';
 
 const SubmitPayment = () => {
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "نام بیشتر از 2 حرف باشد")
       .required("نام خود را وارد کنید "),
-      lastName: Yup.string()
+    lastName: Yup.string()
       .min(3, "نام خانوادگی بیشتر از 3 حرف باشد")
       .required("نام خانوادگی خود را وارد کنید"),
-      address: Yup.string().required("آدرس خود را وارد کنید "),
+    address: Yup.string().required("آدرس خود را وارد کنید "),
 
-      phone: Yup.number().required("شماره تماس خود را وارد کنید"),
+    phone: Yup.number().required("شماره تماس خود را وارد کنید"),
   });
 
   //**modal **//
   const [open, setOpen] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
+  const [date, setDate] = useState("Sun May 03 2020 13:39:14 GMT+0430");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -218,7 +223,13 @@ const SubmitPayment = () => {
               >
                 {errors.phone && touched.phone && errors.phone}
               </Typography>
-
+              <div style={{ direction: "rtl" }}>
+                <DatePicker
+                  calendar={persian}
+                  locale={persian_fa}
+                  calendarPosition="bottom-right"
+                />
+              </div>
               <ButtonAdd disabled={!isValid}>ورود</ButtonAdd>
             </FormGroup>
           </form>

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
 import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
+
 //import { selectedProduct ,removeSelectedProduct} from "../../redux/basketRedux/actions/productActions";
 
 const Img = styled("img")(({ theme }) => ({
@@ -173,13 +174,6 @@ const MainUser = (props) => {
 
   const handleShopUpdate = (info, counter) => {
     const data = { ...info, orderCount: counter };
-    if (products.products) {
-      products.products?.map((item) => {
-        if (item.id == info.id) {
-          dispatch(removeSelectedProduct(item));
-        }
-      });
-    }
     dispatch(setProducts(data));
   };
 
