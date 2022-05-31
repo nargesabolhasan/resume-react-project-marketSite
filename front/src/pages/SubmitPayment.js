@@ -297,7 +297,7 @@ const SubmitPayment = () => {
                     {errors.date && touched.date && errors.date}
                   </Typography>
                 </Box>
-                <ButtonAdd disabled={!isValid}>ورود</ButtonAdd>
+                <ButtonAdd disabled={!isValid}>پرداخت</ButtonAdd>
               </FormGroup>
             </form>
           )}
