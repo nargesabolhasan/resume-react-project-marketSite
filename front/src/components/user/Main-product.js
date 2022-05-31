@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
 import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
+import { produceWithPatches } from "immer";
 
 //import { selectedProduct ,removeSelectedProduct} from "../../redux/basketRedux/actions/productActions";
 
@@ -173,6 +174,11 @@ const MainUser = (props) => {
   };
 
   const handleShopUpdate = (info, counter) => {
+    products.products?.map(item =>{
+      if(item.id===info.id){
+        dispatch(removeSelectedProduct(item));
+      }
+    })
     const data = { ...info, orderCount: counter };
     dispatch(setProducts(data));
   };

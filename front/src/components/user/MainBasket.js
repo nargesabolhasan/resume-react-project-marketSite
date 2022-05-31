@@ -7,12 +7,13 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Buttons from "../buttons/Button-add";
-import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
 import ModalForm from "../modal/ModalForms";
 import ModalDelete from "../user/ModalDelete";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts, removeSelectedProduct,updateProduct } from "../../redux/basketSlice";
 
 const Img = styled("img")(({ theme }) => ({
   width: "60%",
@@ -77,6 +78,7 @@ const MainBasket = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
+  const dispatch = useDispatch();
   const products = useSelector((state) => state);
 
   //**modal **//
@@ -90,15 +92,28 @@ const MainBasket = (props) => {
     setOpen(true);
     setClassname("failer");
   };
-  const handleClose = () => {setOpen(false);setOpenDelete(false)};
+  const handleClose = () => {
+    setOpen(false);
+    setOpenDelete(false);
+  };
   //-----dollarUSLocale:---
   let dollarUSLocale = Intl.NumberFormat("en-US");
 
-  //-----saveCount:----
+  //-----cancel change at input:----
   const cancel = () => {
-    //alert("Cancelled");
+    //...
   };
-
+  //----remove from basket:
+  const handleRemove = (data, counter) => {
+    dispatch(removeSelectedProduct(data));
+  };
+  //----saveOrderToRedux:
+  const saveOrderToRedux = (input) => {
+    const data = { ...info, orderCount: input };
+    dispatch(removeSelectedProduct(info));
+    dispatch(setProducts(data));
+  };
+  //----save change at input:
   const saveData = (input) => {
     if (input > Number(info?.count)) {
       setCounter("1");
@@ -112,9 +127,11 @@ const MainBasket = (props) => {
       handleShow();
     } else {
       setCounter(input);
+      // const data = { ...info, orderCount: input };
+      // dispatch(updateProduct(input,data.id));
     }
   };
-
+  //----update buttons:
   useEffect(() => {
     if (info?.count == counter) {
       setIsValidIncrease(false);
@@ -146,9 +163,8 @@ const MainBasket = (props) => {
     }
   };
 
-  const handleShopUpdate = (info, counter) => {
-    setOpenDelete(true)
-  };
+  console.log(products.products);
+  console.log(counter);
   return (
     <Grid item xs={4} sx={{ mt: 4 }}>
       <Div>
@@ -158,7 +174,7 @@ const MainBasket = (props) => {
             <Typographys sx={{ fontSize: "22px" }}>{info?.name}</Typographys>
             <Span>
               <Titles>دسته بندی :</Titles>
-              <Typographys>{info?.category.name}</Typographys>
+              <Typographys>{info.category?.name}</Typographys>
             </Span>
             <Span>
               <Titles>قیمت :</Titles>
@@ -175,13 +191,13 @@ const MainBasket = (props) => {
               <Counter sx={{ minHeight: "45px" }}>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0,border:2  }}
+                  sx={{ height: "100%", fontSize: 20, p: 0, border: 2 }}
                   onClick={handleIncrease}
                   disabled={!isValidIncrease}
                 >
                   +
                 </Button>
-                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb"}}>
+                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" }}>
                   <EasyEdit
                     type="number"
                     onSave={(e) => saveData(e)}
@@ -195,7 +211,7 @@ const MainBasket = (props) => {
                 </Box>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0,border:2 }}
+                  sx={{ height: "100%", fontSize: 20, p: 0, border: 2 }}
                   onClick={handleDicrease}
                   disabled={!isValidDicrease}
                 >
@@ -207,7 +223,7 @@ const MainBasket = (props) => {
               <Titles>رنگ :</Titles>
               <Typographys>{info?.color}</Typographys>
             </Span>
-            <Buttons clickHandler={() => handleShopUpdate(info, counter)}>
+            <Buttons clickHandler={() => handleRemove(info)}>
               <DeleteForeverIcon />
               حذف از سبد خرید
             </Buttons>
@@ -235,7 +251,7 @@ const MainBasket = (props) => {
           }}
           onClick={handleClose}
         />
-        <ModalDelete handleCloseModal={handleClose} deletedItem={info}/>
+        <ModalDelete handleCloseModal={handleClose} deletedItem={info} />
       </Modals>
     </Grid>
   );

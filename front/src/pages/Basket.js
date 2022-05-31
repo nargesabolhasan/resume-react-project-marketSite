@@ -14,7 +14,7 @@ import LayoutUser from "../components/Layouts/Layout-user";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { MainBasket, TableBasket } from "../components/index";
-import emptyBasket from "../assets/images/logo/emptyBasket.png"
+import emptyBasket from "../assets/images/logo/emptyBasket.png";
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -33,18 +33,17 @@ const Div = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   color: "primary.main",
-  float:"left",
+  float: "left",
   alignItems: "center",
   borderLeft: "2px solid #ba6b6c",
   width: "100%",
-}))
+}));
 const IMG = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-
-}))
+}));
 
 const Titles = styled("button")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -63,7 +62,7 @@ const Titles = styled("button")(({ theme }) => ({
     justifyContent: "end",
     fontFamily: "SansWeb",
     fontSize: "30px",
-    border:"none",
+    border: "none",
     color: "#ba6b6c",
   },
 }));
@@ -71,71 +70,110 @@ const Titles = styled("button")(({ theme }) => ({
 const Basket = (props) => {
   const products = useSelector((state) => state);
   const [showTable, setShowTable] = useState(false);
-  const[basketIsEmpty,setBasketIsEmpty] = useState(false)
+  const [basketIsEmpty, setBasketIsEmpty] = useState(false);
+  const [allPrice, setAllPrice] = useState(0);
+  let dollarUSLocale = Intl.NumberFormat("en-US");
+
   useEffect(() => {
-if(products.products.length > 0) {
-  setBasketIsEmpty(false);
-}else{
-  setBasketIsEmpty(true);
-}
-  },[products.products.length ])
+    if (products.products.length > 0) {
+      setBasketIsEmpty(false);
+    } else {
+      setBasketIsEmpty(true);
+    }
+  }, [products.products.length]);
+
+  const handleSubmit = () => {
+    console.log("Hi");
+  };
+
+  useEffect(() => {
+    if (products.products.length !== 0) {
+      let sum = 0;
+      products.products.map((item) => {
+        sum += item.price * item.orderCount;
+        setAllPrice(sum);
+      });
+    } else {
+      setAllPrice(0);
+    }
+  }, [products.products.length]);
+
   return (
-    <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto",direction:"rtl" }}>
-      <Typography variant="h3" sx={{fontFamily: "koodak" }}>
+    <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto", direction: "rtl" }}>
+      <Typography variant="h3" sx={{ fontFamily: "koodak" }}>
         سبد خرید
       </Typography>
-      {!basketIsEmpty?(<>
-      <Grid
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          mt: 3,
-          color: "primary.main",
-          float:"left",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h5" sx={{ fontFamily: "SansWeb" }}>
-            حالت نمایش محصولات :
-        </Typography>
-        <Div >
-        <Titles onClick={() => setShowTable(true)}>
-          جدول :{" "}
-          <ViewListIcon
-            sx={{ fontSize: 50 }}
-          />
-        </Titles>
-        <Titles onClick={() => setShowTable(false)}>
-          کارت :{" "}
-          <GridViewIcon
-            sx={{ fontSize: 50 }}
-          />
-        </Titles>
-        </Div>
-      </Grid>
+      {!basketIsEmpty ? (
+        <>
+          <Grid
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              mt: 3,
+              color: "primary.main",
+              float: "left",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h5" sx={{ fontFamily: "SansWeb" }}>
+              حالت نمایش محصولات :
+            </Typography>
+            <Div>
+              <Titles onClick={() => setShowTable(true)}>
+                جدول : <ViewListIcon sx={{ fontSize: 50 }} />
+              </Titles>
+              <Titles onClick={() => setShowTable(false)}>
+                کارت : <GridViewIcon sx={{ fontSize: 50 }} />
+              </Titles>
+            </Div>
+          </Grid>
 
-      <Typography
-        variant="h5"
-        sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3 }}
-      >
-        {" "}
-        {products?.products.length} محصول در سبد شما است
-      </Typography>
-      <Grid
-        container
-        item
-        xs={12}
-        sx={{ display: "flex", flexDirection: "row" }}
-      >
-        {products.products?.map((product, index) =>
-          showTable ? (
-            <TableBasket info={product} key={product.id} index={index} />
-          ) : (
-            <MainBasket info={product} key={product.id} />
-          )
-        )}
-      </Grid>
-      </>):(<IMG><img src={emptyBasket} sx={{mx: "auto"}}/></IMG>)}
+          <Typography
+            variant="h5"
+            sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3 }}
+          >
+            {" "}
+            {products?.products.length} محصول در سبد شما است
+          </Typography>
+          <Grid
+            container
+            item
+            xs={12}
+            sx={{ display: "flex", flexDirection: "row" }}
+          >
+            {products.products?.map((product, index) =>
+              showTable ? (
+                <TableBasket info={product} key={product.id} index={index} />
+              ) : (
+                <MainBasket info={product} key={product.id} />
+              )
+            )}
+          </Grid>
+          <Div
+            sx={{
+              mt: 6,
+              border:0,
+              pb:5
+            }}
+          >
+            <Typography
+              variant="h5"
+              sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3 }}
+            >
+              قیمت کل : {dollarUSLocale.format(allPrice)}
+            </Typography>
+            <Buttons
+              onClick={() => handleSubmit()}
+            >
+              نهایی کردن خرید
+            </Buttons>
+          </Div>
+        </>
+      ) : (
+        <IMG>
+          <img src={emptyBasket} sx={{ mx: "auto" }} />
+        </IMG>
+      )}
     </Root>
   );
 };
