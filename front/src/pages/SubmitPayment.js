@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Formik } from "formik";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
@@ -34,15 +34,23 @@ const SubmitPayment = () => {
       .min(3, "نام خانوادگی بیشتر از 3 حرف باشد")
       .required("نام خانوادگی خود را وارد کنید"),
     address: Yup.string().required("آدرس خود را وارد کنید "),
-
     phone: Yup.number().required("شماره تماس خود را وارد کنید"),
+    date: Yup.string("تاریخ تحویل مورد نظر خود را وارد کنید"),
   });
 
   //**modal **//
   const [open, setOpen] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
-  const [date, setDate] = useState("Sun May 03 2020 13:39:14 GMT+0430");
+  const [resiveDate, setResiveDate] = useState();
+
+  useEffect(() => {
+    const today = new Date();
+    console.log(today);
+    let tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 3);
+    setResiveDate(tomorrow);
+  }, []);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,31 +65,32 @@ const SubmitPayment = () => {
 
   //-----------Authentication :-----------
   const Authentication = async (input) => {
-    const res = await HttpService.post("auth/login", input);
-    if (res.status === 200) {
-      localStorage.setItem("token", res.data.token);
-      dispatch(setToken(res.data.token));
-      handleShow();
-      setTimeout(() => {
-        navigate("/PanelProducts");
-        dispatch(setUser(input));
-      }, 3000);
-    } else {
-      setOpen(true);
-      setClassname("failer");
-      setBodyMassages("رمز یا نام کاربری اشتباه است ");
-    }
+    // const res = await HttpService.post("auth/login", input);
+    // if (res.status === 200) {
+    //   localStorage.setItem("token", res.data.token);
+    //   dispatch(setToken(res.data.token));
+    //   handleShow();
+    //   setTimeout(() => {
+    //     navigate("/PanelProducts");
+    //     dispatch(setUser(input));
+    //   }, 3000);
+    // } else {
+    //   setOpen(true);
+    //   setClassname("failer");
+    //   setBodyMassages("رمز یا نام کاربری اشتباه است ");
+    // }
+    console.log(input);
   };
   //-----------------handleBack--------------
   const handleBack = () => {
     navigate("/");
   };
-
+  //console.log(new Date(date).toLocaleDateString("fa-IR"))
   return (
     <Box
       sx={{
         m: 0,
-        mt: 20,
+        mt: 10,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -94,13 +103,13 @@ const SubmitPayment = () => {
           lastName: "",
           address: "",
           phone: "",
-          date: "",
+          resiveDate: "",
         }}
         validationSchema={LoginSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            Authentication(values);
+            Authentication({ ...values, resiveDate: resiveDate });
           }, 400);
         }}
       >
@@ -117,13 +126,14 @@ const SubmitPayment = () => {
           <form onSubmit={handleSubmit} style={{ fontFamily: "koodak" }}>
             <FormGroup
               sx={{
-                width: 400,
+                width: 500,
                 mx: "auto",
-                mt: 20,
+                mt: 10,
                 border: 3,
                 borderColor: "primary.main",
                 p: 3,
                 borderRadius: "11px",
+                direction: "rtl",
               }}
               // stylisplugins={[rtlPlugin]}
             >
@@ -142,32 +152,12 @@ const SubmitPayment = () => {
               <FormControl>
                 <InputLabel
                   sx={{ fontSize: 20, fontFamily: "koodak" }}
-                  htmlFor="name"
-                >
-                  نام
-                </InputLabel>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                />
-              </FormControl>
-              <Typography
-                sx={{ color: "error.main", fontSize: 20, fontFamily: "koodak" }}
-              >
-                {errors.name && touched.name && errors.name}
-              </Typography>
-              <FormControl>
-                <InputLabel
-                  sx={{ fontSize: 20, fontFamily: "koodak" }}
                   htmlFor="lastName"
                 >
                   نام خانوادگی
                 </InputLabel>
                 <Input
+                  sx={{ mb: 3 }}
                   id="lastName"
                   name="lastName"
                   type="text"
@@ -177,10 +167,44 @@ const SubmitPayment = () => {
                 />
               </FormControl>
               <Typography
-                sx={{ color: "error.main", fontSize: 20, fontFamily: "koodak" }}
+                sx={{
+                  color: "error.main",
+                  fontSize: 20,
+                  fontFamily: "koodak",
+                  mb: 2,
+                }}
               >
                 {errors.lastName && touched.lastName && errors.lastName}
               </Typography>
+
+              <FormControl>
+                <InputLabel
+                  sx={{ fontSize: 20, fontFamily: "koodak" }}
+                  htmlFor="name"
+                >
+                  نام
+                </InputLabel>
+                <Input
+                  sx={{ mb: 3 }}
+                  id="name"
+                  name="name"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                />
+              </FormControl>
+              <Typography
+                sx={{
+                  color: "error.main",
+                  fontSize: 20,
+                  fontFamily: "koodak",
+                  mb: 2,
+                }}
+              >
+                {errors.name && touched.name && errors.name}
+              </Typography>
+
               <FormControl>
                 <InputLabel
                   sx={{ fontSize: 20, fontFamily: "koodak" }}
@@ -189,6 +213,8 @@ const SubmitPayment = () => {
                   آدرس
                 </InputLabel>
                 <Input
+                  multiline
+                  sx={{ mb: 3 }}
                   id="address"
                   name="address"
                   type="text"
@@ -198,7 +224,12 @@ const SubmitPayment = () => {
                 />
               </FormControl>
               <Typography
-                sx={{ color: "error.main", fontSize: 20, fontFamily: "koodak" }}
+                sx={{
+                  color: "error.main",
+                  fontSize: 20,
+                  fontFamily: "koodak",
+                  mb: 2,
+                }}
               >
                 {errors.address && touched.address && errors.address}
               </Typography>
@@ -219,27 +250,44 @@ const SubmitPayment = () => {
                 />
                 <FormHelperText
                   id="my-helper-text"
-                  sx={{ dir: "ltr", fontSize: 15, fontFamily: "koodak" }}
+                  sx={{ dir: "ltr", fontSize: 15, fontFamily: "koodak", mb: 2 }}
                 >
                   جهت هماهنگی ارسال سفارش
                 </FormHelperText>
               </FormControl>
               <Typography
-                sx={{ color: "error.main", fontSize: 20, fontFamily: "koodak" }}
+                sx={{
+                  color: "error.main",
+                  fontSize: 20,
+                  fontFamily: "koodak",
+                  mb: 2,
+                }}
               >
                 {errors.phone && touched.phone && errors.phone}
               </Typography>
-              <Box sx={{ direction: "rtl" }}>
+              <Box sx={{ mt: 2, mx: "auto", textAlign: "center" }}>
+                <InputLabel
+                  sx={{ fontSize: 20, fontFamily: "koodak" }}
+                  htmlFor="date"
+                >
+                  تاریخ تحویل
+                </InputLabel>
                 <DatePicker
+                  id="date"
+                  name="date"
                   calendar={persian}
                   locale={persian_fa}
                   calendarPosition="bottom-right"
+                  onChange={setResiveDate}
+                  value={resiveDate}
+                  onBlur={handleBlur}
                 />
                 <Typography
                   sx={{
                     color: "error.main",
                     fontSize: 20,
                     fontFamily: "koodak",
+                    mb: 2,
                   }}
                 >
                   {errors.date && touched.date && errors.date}
