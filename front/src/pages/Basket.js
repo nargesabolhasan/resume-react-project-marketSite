@@ -21,6 +21,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -80,6 +81,7 @@ const Basket = (props) => {
   const [allPrice, setAllPrice] = useState(0);
   const tableHeader=["حذف","تعداد","قیمت","دسته بندی","نام ","تصویر کالا","شماره"]
   let dollarUSLocale = Intl.NumberFormat("en-US");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (products.products.length > 0) {
@@ -90,7 +92,7 @@ const Basket = (props) => {
   }, [products.products.length]);
 
   const handleSubmit = () => {
-    console.log("Hi");
+    navigate("/SubmitPayment");
   };
 
   useEffect(() => {
@@ -199,7 +201,7 @@ const Basket = (props) => {
               قیمت کل : {dollarUSLocale.format(allPrice)}
             </Typography>
             <Buttons
-              onClick={() => handleSubmit()}
+              clickHandler={() => handleSubmit()}
             >
               نهایی کردن خرید
             </Buttons>

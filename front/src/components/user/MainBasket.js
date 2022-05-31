@@ -105,7 +105,7 @@ const MainBasket = (props) => {
   };
   //----remove from basket:
   const handleRemove = (data, counter) => {
-    dispatch(removeSelectedProduct(data));
+      setOpenDelete(true);
   };
   //----saveOrderToRedux:
   const saveOrderToRedux = (input) => {
@@ -163,8 +163,6 @@ const MainBasket = (props) => {
     }
   };
 
-  console.log(products.products);
-  console.log(counter);
   return (
     <Grid item xs={4} sx={{ mt: 4 }}>
       <Div>

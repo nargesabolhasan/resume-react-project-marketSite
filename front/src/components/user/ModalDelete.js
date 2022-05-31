@@ -2,7 +2,7 @@ import React from "react";
 import ButtonAdd from "../../components/buttons/Button-add";
 import { useSelector, useDispatch } from "react-redux";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
-
+import Typography from "@mui/material/Typography";
 
 const ModalDelete = (props) => {
   const { deletedItem, handleCloseModal } = props;
@@ -18,7 +18,7 @@ const ModalDelete = (props) => {
 
   return (
     <>
-      <div>آیا برای حذف این کالا مطمئن هستید ؟</div>
+      <div>آیا برای حذف <Typography sx={{color:"primary.main",fontFamily:"koodak",fontSize:20}}>{deletedItem.name}</Typography> از سبد خرید مطمئن هستید ؟</div>
       <ButtonAdd clickHandler={() => handleDelete(deletedItem)}>حذف</ButtonAdd>
     </>
   );
