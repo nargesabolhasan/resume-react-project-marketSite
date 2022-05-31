@@ -23,7 +23,8 @@ import * as Yup from "yup";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-//import { Calendar, DatePicker } from 'react-persian-datepicker';
+import { StyleSheetManager } from "styled-components";
+import rtlPlugin from "stylis-plugin-rtl";
 
 const SubmitPayment = () => {
   const LoginSchema = Yup.object().shape({
@@ -43,10 +44,10 @@ const SubmitPayment = () => {
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
   const [resiveDate, setResiveDate] = useState();
+  const rtl = document.dir === "rtl";
 
   useEffect(() => {
     const today = new Date();
-    console.log(today);
     let tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 3);
     setResiveDate(tomorrow);
@@ -87,201 +88,85 @@ const SubmitPayment = () => {
   };
   //console.log(new Date(date).toLocaleDateString("fa-IR"))
   return (
-    <Box
-      sx={{
-        m: 0,
-        mt: 10,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Formik
-        initialValues={{
-          name: "",
-          lastName: "",
-          address: "",
-          phone: "",
-          resiveDate: "",
-        }}
-        validationSchema={LoginSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
-            Authentication({ ...values, resiveDate: resiveDate });
-          }, 400);
+    <StyleSheetManager stylisPlugins={[rtlPlugin]}>
+      <Box
+        sx={{
+          m: 0,
+          mt: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isValid,
-          /* and other goodies */
-        }) => (
-          <form onSubmit={handleSubmit} style={{ fontFamily: "koodak" }}>
-            <FormGroup
-              sx={{
-                width: 500,
-                mx: "auto",
-                mt: 10,
-                border: 3,
-                borderColor: "primary.main",
-                p: 3,
-                borderRadius: "11px",
-                direction: "rtl",
-              }}
-              // stylisplugins={[rtlPlugin]}
-            >
-              <Typography
-                variant="h2"
+        <Formik
+          initialValues={{
+            name: "",
+            lastName: "",
+            address: "",
+            phone: "",
+            resiveDate: "",
+          }}
+          validationSchema={LoginSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              setSubmitting(false);
+              Authentication({ ...values, resiveDate: resiveDate });
+            }, 400);
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isValid,
+            /* and other goodies */
+          }) => (
+            <form onSubmit={handleSubmit} style={{ fontFamily: "koodak" }}>
+              <FormGroup
                 sx={{
-                  mb: 8,
+                  width: 500,
                   mx: "auto",
+                  mt: 10,
+                  border: 3,
+                  borderColor: "primary.main",
+                  p: 3,
+                  borderRadius: "11px",
                   direction: "rtl",
-                  fontFamily: "koodak",
-                  textAlign: "center",
                 }}
               >
-                نهایی کردن خرید
-              </Typography>
-              <FormControl>
-                <InputLabel
-                  sx={{ fontSize: 20, fontFamily: "koodak" }}
-                  htmlFor="lastName"
+                <Typography
+                  variant="h2"
+                  sx={{
+                    mb: 8,
+                    mx: "auto",
+                    direction: "rtl",
+                    fontFamily: "koodak",
+                    textAlign: "center",
+                  }}
                 >
-                  نام خانوادگی
-                </InputLabel>
-                <Input
-                  sx={{ mb: 3 }}
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.lastName}
-                />
-              </FormControl>
-              <Typography
-                sx={{
-                  color: "error.main",
-                  fontSize: 20,
-                  fontFamily: "koodak",
-                  mb: 2,
-                }}
-              >
-                {errors.lastName && touched.lastName && errors.lastName}
-              </Typography>
-
-              <FormControl>
-                <InputLabel
-                  sx={{ fontSize: 20, fontFamily: "koodak" }}
-                  htmlFor="name"
-                >
-                  نام
-                </InputLabel>
-                <Input
-                  sx={{ mb: 3 }}
-                  id="name"
-                  name="name"
-                  type="text"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                />
-              </FormControl>
-              <Typography
-                sx={{
-                  color: "error.main",
-                  fontSize: 20,
-                  fontFamily: "koodak",
-                  mb: 2,
-                }}
-              >
-                {errors.name && touched.name && errors.name}
-              </Typography>
-
-              <FormControl>
-                <InputLabel
-                  sx={{ fontSize: 20, fontFamily: "koodak" }}
-                  htmlFor="address"
-                >
-                  آدرس
-                </InputLabel>
-                <Input
-                  multiline
-                  sx={{ mb: 3 }}
-                  id="address"
-                  name="address"
-                  type="text"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.address}
-                />
-              </FormControl>
-              <Typography
-                sx={{
-                  color: "error.main",
-                  fontSize: 20,
-                  fontFamily: "koodak",
-                  mb: 2,
-                }}
-              >
-                {errors.address && touched.address && errors.address}
-              </Typography>
-              <FormControl>
-                <InputLabel
-                  sx={{ fontSize: 20, fontFamily: "koodak" }}
-                  htmlFor="phone"
-                >
-                  شماره تماس
-                </InputLabel>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.phone}
-                />
-                <FormHelperText
-                  id="my-helper-text"
-                  sx={{ dir: "ltr", fontSize: 15, fontFamily: "koodak", mb: 2 }}
-                >
-                  جهت هماهنگی ارسال سفارش
-                </FormHelperText>
-              </FormControl>
-              <Typography
-                sx={{
-                  color: "error.main",
-                  fontSize: 20,
-                  fontFamily: "koodak",
-                  mb: 2,
-                }}
-              >
-                {errors.phone && touched.phone && errors.phone}
-              </Typography>
-              <Box sx={{ mt: 2, mx: "auto", textAlign: "center" }}>
-                <InputLabel
-                  sx={{ fontSize: 20, fontFamily: "koodak" }}
-                  htmlFor="date"
-                >
-                  تاریخ تحویل
-                </InputLabel>
-                <DatePicker
-                  id="date"
-                  name="date"
-                  calendar={persian}
-                  locale={persian_fa}
-                  calendarPosition="bottom-right"
-                  onChange={setResiveDate}
-                  value={resiveDate}
-                  onBlur={handleBlur}
-                />
+                  نهایی کردن خرید
+                </Typography>
+                <FormControl>
+                  <InputLabel
+                    sx={{ fontSize: 20, fontFamily: "koodak" ,position:"absolute",right:"13px"}}
+                    htmlFor="name"
+                  >
+                    نام
+                  </InputLabel>
+                  <Input
+                    sx={{ mb: 3 }}
+                    id="name"
+                    name="name"
+                    type="text"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.name}
+                  />
+                </FormControl>
                 <Typography
                   sx={{
                     color: "error.main",
@@ -290,15 +175,135 @@ const SubmitPayment = () => {
                     mb: 2,
                   }}
                 >
-                  {errors.date && touched.date && errors.date}
+                  {errors.name && touched.name && errors.name}
                 </Typography>
-              </Box>
-              <ButtonAdd disabled={!isValid}>ورود</ButtonAdd>
-            </FormGroup>
-          </form>
-        )}
-      </Formik>
-    </Box>
+                <FormControl>
+                  <InputLabel
+                    sx={{ fontSize: 20, fontFamily: "koodak",position:"absolute",right:"13px" }}
+                    htmlFor="lastName"
+                  >
+                    نام خانوادگی
+                  </InputLabel>
+                  <Input
+                    sx={{ mb: 3 }}
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.lastName}
+                  />
+                </FormControl>
+                <Typography
+                  sx={{
+                    color: "error.main",
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                    mb: 2,
+                  }}
+                >
+                  {errors.lastName && touched.lastName && errors.lastName}
+                </Typography>
+                <FormControl>
+                  <InputLabel
+                    sx={{ fontSize: 20, fontFamily: "koodak",position:"absolute",right:"13px" }}
+                    htmlFor="address"
+                  >
+                    آدرس
+                  </InputLabel>
+                  <Input
+                    multiline
+                    sx={{ mb: 3 }}
+                    id="address"
+                    name="address"
+                    type="text"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.address}
+                  />
+                </FormControl>
+                <Typography
+                  sx={{
+                    color: "error.main",
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                    mb: 2,
+                  }}
+                >
+                  {errors.address && touched.address && errors.address}
+                </Typography>
+                <FormControl>
+                  <InputLabel
+                    sx={{ fontSize: 20, fontFamily: "koodak",position:"absolute",right:"13px" }}
+                    htmlFor="phone"
+                  >
+                    شماره تماس
+                  </InputLabel>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.phone}
+                  />
+                  <FormHelperText
+                    id="my-helper-text"
+                    sx={{
+                      dir: "ltr",
+                      fontSize: 15,
+                      fontFamily: "koodak",
+                      mb: 2,
+                    }}
+                  >
+                    جهت هماهنگی ارسال سفارش
+                  </FormHelperText>
+                </FormControl>
+                <Typography
+                  sx={{
+                    color: "error.main",
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                    mb: 2,
+                  }}
+                >
+                  {errors.phone && touched.phone && errors.phone}
+                </Typography>
+                <Box sx={{ mt: 2, mx: "auto", textAlign: "center" }}>
+                  <InputLabel
+                    sx={{ fontSize: 20, fontFamily: "koodak" }}
+                    htmlFor="date"
+                  >
+                    تاریخ تحویل
+                  </InputLabel>
+                  <DatePicker
+                    id="date"
+                    name="date"
+                    calendar={persian}
+                    locale={persian_fa}
+                    calendarPosition="bottom-right"
+                    onChange={setResiveDate}
+                    value={resiveDate}
+                    onBlur={handleBlur}
+                  />
+                  <Typography
+                    sx={{
+                      color: "error.main",
+                      fontSize: 20,
+                      fontFamily: "koodak",
+                      mb: 2,
+                    }}
+                  >
+                    {errors.date && touched.date && errors.date}
+                  </Typography>
+                </Box>
+                <ButtonAdd disabled={!isValid}>ورود</ButtonAdd>
+              </FormGroup>
+            </form>
+          )}
+        </Formik>
+      </Box>
+    </StyleSheetManager>
   );
 };
 
