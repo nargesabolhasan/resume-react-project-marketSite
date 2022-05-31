@@ -1,8 +1,8 @@
-import React from 'react'
+import React ,{useEffect}from 'react'
 import LayoutUser from "../components/Layouts/Layout-user"
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
-import { useNavigate,useParams } from "react-router-dom";
+import { Outlet, useLocation, Navigate } from "react-router-dom";
 
 const Div = styled("div")(({ theme }) => ({
   display: "flex",
@@ -17,8 +17,11 @@ const handle=()=>{
 }
 
 const Payment = () => {
-  let { name } = useParams();
-  console.log(name)
+  const location = useLocation();
+  const result=location.search;
+
+
+
   return (
     <Div sx={{mt:20}}>Payment
       <Button onClick={handle}>

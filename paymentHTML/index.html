@@ -7,18 +7,8 @@
     <title>paymentLink</title>
 </head>
 <body>
-    <button class="btn-success" type="button" onclick="succsessHandler()" >hi</button>
-    <button class="btn-faile" type="button" onclick="faileHandler()" >hi</button>
-    <form method="POST" action="<DOMAIN>http://localhost:3000/Payment">
-        ...
-        <input type="hidden" name="ruleidentifier" value="STR-6">
-        <input type="hidden" name="successfulurlredirect" value="http://www.yourwebsite.com/successful">
-        <input type="hidden" name="stextraurlredirectfields" value="billingfirstname">
-        <input type="hidden" name="stextraurlredirectfields" value="billinglastname">
-        <input type="hidden" name="stextraurlredirectfields" value="billingemail">
-        ...
-        <input type="submit" value="Pay">
-      </form>
+    <button class="btn-success" type="button" onclick="succsessHandler()" >موفقیت</button>
+    <button class="btn-faile" type="button" onclick="faileHandler()" >شکست</button>
     <script src="./main.js"></script>
 </body>
 </html>
