@@ -1,0 +1,34 @@
+body{
+    background:rgb(241, 242, 244)
+}
+.container{
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+}
+.btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 15%;
+}
+.background{
+    margin : 0 auto;
+}
+.btn-failer{
+border: 2px solid rgb(188, 41, 41);
+border-radius: 3px;
+padding:10px;
+font-size: 25px;
+color: rgb(188, 41, 41);
+}
+.btn-success{
+    border: 2px solid rgb(41, 188, 78);
+    border-radius: 3px;
+    padding:10px;
+    font-size: 25px;
+    background-color: rgb(41, 188, 78);
+    color: black;
+    }
