@@ -11,14 +11,14 @@ import { ModalAddProduct, Modals } from "../index";
 import CloseIcon from "@mui/icons-material/Close";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
-import { useDispatch, useSelector } from "react-redux";
 import EasyEdit from "react-easy-edit";
 import { BASE_URL } from "../../constants/Constants";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Buttons from "../buttons/Button-add";
-import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {updateProducts,increase,decrease } from "../../redux/basketSlice";
 import ModalDelete from "../user/ModalDelete";
 
 const TableCells = styled("td")(({ theme }) => ({
@@ -71,12 +71,15 @@ const TableBasket = (props) => {
   const [isValidIncrease, setIsValidIncrease] = useState(true);
   const [isValidDicrease, setIsValidDicrease] = useState(true);
   const [notValid, setNotValid] = useState(false);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state);
 
   //**modal **//
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
+
 
   //--------Modal open & close :----------
   const handleShow = () => {
@@ -94,7 +97,12 @@ const TableBasket = (props) => {
   const cancel = () => {
     //alert("Cancelled");
   };
-
+    //----saveOrderToRedux:
+  const saveOrderToRedux = (input) => {
+    const data = { ...info, orderCount: input };
+    dispatch(updateProducts(data))
+  };
+    //----save input changes:
   const saveData = (input) => {
     if (input > Number(info?.count)) {
       setCounter("1");
@@ -108,6 +116,7 @@ const TableBasket = (props) => {
       handleShow();
     } else {
       setCounter(input);
+      saveOrderToRedux(input)
     }
   };
 
@@ -134,12 +143,16 @@ const TableBasket = (props) => {
   const handleIncrease = () => {
     if (info.count !== 0 && info.count > +counter) {
       setCounter(+counter + 1);
+      const data = { ...info, orderCount: counter };
+      dispatch(increase(data))
     }
   };
   //------------
   const handleDicrease = () => {
     if (+counter > 1) {
       setCounter(+counter - 1);
+      const data = { ...info, orderCount: counter };
+      dispatch(decrease(data))
     }
   };
 
