@@ -170,6 +170,7 @@ const MainUser = (props) => {
   const handleDicrease = () => {
     if (+counter > 1) {
       setCounter(+counter - 1);
+      
     }
   };
 

@@ -12,7 +12,7 @@ import { useNavigate,useParams } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import HttpService from "../axios/HttpService";
 import ShowPassword from "../components/admin/login/FormValidation";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import { setUser } from "../redux/userSlice";
 import { setToken } from "../redux/tokenSlice";
 import ButtonAdd from "../components/buttons/Button-add";
@@ -25,6 +25,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { StyleSheetManager } from "styled-components";
 import rtlPlugin from "stylis-plugin-rtl";
+import {setcustomer } from "../redux/customerRedux/customSlice";
 
 const SubmitPayment = () => {
   const LoginSchema = Yup.object().shape({
@@ -46,6 +47,7 @@ const SubmitPayment = () => {
   const [resiveDate, setResiveDate] = useState();
   const [resiveNewDate, setResiveNewDate] = useState();
   const rtl = document.dir === "rtl";
+  const customer = useSelector((state) => state);
 
   useEffect(() => {
     const today = new Date();
@@ -68,7 +70,9 @@ const SubmitPayment = () => {
 
   //-----------Authentication :-----------
   const Authentication = async (input) => {
-    console.log(input);
+    dispatch(setcustomer(input))
+
+    console.log(customer);
     window.open("http://127.0.0.1:5500/paymentHTML/index.html");
   };
   //-----------------handleBack--------------

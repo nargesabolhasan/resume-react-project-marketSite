@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {updateProducts,increase,decrease,removeAll } from "../../redux/basketSlice";
+import {setcustomer } from "../../redux/customerRedux/customSlice";
 import HttpService from "../../axios/HttpService"
 
 
 const ConfigPayment = () => {
     const dispatch = useDispatch();
     const products = useSelector((state) => state);
-
     useEffect(() => {
-        HttpService.post
+
+        dispatch(setUser())
     },[])
 
     // await HttpService.post("/products", formData);

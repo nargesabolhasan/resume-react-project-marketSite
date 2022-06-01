@@ -45,23 +45,23 @@ const ResponsiveAppBar = () => {
                 alignItems: "center",
               }}
             >
-              <IconButton
-                variant="h6"
-                component="div"
-                sx={{ mr: 5, display: {xs: "none", md: "flex", lg: "flex"}}}
+          <IconButton
+            variant="h6"
+            component="div"
+            sx={{ mr: 5, display: {xs: "none", md: "flex", lg: "flex"}}}
+          >
+            <Badge badgeContent={products.products?.length} color="PLight">
+              <NavLink
+                to="/Basket"
+                style={({ isActive }) => ({
+                  color: isActive ? "#fff8e1" : "black",
+                  textDecoration: "none",
+                })}
               >
-                <Badge badgeContent={products?.products.length} color="PLight">
-                  <NavLink
-                    to="/Basket"
-                    style={({ isActive }) => ({
-                      color: isActive ? "#fff8e1" : "black",
-                      textDecoration: "none",
-                    })}
-                  >
-                    <AddShoppingCartIcon />
-                  </NavLink>
-                </Badge>
-              </IconButton>
+                <AddShoppingCartIcon />
+              </NavLink>
+            </Badge>
+          </IconButton>
 
               <IconButton
                 variant="h6"
