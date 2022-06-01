@@ -34,6 +34,9 @@ export const basketSlice = createSlice({
       );
       state[indexOfProduct].orderCount--;
     },
+    removeAll: (state, action) => {
+      return [];
+    },
   },
 });
 
@@ -43,6 +46,7 @@ export const {
   updateProducts,
   increase,
   decrease,
+  removeAll,
 } = basketSlice.actions;
 
 export default basketSlice.reducer;
