@@ -25,7 +25,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { StyleSheetManager } from "styled-components";
 import rtlPlugin from "stylis-plugin-rtl";
-import {setcustomer } from "../redux/customerRedux/customSlice";
+import {setcustomer } from "../redux/customerSlice";
 
 const SubmitPayment = () => {
   const LoginSchema = Yup.object().shape({
@@ -71,8 +71,6 @@ const SubmitPayment = () => {
   //-----------Authentication :-----------
   const Authentication = async (input) => {
     dispatch(setcustomer(input))
-
-    console.log(customer);
     window.open("http://127.0.0.1:5500/paymentHTML/index.html");
   };
   //-----------------handleBack--------------

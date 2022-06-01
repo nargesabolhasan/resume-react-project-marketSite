@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import user from './userSlice'
 import products from './basketSlice'
 import token from './tokenSlice'
+import customer from './customerSlice'
+
 //import theme from './themeSlice'
 
 const loadPreloadState = ()=>{
@@ -31,6 +33,7 @@ export const store = configureStore({
     user,
     token,
     products,
+    customer,
     //theme,
   },
 })
@@ -40,6 +43,7 @@ store.subscribe(()=>{
     user: store.getState().user,
     token: store.getState().token,
     products: store.getState().products,
+    customer: store.getState().customer,
    
     // theme: store.getState().theme
    })

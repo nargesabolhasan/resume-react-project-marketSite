@@ -6,6 +6,7 @@ import { Outlet, useLocation, Navigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import ConfigPayment from "../components/user/ConfigPayment";
 
 const Div = styled("div")(({ theme }) => ({
   display: "flex",
@@ -64,6 +65,7 @@ const ResultPayment = () => {
           <Typography sx={{ fontSize: 30, fontFamily: "koodak", mt: 5 }}>
             پرداخت شما با موفقیت انجام شد . سپاس از خرید شما
           </Typography>
+          <ConfigPayment/>
         </Div>
       ) : (
         <Div
