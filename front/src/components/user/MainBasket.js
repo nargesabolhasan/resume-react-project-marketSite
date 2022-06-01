@@ -13,7 +13,7 @@ import ModalDelete from "../user/ModalDelete";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts, removeSelectedProduct,updateProduct } from "../../redux/basketSlice";
+import {updateProducts,increase,decrease } from "../../redux/basketSlice";
 
 const Img = styled("img")(({ theme }) => ({
   width: "60%",
@@ -110,8 +110,7 @@ const MainBasket = (props) => {
   //----saveOrderToRedux:
   const saveOrderToRedux = (input) => {
     const data = { ...info, orderCount: input };
-    dispatch(removeSelectedProduct(info));
-    dispatch(setProducts(data));
+    dispatch(updateProducts(data))
   };
   //----save change at input:
   const saveData = (input) => {
@@ -127,10 +126,10 @@ const MainBasket = (props) => {
       handleShow();
     } else {
       setCounter(input);
-      // const data = { ...info, orderCount: input };
-      // dispatch(updateProduct(input,data.id));
+      saveOrderToRedux(input)
     }
   };
+
   //----update buttons:
   useEffect(() => {
     if (info?.count == counter) {
@@ -154,12 +153,16 @@ const MainBasket = (props) => {
   const handleIncrease = () => {
     if (info.count !== 0 && info.count > +counter) {
       setCounter(+counter + 1);
+      const data = { ...info, orderCount: counter };
+      dispatch(increase(data))
     }
   };
   //------------
   const handleDicrease = () => {
     if (+counter > 1) {
       setCounter(+counter - 1);
+      const data = { ...info, orderCount: counter };
+      dispatch(decrease(data))
     }
   };
 
