@@ -7,7 +7,7 @@ export const customerSlice = createSlice({
     setcustomer: (state, action) => {
       return action.payload;
     },
-    logout: (state) => {
+    dele: (state) => {
       return {};
     },
   },
