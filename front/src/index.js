@@ -9,7 +9,7 @@ import StoreProvider from "./redux/provider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
         <StoreProvider>
           <Theme>
@@ -17,7 +17,7 @@ root.render(
           </Theme>
         </StoreProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
