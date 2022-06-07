@@ -173,7 +173,6 @@ const MainBasket = (props) => {
       dispatch(decrease(data));
     }
   };
-  console.log(info.price,counter)
   //-----------------
 
   const validationCount = (e) => {

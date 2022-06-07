@@ -8,11 +8,11 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormGroup from "@mui/material/FormGroup";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import HttpService from "../axios/HttpService";
 import ShowPassword from "../components/admin/login/FormValidation";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/userSlice";
 import { setToken } from "../redux/tokenSlice";
 import ButtonAdd from "../components/buttons/Button-add";
@@ -25,7 +25,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { StyleSheetManager } from "styled-components";
 import rtlPlugin from "stylis-plugin-rtl";
-import {setcustomer } from "../redux/customerSlice";
+import { setcustomer } from "../redux/customerSlice";
 
 const SubmitPayment = () => {
   const LoginSchema = Yup.object().shape({
@@ -55,12 +55,8 @@ const SubmitPayment = () => {
     tomorrow.setDate(today.getDate() + 3);
     setResiveDate(tomorrow);
   }, []);
-  
-
-  const navigate = useNavigate();
+  //------------
   const dispatch = useDispatch();
-
-
   //--------Modal open & close :----------
   const handleShow = () => {
     setOpen(true);
@@ -71,19 +67,9 @@ const SubmitPayment = () => {
 
   //-----------Authentication :-----------
   const Authentication = async (input) => {
-    dispatch(setcustomer(input))
+    dispatch(setcustomer(input));
     window.open("http://127.0.0.1:5500/paymentHTML/index.html");
   };
-  //-----------------handleBack--------------
-
-  const handleDate=(e)=>{
-    let today=new Date()
-    //setResiveNewDate
-    if(e.toDate()>=today){ console.log(e.toDate())}
-   
-  }
-
-  //console.log(new Date(date).toLocaleDateString("fa-IR"))
   return (
     <StyleSheetManager stylisPlugins={[rtlPlugin]}>
       <Box
@@ -109,7 +95,10 @@ const SubmitPayment = () => {
             setTimeout(() => {
               setSubmitting(false);
               if (resiveNewDate) {
-                Authentication({ ...values, orderDate: resiveNewDate.toDate() });
+                Authentication({
+                  ...values,
+                  orderDate: resiveNewDate.toDate(),
+                });
               } else {
                 Authentication({ ...values, orderDate: resiveDate });
               }
@@ -246,7 +235,9 @@ const SubmitPayment = () => {
                     mb: 2,
                   }}
                 >
-                  {errors.billingAddress && touched.billingAddress && errors.billingAddress}
+                  {errors.billingAddress &&
+                    touched.billingAddress &&
+                    errors.billingAddress}
                 </Typography>
                 <FormControl>
                   <InputLabel
@@ -303,7 +294,9 @@ const SubmitPayment = () => {
                     calendar={persian}
                     locale={persian_fa}
                     calendarPosition="bottom-right"
-                    onChange={handleDate}
+                    onChange={setResiveNewDate}
+                    minDate={new Date()}
+                    maxDate={new Date().setDate(21)}
                     value={resiveDate}
                     onBlur={handleBlur}
                   />
