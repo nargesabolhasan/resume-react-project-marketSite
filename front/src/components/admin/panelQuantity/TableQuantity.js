@@ -164,7 +164,7 @@ export default function CustomPaginationActionsTable(props) {
   };
   //-----saveCount:----
   const saveCount = async (e, item) => {
-    if(e> 0){
+    if(e>= 0){
     await HttpService.patch(
       `products/${item.id}`,
       { ...item, count: e },
@@ -174,6 +174,14 @@ export default function CustomPaginationActionsTable(props) {
 
     }
   };
+
+  const validation=(e)=>{
+    if (e>=0){return e}
+  }
+
+  const validationPrice =(e)=>{
+    if (e>=0){return e}
+  }
   //-----saveCount:----
   const cancel = () => {
     //alert("Cancelled");
@@ -227,13 +235,14 @@ export default function CustomPaginationActionsTable(props) {
                   sx={{ fontSize: 20, fontFamily: "SansWeb" }}
                 >
                   <EasyEdit
-                    type="text"
+                    type="number"
                     onSave={(e) => saveCount(e, item)}
                     onCancel={cancel}
                     saveButtonLabel="ذخیره "
                     cancelButtonLabel="لغو "
                     attributes={{ name: "awesome-input", id: 1 }}
                     value={item?.count}
+                    onValidate={validation}
                   />
                 </TableCells>
                 <TableCells
@@ -248,6 +257,7 @@ export default function CustomPaginationActionsTable(props) {
                     cancelButtonLabel="لغو"
                     attributes={{ name: "awesome-input", id: 1 }}
                     value={dollarUSLocale.format(item.price)}
+                    onValidate={validationPrice}
                    
                   />
                 </TableCells>
