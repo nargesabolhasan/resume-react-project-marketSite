@@ -18,7 +18,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
-import {updateProducts,increase,decrease } from "../../redux/basketSlice";
+import { updateProducts, increase, decrease } from "../../redux/basketSlice";
 import ModalDelete from "../user/ModalDelete";
 
 const TableCells = styled("td")(({ theme }) => ({
@@ -73,13 +73,13 @@ const TableBasket = (props) => {
   const [notValid, setNotValid] = useState(false);
   const dispatch = useDispatch();
   const products = useSelector((state) => state);
+  const [allPrice, setAllPrice] = useState(0);
 
   //**modal **//
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [bodyMassages, setBodyMassages] = useState("");
   const [classname, setClassname] = useState("");
-
 
   //--------Modal open & close :----------
   const handleShow = () => {
@@ -97,12 +97,12 @@ const TableBasket = (props) => {
   const cancel = () => {
     //alert("Cancelled");
   };
-    //----saveOrderToRedux:
+  //----saveOrderToRedux:
   const saveOrderToRedux = (input) => {
-    const data = { ...info, orderCount: input };
-    dispatch(updateProducts(data))
+    const data = { ...info, orderCount: input,price:info.price*input };
+    dispatch(updateProducts(data));
   };
-    //----save input changes:
+  //----save input changes:
   const saveData = (input) => {
     if (input > Number(info?.count)) {
       setCounter("1");
@@ -116,7 +116,7 @@ const TableBasket = (props) => {
       handleShow();
     } else {
       setCounter(input);
-      saveOrderToRedux(input)
+      saveOrderToRedux(input);
     }
   };
 
@@ -143,22 +143,41 @@ const TableBasket = (props) => {
   const handleIncrease = () => {
     if (info.count !== 0 && info.count > +counter) {
       setCounter(+counter + 1);
-      const data = { ...info, orderCount: counter };
-      dispatch(increase(data))
+      const data = { ...info, orderCount: counter ,price:info.price*counter };
+      dispatch(increase(data));
     }
   };
   //------------
   const handleDicrease = () => {
     if (+counter > 1) {
       setCounter(+counter - 1);
-      const data = { ...info, orderCount: counter };
-      dispatch(decrease(data))
+      const data = { ...info, orderCount: counter ,price:info.price*counter };
+      dispatch(decrease(data));
     }
   };
-
+  //---------
   const handleDelete = () => {
     setOpenDelete(true);
   };
+  //-----------------
+
+  const validationCount = (e) => {
+    if (e >= 0) {
+      return e;
+    }
+  };
+  //--------------
+  useEffect(() => {
+    if (products.products.length !== 0) {
+      let sum = 0;
+      products.products.map((item) => {
+        sum += item.price * item.orderCount;
+        setAllPrice(sum);
+      });
+    } else {
+      setAllPrice(0);
+    }
+  }, [products.products]);
 
   return (
     <>
@@ -188,6 +207,7 @@ const TableBasket = (props) => {
                 attributes={{ name: "awesome-input", id: 1 }}
                 value={counter}
                 instructions={`تعداد موجودی :${info?.count}`}
+                onValidate={validationCount}
               />
             </Box>
             <Button

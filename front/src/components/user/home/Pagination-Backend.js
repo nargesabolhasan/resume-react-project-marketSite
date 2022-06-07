@@ -37,7 +37,7 @@ const PaginationBackend = () => {
   );
 
   const handleNavigate = (id) => {
-    navigate(`/categories/${id}`, { replace: true });
+    navigate(`/categories/${id}`);
   };
 
   return (
