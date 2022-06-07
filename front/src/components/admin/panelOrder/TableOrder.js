@@ -135,7 +135,7 @@ TablePaginationActions.propTypes = {
 //--------------------------------------------------------------------------------------------
 
 export default function CustomPaginationActionsTable(props) {
-  const { products, orders } = props;
+  const { products,updateData } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [selectedData, setSelectedData] = React.useState();
@@ -221,7 +221,7 @@ export default function CustomPaginationActionsTable(props) {
                     </Button>
                   </TittleCells>
                   <TableCells>
-                    {new Date(item.orderDate).toLocaleDateString("fa-IR")}
+                    {new Date(item.customerDetail.orderDate).toLocaleDateString("fa-IR")}
                   </TableCells>
                   <TableCells>
                     {item.orderItems?.map((item) => {
@@ -291,7 +291,7 @@ export default function CustomPaginationActionsTable(props) {
           }}
           onClick={handleClose}
         />
-        <ModalOrders info={selectedData} />
+        <ModalOrders info={selectedData} updateData={updateData} closeModal={handleClose}/>
       </ModalForm>
     </>
   );
