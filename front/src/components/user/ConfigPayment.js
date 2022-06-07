@@ -1,33 +1,70 @@
-import React, { useCallback, useEffect, useState,memo } from "react";
+import React, { useCallback, useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {setcustomer } from "../../redux/customerSlice";
-import HttpService from "../../axios/HttpService"
-
+import { setcustomer } from "../../redux/customerSlice";
+import { removeAll } from "../../redux/basketSlice";
+import HttpService from "../../axios/HttpService";
+import axios from "axios";
 
 const ConfigPayment = () => {
-    const dispatch = useDispatch();
-    const store = useSelector((state) => state);
-    const data= {
-      "customerDetail":
-        store.customer,
-      "orderStatusId": 3,
-      "deliveredAt":"",
-      "orderItems": store.products,
-    };
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
+  const [allProducts, setAllProducts] = useState();
+  // const [allPrice,setAllPrice]= useState();
 
-  //-----------
-  // useEffect(() => {
-  //   postData();
-  // }, []);
-  // //-----------
-  const postData = useCallback(async () => {
-    await HttpService.post("/exam",data);
-  })()
+  let updateProduct = {};
+  const data = {
+    customerDetail: store.customer,
+    orderStatus: 3,
+    deliveredAt: "-",
+    orderItems: store.products,
+  };
 
+  useEffect(() => {
+    getData();
+    //removeFromBasket()
+  }, []);
+  //--------------
+  useEffect(() => {
+    postData();
+  }, [allProducts]);
+  //--------------
+    //--------------
+    // useEffect(() => {
+    //   removeFromBasket();
+    // }, []);
+    // //--------------
+
+  const getData = async () => {
+    const res= await HttpService.get("products?_expand=category")
+    setAllProducts(res?.data)
+   
+  };
+
+  const postData = async() => {
+    store.products?.map((order) => {
+
+      allProducts.filter((product) => product.id === order.id)
+        .map(async (item) => {
+         updateProduct = { ...item, count:Number(item.count) - Number(order.orderCount) };
+          await HttpService.patch(`products/${item.id}`, updateProduct, {
+            headers: { token: localStorage.getItem(("token")) },
+          });
+          
+        });
+    });
+    removeFromBasket();
+  };
+
+  const removeFromBasket=async()=>{
+    await HttpService.post("orders",data);
+    dispatch(removeAll());
+  }
 
   return (
-    <div style={{fontSize:20}}> با تشکر</div>
-  )
-}
+    <div style={{ fontSize: 25, marginTop: "10px" }}>
+      فروشگاه آنلاین ایران سیب{" "}
+    </div>
+  );
+};
 
-export default memo(ConfigPayment)
+export default ConfigPayment;
