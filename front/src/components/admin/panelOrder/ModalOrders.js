@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import ButtonAdd from "../../buttons/Button-add";
-import axios from "axios";
+import HttpService from "../../../axios/HttpService";
 
 const TableCells = styled("td")(({ theme }) => ({
   textAlign: "center",
@@ -31,20 +31,25 @@ const Div = styled("div")(({ theme }) => ({
 //--------------------------------------------
 
 const ModalOrders = (props) => {
-  const { info } = props;
+  
+  const { info ,updateData,closeModal} = props;
   const header = ["نام کالا", "قیمت", "تعداد"];
   const [allPrice, setAllPrice]=useState(0);
 
   let dollarUSLocale = Intl.NumberFormat('en-US');
 
   const handleSubmit = () => {
-    axios.patch(
+    const deliveredAt =new Date()
+    HttpService.patch(
       `orders/${info.id}`,
-      { ...info, orderStatus: 1 },
+      { ...info, orderStatus: 1 ,deliveredAt:deliveredAt},
       { headers: { token: localStorage.getItem("token") } }
     );
+
+    //updateData()
     setTimeout(() => {
-      window.location.reload(false);
+      //closeModal()
+      window.location.reload(false)
     }, 1000);
   };
   //-----all price:------
@@ -84,10 +89,10 @@ const ModalOrders = (props) => {
             {info.customerDetail.billingAddress}
           </TableCells>
           <TableCells sx={{ textAlign: "center" ,fontSize:15}}>
-          {new Date(info.orderDate).toLocaleDateString("fa-IR")}
+          {new Date(info.customerDetail.orderDate).toLocaleDateString("fa-IR")}
           </TableCells>
           <TableCells sx={{ textAlign: "center" ,fontSize:15}}>
-          {new Date(info.deliveredAt).toLocaleDateString("fa-IR")}
+          {(info.deliveredAt==="-")? <>تحویل نشده است</> :<>{new Date(info.deliveredAt).toLocaleDateString("fa-IR")}</>}
           </TableCells>
         </Table>
       </Div>
@@ -105,7 +110,7 @@ const ModalOrders = (props) => {
             <TableRow>
               <TableCells sx={{ textAlign: "start",fontSize:15 }}> {item.name}</TableCells>
               <TableCells sx={{ textAlign: "center",fontSize:15 }}> { dollarUSLocale.format(item.price)}</TableCells>
-              <TableCells sx={{ textAlign: "center",fontSize:15 }}> {item.count}</TableCells>
+              <TableCells sx={{ textAlign: "center",fontSize:15 }}> {item.orderCount}</TableCells>
             </TableRow>
           </TableBody>
         </Table>
@@ -115,7 +120,7 @@ const ModalOrders = (props) => {
         <TittleCells>قیمت نهایی:</TittleCells>
         <TittleCells>{ dollarUSLocale.format(allPrice)}</TittleCells>
       </Box>
-      {(info.orderStatus===3)?<ButtonAdd clickHandler={handleSubmit}>تحویل شد</ButtonAdd>:<TittleCells>تاریخ تحویل : ...</TittleCells>}
+      {(info.orderStatus===3)?<ButtonAdd clickHandler={handleSubmit}>تحویل شد</ButtonAdd>: <TittleCells>تاریخ تحویل : {new Date(info.deliveredAt).toLocaleDateString("fa-IR")}</TittleCells>}
     </Div>
   );
 };
