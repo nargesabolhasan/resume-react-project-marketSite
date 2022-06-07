@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
+import TextField from "@mui/material/TextField";
+
 import FormHelperText from "@mui/material/FormHelperText";
 import FormGroup from "@mui/material/FormGroup";
 import Button from "@mui/material/Button";
@@ -26,6 +28,8 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import { StyleSheetManager } from "styled-components";
 import rtlPlugin from "stylis-plugin-rtl";
 import { setcustomer } from "../redux/customerSlice";
+import ReactPhoneInput from "react-phone-input-material-ui";
+//import { TextField, withStyles } from '@material-ui/core';
 
 const SubmitPayment = () => {
   const LoginSchema = Yup.object().shape({
@@ -36,7 +40,9 @@ const SubmitPayment = () => {
       .min(3, "نام خانوادگی بیشتر از 3 حرف باشد")
       .required("نام خانوادگی خود را وارد کنید"),
     billingAddress: Yup.string().required("آدرس خود را وارد کنید "),
-    phone: Yup.number().required("شماره تماس خود را وارد کنید"),
+    phone: Yup.number()
+      .positive("نامعتبر")
+      .required("شماره تماس خود را وارد کنید"),
     date: Yup.string("تاریخ تحویل مورد نظر خود را وارد کنید"),
   });
 
@@ -46,6 +52,7 @@ const SubmitPayment = () => {
   const [classname, setClassname] = useState("");
   const [resiveDate, setResiveDate] = useState();
   const [resiveNewDate, setResiveNewDate] = useState();
+  const [phoneNumber, setPhoneNumber] = useState();
   const rtl = document.dir === "rtl";
   const customer = useSelector((state) => state);
 
@@ -69,6 +76,11 @@ const SubmitPayment = () => {
   const Authentication = async (input) => {
     dispatch(setcustomer(input));
     window.open("http://127.0.0.1:5500/paymentHTML/index.html");
+  };
+
+  //----------------
+  const handlePhone = (e) => {
+    setPhoneNumber(e);
   };
   return (
     <StyleSheetManager stylisPlugins={[rtlPlugin]}>
@@ -133,7 +145,7 @@ const SubmitPayment = () => {
                   sx={{
                     mb: 8,
                     mx: "auto",
-                    direction: "rtl",
+                    textAlign: "center",
                     fontFamily: "koodak",
                     textAlign: "center",
                   }}
@@ -153,7 +165,7 @@ const SubmitPayment = () => {
                     نام
                   </InputLabel>
                   <Input
-                    sx={{ mb: 3 }}
+                    sx={{ mb: 3, direction: "rtl" }}
                     id="firstName"
                     name="firstName"
                     type="text"
@@ -185,7 +197,7 @@ const SubmitPayment = () => {
                     نام خانوادگی
                   </InputLabel>
                   <Input
-                    sx={{ mb: 3 }}
+                    sx={{ mb: 3, direction: "rtl" }}
                     id="lastName"
                     name="lastName"
                     type="text"
@@ -218,7 +230,7 @@ const SubmitPayment = () => {
                   </InputLabel>
                   <Input
                     multiline
-                    sx={{ mb: 3 }}
+                    sx={{ mb: 3, direction: "rtl" }}
                     id="billingAddress"
                     name="billingAddress"
                     type="text"
@@ -259,6 +271,18 @@ const SubmitPayment = () => {
                     onBlur={handleBlur}
                     value={values.phone}
                   />
+                  {/* <Box  sx={{float:"right",direction: "ltr" }}>
+                  <ReactPhoneInput
+                    id="phone"
+                    name="phone"
+                    value={values.phone}
+                    onChange={handleChange}
+                    component={Input}
+                    defaultCountry={"ir"}
+                    inputClass={{ margin: "10px 0" }}
+                    dropdownClass={"classes.countryList"}
+                  />
+                  </Box> */}
                   <FormHelperText
                     id="my-helper-text"
                     sx={{
