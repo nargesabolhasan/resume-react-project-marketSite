@@ -89,7 +89,7 @@ const Basket = (props) => {
     } else {
       setBasketIsEmpty(true);
     }
-  }, [products.products.length]);
+  }, [products.products]);
 
   const handleSubmit = () => {
     navigate("/SubmitPayment");
@@ -105,7 +105,7 @@ const Basket = (props) => {
     } else {
       setAllPrice(0);
     }
-  }, [products.products.length]);
+  }, [products.products]);
 
   return (
     <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto", direction: "rtl" }}>
