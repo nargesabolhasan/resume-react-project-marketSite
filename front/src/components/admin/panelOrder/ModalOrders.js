@@ -46,11 +46,11 @@ const ModalOrders = (props) => {
       { headers: { token: localStorage.getItem("token") } }
     );
 
-    //updateData()
+    updateData()
     setTimeout(() => {
-      //closeModal()
-      window.location.reload(false)
-    }, 1000);
+      closeModal()
+      //window.location.reload(false)
+    }, 600);
   };
   //-----all price:------
   useEffect(() => {

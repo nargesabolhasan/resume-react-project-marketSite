@@ -10,26 +10,17 @@ const ProductTable = (props) => {
   let sortableItems = [...props.products];
   let [initialState, setInitialState] = useState();
   const [filteredData, setFilteredData] = useState();
+  //-----------------
+  useEffect(() => {
+    setFilteredData(
+      sortableItems.filter((item) => {
+        if (3 == item.orderStatus) {
+          return item;
+        }
+      })
+    );
+  }, [props.products]);
 
-  const [data, setData] = useState([]);
-  //-----------
-  useEffect(() => {
-    getData();
-  }, []);
-  //-----------
-  const getData = async () => {
-    const result= await HttpService.get("orders")
-    setData(result?.data)
-  };
-  //---------------
-  useEffect(() => {
-    data?.map((item) => {
-      if (item.orderStatus === 3) {
-        setFilteredData(item);
-      }
-    });
-  }, []);
-//-----------------
   const handleChange = (e) => {
     setFilteredData(
       sortableItems.filter((item) => {
@@ -47,7 +38,7 @@ const ProductTable = (props) => {
     <Box>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="0"
+        defaultValue="3"
         name="radio-buttons-group"
         sx={{ fontSize: 20, fontFamily: "koodak", direction: "rtl", mt: 3 }}
       >
@@ -71,9 +62,9 @@ const ProductTable = (props) => {
         />
       </RadioGroup>
       {filteredData ? (
-        <TableOrder products={filteredData} updateData={getData}/>
+        <TableOrder products={filteredData} updateData={props.updateData} />
       ) : (
-        <TableOrder products={props.products}  updateData={getData}/>
+        <TableOrder products={props.products} updateData={props.updateData} />
       )}
     </Box>
   );
@@ -82,10 +73,10 @@ const ProductTable = (props) => {
 export default function App(props) {
   //   let sortedProducts = [products.map((item=>{return item.name}))]
   //   console.log(products)
-  const {products} = props;
+  const { products, updateData } = props;
   return (
     <div>
-  <ProductTable products={products} />
+      <ProductTable products={products} updateData={updateData} />
     </div>
   );
 }
