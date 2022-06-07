@@ -108,6 +108,10 @@ const MainUser = (props) => {
     //alert("Cancelled");
   };
 
+  const validation=(e)=>{
+    if (e>=0){return e}
+  }
+
   const saveData = (input) => {
     if (input > Number(info?.count)) {
       setCounter("1");
@@ -180,7 +184,7 @@ const MainUser = (props) => {
         dispatch(removeSelectedProduct(item));
       }
     })
-    const data = { ...info, orderCount: counter };
+    const data = { ...info, orderCount: counter};
     dispatch(setProducts(data));
   };
 
@@ -228,6 +232,7 @@ const MainUser = (props) => {
                     attributes={{ name: "awesome-input", id: 1 }}
                     value={counter}
                     instructions={`تعداد موجودی :${info?.count}`}
+                    onValidate={validation}
                   />
                 </Box>
                 <Button
