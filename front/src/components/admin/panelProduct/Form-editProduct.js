@@ -56,8 +56,8 @@ const Basic = (props) => {
       ),
     image: Yup.mixed("تصویر محصول بار گذاری شود"),
     categoryId: Yup.number("دسته بندی  را انتخاب کنید"),
-    price: Yup.number("قیمت محصول را وارد کنید").positive("بزرگتر از 0 باشد"),
-    count: Yup.number(" تعداد محصول را وارد کنید ").positive("بزرگتر از 0 باشد"),
+    price: Yup.number("قیمت محصول را وارد کنید").min(0,"بزرگتر از 0 باشد"),
+    count: Yup.number(" تعداد محصول را وارد کنید ").min(0,"بزرگتر از 0 باشد"),
     color: Yup.string("رنگ محصول را وارد کنید "),
     description: Yup.string("توضیحات محصول را وارد کنید"),
   });
