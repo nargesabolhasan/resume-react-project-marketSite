@@ -24,14 +24,13 @@ const Root = styled('div')(({ theme }) => ({
 
 const PanelOrder = () => {
   const [data, setData] = useState([]);
-  const [item, setItem] = useState([]);
   //-----------
   useEffect(() => {
     getData();
   }, []);
   //-----------
   const getData = async () => {
-    const result= await HttpService.get("orders?_sort=orderDate")
+    const result= await HttpService.get("orders?_sort=customerDetail.orderDate")
     setData(result?.data)
   };
   
