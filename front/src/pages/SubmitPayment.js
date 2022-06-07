@@ -29,13 +29,13 @@ import {setcustomer } from "../redux/customerSlice";
 
 const SubmitPayment = () => {
   const LoginSchema = Yup.object().shape({
-    name: Yup.string()
+    firstName: Yup.string()
       .min(2, "نام بیشتر از 2 حرف باشد")
       .required("نام خود را وارد کنید "),
     lastName: Yup.string()
       .min(3, "نام خانوادگی بیشتر از 3 حرف باشد")
       .required("نام خانوادگی خود را وارد کنید"),
-    address: Yup.string().required("آدرس خود را وارد کنید "),
+    billingAddress: Yup.string().required("آدرس خود را وارد کنید "),
     phone: Yup.number().required("شماره تماس خود را وارد کنید"),
     date: Yup.string("تاریخ تحویل مورد نظر خود را وارد کنید"),
   });
@@ -60,6 +60,7 @@ const SubmitPayment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
   //--------Modal open & close :----------
   const handleShow = () => {
     setOpen(true);
@@ -74,9 +75,14 @@ const SubmitPayment = () => {
     window.open("http://127.0.0.1:5500/paymentHTML/index.html");
   };
   //-----------------handleBack--------------
-  const handleBack = () => {
-    navigate("/");
-  };
+
+  const handleDate=(e)=>{
+    let today=new Date()
+    //setResiveNewDate
+    if(e.toDate()>=today){ console.log(e.toDate())}
+   
+  }
+
   //console.log(new Date(date).toLocaleDateString("fa-IR"))
   return (
     <StyleSheetManager stylisPlugins={[rtlPlugin]}>
@@ -92,20 +98,20 @@ const SubmitPayment = () => {
       >
         <Formik
           initialValues={{
-            name: "",
+            firstName: "",
             lastName: "",
-            address: "",
+            billingAddress: "",
             phone: "",
-            resiveDate: "",
+            date: "",
           }}
           validationSchema={LoginSchema}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               setSubmitting(false);
               if (resiveNewDate) {
-                Authentication({ ...values, resiveDate: resiveNewDate.toDate() });
+                Authentication({ ...values, orderDate: resiveNewDate.toDate() });
               } else {
-                Authentication({ ...values, resiveDate: resiveDate });
+                Authentication({ ...values, orderDate: resiveDate });
               }
             }, 400);
           }}
@@ -159,12 +165,12 @@ const SubmitPayment = () => {
                   </InputLabel>
                   <Input
                     sx={{ mb: 3 }}
-                    id="name"
-                    name="name"
+                    id="firstName"
+                    name="firstName"
                     type="text"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.name}
+                    value={values.firstName}
                   />
                 </FormControl>
                 <Typography
@@ -175,7 +181,7 @@ const SubmitPayment = () => {
                     mb: 2,
                   }}
                 >
-                  {errors.name && touched.name && errors.name}
+                  {errors.firstName && touched.firstName && errors.firstName}
                 </Typography>
                 <FormControl>
                   <InputLabel
@@ -217,19 +223,19 @@ const SubmitPayment = () => {
                       position: "absolute",
                       right: "13px",
                     }}
-                    htmlFor="address"
+                    htmlFor="billingAddress"
                   >
                     آدرس
                   </InputLabel>
                   <Input
                     multiline
                     sx={{ mb: 3 }}
-                    id="address"
-                    name="address"
+                    id="billingAddress"
+                    name="billingAddress"
                     type="text"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.address}
+                    value={values.billingAddress}
                   />
                 </FormControl>
                 <Typography
@@ -240,7 +246,7 @@ const SubmitPayment = () => {
                     mb: 2,
                   }}
                 >
-                  {errors.address && touched.address && errors.address}
+                  {errors.billingAddress && touched.billingAddress && errors.billingAddress}
                 </Typography>
                 <FormControl>
                   <InputLabel
@@ -297,7 +303,7 @@ const SubmitPayment = () => {
                     calendar={persian}
                     locale={persian_fa}
                     calendarPosition="bottom-right"
-                    onChange={setResiveNewDate}
+                    onChange={handleDate}
                     value={resiveDate}
                     onBlur={handleBlur}
                   />
