@@ -43,13 +43,11 @@ const Basic = (props) => {
 
   const LoginSchema = Yup.object().shape({
     name: Yup.string()
-      .min(2, "نام بیشتر از 2 حرف باشد")
       .required("نام محصول را وارد کنید "),
     ENname: Yup.string()
-      .min(3, "نام بیشتر از 3 حرف باشد")
       .required("نام لاتین محصول را وارد کنید"),
     image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
-    thumbnail: Yup.mixed().required("تصاویر گالری محصول بار گذاری شود"),
+    thumbnail: Yup.mixed("تصاویر گالری محصول بار گذاری شود"),
 
     // .test('fileFormat', '  فرمت عکس webp باشد', (value) => {
     //    return value && ['image/webp','image/png'].includes(value.type);
@@ -57,10 +55,10 @@ const Basic = (props) => {
     categoryId: Yup.number().required("دسته بندی  را انتخاب کنید"),
     price: Yup.number()
       .required("قیمت محصول را وارد کنید")
-      .positive("بزرگتر از 0 باشد"),
+      .min(0,"بزرگتر از 0 باشد"),
     count: Yup.number()
       .required(" تعداد محصول را وارد کنید ")
-      .positive("بزرگتر از 0 باشد"),
+      .min(0,"بزرگتر از 0 باشد"),
     color: Yup.string().required("رنگ محصول را وارد کنید "),
     //description: Yup.string()("توضیحات محصول را وارد کنید"),
   });
