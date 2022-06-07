@@ -4,21 +4,32 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import Box from "@mui/material/Box";
 import RadioGroup from "@mui/material/RadioGroup";
-import useGetAxios from "../../../axios/useGetAxios";
+import HttpService from "../../../axios/HttpService";
 
 const ProductTable = (props) => {
   let sortableItems = [...props.products];
   let [initialState, setInitialState] = useState();
   const [filteredData, setFilteredData] = useState();
-  const { data, loading, error } = useGetAxios("orders");
+
+  const [data, setData] = useState([]);
+  //-----------
   useEffect(() => {
-    data?.data.map((item) => {
+    getData();
+  }, []);
+  //-----------
+  const getData = async () => {
+    const result= await HttpService.get("orders")
+    setData(result?.data)
+  };
+  //---------------
+  useEffect(() => {
+    data?.map((item) => {
       if (item.orderStatus === 3) {
         setFilteredData(item);
       }
     });
   }, []);
-
+//-----------------
   const handleChange = (e) => {
     setFilteredData(
       sortableItems.filter((item) => {
@@ -60,9 +71,9 @@ const ProductTable = (props) => {
         />
       </RadioGroup>
       {filteredData ? (
-        <TableOrder products={filteredData} />
+        <TableOrder products={filteredData} updateData={getData}/>
       ) : (
-        <TableOrder products={props.products} />
+        <TableOrder products={props.products}  updateData={getData}/>
       )}
     </Box>
   );
@@ -71,10 +82,10 @@ const ProductTable = (props) => {
 export default function App(props) {
   //   let sortedProducts = [products.map((item=>{return item.name}))]
   //   console.log(products)
-  const { products } = props;
+  const {products} = props;
   return (
     <div>
-      <ProductTable products={products} />
+  <ProductTable products={products} />
     </div>
   );
 }
