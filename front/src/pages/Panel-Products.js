@@ -44,10 +44,9 @@ const PanelProducts = () => {
   }, []);
   //-----------
   const getData = async () => {
-     const res= await HttpService.get("products?_expand=category")
+     const res= await HttpService.get("products?_expand=category&_sort=createdAt&_order=desc")
      setData(res?.data)
   };
-
   return (
     <Grid item container alignContent={"center"} xs={12}>
       <Root sx={{ mt: 5, fontFamily: "koodak", mx: "auto" }}>

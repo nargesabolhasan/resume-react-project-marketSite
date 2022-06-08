@@ -10,6 +10,8 @@ import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
+import "./home/CardStyles.scss";
+
 
 const Img = styled("img")(({ theme }) => ({
   width: "70%",
@@ -364,16 +366,17 @@ const MainUser = (props) => {
                 mx: "auto",
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "end",
-                alignItems: "end",
+                justifyContent: "center",
+                alignItems: "center",
                 width: "15%",
               }}
             >
               {thumbnails?.map((image, index) => (
                 <img
+                className="GalleryCard"
                   key={index}
                   src={`${BASE_URL}${image}`}
-                  style={{ width: "100px" }}
+                  // style={{ width: "100px" }}
                 />
               ))}
             </Box>

@@ -14,7 +14,7 @@ const ModalDelete = (props) => {
     updateData();
     setTimeout(() => {
       handleCloseModal();
-    }, 1000);
+    },700);
   };
   return (
     <>
