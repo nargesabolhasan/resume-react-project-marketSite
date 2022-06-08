@@ -107,7 +107,7 @@ const FormValidation = () => {
           <form onSubmit={handleSubmit} style={{ fontFamily: "koodak" }}>
             <FormGroup
               sx={{
-                width: 400,
+                width:{ lg:400,md:400,xs:"80%",},
                 mx: "auto",
                 mt: 20,
                 border: 3,
@@ -125,6 +125,7 @@ const FormValidation = () => {
                   direction: "rtl",
                   fontFamily: "koodak",
                   textAlign: "center",
+                  fontSize:{lg:50,md:50,xs:30}
                 }}
               >
                 ابتدا وارد اکانت <br></br>خود شوید :
@@ -173,7 +174,7 @@ const FormValidation = () => {
       </Formik>
       <Button
         sx={{
-          width: 450,
+          width:{ lg:450,md:450,xs:"90%",},
           mt: 5,
           mx: "auto",
           fontFamily: "koodak",
