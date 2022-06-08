@@ -43,13 +43,18 @@ const Div = styled("div")(({ theme }) => ({
   float: "left",
   alignItems: "center",
   borderLeft: "2px solid #ba6b6c",
-  width: "100%",
 }));
-const IMG = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
+const IMG = styled("img")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    width: "350px",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "500px",
+    margin: "0 auto",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "45%",
+  },
 }));
 
 const Titles = styled("button")(({ theme }) => ({
@@ -79,7 +84,15 @@ const Basket = (props) => {
   const [showTable, setShowTable] = useState(false);
   const [basketIsEmpty, setBasketIsEmpty] = useState(false);
   const [allPrice, setAllPrice] = useState(0);
-  const tableHeader=["حذف","تعداد","قیمت","دسته بندی","نام ","تصویر کالا","شماره"]
+  const tableHeader = [
+    "حذف",
+    "تعداد",
+    "قیمت",
+    "دسته بندی",
+    "نام ",
+    "تصویر کالا",
+    "شماره",
+  ];
   let dollarUSLocale = Intl.NumberFormat("en-US");
   const navigate = useNavigate();
 
@@ -108,7 +121,7 @@ const Basket = (props) => {
   }, [products.products]);
 
   return (
-    <Root sx={{ mt: 20, fontFamily: "koodak", mx: "auto", direction: "rtl" }}>
+    <Root sx={{mt:{ lg:20,md:10,xs:2 }, fontFamily: "koodak", mx: "auto", direction: "rtl" }}>
       <Typography variant="h3" sx={{ fontFamily: "koodak" }}>
         سبد خرید
       </Typography>
@@ -141,7 +154,6 @@ const Basket = (props) => {
             variant="h5"
             sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3 }}
           >
-            {" "}
             {products?.products.length} محصول در سبد شما است
           </Typography>
           <Grid
@@ -150,48 +162,64 @@ const Basket = (props) => {
             xs={12}
             sx={{ display: "flex", flexDirection: "row" }}
           >
-            { showTable ? 
-            (
+            {showTable ? (
               <TableContainer
-              component={Paper}
-              sx={{ mx: "auto", mt: 8, direction: "ltr" }}
+                component={Paper}
+                sx={{ mx: "auto", mt: 8, direction: "ltr" }}
+              >
+                <Table>
+                  <TableHead sx={{ borderBottom: 1 }}>
+                    <TableRow
+                      sx={{ backgroundColor: "primary.main", color: "white" }}
+                    >
+                      {tableHeader.map((item, key) => (
+                        <TableCell
+                          sx={{
+                            backgroundColor: "primary.main",
+                            textAlign: "center",
+                            color: "white",
+                            border: "2px solid white",
+                            fontFamily: "SansWeb",
+                          }}
+                          key={key}
+                        >
+                          {item}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  {products.products?.map((item, index) => (
+                    <TableBasket info={item} key={item.id} index={index} />
+                  ))}
+                </Table>
+              </TableContainer>
+            ) : (
+              <Grid
+              container
+              item
+              xs={12}
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "space-around",
+              }}
             >
-            <Table >
-                <TableHead sx={{ borderBottom: 1 }}>
-            <TableRow sx={{ backgroundColor: "primary.main", color: "white" }}>
-              {tableHeader.map((item, key) => (
-                <TableCell
-                  sx={{
-                    backgroundColor: "primary.main",
-                    textAlign: "center",
-                    color: "white",
-                    border: "2px solid white",
-                    fontFamily: "SansWeb",
-                  }}
-                  key={key}
-                >
-                  {item}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          {products.products?.map((item, index) => (<TableBasket info={item} key={item.id} index={index} />))}
-          
-          </Table>
-          </TableContainer>
-     
-              ) : (
-                <>
-                {products.products?.map((item, key) => (<MainBasket info={item} key={item.id} />))}
-                </>
-              )
-          }
+                {products.products?.map((item, key) => (
+                    <MainBasket info={item} key={item.id} />
+                ))}
+              </Grid>
+            )}
           </Grid>
           <Div
             sx={{
               mt: 6,
-              border:0,
-              pb:5
+              border: 0,
+              pb: 5,
+              mx: "auto",
+              width: "100%",
             }}
           >
             <Typography
@@ -200,17 +228,21 @@ const Basket = (props) => {
             >
               قیمت کل : {dollarUSLocale.format(allPrice)}
             </Typography>
-            <Buttons
-              clickHandler={() => handleSubmit()}
-            >
+            <Buttons clickHandler={() => handleSubmit()}>
               نهایی کردن خرید
             </Buttons>
           </Div>
         </>
       ) : (
-        <IMG>
-          <img src={emptyBasket} sx={{ mx: "auto" }} />
-        </IMG>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <IMG src={emptyBasket} />
+        </Box>
       )}
     </Root>
   );

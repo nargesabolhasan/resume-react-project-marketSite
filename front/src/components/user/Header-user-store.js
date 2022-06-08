@@ -250,20 +250,19 @@ const ResponsiveAppBar = () => {
                   sx={{
                     fontSize: 20,
                     fontFamily: "koodak",
-                    textAlign: "center",
                   }}
                 >
+                 <Badge badgeContent={products.products?.length} color="PLight" sx={{mx: "auto"}}>
                   <NavLink
                     to="/Basket"
                     style={({ isActive }) => ({
-                      color: isActive ? "#ba6b6c" : "black",
+                      color: isActive ? "#fff8e1" : "black",
                       textDecoration: "none",
-                      width: "100%",
-                      textAlign: "center",
                     })}
                   >
                     <AddShoppingCartIcon />
                   </NavLink>
+                </Badge>
                 </MenuItem>
               </Menu>
             </Box>

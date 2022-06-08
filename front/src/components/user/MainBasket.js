@@ -194,7 +194,7 @@ const MainBasket = (props) => {
   }, [products.products]);
 
   return (
-    <Grid item xs={4} sx={{ mt: 4 }}>
+    <Grid item lg={4} md={6} xs={12} sx={{ mt:{ lg:4,md:4,xs:2 }}}>
       <Div>
         <Grid>
           <InfoCard sx={{ backgroundColor: "PLight.main" }}>

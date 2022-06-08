@@ -71,7 +71,7 @@ const InfoCard = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
   width: "50%",
-  height: "700px",
+  height: "750px",
   margin: "0 auto",
   display: "flex",
   flexDirection: "column",
@@ -97,7 +97,7 @@ const Typographys = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
   direction: "rtl",
-  fontSize: "25px",
+  fontSize: "20px",
   fontFamily: "SansWeb",
   padding: "5px",
   }
