@@ -4,10 +4,32 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 
-const Div = styled("td")(({ theme }) => ({
-display: "flex",
-flexDirection: "row",
-alignItems: "center"
+const Div = styled("div")(({ theme }) => ({
+[theme.breakpoints.down("md")]: {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  margin:"10px 0",
+  order:2,
+  width:"100%",
+},
+
+[theme.breakpoints.up("md")]: {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center" ,
+  margin:"0px 10px",
+  order:1,
+  width:"100%",
+},
+[theme.breakpoints.up("lg")]: {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  margin:"0px 10px",
+  order:1,
+   width:"100%",
+},
   }));
 
 const useSortableData = (items, config = null) => {
@@ -57,6 +79,7 @@ const ProductTable = (props) => {
   return (
     <>
     <Div >
+      <Div>
       <Button
       sx={{fontSize:15, fontFamily: "koodak"}}
       variant="outlined"
@@ -84,7 +107,8 @@ const ProductTable = (props) => {
       >
         قیمت
       </Button>
-      <Typography sx={{color: 'primary.main', fontFamily: "koodak"}} >  :مرتب سازی بر اساس </Typography>
+      </Div>
+      <Typography sx={{color: 'primary.main', fontFamily: "koodak",order:{lg:2,md:2 ,xs:1}}} >  :مرتب سازی بر اساس </Typography>
       </Div>
       <TableQuantity products={items} />
     </>

@@ -143,7 +143,7 @@ export default function CustomPaginationActionsTable(props) {
 
   return (
     <TableContainer component={Paper} sx={{ mx: "auto" ,mt:2}}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <Table sx={{ minWidth:{ lg:500,md:500,xs:250,} }} aria-label="custom pagination table">
       <TableHead sx={{ borderBottom: 1 }}>
       <TableRow>
      { headerTable.map((item, index )=> (

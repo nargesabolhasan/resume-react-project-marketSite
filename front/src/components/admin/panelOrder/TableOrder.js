@@ -22,22 +22,31 @@ import ModalForm from "../../modal/ModalForms";
 import ModalOrders from "../panelOrder/ModalOrders";
 import CloseIcon from "@mui/icons-material/Close";
 
+// key===headerTable.length)?(<></>):
+// (
+
 const TittleCells = styled("td")(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down("md")]: {
     width: "5px",
     overFlow: "wrap",
     fontSize: 15,
+    border: "2px solid #ba6b6c",
+    fontFamily: "SansWeb",
   },
+
   [theme.breakpoints.up("md")]: {
-    width: 100,
+    width: 90,
     fontSize: 15,
+    border: "2px solid #ba6b6c",
+    fontFamily: "SansWeb",
   },
   [theme.breakpoints.up("lg")]: {
-    width: 80,
+    width: 90,
     fontSize: 20,
-    textAlign: "center",
+    textAlign: "start",
     border: "2px solid #ba6b6c",
+    fontFamily: "SansWeb",
   },
 }));
 const TableCells = styled("td")(({ theme }) => ({
@@ -135,7 +144,7 @@ TablePaginationActions.propTypes = {
 //--------------------------------------------------------------------------------------------
 
 export default function CustomPaginationActionsTable(props) {
-  const { products,updateData } = props;
+  const { products, updateData } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [selectedData, setSelectedData] = React.useState();
@@ -181,87 +190,126 @@ export default function CustomPaginationActionsTable(props) {
         component={Paper}
         sx={{ mx: "auto", mt: 5, fontFamily: "SansWeb" }}
       >
-        <Table sx={{ minWidth: 300 }} aria-label="custom pagination table">
+        <Table
+          sx={{ minWidth: { lg: 300, md: 300, xs: "100%" } }}
+          aria-label="custom pagination table"
+        >
           <TableHead sx={{ borderBottom: 1 }}>
             <TableRow sx={{ backgroundColor: "primary.main", color: "white" }}>
-              {headerTable.map((item, key) => (
-                <TableCell
-                  sx={{
-                    backgroundColor: "primary.main",
-                    textAlign: "center",
-                    color: "white",
-                    border: "2px solid white",
-                    fontFamily: "SansWeb",
-                  }}
-                  key={key}
-                >
-                  {item}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-{ products.length!==0?  (       <TableBody variant="h3">
-            {(rowsPerPage > 0
-              ? products.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : products
-            ).map((item, index) => {
-              let sumPrice = 0;
-              let price = 0;
-              return (
-                <TableRow key={item.id}>
-                  <TittleCells>
-                    <Button
-                      onClick={() => handleClick(item)}
-                      sx={{ fontSize: 20, fontFamily: "koodak" }}
-                    >
-                      بررسی سفارش
-                    </Button>
-                  </TittleCells>
-                  <TableCells>
-                    {new Date(item.customerDetail.orderDate).toLocaleDateString("fa-IR")}
-                  </TableCells>
-                  <TableCells>
-                    {item.orderItems?.map((item) => {
-                      price = +item.price;
-                      sumPrice += price;
-                    })}
-                    <div style={{ direction: "rtl" }}>
-                      {" "}
-                      {dollarUSLocale.format(price)}{" "}
-                    </div>
-                  </TableCells>
-
-                  <TableCells>
-                    {item.customerDetail.firstName}{" "}
-                    {item.customerDetail.lastName}
-                  </TableCells>
+              {headerTable.map((item, key) =>
+                key === headerTable.length-1 ? (
+                  <TableCell
+                    sx={{
+                      display: {
+                        lg: "table-cell",
+                        md: "table-cell",
+                        xs: "none",
+                      },
+                      backgroundColor: "primary.main",
+                      textAlign: "center",
+                      color: "white",
+                      border: "2px solid white",
+                      fontFamily: "SansWeb",
+                    }}
+                    key={key}
+                  >
+                    {item}
+                  </TableCell>
+                ) : (
                   <TableCell
                     sx={{
                       backgroundColor: "primary.main",
                       textAlign: "center",
                       color: "white",
                       border: "2px solid white",
-                      width: "5px",
                       fontFamily: "SansWeb",
                     }}
+                    key={key}
                   >
-                    {index + 1}
+                    {item}
                   </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>):( <TableCell
-                    sx={{
-                      textAlign: "end",
-                      width: "100%",
-                      fontFamily: "SansWeb",
-                    }}
-                  >
-                    داده ای وجود ندارد
-                  </TableCell>)}
+                )
+              )}
+            </TableRow>
+          </TableHead>
+          {products.length !== 0 ? (
+            <TableBody>
+              {(rowsPerPage > 0
+                ? products.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : products
+              ).map((item, index) => {
+                let sumPrice = 0;
+                let price = 0;
+                return (
+                  <TableRow key={item.id}>
+                    <TittleCells>
+                      <Button
+                        onClick={() => handleClick(item)}
+                        sx={{
+                          fontSize: { lg: 20, md: 20, xs: 15 },
+                          fontFamily: "koodak",
+                          width:"100%",
+                          textAlign: "center",
+                        }}
+                      >
+                        بررسی سفارش
+                      </Button>
+                    </TittleCells>
+                    <TableCells>
+                      {new Date(
+                        item.customerDetail.orderDate
+                      ).toLocaleDateString("fa-IR")}
+                    </TableCells>
+                    <TableCells>
+                      {item.orderItems?.map((item) => {
+                        price = +item.price;
+                        sumPrice += price;
+                      })}
+                      <div style={{ direction: "rtl" }}>
+                        {" "}
+                        {dollarUSLocale.format(price)}{" "}
+                      </div>
+                    </TableCells>
+
+                    <TableCells>
+                      {item.customerDetail.firstName}{" "}
+                      {item.customerDetail.lastName}
+                    </TableCells>
+                    <TableCell
+                      sx={{
+                        display: {
+                          lg: "table-cell",
+                          md: "table-cell",
+                          xs: "none",
+                        },
+                        backgroundColor: "primary.main",
+                        textAlign: "center",
+                        color: "white",
+                        border: "2px solid white",
+                        width: "5px",
+                        fontFamily: "SansWeb",
+                      }}
+                    >
+                      {index + 1}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          ) : (
+            <TableCell
+              sx={{
+                textAlign: "end",
+                width: "100%",
+                fontFamily: "SansWeb",
+              }}
+            >
+              داده ای وجود ندارد
+            </TableCell>
+          )}
           <TableFooter>
             <TableRow>
               <TablePagination
@@ -299,7 +347,11 @@ export default function CustomPaginationActionsTable(props) {
           }}
           onClick={handleClose}
         />
-        <ModalOrders info={selectedData} updateData={updateData} closeModal={handleClose}/>
+        <ModalOrders
+          info={selectedData}
+          updateData={updateData}
+          closeModal={handleClose}
+        />
       </ModalForm>
     </>
   );

@@ -144,18 +144,11 @@ export default function CustomPaginationActionsTable(props) {
   const[changePrice,setChangePrice]= React.useState();
   const[changeCount,setChangeCount]= React.useState();
   const [notTrue,setNotTrue]= React.useState();
-
-  // React.useEffect(() => {
-  //   setChangeCount(products?.count)
-  //   setChangePrice(products?.price)
-  // },[])
   //-----dollarUSLocale:---
   let dollarUSLocale = Intl.NumberFormat('en-US');
 
   //-----savePrice:----
   const savePrice = async (e, item) => {
-  //   var letters = /^[A-Za-z]+$/
-  //  if( e.value.match(letters)){console.log(e)}
     await HttpService.patch(
       `products/${item.id}`,
       { ...item, price: Number(e.replace(",", "").replace(",", "")) },
@@ -205,7 +198,7 @@ export default function CustomPaginationActionsTable(props) {
   return (
     <>
       <TableContainer component={Paper} sx={{ mx: "auto", mt: 5 }}>
-        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+        <Table sx={{  minWidth:{ lg:500,md:500,xs:250,}  }} aria-label="custom pagination table">
           <TableHead sx={{ borderBottom: 1 }}>
             <TableRow>
               {headerTable.map((item, index) => (

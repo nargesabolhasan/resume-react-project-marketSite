@@ -8,10 +8,10 @@ import Box from "@mui/material/Box";
 import { styled } from '@mui/material/styles'
 import { OneKPlusOutlined } from "@mui/icons-material";
 
-const Root = styled('div')(({ theme }) => ({
+const Root = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down('md')]: {
-    width:"90%",
+    width:"100%",
     textAlign: "center"
   },
   [theme.breakpoints.up('md')]: {

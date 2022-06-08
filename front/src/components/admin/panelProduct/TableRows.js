@@ -17,12 +17,14 @@ const TittleCells = styled("td")(({ theme }) => ({
     width: "5px",
     overFlow: "wrap",
     fontSize: 15,
-    fontFamily: "SansWeb"
+    fontFamily: "SansWeb",
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("md")]: {
     width: 100,
     fontSize: 15,
-    fontFamily: "SansWeb"
+    fontFamily: "SansWeb",
+    border: "2px solid #ba6b6c",
   },
   [theme.breakpoints.up("lg")]: {
     width: 160,

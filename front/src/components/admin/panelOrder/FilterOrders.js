@@ -35,7 +35,7 @@ const ProductTable = (props) => {
   };
 
   return (
-    <Box>
+    <Box sx={{width: '100%',}}>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue="3"
