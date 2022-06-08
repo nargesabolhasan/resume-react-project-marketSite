@@ -22,6 +22,7 @@ import TableRow from "@mui/material/TableRow";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
+import { textAlign } from "@mui/system";
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -60,14 +61,29 @@ const IMG = styled("img")(({ theme }) => ({
 const Titles = styled("button")(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down("md")]: {
-    width: "90%",
-    textAlign: "center",
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "end",
+    fontFamily: "SansWeb",
+    fontSize: "30px",
+    border: "none",
+    color: "#ba6b6c",
   },
   [theme.breakpoints.up("md")]: {
-    width: "80%",
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "end",
+    fontFamily: "SansWeb",
+    fontSize: "30px",
+    border: "none",
+    color: "#ba6b6c",
   },
   [theme.breakpoints.up("lg")]: {
-    width: "70%",
+    width: "100%",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -121,15 +137,15 @@ const Basket = (props) => {
   }, [products.products]);
 
   return (
-    <Root sx={{mt:{ lg:20,md:10,xs:2 }, fontFamily: "koodak", mx: "auto", direction: "rtl" }}>
-      <Typography variant="h3" sx={{ fontFamily: "koodak" }}>
+    <Root sx={{mt:{ lg:20,md:20,xs:2 }, fontFamily: "koodak", mx: "auto", direction: "rtl" }}>
+      <Typography variant="h3" sx={{ fontFamily: "koodak",textAlign:{lg:"start",md:"start",xs:"start",},fontSize:{lg:50,md:50,xs:30,} }}>
         سبد خرید
       </Typography>
       {!basketIsEmpty ? (
         <>
           <Grid
             sx={{
-              display: "flex",
+              display:{ lg:"flex",md:"flex",xs:"none"},
               flexDirection: "column",
               mt: 3,
               color: "primary.main",
@@ -137,11 +153,11 @@ const Basket = (props) => {
               alignItems: "center",
             }}
           >
-            <Typography variant="h5" sx={{ fontFamily: "SansWeb" }}>
+            <Typography variant="h5" sx={{ fontFamily: "SansWeb"}}>
               حالت نمایش محصولات :
             </Typography>
             <Div>
-              <Titles onClick={() => setShowTable(true)}>
+              <Titles onClick={() => setShowTable(true)} >
                 جدول : <ViewListIcon sx={{ fontSize: 50 }} />
               </Titles>
               <Titles onClick={() => setShowTable(false)}>
@@ -152,7 +168,7 @@ const Basket = (props) => {
 
           <Typography
             variant="h5"
-            sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3 }}
+            sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3,textAlign:{lg:"start",md:"start",xs:"start",},fontSize:{lg:40,md:30,xs:20,}  }}
           >
             {products?.products.length} محصول در سبد شما است
           </Typography>
