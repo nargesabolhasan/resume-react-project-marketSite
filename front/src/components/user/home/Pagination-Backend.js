@@ -11,7 +11,30 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-
+const CardWraper = styled(Paper)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    backgroundColor: theme.palette.Shadow.main,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    fontSize: "25px",
+    width: "100%",
+    //margin:"0 auto",
+  },
+  [theme.breakpoints.up("md")]: {
+    backgroundColor: theme.palette.Shadow.main,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    fontSize: "25px",
+    width: "100%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    backgroundColor: theme.palette.Shadow.main,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    fontSize: "25px",
+    width: "100%",
+  },
+}));
 
 const Div = styled("div")(({ theme }) => ({
   width: "100%",
@@ -50,38 +73,32 @@ const PaginationBackend = () => {
         <Paper
           spacing={1}
           sx={{
-            width: '80%',
-            pt: 3,
-            pb:8,
-            backgroundColor: "rgb(227, 227, 227)",
+            width: { lg: "80%", md: "80%", xs: "100%" },
+            p: { lg: 3, md: 3, xs: 2 },
             borderRadius: "10px",
-            boxShadow: "-2px 2px 10px rgba(0,0,0,0.5)",
+            boxShadow: "-5px 10px 20px 2px #ba6b6c37",
+            backgroundColor:"Shadow.main",
           }}
         >
+          <Typography  variant="h4"sx={{mx:"auto",height:"100px",fontFamily:"koodak",p:3}}>محصولات دسته بندی شده : </Typography>
           {data?.data.map((record) => (
             <Box key={record.id}>
-              <Button
-                variant="contained"
-                sx={{
-                  fontFamily: "koodak",
-                  height: "10px",
-                  p: 4,
-                  width: "100%",
-                  border: 3,
-                  fontSize: 25,
-                  mb:3,
-                  mt:3,
-                }}
-                onClick={() => handleNavigate(record.id)}
-              >
+              <CardWraper onClick={() => handleNavigate(record.id)}>
                 {record.name}
-              </Button>
+              </CardWraper>
               <Grid
                 container
                 item
                 xs={12}
                 key={record.id}
-                sx={{ ml: 20, flexWrap: "hidden", direction: "rtl" }}
+                sx={{
+                  direction: "rtl",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                }}
               >
                 {record.products.map((item) => (
                   <CardProduct product={item} key={item.id} />
@@ -92,7 +109,13 @@ const PaginationBackend = () => {
         </Paper>
       )}
       <Pagination
-      sx={{m:6,p:3, border:3, borderColor:"primary.main",borderRadius:3}}
+        sx={{
+          m: 6,
+          p:2,
+          border: 3,
+          borderColor: "primary.main",
+          borderRadius: 3,
+        }}
         variant="outlined"
         color="primary"
         defaultPage={1}

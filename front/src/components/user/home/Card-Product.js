@@ -26,7 +26,7 @@ const CardProduct = (props) => {
     caption.current.innerHTML =product?.description
   },[])
   return (
-      <Grid className="card" item xs={4} sx={{mt:4}}>
+      <Grid className="card" >
         <Grid className="face face1">
           <div className="content">
             <img src={`${BASE_URL}${product.image}`} />
