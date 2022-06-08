@@ -4,7 +4,7 @@
 class HttpService {
   constructor() {
     axios.defaults.baseURL = BASE_URL;
-    axios.defaults.timeout = 2000;
+    axios.defaults.timeout = 6000;
     axios.interceptors.request.use(
       (config) => {
         if(config.url==="orders" ){

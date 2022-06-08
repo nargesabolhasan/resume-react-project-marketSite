@@ -10,33 +10,6 @@ import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
-import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
-import { produceWithPatches } from "immer";
-
-// const CardWraper = styled(Paper)(({ theme }) => ({
-//   [theme.breakpoints.down("md")]: {
-//     backgroundColor: theme.palette.Shadow.main,
-//     padding: theme.spacing(1),
-//     textAlign: "center",
-//     fontSize: "25px",
-//     width: "100%",
-//     //margin:"0 auto",
-//   },
-//   [theme.breakpoints.up("md")]: {
-//     backgroundColor: theme.palette.Shadow.main,
-//     padding: theme.spacing(1),
-//     textAlign: "center",
-//     fontSize: "25px",
-//     width: "100%",
-//   },
-//   [theme.breakpoints.up("lg")]: {
-//     backgroundColor: theme.palette.Shadow.main,
-//     padding: theme.spacing(1),
-//     textAlign: "center",
-//     fontSize: "25px",
-//     width: "100%",
-//   },
-// }));
 
 const Img = styled("img")(({ theme }) => ({
   width: "70%",
@@ -76,7 +49,7 @@ const Div = styled("div")(({ theme }) => ({
 const InfoCard = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     width: "90%",
-    height: "800px",
+    minHeight: "600px",
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",
@@ -87,7 +60,7 @@ const InfoCard = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("md")]: {
     width: "100%",
-    height: "900px",
+    height: "700px",
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",
@@ -110,10 +83,24 @@ const InfoCard = styled("div")(({ theme }) => ({
 }));
 
 const Typographys = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    direction: "rtl",
+    fontSize: "15px",
+    fontFamily: "SansWeb",
+    padding: "5px",
+  },
+  [theme.breakpoints.up("md")]: {
+    direction: "rtl",
+    fontSize: "15px",
+    fontFamily: "SansWeb",
+    padding: "5px",
+  },
+  [theme.breakpoints.up("lg")]: {
   direction: "rtl",
-  fontSize: "20px",
+  fontSize: "25px",
   fontFamily: "SansWeb",
   padding: "5px",
+  }
 }));
 
 const Span = styled("span")(({ theme }) => ({
@@ -126,13 +113,35 @@ const Span = styled("span")(({ theme }) => ({
 }));
 
 const Counter = styled("span")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  border: "1px solid  #ba6b6c",
-  borderRadius: "5px",
-  height: "100%",
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+    border: "1px solid  #ba6b6c",
+    borderRadius: "5px",
+    height: "100%",
+    width:"250px"
+  },
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+    border: "1px solid  #ba6b6c",
+    borderRadius: "5px",
+    height: "100%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+    border: "1px solid  #ba6b6c",
+    borderRadius: "5px",
+    height: "100%",
+  }
 }));
 
 const MainUser = (props) => {
@@ -254,7 +263,7 @@ const MainUser = (props) => {
 
   return (
     <>
-      <Div sx={{ mt:{ lg:20 ,md:30 ,xs:5}}} xs={12}>
+      <Div sx={{ mt:{ lg:20 ,md:20 ,xs:5}}} xs={12}>
         <Grid
           item
           xs={12}
@@ -289,13 +298,13 @@ const MainUser = (props) => {
               <Counter sx={{ maxHeight: "80px" }}>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0, border: 2 }}
+                  sx={{ height:{lg: "100%",md: "100%",xs:"80px"}, fontSize: 20, p: 0, border: 2 }}
                   onClick={handleIncrease}
                   disabled={!isValidIncrease}
                 >
                   +
                 </Button>
-                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" }}>
+                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" ,display:"flex",flexDirection:{lg:"row",md:"column",xs:"column"}}}>
                   <EasyEdit
                     type="number"
                     onSave={(e) => saveData(e)}
@@ -310,7 +319,7 @@ const MainUser = (props) => {
                 </Box>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0, border: 2 }}
+                  sx={{ height:{lg: "100%",md: "100%",xs:"80px"}, fontSize: 20, p: 0, border: 2 }}
                   onClick={handleDicrease}
                   disabled={!isValidDicrease}
                 >
