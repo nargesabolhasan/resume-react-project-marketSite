@@ -130,7 +130,7 @@ const SubmitPayment = () => {
             <form onSubmit={handleSubmit} style={{ fontFamily: "koodak" }}>
               <FormGroup
                 sx={{
-                  width: 500,
+                  width:{ lg:500, md:500,xs:300},
                   mx: "auto",
                   mt: 10,
                   border: 3,

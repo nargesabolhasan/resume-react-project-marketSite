@@ -43,11 +43,11 @@ const ResultPayment = () => {
       {isSuccess ? (
         <Div
           sx={{
-            mt: 45,
+            mt:{lg:40,md:30,xs:5,},
             fontSize: 40,
             textAlign: "center",
             border: 3,
-            width: 500,
+            width: {lg:500,md:500,xs:"70%",},
             p: 5,
             borderColor: "success.main",
           }}
@@ -70,11 +70,11 @@ const ResultPayment = () => {
       ) : (
         <Div
         sx={{
-          mt: 45,
+          mt:{lg:40,md:30,xs:5,},
           fontSize: 40,
           textAlign: "center",
           border: 3,
-          width: 500,
+          width: {lg:500,md:500,xs:"70%",},
           p: 5,
           borderColor: "fail.main",
         }}

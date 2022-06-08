@@ -35,24 +35,24 @@ const ConfigPayment = () => {
     // //--------------
 
   const getData = async () => {
-    const res= await HttpService.get("products?_expand=category")
-    setAllProducts(res?.data)
+    // const res= await HttpService.get("products?_expand=category")
+    // setAllProducts(res?.data)
    
   };
 
   const postData = async() => {
-    store.products?.map((order) => {
+    // store.products?.map((order) => {
 
-      allProducts.filter((product) => product.id === order.id)
-        .map(async (item) => {
-         updateProduct = { ...item, count:Number(item.count) - Number(order.orderCount) };
-          await HttpService.patch(`products/${item.id}`, updateProduct, {
-            headers: { token: localStorage.getItem(("token")) },
-          });
+    //   allProducts.filter((product) => product.id === order.id)
+    //     .map(async (item) => {
+    //      updateProduct = { ...item, count:Number(item.count) - Number(order.orderCount) };
+    //       await HttpService.patch(`products/${item.id}`, updateProduct, {
+    //         headers: { token: localStorage.getItem(("token")) },
+    //       });
           
-        });
-    });
-    removeFromBasket();
+    //     });
+    // });
+    // removeFromBasket();
   };
 
   const removeFromBasket=async()=>{
