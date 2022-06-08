@@ -3,6 +3,7 @@ import useGetAxios from "../../axios/useGetAxios";
 import { useNavigate, Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 const Titles = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
@@ -31,11 +32,12 @@ const HomeCategoty = () => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <Box>
+        <Box item xs={6}>
           {data?.data.map((item) => (
-            <Box onClick={handleNavigate} item xs={12}>
-            <Titles key={item.id} xs={6}>{item.name}</Titles>
-            </Box>
+            <Grid item xs={6} key={item.id} onClick={handleNavigate}>
+              
+              <Titles>{item.name}</Titles>
+            </Grid>
           ))}
         </Box>
       )}
