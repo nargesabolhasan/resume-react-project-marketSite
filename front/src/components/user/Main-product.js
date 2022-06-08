@@ -13,7 +13,30 @@ import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
 import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 import { produceWithPatches } from "immer";
 
-//import { selectedProduct ,removeSelectedProduct} from "../../redux/basketRedux/actions/productActions";
+// const CardWraper = styled(Paper)(({ theme }) => ({
+//   [theme.breakpoints.down("md")]: {
+//     backgroundColor: theme.palette.Shadow.main,
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     fontSize: "25px",
+//     width: "100%",
+//     //margin:"0 auto",
+//   },
+//   [theme.breakpoints.up("md")]: {
+//     backgroundColor: theme.palette.Shadow.main,
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     fontSize: "25px",
+//     width: "100%",
+//   },
+//   [theme.breakpoints.up("lg")]: {
+//     backgroundColor: theme.palette.Shadow.main,
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     fontSize: "25px",
+//     width: "100%",
+//   },
+// }));
 
 const Img = styled("img")(({ theme }) => ({
   width: "70%",
@@ -28,13 +51,52 @@ const Titles = styled("h3")(({ theme }) => ({
 }));
 
 const Div = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-around",
-  padding: "10px",
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+    padding: "10px",
+  },
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    padding: "10px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    padding: "10px",
+  },
 }));
 const InfoCard = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    width: "90%",
+    height: "800px",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+    padding: "20px",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "100%",
+    height: "900px",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+    padding: "20px",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  },
+  [theme.breakpoints.up("lg")]: {
   width: "50%",
   height: "700px",
   margin: "0 auto",
@@ -44,6 +106,7 @@ const InfoCard = styled("div")(({ theme }) => ({
   alignItems: "center",
   padding: "20px",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  }
 }));
 
 const Typographys = styled("div")(({ theme }) => ({
@@ -108,9 +171,11 @@ const MainUser = (props) => {
     //alert("Cancelled");
   };
 
-  const validation=(e)=>{
-    if (e>=0){return e}
-  }
+  const validation = (e) => {
+    if (e >= 0) {
+      return e;
+    }
+  };
 
   const saveData = (input) => {
     if (input > Number(info?.count)) {
@@ -174,25 +239,33 @@ const MainUser = (props) => {
   const handleDicrease = () => {
     if (+counter > 1) {
       setCounter(+counter - 1);
-      
     }
   };
 
   const handleShopUpdate = (info, counter) => {
-    products.products?.map(item =>{
-      if(item.id===info.id){
+    products.products?.map((item) => {
+      if (item.id === info.id) {
         dispatch(removeSelectedProduct(item));
       }
-    })
-    const data = { ...info, orderCount: counter};
+    });
+    const data = { ...info, orderCount: counter };
     dispatch(setProducts(data));
   };
 
   return (
     <>
-      <Div sx={{ mt: 10}}xs={12}>
-        <Grid item xs={6} sx={{width:"50%"}}>
-          <InfoCard sx={{ mt: 5, backgroundColor: "amber.main" ,mx:'auto'}}>
+      <Div sx={{ mt:{ lg:20 ,md:30 ,xs:5}}} xs={12}>
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          md={6}
+          sx={{
+            width: { lg: "50%", md: "50%", xs: "100%" },
+            order: { lg: 1, md: 1, xs: 2 },
+          }}
+        >
+          <InfoCard sx={{ mt: 5, backgroundColor: "amber.main", mx: "auto" }}>
             <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
             <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
             <Span>
@@ -213,16 +286,16 @@ const MainUser = (props) => {
             </Span>
             <Span>
               <Titles>تعداد :</Titles>
-              <Counter sx={{ maxHeight: "80px",}}>
+              <Counter sx={{ maxHeight: "80px" }}>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0 ,border:2}}
+                  sx={{ height: "100%", fontSize: 20, p: 0, border: 2 }}
                   onClick={handleIncrease}
                   disabled={!isValidIncrease}
                 >
                   +
                 </Button>
-                <Box sx={{ p: 3, fontSize:15, fontFamily: "SansWeb" }}>
+                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" }}>
                   <EasyEdit
                     type="number"
                     onSave={(e) => saveData(e)}
@@ -237,7 +310,7 @@ const MainUser = (props) => {
                 </Box>
                 <Button
                   variant="outlined"
-                  sx={{ height: "100%", fontSize: 20, p: 0 ,border:2}}
+                  sx={{ height: "100%", fontSize: 20, p: 0, border: 2 }}
                   onClick={handleDicrease}
                   disabled={!isValidDicrease}
                 >
@@ -261,30 +334,43 @@ const MainUser = (props) => {
             </Buttons>
           </InfoCard>
         </Grid>
-        <Grid item xs={6} sx={{width:"50%"}}>
-          <Img src={`${BASE_URL}${info?.image}`} sx={{mx:'auto'}}/>
-          {!galleryIsEmpty ?(
-          <Box
-            sx={{
-              mx:'auto',
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "end",
-              alignItems: "end",
-              width: "15%",
-            }}
-          >
-       {       thumbnails?.map((image, index) => (
+        <Grid
+          item
+          xs={12}
+          lg={6}
+          md={6}
+          sx={{
+            width: { lg: "50%", md: "50%", xs: "100%" },
+            order: { lg: 1, md: 1, xs: 1 },
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Img src={`${BASE_URL}${info?.image}`} sx={{ mx: "auto" }} />
+          {!galleryIsEmpty ? (
+            <Box
+              sx={{
+                mx: "auto",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "end",
+                alignItems: "end",
+                width: "15%",
+              }}
+            >
+              {thumbnails?.map((image, index) => (
                 <img
                   key={index}
                   src={`${BASE_URL}${image}`}
                   style={{ width: "100px" }}
                 />
               ))}
-              </Box>) : (
-              <></>
-            )}
-          
+            </Box>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Div>
       <Modals

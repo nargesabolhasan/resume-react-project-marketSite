@@ -81,7 +81,7 @@ const PaginationBackend = () => {
           }}
         >
           <Typography  variant="h4"sx={{mx:"auto",height:"100px",fontFamily:"koodak",p:3}}>محصولات دسته بندی شده : </Typography>
-          {data?.data.map((record) => (
+          {data?.data?.map((record) => (
             <Box key={record.id}>
               <CardWraper onClick={() => handleNavigate(record.id)}>
                 {record.name}
