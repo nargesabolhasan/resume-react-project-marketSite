@@ -18,6 +18,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/userSlice";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -25,7 +26,15 @@ const ResponsiveAppBar = () => {
   const [data, setData] = React.useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -62,24 +71,29 @@ const ResponsiveAppBar = () => {
           disableGutters
           sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}
         >
-          <Box sx={{ flexGrow: 0 }}>
-              <Button
-                sx={{
-                  mt: 5,
-                  mx: "auto",
-                  fontFamily: "koodak",
-                  fontSize: 20,
-                  border: 3,
-                  borderColor: "white",
-                  color: "white",
-                  borderRadius: "11px",
-                }}
-                variant="outlined"
-                onClick={handleBack}
-              >
-                <KeyboardBackspaceIcon />
-                بازگشت به سایت
-              </Button>
+          <Box
+            sx={{
+              flexGrow: 0,
+              display: { lg: "flex", md: "flex", xs: "none" },
+            }}
+          >
+            <Button
+              sx={{
+                mt: 5,
+                mx: "auto",
+                fontFamily: "koodak",
+                fontSize: 20,
+                border: 3,
+                borderColor: "white",
+                color: "white",
+                borderRadius: "11px",
+              }}
+              variant="outlined"
+              onClick={handleBack}
+            >
+              <KeyboardBackspaceIcon />
+              بازگشت به سایت
+            </Button>
           </Box>
           <Grid
             item
@@ -92,7 +106,15 @@ const ResponsiveAppBar = () => {
               alignItems: "center",
             }}
           >
-            <Box sx={{ fontSize: 80, textAlign: "center" }}>پنل مدیریت </Box>
+            <Box
+              sx={{
+                fontSize: 80,
+                textAlign: "center",
+                display: { lg: "flex", md: "flex", xs: "none" },
+              }}
+            >
+              پنل مدیریت
+            </Box>
             <Grid
               sx={{
                 flexGrow: 1,
@@ -149,11 +171,132 @@ const ResponsiveAppBar = () => {
               </IconButton>
             </Grid>
           </Grid>
+
+          <Box
+            sx={{
+              float:"left",
+              display: { xs: "block", md: "none", lg: "none" },
+              flexGrow:1,
+              width:"100%"
+            }}
+          >
+            <Button
+              sx={{ color: "amber.main",}}
+              id="demo-positioned-button"
+              aria-controls={open ? "demo-positioned-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              <FormatListBulletedIcon sx={{ fontSize: 40 }} />
+            </Button>
+            <Menu
+              id="demo-positioned-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <MenuItem
+                onClick={handleClose}
+                sx={{
+                  fontSize: 20,
+                  fontFamily: "koodak",
+                  textAlign: "center",
+                  color: "black",
+                }}
+              >
+                <Button
+                  sx={{
+                    mx: "auto",
+                    fontFamily: "koodak",
+                    fontSize: 20,
+                    color: "black",
+                    borderRadius: "11px",
+                  }}
+                  onClick={handleBack}
+                >
+                  <KeyboardBackspaceIcon />
+                  بازگشت به سایت
+                </Button>
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                sx={{
+                  fontSize: 20,
+                  fontFamily: "koodak",
+                  textAlign: "center",
+                }}
+              >
+                <NavLink
+                  to="/PanelProducts"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#ba6b6c" : "black",
+                    textDecoration: "none",
+                    textAlign: "center",
+                    width: "100%",
+                  })}
+                >
+                  کالا ها
+                </NavLink>
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                sx={{
+                  fontSize: 20,
+                  fontFamily: "koodak",
+                  textAlign: "center",
+                }}
+              >
+                <NavLink
+                  to="/PanelQuantity"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#ba6b6c" : "black",
+                    textDecoration: "none",
+                    textAlign: "center",
+                    width: "100%",
+                  })}
+                >
+                  موجودی و قیمت ها
+                </NavLink>
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                sx={{
+                  fontSize: 20,
+                  fontFamily: "koodak",
+                }}
+              >
+                <NavLink
+                  to="/PanelOrder"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#ba6b6c" : "black",
+                    textDecoration: "none",
+                    textAlign: "center",
+                    width: "100%",
+                  })}
+                >
+                  سفارش ها
+                </NavLink>
+              </MenuItem>
+            </Menu>
+          </Box>
           <Box sx={{ flexGrow: 0, textAlign: "center" }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
-                  sx={{ width: 80, height: 80 }}
+                  sx={{
+                    width: { lg: 80, md: 80, xs: 50 },
+                    height: { lg: 80, md: 80, xs: 50 },
+                  }}
                   src={image}
                   alt="Alt Text!"
                 />
@@ -200,7 +343,14 @@ const ResponsiveAppBar = () => {
                 </Typography>
               </MenuItem>
             </Menu>
-            <Typography>{data.name}</Typography>
+            <Typography
+              sx={{
+                textAlign: "center",
+                display: { lg: "flex", md: "flex", xs: "none" },
+              }}
+            >
+              {data.name}
+            </Typography>
           </Box>
         </Toolbar>
       </Container>

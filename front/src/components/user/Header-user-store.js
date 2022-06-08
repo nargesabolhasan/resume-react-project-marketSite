@@ -19,6 +19,7 @@ import Badge from "@mui/material/Badge";
 import { useSelector } from "react-redux";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
+
 const ResponsiveAppBar = () => {
   const products = useSelector((state) => state);
   const [anchorEl, setAnchorEl] = React.useState(null);
