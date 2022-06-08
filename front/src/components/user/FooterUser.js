@@ -13,10 +13,25 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import AttachEmailIcon from "@mui/icons-material/AttachEmail";
 
 const Item = styled(Paper)(({ theme }) => ({
-  background: "#ba6b6c",
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
+  [theme.breakpoints.down("md")]: {
+    background: "#ba6b6c",
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+    fontSize:10
+  },
+  [theme.breakpoints.up("md")]: {
+    background: "#ba6b6c",
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
+  [theme.breakpoints.up("lg")]: {
+    background: "#ba6b6c",
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
 }));
 const Div = styled("div")(({ theme }) => ({
   direction: "rtl",
@@ -38,6 +53,7 @@ const ResponsiveText = styled(Typography)(({ theme }) => ({
     display: "block",
     direction: "rtl",
     fontFamily: "koodak",
+    width: 600,
   },
 }));
 
@@ -79,7 +95,11 @@ export default function FullWidthGrid() {
       }}
     >
       <MainFooter>
-        <Grid container spacing={2} sx={{ direction: "rtl",order:{xs: 2, lg: 1}}}>
+        <Grid
+          container
+          spacing={2}
+          sx={{ direction: "rtl", order: { xs: 2, lg: 1 } }}
+        >
           <Grid item xs={12} md={12}>
             <Item
               sx={{
@@ -146,7 +166,7 @@ export default function FullWidthGrid() {
             flexDirection: "column",
             alignItems: "end",
             justifyContent: "space-around",
-            order:{xs: 2, lg: 2}
+            order: { xs: 2, lg: 2 },
           }}
         >
           <ResponsiveText variant="h4">شرایط تخفیف ها :</ResponsiveText>
@@ -156,10 +176,7 @@ export default function FullWidthGrid() {
             لینک ثبت نام به دوستان خود شامل دریافت کد تخفیف خواهید شد و همچنین
             اولین تجربه خرید شما در سایت با کد تخفیف ویژه ای همراه خواهد شد
           </ResponsiveText>
-          <ResponsiveText
-            variant="h4" >
-            شرایط ارسال محصولات ها :
-          </ResponsiveText>
+          <ResponsiveText variant="h4">شرایط ارسال محصولات ها :</ResponsiveText>
           <ResponsiveText>
             ارسال محصولات با پست انجام شده و هزینه ارسال به تمام نقاط ایران
             کاملا رایگان می باش
@@ -171,18 +188,23 @@ export default function FullWidthGrid() {
             flexDirection: "column",
             alignItems: "end",
             justifyContent: "space-around",
-            order:{xs: 1, lg: 3},
-            textAlign:{xs:"center"},
-            mx:{xs:"auto"}
+            order: { xs: 1, lg: 3 },
           }}
         >
           <Typography
             variant="h4"
-            sx={{ direction: "rtl", fontFamily: "koodak" ,mr:{md:3} }}
+            sx={{ direction: "rtl", fontFamily: "koodak", mr: { md: 3 } ,fontSize: { xs:25, lg: 35, md: 30 }}}
           >
             درباره ما :
           </Typography>
-          <Div  sx={{ direction: "rtl", fontFamily: "koodak" ,mr:{md:3} }}>
+          <Div
+            sx={{
+              direction: "rtl",
+              fontFamily: "koodak",
+              mr: { md: 3 },
+              width: { xs: 300, lg: 600, md: 500 },
+            }}
+          >
             سایت سیب ایرانی فعالیت خود را با هدف ایجاد وب سایت و فروشگاهی متفاوت
             در زمینه ارائه محصولات و خدمات اپل به صورت حرفه‌ای آغاز کرد و در
             تمام مدت فعالیت با استفاده درست از انتقادات و تجربه‌های مختلف
@@ -192,15 +214,13 @@ export default function FullWidthGrid() {
             تمامی این تلاش‌ها تنها به یک دلیل بوده و آن‌هم ساخت لبخندی از رضایت
             بر لبان شما است که خوشبختانه تا به امروز تحقق یافته است.
           </Div>
-          <ResponsiveText
-            variant="h4"
-          >
-            شرایط خرید حضوری :
+          <ResponsiveText variant="h4">شرایط خرید حضوری :</ResponsiveText>
+          <ResponsiveText>
+            روز های شنبه تا چهارشنبه از ساعت 9 تا 20 پذیرای شما هستیم
           </ResponsiveText>
-          <ResponsiveText>روز های شنبه تا چهارشنبه از ساعت 9 تا 20 پذیرای شما هستیم</ResponsiveText>
         </Box>
       </MainFooter>
-      <Grid container spacing={2} sx={{ p: 2, direction: "rtl" }}>
+      <Grid container spacing={2} sx={{ p: 2, direction: "rtl",display: { xs: "none", md: "flex", lg: "flex" } }}>
         <Grid item xs={3}>
           <Item
             sx={{
