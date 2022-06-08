@@ -42,9 +42,9 @@ const ModalOrders = (props) => {
     const deliveredAt =new Date()
     HttpService.patch(
       `orders/${info.id}`,
-      { ...info, orderStatus: 1 ,deliveredAt:deliveredAt},
+      { ...info, orderStatus: 1 ,deliveredAt:deliveredAt.getTime()},
       { headers: { token: localStorage.getItem("token") } }
-    );
+   );
 
     updateData()
     setTimeout(() => {

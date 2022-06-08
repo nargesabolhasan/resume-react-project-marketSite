@@ -109,7 +109,7 @@ const SubmitPayment = () => {
               if (resiveNewDate) {
                 Authentication({
                   ...values,
-                  orderDate: resiveNewDate.toDate(),
+                  orderDate: resiveNewDate,
                 });
               } else {
                 Authentication({ ...values, orderDate: resiveDate });
@@ -318,7 +318,7 @@ const SubmitPayment = () => {
                     calendar={persian}
                     locale={persian_fa}
                     calendarPosition="bottom-right"
-                    onChange={setResiveNewDate}
+                    onChange={(val)=>{setResiveNewDate(val.unix*1000)}}
                     minDate={new Date()}
                     maxDate={new Date().setDate(21)}
                     value={resiveDate}

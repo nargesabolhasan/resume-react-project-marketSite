@@ -26,6 +26,21 @@ const Div = styled("div")(({ theme }) => ({
   fontSize: 15,
 }));
 
+const ResponsiveText = styled(Typography)(({ theme }) => ({
+  padding: theme.spacing(1),
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "block",
+    direction: "rtl",
+    fontFamily: "koodak",
+  },
+}));
+
 export default function FullWidthGrid() {
   return (
     <Box
@@ -118,29 +133,21 @@ export default function FullWidthGrid() {
             justifyContent: "space-around",
           }}
         >
-          <Typography
-            variant="h4"
-            sx={{ direction: "rtl", fontFamily: "koodak" }}
-          >
-            شرایط تخفیف ها :
-          </Typography>
-          <Div>
+          <ResponsiveText variant="h4">شرایط تخفیف ها :</ResponsiveText>
+          <ResponsiveText>
             در صورت نداشتن کد تخفیف می توانید با ثبت نام در انواع قرعه کشی ها یا
-            مناسبت های تخفیفاتی مطلع شوید و خریدی لذت بخش را تجربه کنید
-            با معرفی لینک ثبت نام به دوستان خود شامل دریافت کد تخفیف
-            خواهید شد و همچنین اولین تجربه خرید شما در سایت با کد تخفیف ویژه ای
-            همراه خواهد شد
-          </Div>
-          <Typography
-            variant="h4"
-            sx={{ direction: "rtl", fontFamily: "koodak" }}
-          >
+            مناسبت های تخفیفاتی مطلع شوید و خریدی لذت بخش را تجربه کنید با معرفی
+            لینک ثبت نام به دوستان خود شامل دریافت کد تخفیف خواهید شد و همچنین
+            اولین تجربه خرید شما در سایت با کد تخفیف ویژه ای همراه خواهد شد
+          </ResponsiveText>
+          <ResponsiveText
+            variant="h4" >
             شرایط ارسال محصولات ها :
-          </Typography>
-          <Div>
+          </ResponsiveText>
+          <ResponsiveText>
             ارسال محصولات با پست انجام شده و هزینه ارسال به تمام نقاط ایران
             کاملا رایگان می باش
-          </Div>
+          </ResponsiveText>
         </Box>
         <Box
           sx={{
@@ -166,13 +173,12 @@ export default function FullWidthGrid() {
             تمامی این تلاش‌ها تنها به یک دلیل بوده و آن‌هم ساخت لبخندی از رضایت
             بر لبان شما است که خوشبختانه تا به امروز تحقق یافته است.
           </Div>
-          <Typography
+          <ResponsiveText
             variant="h4"
-            sx={{ direction: "rtl", fontFamily: "koodak" }}
           >
             شرایط خرید حضوری :
-          </Typography>
-          <Div>روز های شنبه تا چهارشنبه از ساعت 9 تا 20 پذیرای شما هستیم</Div>
+          </ResponsiveText>
+          <ResponsiveText>روز های شنبه تا چهارشنبه از ساعت 9 تا 20 پذیرای شما هستیم</ResponsiveText>
         </Box>
       </Box>
       <Grid container spacing={2} sx={{ p: 2, direction: "rtl" }}>

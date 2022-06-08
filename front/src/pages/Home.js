@@ -127,17 +127,3 @@ const Home = () => {
 
 export default LayoutUser(Home);
 
-// function App() {
-//   const [handleOpen, setHandleOpen] = useState({ open: true });
-
-//   const matches = useMediaQuery("(max-width:600px)");
-//   return (
-//     <>
-//       <AutoRotatingCarouselModal
-//         handleOpen={handleOpen}
-//         setHandleOpen={setHandleOpen}
-//       />
-//     </>
-//   );
-// }
-// export default App

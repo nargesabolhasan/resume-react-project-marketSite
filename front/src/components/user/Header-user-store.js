@@ -114,7 +114,7 @@ const ResponsiveAppBar = () => {
                   color: "#fff8e1",
                   align: "center",
                   mr: 5,
-                  display: { xs: "none", md: "flex", lg: "flex" },
+                  display: {xs: "none", md: "flex", lg: "flex"},
                 }}
               >
                 فروشگاه آنلاین ایران سیب
