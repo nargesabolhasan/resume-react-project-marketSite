@@ -59,7 +59,7 @@ const ProductGroup = () => {
         <Dashboards >
           <Container spacing={1} >
               <>
-                <Grid
+                {/* <Grid
                   container
                   item
                   xs={12}
@@ -69,7 +69,26 @@ const ProductGroup = () => {
                   {data?.data.products.map((item) => (
                     <CardProduct product={item} key={item.id} />
                   ))}
-                </Grid>
+                </Grid> */}
+                <Grid
+                container
+                item
+                xs={12}
+                key={data?.data.id}
+                sx={{
+                  direction: "rtl",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                }}
+              >
+                {data?.data.products.map((item) => (
+                  <CardProduct product={item} key={item.id} />
+                ))}
+              </Grid>
+
               </>
           </Container>
           </Dashboards>
