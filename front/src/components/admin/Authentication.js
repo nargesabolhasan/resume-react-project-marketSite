@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 
-const Authentication = () => {
+const Authentication = (props) => {
+  const{children,displayXs}=props
   //const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state);
@@ -20,11 +21,12 @@ const Authentication = () => {
       component="div"
       sx={{
         mr: 2,
-        display: { xs: "none", md: "flex", lg: "flex", color: "black" },
+        display: { xs:displayXs, md: "flex", lg: "flex", color:"black" },
       }}
       onClick={handleAuthentication}
     >
-      مدیریت
+      <div>{children}</div>
+      
     </IconButton>
   );
 };

@@ -115,7 +115,7 @@ const ResponsiveAppBar = () => {
                 </NavLink>
               </IconButton>
 
-              <Authentication />
+              <Authentication displayXs="none">مدیریت</Authentication>
             </Grid>
             <Grid
               item
@@ -190,39 +190,77 @@ const ResponsiveAppBar = () => {
                   horizontal: "left",
                 }}
               >
-                <MenuItem onClick={handleClose} sx={{ fontSize: 20,
-                      fontFamily: "koodak",textAlign: "center" }}>
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                    textAlign: "center",
+                    color: "black",
+                  }}
+                >
+                  <Typography sx={{ fontSize: 10,
+                    fontFamily: "koodak",
+                    textAlign: "center",}}>
+                  <Authentication displayXs="flex">مدیریت</Authentication>
+                  </Typography>
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                    textAlign: "center",
+                  }}
+                >
                   <NavLink
                     to="/grouping"
                     style={({ isActive }) => ({
                       color: isActive ? "#ba6b6c" : "black",
                       textDecoration: "none",
+                      width: "100%",
+                      textAlign: "center",
                     })}
                   >
-                    دسته بندی و محصولات
+                     محصولات
                   </NavLink>
                 </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ fontSize: 20,
-                      fontFamily: "koodak",textAlign: "center" }}>
-                  {" "}
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                    textAlign: "center",
+                  }}
+                >
                   <NavLink
                     to="/"
                     style={({ isActive }) => ({
                       color: isActive ? "#ba6b6c" : "black",
                       textDecoration: "none",
+                      width: "100%",
+                      textAlign: "center",
                     })}
                   >
                     خانه
                   </NavLink>
                 </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ fontSize: 20,
-                      fontFamily: "koodak",textAlign: "center" }}>
-                  {" "}
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                    textAlign: "center",
+                  }}
+                >
                   <NavLink
                     to="/Basket"
                     style={({ isActive }) => ({
                       color: isActive ? "#ba6b6c" : "black",
-                      textDecoration: "none",})}
+                      textDecoration: "none",
+                      width: "100%",
+                      textAlign: "center",
+                    })}
                   >
                     <AddShoppingCartIcon />
                   </NavLink>
