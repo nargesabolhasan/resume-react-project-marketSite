@@ -202,7 +202,7 @@ export default function FullWidthGrid() {
               direction: "rtl",
               fontFamily: "koodak",
               mr: { md: 3 },
-              width: { xs: 300, lg: 600, md: 500 },
+              width: { xs: 300,sm: 500 , lg: 600, md: 500 },
             }}
           >
             سایت سیب ایرانی فعالیت خود را با هدف ایجاد وب سایت و فروشگاهی متفاوت
