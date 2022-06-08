@@ -10,8 +10,8 @@ import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./home/CardStyles.scss";
-
 
 const Img = styled("img")(({ theme }) => ({
   width: "70%",
@@ -72,16 +72,16 @@ const InfoCard = styled("div")(({ theme }) => ({
     boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   },
   [theme.breakpoints.up("lg")]: {
-  width: "50%",
-  height: "750px",
-  margin: "0 auto",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-around",
-  alignItems: "center",
-  padding: "20px",
-  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  }
+    width: "50%",
+    height: "750px",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+    padding: "20px",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  },
 }));
 
 const Typographys = styled("div")(({ theme }) => ({
@@ -98,11 +98,11 @@ const Typographys = styled("div")(({ theme }) => ({
     padding: "5px",
   },
   [theme.breakpoints.up("lg")]: {
-  direction: "rtl",
-  fontSize: "20px",
-  fontFamily: "SansWeb",
-  padding: "5px",
-  }
+    direction: "rtl",
+    fontSize: "20px",
+    fontFamily: "SansWeb",
+    padding: "5px",
+  },
 }));
 
 const Span = styled("span")(({ theme }) => ({
@@ -124,7 +124,7 @@ const Counter = styled("span")(({ theme }) => ({
     border: "1px solid  #ba6b6c",
     borderRadius: "5px",
     height: "100%",
-    width:"250px"
+    width: "250px",
   },
   [theme.breakpoints.up("md")]: {
     display: "flex",
@@ -143,7 +143,7 @@ const Counter = styled("span")(({ theme }) => ({
     border: "1px solid  #ba6b6c",
     borderRadius: "5px",
     height: "100%",
-  }
+  },
 }));
 
 const MainUser = (props) => {
@@ -265,7 +265,7 @@ const MainUser = (props) => {
 
   return (
     <>
-      <Div sx={{ mt:{ lg:20 ,md:20 ,xs:5}}} xs={12}>
+      <Div sx={{ mt: { lg: 20, md: 20, xs: 5 } }} xs={12}>
         <Grid
           item
           xs={12}
@@ -277,6 +277,13 @@ const MainUser = (props) => {
           }}
         >
           <InfoCard sx={{ mt: 5, backgroundColor: "amber.main", mx: "auto" }}>
+            <Typographys sx={{textAlign:"end"}}>
+            {products.products?.map((item) => {
+              if (item.id === info?.id) {
+                return <Typography key={info?.id} sx={{ display: "flex",justifyContent:"space-around",alignItems: "center",fontSize: "15px",fontFamily:"SansWeb",direction:"rtl",backgroundColor: "success.main",p:1,borderRadius:"30px"}}> {item.orderCount}  عدد در  <AddShoppingCartIcon/></Typography>;
+              }
+            })}
+</Typographys>
             <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
             <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
             <Span>
@@ -300,13 +307,26 @@ const MainUser = (props) => {
               <Counter sx={{ maxHeight: "80px" }}>
                 <Button
                   variant="outlined"
-                  sx={{ height:{lg: "100%",md: "100%",xs:"80px"}, fontSize: 20, p: 0, border: 2 }}
+                  sx={{
+                    height: { lg: "100%", md: "100%", xs: "80px" },
+                    fontSize: 20,
+                    p: 0,
+                    border: 2,
+                  }}
                   onClick={handleIncrease}
                   disabled={!isValidIncrease}
                 >
                   +
                 </Button>
-                <Box sx={{ p: 3, fontSize: 15, fontFamily: "SansWeb" ,display:"flex",flexDirection:{lg:"row",md:"column",xs:"column"}}}>
+                <Box
+                  sx={{
+                    p: 3,
+                    fontSize: 15,
+                    fontFamily: "SansWeb",
+                    display: "flex",
+                    flexDirection: { lg: "row", md: "column", xs: "column" },
+                  }}
+                >
                   <EasyEdit
                     type="number"
                     onSave={(e) => saveData(e)}
@@ -321,7 +341,12 @@ const MainUser = (props) => {
                 </Box>
                 <Button
                   variant="outlined"
-                  sx={{ height:{lg: "100%",md: "100%",xs:"80px"}, fontSize: 20, p: 0, border: 2 }}
+                  sx={{
+                    height: { lg: "100%", md: "100%", xs: "80px" },
+                    fontSize: 20,
+                    p: 0,
+                    border: 2,
+                  }}
                   onClick={handleDicrease}
                   disabled={!isValidDicrease}
                 >
@@ -373,7 +398,7 @@ const MainUser = (props) => {
             >
               {thumbnails?.map((image, index) => (
                 <img
-                className="GalleryCard"
+                  className="GalleryCard"
                   key={index}
                   src={`${BASE_URL}${image}`}
                   // style={{ width: "100px" }}

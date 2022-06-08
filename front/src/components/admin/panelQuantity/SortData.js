@@ -20,7 +20,7 @@ const Div = styled("div")(({ theme }) => ({
   alignItems: "center" ,
   margin:"0px 10px",
   order:1,
-  width:"100%",
+  width:"400px",
 },
 [theme.breakpoints.up("lg")]: {
   display: "flex",
@@ -28,7 +28,7 @@ const Div = styled("div")(({ theme }) => ({
   alignItems: "center",
   margin:"0px 10px",
   order:1,
-   width:"100%",
+   width:"400px",
 },
   }));
 
@@ -108,7 +108,7 @@ const ProductTable = (props) => {
         قیمت
       </Button>
       </Div>
-      <Typography sx={{color: 'primary.main', fontFamily: "koodak",order:{lg:2,md:2 ,xs:1}}} >  :مرتب سازی بر اساس </Typography>
+      <Typography sx={{width:"200px",color: 'primary.main', fontFamily: "koodak",order:{lg:2,md:2 ,xs:1}}} >  :مرتب سازی بر اساس </Typography>
       </Div>
       <TableQuantity products={items} />
     </>
