@@ -41,6 +41,28 @@ const ResponsiveText = styled(Typography)(({ theme }) => ({
   },
 }));
 
+const MainFooter = styled(Typography)(({ theme }) => ({
+  padding: theme.spacing(1),
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "start",
+    justifyContent: "space-around",
+  },
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "start",
+    justifyContent: "space-around",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "flex",
+    alignItems: "start",
+    justifyContent: "space-around",
+    flexDirection: "row",
+  },
+}));
+
 export default function FullWidthGrid() {
   return (
     <Box
@@ -56,15 +78,8 @@ export default function FullWidthGrid() {
         justifyContent: "space-around",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "start",
-          justifyContent: "space-around",
-        }}
-      >
-        <Grid container spacing={2} sx={{ direction: "rtl" }}>
+      <MainFooter>
+        <Grid container spacing={2} sx={{ direction: "rtl",order:{xs: 2, lg: 1}}}>
           <Grid item xs={12} md={12}>
             <Item
               sx={{
@@ -131,6 +146,7 @@ export default function FullWidthGrid() {
             flexDirection: "column",
             alignItems: "end",
             justifyContent: "space-around",
+            order:{xs: 2, lg: 2}
           }}
         >
           <ResponsiveText variant="h4">شرایط تخفیف ها :</ResponsiveText>
@@ -155,15 +171,18 @@ export default function FullWidthGrid() {
             flexDirection: "column",
             alignItems: "end",
             justifyContent: "space-around",
+            order:{xs: 1, lg: 3},
+            textAlign:{xs:"center"},
+            mx:{xs:"auto"}
           }}
         >
           <Typography
             variant="h4"
-            sx={{ direction: "rtl", fontFamily: "koodak" }}
+            sx={{ direction: "rtl", fontFamily: "koodak" ,mr:{md:3} }}
           >
             درباره ما :
           </Typography>
-          <Div>
+          <Div  sx={{ direction: "rtl", fontFamily: "koodak" ,mr:{md:3} }}>
             سایت سیب ایرانی فعالیت خود را با هدف ایجاد وب سایت و فروشگاهی متفاوت
             در زمینه ارائه محصولات و خدمات اپل به صورت حرفه‌ای آغاز کرد و در
             تمام مدت فعالیت با استفاده درست از انتقادات و تجربه‌های مختلف
@@ -180,7 +199,7 @@ export default function FullWidthGrid() {
           </ResponsiveText>
           <ResponsiveText>روز های شنبه تا چهارشنبه از ساعت 9 تا 20 پذیرای شما هستیم</ResponsiveText>
         </Box>
-      </Box>
+      </MainFooter>
       <Grid container spacing={2} sx={{ p: 2, direction: "rtl" }}>
         <Grid item xs={3}>
           <Item
