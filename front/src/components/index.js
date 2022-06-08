@@ -19,6 +19,7 @@ import ButtonSubmit from "./buttons/Button-submit";
 
 import Dashboards from "./user/Dashboards";
 import FooterUser from "./user/FooterUser";
+import HomeCategoty from "./user/HomeCategoty";
 import HeaderUserStore from "./user/Header-user-store";
 import MainUser from "./user/Main-product";
 import MainBasket from "./user/MainBasket";
@@ -43,6 +44,7 @@ export {
   ButtonSubmit,
   Dashboards,
   FooterUser,
+  HomeCategoty,
   HeaderUserStore,
   MainUser,
   LayoutAdmin,
@@ -50,5 +52,5 @@ export {
   SortData,
   FilterOrders,
   ModalAddProduct,
-  ModalEditProduct
+  ModalEditProduct,
 };
