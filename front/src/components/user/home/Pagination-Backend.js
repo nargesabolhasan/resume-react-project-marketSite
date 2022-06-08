@@ -6,9 +6,11 @@ import { styled } from "@mui/material/styles";
 import CardProduct from "./Card-Product";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+
 
 
 const Div = styled("div")(({ theme }) => ({
@@ -45,9 +47,10 @@ const PaginationBackend = () => {
       {loading ? (
         <Typography>Loading...</Typography>
       ) : (
-        <Container
+        <Paper
           spacing={1}
           sx={{
+            width: '80%',
             pt: 3,
             pb:8,
             backgroundColor: "rgb(227, 227, 227)",
@@ -86,7 +89,7 @@ const PaginationBackend = () => {
               </Grid>
             </Box>
           ))}
-        </Container>
+        </Paper>
       )}
       <Pagination
       sx={{m:6,p:3, border:3, borderColor:"primary.main",borderRadius:3}}

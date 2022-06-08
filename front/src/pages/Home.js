@@ -5,6 +5,7 @@ import macbookpro2021 from "../assets/images/logo/macbookpro2021.png";
 import ipad from "../assets/images/logo/ipad.jpg";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Slider from "../components/user/home/Slider";
 
 const Div = styled("div")(({ theme }) => ({
@@ -22,21 +23,21 @@ const Paragraph = styled("p")(({ theme }) => ({
   fontFamily: "koodak",
   width: "90%",
   padding: "5px",
-  boxShadow: "-2px 22px rgba(0,0,0,0.2)",
+  boxShadow: "-2px 22px #ba6b6c37",
   },
   [theme.breakpoints.up("md")]: {
     direction: "rtl",
   fontFamily: "koodak",
   width: "60%",
   padding: "10px",
-  boxShadow: "-2px 22px rgba(0,0,0,0.2)",
+  boxShadow: "-2px 22px #ba6b6c37",
   },
   [theme.breakpoints.up("lg")]: {
   direction: "rtl",
   fontFamily: "koodak",
   width: "50%",
   padding: "10px",
-  boxShadow: "-2px 22px rgba(0,0,0,0.2)",
+  boxShadow: "-2px 22px #ba6b6c37",
   }
 }));
 
@@ -91,6 +92,7 @@ const Img1 = styled("img")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "50%",
+    order:2
   },
 }));
 
@@ -108,11 +110,11 @@ const Home = () => {
     <>
       <Div sx={{ mt: 15 }}>
         <Slider handleOpen={handleOpen} />
-        <Box
-          sx={{ margin: "30px 0", boxShadow: "5px -10px 20px 2px #ba6b6c37" }}
+        <Paper
+          sx={{ margin: "30px 0", boxShadow: "5px -10px 20px 2px #ba6b6c37",pb:2 }}
         >
           <PhotoWraper>
-            <Paragraph sx={{ fontSize: { xs: 15, md: 20, lg: 20 } , order: { xs: 2, md: 1, lg: 1 },}}>
+            <Paragraph sx={{ fontSize: { xs: 15, md: 20, lg: 20 } , order: { xs: 2, md: 1, lg: 1 },pb: { xs: 0, md: 0, lg: 8 },pt: { xs: 0, md: 0, lg:10 }}}>
               اپل در سال 2020 تغییراتی مهم را در کامپیوترهای مک اعمال کرد که
               قدرتمندترین مدل آن‌ها با عنوان مک بوک پرو 2020 همراه با پردازنده
               M1 آماده معرفی و عرضه به بازار جهانی شد. مک بوک پرو 2020 با تراشه
@@ -148,8 +150,7 @@ const Home = () => {
               پردازنده جدید باعث شده تا هویتی متفاوت به آیپدها داده شود و این
               محصولات بتوانند به عنوان یک دستگاه کاملاً مستقل و کافی برای
               کاربری‌های مختلف آماده کار باشند.
-              <Box sx={{ display: { xs: "none", md: "none", lg:"flex" },}}>
-                {" "}
+              <Box sx={{ display: { xs: "none", md: "none", lg:"flex" },pb:2}}>
                 تراشه M1 هسته اصلی قدرت و پردازش آیپد پرو ۲۰۲۱ نسل ۵ آیپد جدید
                 از پردازنده‌ای استفاده می‌کند که تا پیش از این فقط و فقط در
                 کامپیوترهای مک مبتنی بر اپل سیلیکون تعبیه شده بود. این موضوع
@@ -175,8 +176,14 @@ const Home = () => {
               </Box>
             </Paragraph>
           </PhotoWraper>
-        </Box>
+        
+          
+        </Paper>
+        <Paper
+          sx={{ margin: "30px 0", boxShadow: "5px -10px 20px 2px #ba6b6c37" ,pb:5,pt:1,width: "100%"}}
+        >
         <HomeCategoty/>
+        </Paper>
       </Div>
       <FooterUser />
     </>
