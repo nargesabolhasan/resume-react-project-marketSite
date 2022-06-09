@@ -17,7 +17,7 @@ const ProductTable = (props) => {
 
   const getData = async () => {
     props.updateData();
-    const result = await HttpService.get("orders?orderStatus=3");
+    const result = await HttpService.get("orders?orderStatus=3&_sort=customerDetail.orderDate&_order=desc");
     setFilteredData(result?.data);
   };
 

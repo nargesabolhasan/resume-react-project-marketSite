@@ -63,7 +63,6 @@ const Basic = (props) => {
     //description: Yup.string()("توضیحات محصول را وارد کنید"),
   });
 
-  // `/files/${uploadedGallery}`
   //-------submit add:----------
   const submitAdd = async (input) => {
     const formData = new FormData();
@@ -253,6 +252,7 @@ const Basic = (props) => {
                   <MenuItem value={5}>مک بوک ایر </MenuItem>
                   <MenuItem value={6}>آیمک</MenuItem>
                   <MenuItem value={7}>آیپد پرو</MenuItem>
+                  <MenuItem value={8}> آیفون 13 پرو مکس</MenuItem>
                 </Select>
                 <Errors variant="h5">
                   {errors.categoryId && touched.categoryId && errors.categoryId}

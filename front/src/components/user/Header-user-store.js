@@ -18,12 +18,15 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Badge from "@mui/material/Badge";
 import { useSelector } from "react-redux";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import HomeIcon from "@mui/icons-material/Home";
+import CategoryIcon from "@mui/icons-material/Category";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
-
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
   const products = useSelector((state) => state);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const { children } = props;
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -67,6 +70,13 @@ const ResponsiveAppBar = () => {
                 alignItems: "center",
               }}
             >
+              <IconButton
+                variant="h6"
+                component="div"
+                sx={{ mr: 2, display: { xs: "none", md: "flex", lg: "flex" } }}
+              >
+                {children}
+              </IconButton>
               <IconButton
                 variant="h6"
                 component="div"
@@ -185,6 +195,7 @@ const ResponsiveAppBar = () => {
                 anchorOrigin={{
                   vertical: "top",
                   horizontal: "left",
+
                 }}
                 transformOrigin={{
                   vertical: "top",
@@ -196,34 +207,51 @@ const ResponsiveAppBar = () => {
                   sx={{
                     fontSize: 20,
                     fontFamily: "koodak",
-                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    alignItems: "center",
                     color: "black",
+                    
                   }}
                 >
-                  <Typography sx={{ fontSize: 10,
-                    fontFamily: "koodak",
-                    textAlign: "center",}}>
-                  <Authentication displayXs="flex">مدیریت</Authentication>
-                  </Typography>
+                  {children}منو
                 </MenuItem>
                 <MenuItem
                   onClick={handleClose}
                   sx={{
                     fontSize: 20,
                     fontFamily: "koodak",
-                    textAlign: "center",
+                    color: "black",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
                   }}
                 >
+                  <ManageAccountsIcon />
+
+                  <Authentication displayXs="flex">مدیریت</Authentication>
+                </MenuItem>
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{
+                    fontSize: 20,
+                    fontFamily: "koodak",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    
+                  }}
+                >
+                  <CategoryIcon />
                   <NavLink
                     to="/grouping"
                     style={({ isActive }) => ({
                       color: isActive ? "#ba6b6c" : "black",
                       textDecoration: "none",
-                      width: "100%",
-                      textAlign: "center",
                     })}
                   >
-                     محصولات
+                    محصولات
                   </NavLink>
                 </MenuItem>
                 <MenuItem
@@ -231,16 +259,18 @@ const ResponsiveAppBar = () => {
                   sx={{
                     fontSize: 20,
                     fontFamily: "koodak",
-                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                     
                   }}
                 >
+                  <HomeIcon />
                   <NavLink
                     to="/"
                     style={({ isActive }) => ({
                       color: isActive ? "#ba6b6c" : "black",
                       textDecoration: "none",
-                      width: "100%",
-                      textAlign: "center",
                     })}
                   >
                     خانه
@@ -253,19 +283,27 @@ const ResponsiveAppBar = () => {
                     fontFamily: "koodak",
                   }}
                 >
-                 <Badge badgeContent={products.products?.length} color="PLight" sx={{mx: "auto"}}>
-                  <NavLink
-                    to="/Basket"
-                    style={({ isActive }) => ({
-                      color: isActive ? "#fff8e1" : "black",
-                      textDecoration: "none",
-                    })}
+                  <Badge
+                    badgeContent={products.products?.length}
+                    color="PLight"
+                    sx={{ mx: "auto" }}
                   >
-                    <AddShoppingCartIcon />
-                  </NavLink>
-                </Badge>
+                    <NavLink
+                      to="/Basket"
+                      style={({ isActive }) => ({
+                        color: isActive ? "#fff8e1" : "black",
+                        textDecoration: "none",
+                      })}
+                    >
+                      <AddShoppingCartIcon />
+                    </NavLink>
+                    <Typography sx={{ fontFamily: "koodak", ml: 3 }}>
+                      سبد
+                    </Typography>
+                  </Badge>
                 </MenuItem>
               </Menu>
+
             </Box>
             <Box>
               <Link to="/">

@@ -393,7 +393,7 @@ const MainUser = (props) => {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "15%",
+                width:"15%",
               }}
             >
               {thumbnails?.map((image, index) => (

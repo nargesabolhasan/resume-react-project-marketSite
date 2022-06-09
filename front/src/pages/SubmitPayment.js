@@ -320,7 +320,7 @@ const SubmitPayment = () => {
                     calendarPosition="bottom-right"
                     onChange={(val)=>{setResiveNewDate(val.unix*1000)}}
                     minDate={new Date()}
-                    maxDate={new Date().setDate(21)}
+                    maxDate={new Date().setDate(29)}
                     value={resiveDate}
                     onBlur={handleBlur}
                   />
