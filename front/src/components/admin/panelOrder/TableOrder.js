@@ -232,7 +232,7 @@ export default function CustomPaginationActionsTable(props) {
               )}
             </TableRow>
           </TableHead>
-          {products.length !== 0 ? (
+          {products?.length !== 0 ? (
             <TableBody>
               {(rowsPerPage > 0
                 ? products.slice(

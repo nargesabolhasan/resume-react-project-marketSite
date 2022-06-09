@@ -19,7 +19,7 @@ const ProductTable = (props) => {
         }
       })
     );
-  }, []);
+  }, [...props.products]);
 
   const handleChange = (e) => {
     setFilteredData(

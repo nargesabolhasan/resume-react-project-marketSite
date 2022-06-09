@@ -57,7 +57,7 @@ const ModalOrders = (props) => {
     ( () => {
       let sum=0
     info.orderItems.map((item) =>{
-      sum+=item.price*item.count
+      sum+=item.price*item.orderCount
       setAllPrice(sum)
     })
     })();
