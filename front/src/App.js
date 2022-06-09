@@ -12,6 +12,7 @@ import PanelQuantity from "./pages/Panel-Quantity";
 import PanelOrder from "./pages/Panel-Order";
 import Grouping from "./pages/Grouping";
 import {ProtectedRoutes,PublicRoutes } from "./components/index";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <Route path="/PanelOrder" element={<PanelOrder />} />
         </Route>
 
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
