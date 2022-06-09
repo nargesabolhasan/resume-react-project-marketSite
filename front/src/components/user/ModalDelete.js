@@ -13,7 +13,7 @@ const ModalDelete = (props) => {
     dispatch(removeSelectedProduct(item));
     setTimeout(() => {
       handleCloseModal();
-    }, 1000);
+    }, 600);
   };
 
   return (

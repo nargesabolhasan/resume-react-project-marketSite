@@ -9,7 +9,8 @@ import { styled } from "@mui/material/styles";
 import Buttons from "../components/buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../components/modal/Modals";
-import { setProducts, removeSelectedProduct } from "../redux/basketSlice";
+import CloseIcon from "@mui/icons-material/Close";
+import ModalDelete from "../components/user/ModalDelete";
 import LayoutUser from "../components/Layouts/Layout-user";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -22,7 +23,8 @@ import TableRow from "@mui/material/TableRow";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
-import { textAlign } from "@mui/system";
+import { removeAll } from "../redux/basketSlice";
+import EmptyBasket from "../components/user/EmptyBasket";
 
 const Root = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -100,6 +102,7 @@ const Basket = (props) => {
   const [showTable, setShowTable] = useState(false);
   const [basketIsEmpty, setBasketIsEmpty] = useState(false);
   const [allPrice, setAllPrice] = useState(0);
+  const dispatch = useDispatch();
   const tableHeader = [
     "حذف",
     "تعداد",
@@ -111,6 +114,15 @@ const Basket = (props) => {
   ];
   let dollarUSLocale = Intl.NumberFormat("en-US");
   const navigate = useNavigate();
+
+  //**modal **//
+  const [openDelete, setOpenDelete] = useState(false);
+  const [classname, setClassname] = useState("");
+  const [selectedData, setSelectedData] = useState("");
+  //--------Modal open & close :----------
+  const handleClose = () => {
+    setOpenDelete(false);
+  };
 
   useEffect(() => {
     if (products.products.length > 0) {
@@ -136,16 +148,34 @@ const Basket = (props) => {
     }
   }, [products.products]);
 
+  const handleSubmitRemoveAll = () => {
+    setOpenDelete(true)
+  };
+
   return (
-    <Root sx={{mt:{ lg:20,md:20,xs:2 }, fontFamily: "koodak", mx: "auto", direction: "rtl" }}>
-      <Typography variant="h3" sx={{ fontFamily: "koodak",textAlign:{lg:"start",md:"start",xs:"start",},fontSize:{lg:50,md:50,xs:30,} }}>
+    <Root
+      sx={{
+        mt: { lg: 20, md: 20, xs: 2 },
+        fontFamily: "koodak",
+        mx: "auto",
+        direction: "rtl",
+      }}
+    >
+      <Typography
+        variant="h3"
+        sx={{
+          fontFamily: "koodak",
+          textAlign: { lg: "start", md: "start", xs: "start" },
+          fontSize: { lg: 50, md: 50, xs: 30 },
+        }}
+      >
         سبد خرید
       </Typography>
       {!basketIsEmpty ? (
         <>
           <Grid
             sx={{
-              display:{ lg:"flex",md:"flex",xs:"none"},
+              display: { lg: "flex", md: "flex", xs: "none" },
               flexDirection: "column",
               mt: 3,
               color: "primary.main",
@@ -153,22 +183,31 @@ const Basket = (props) => {
               alignItems: "center",
             }}
           >
-            <Typography variant="h5" sx={{ fontFamily: "SansWeb"}}>
+            <Typography variant="h5" sx={{ fontFamily: "SansWeb" }}>
               حالت نمایش محصولات :
             </Typography>
             <Div>
-              <Titles onClick={() => setShowTable(true)} >
+              <Titles onClick={() => setShowTable(true)}>
                 جدول : <ViewListIcon sx={{ fontSize: 50 }} />
               </Titles>
               <Titles onClick={() => setShowTable(false)}>
                 کارت : <GridViewIcon sx={{ fontSize: 50 }} />
               </Titles>
+              <Buttons clickHandler={() => handleSubmitRemoveAll()}>
+                خالی کردن سبد
+              </Buttons>
             </Div>
           </Grid>
 
           <Typography
             variant="h5"
-            sx={{ direction: "rtl", fontFamily: "SansWeb", mt: 3,textAlign:{lg:"start",md:"start",xs:"start",},fontSize:{lg:40,md:30,xs:20,}  }}
+            sx={{
+              direction: "rtl",
+              fontFamily: "SansWeb",
+              mt: 3,
+              textAlign: { lg: "start", md: "start", xs: "start" },
+              fontSize: { lg: 40, md: 30, xs: 20 },
+            }}
           >
             {products?.products.length} محصول در سبد شما است
           </Typography>
@@ -211,20 +250,20 @@ const Basket = (props) => {
               </TableContainer>
             ) : (
               <Grid
-              container
-              item
-              xs={12}
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                alignItems: "center",
-                justifyContent: "space-around",
-              }}
-            >
+                container
+                item
+                xs={12}
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
+              >
                 {products.products?.map((item, key) => (
-                    <MainBasket info={item} key={item.id} />
+                  <MainBasket info={item} key={item.id} />
                 ))}
               </Grid>
             )}
@@ -260,8 +299,27 @@ const Basket = (props) => {
           <IMG src={emptyBasket} />
         </Box>
       )}
+      <Modals open={openDelete} handleclose={() => handleClose()}>
+        <CloseIcon
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            fontSize: 32,
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            border: 3,
+            borderColor: "primary.main",
+            borderRadius: "11px",
+          }}
+          onClick={handleClose}
+        />
+        <EmptyBasket handleCloseModal={handleClose} />
+      </Modals>
     </Root>
   );
 };
 
 export default LayoutUser(Basket);
+
+//

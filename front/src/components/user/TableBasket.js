@@ -14,6 +14,7 @@ import Paper from "@mui/material/Paper";
 import EasyEdit from "react-easy-edit";
 import { BASE_URL } from "../../constants/Constants";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Buttons from "../buttons/Button-add";
@@ -270,7 +271,7 @@ const TableBasket = (props) => {
           }}
           onClick={handleClose}
         />
-        <ModalDelete handleCloseModal={handleClose} deletedItem={info} />
+  <ModalDelete handleCloseModal={handleClose} deletedItem={info}/>
       </Modals>
     </>
   );

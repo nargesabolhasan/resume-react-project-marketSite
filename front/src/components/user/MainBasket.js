@@ -280,7 +280,7 @@ const MainBasket = (props) => {
           }}
           onClick={handleClose}
         />
-        <ModalDelete handleCloseModal={handleClose} deletedItem={info} />
+        <ModalDelete handleCloseModal={handleClose} deletedItem={info}/>
       </Modals>
     </Grid>
   );

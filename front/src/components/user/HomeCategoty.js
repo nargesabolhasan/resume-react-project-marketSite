@@ -15,6 +15,7 @@ import imac from "../../assets/images/HomePage/6.webp";
 import ipadPro from "../../assets/images/HomePage/7.webp";
 import  "../../assets/Core-ui/Core-styles.scss"
 
+
 const Wraper = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {},
   [theme.breakpoints.up("md")]: {},

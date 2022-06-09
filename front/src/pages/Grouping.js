@@ -16,13 +16,22 @@ const Div = styled("div")(({ theme }) => ({
 
 const Img = styled("img")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
-    width: "100%"
+    width: "100%",
+    height:"300px",
+    objectFit: "cover",
+    objectPosition:"top center"
   },
   [theme.breakpoints.up("md")]: {
-    width: "82%"
+    width: "82%",
+    height:"600px",
+    objectFit: "cover",
+    objectPosition:"top center"
   },
   [theme.breakpoints.up("lg")]: {
-    width: "82%"
+    width: "82%",
+    height:"600px",
+    objectFit: "cover",
+    objectPosition:"top center"
   },
 }));
 
