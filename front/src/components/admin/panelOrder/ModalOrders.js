@@ -32,7 +32,7 @@ const Div = styled("div")(({ theme }) => ({
 
 const ModalOrders = (props) => {
   
-  const { info ,updateData,closeModal} = props;
+  const { info ,updateData,closeModal,updateDataBase} = props;
   const header = ["نام کالا", "قیمت", "تعداد"];
   const [allPrice, setAllPrice]=useState(0);
 
@@ -45,7 +45,7 @@ const ModalOrders = (props) => {
       { ...info, orderStatus: 1 ,deliveredAt:deliveredAt.getTime()},
       { headers: { token: localStorage.getItem("token") } }
    );
-
+   //updateDataBase()
     updateData()
     setTimeout(() => {
       closeModal()

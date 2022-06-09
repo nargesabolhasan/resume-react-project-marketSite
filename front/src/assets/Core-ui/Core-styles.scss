@@ -1,20 +1,19 @@
 @import "./palette.scss";
 
- @font-face {
-    font-family: "koodak";
-    src:url("../Fonts/koodak.ttf") format("ttf");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-    //background-color: #6c4eb8;
+@font-face {
+  font-family: "koodak";
+  src: url("../Fonts/koodak.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  //background-color: #6c4eb8;
 }
-
 
 @font-face {
   font-family: "SansWeb";
-  src:url("../Fonts/IRANSansWeb\(FaNum\).ttf") format("ttf"),
-  url("../Fonts/IRANSansWeb\(FaNum\).woff") format("woff"),
-  url("../Fonts/IRANSansWeb\(FaNum\).woff2") format("woff");
+  src: url("../Fonts/IRANSansWeb\(FaNum\).ttf") format("ttf"),
+    url("../Fonts/IRANSansWeb\(FaNum\).woff") format("woff"),
+    url("../Fonts/IRANSansWeb\(FaNum\).woff2") format("woff");
 
   font-weight: normal;
   font-style: normal;
@@ -23,23 +22,70 @@
 }
 
 .succsess {
-    color: green;
-    font-size: 30px;
-    margin: 0 auto;
+  color: green;
+  font-size: 30px;
+  margin: 0 auto;
+}
+
+.succsess::before {
+  content: "\2714 موفقیت : ";
+  color: green;
+}
+
+.failer {
+  color: red;
+  font-size: 30px;
+  margin: 0 auto;
+}
+
+.failer::before {
+  content: "\2717 شکست : ";
+  color: red;
+}
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid $PDark;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
   }
-  
-  .succsess::before {
-    content: '\2714 موفقیت : ';
-    color: green;
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
   }
-  
-  .failer {
-    color: red;
-    font-size: 30px;
-    margin: 0 auto;
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
   }
-  
-  .failer::before {
-    content: '\2717 شکست : ';
-    color: red;
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
   }
+}

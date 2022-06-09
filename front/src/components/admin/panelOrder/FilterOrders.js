@@ -12,34 +12,30 @@ const ProductTable = (props) => {
   const [filteredData, setFilteredData] = useState();
   //-----------------
   useEffect(() => {
-    getData()
+    getData();
   }, []);
 
   const getData = async () => {
-    props.updateData()
-    const result= await HttpService.get("orders?orderStatus=3")
-    setFilteredData(result?.data)
+    props.updateData();
+    const result = await HttpService.get("orders?orderStatus=3");
+    setFilteredData(result?.data);
   };
 
   const handleChange = (e) => {
-    props.updateData()
+    props.updateData();
+    setFilteredData(
       sortableItems.filter((item) => {
-        if(e.target.value ==3){
-          getData()
-        }
-        else if (e.target.value == item.orderStatus) {
+        if (e.target.value == item.orderStatus) {
+          return item;
+        } else if (e.target.value == 0) {
           return item;
         }
-        else if (e.target.value == 0) {
-          return item;
-        }
-        setFilteredData( item)
       })
-    ;
+    );
   };
-console.log(filteredData)
+  console.log(filteredData);
   return (
-    <Box sx={{width: '100%',}}>
+    <Box sx={{ width: "100%" }}>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue="3"
@@ -66,7 +62,7 @@ console.log(filteredData)
         />
       </RadioGroup>
       {filteredData ? (
-        <TableOrder products={filteredData} updateData={getData} />
+        <TableOrder products={filteredData} updateData={getData} updateDataBase={props.updateData}/>
       ) : (
         <TableOrder products={props.products} updateData={getData} />
       )}

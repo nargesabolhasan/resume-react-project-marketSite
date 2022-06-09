@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import  "../../../assets/Core-ui/Core-styles.scss"
 
 const CardWraper = styled(Paper)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
@@ -68,7 +69,7 @@ const PaginationBackend = () => {
   return (
     <Div>
       {loading ? (
-        <Typography>Loading...</Typography>
+        <div class="lds-ripple"><div></div><div></div></div>
       ) : (
         <Paper
           spacing={1}
