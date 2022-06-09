@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Slider from "../components/user/home/Slider";
+import { Typography } from "@mui/material";
 
 const Div = styled("div")(({ theme }) => ({
   display: "flex",
@@ -17,7 +18,7 @@ const Div = styled("div")(({ theme }) => ({
   width: "80%",
 }));
 
-const Paragraph = styled("p")(({ theme }) => ({
+const Paragraph = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     direction: "rtl",
   fontFamily: "koodak",
@@ -108,7 +109,7 @@ const Home = () => {
 
   return (
     <>
-      <Div sx={{ mt: 15 }}>
+      <Div sx={{ mt:{ lg:20, md: 20, xs:2 }}}>
         <Slider handleOpen={handleOpen} />
         <Paper
           sx={{ margin: "30px 0", boxShadow: "5px -10px 20px 2px #ba6b6c37",pb:2 }}
@@ -150,7 +151,7 @@ const Home = () => {
               پردازنده جدید باعث شده تا هویتی متفاوت به آیپدها داده شود و این
               محصولات بتوانند به عنوان یک دستگاه کاملاً مستقل و کافی برای
               کاربری‌های مختلف آماده کار باشند.
-              <Box sx={{ display: { xs: "none", md: "none", lg:"flex" },pb:2}}>
+              <Typography sx={{ display: { xs: "none", md: "none", lg:"flex" },pb:2,fontFamily: "koodak",fontSize:20}}>
                 تراشه M1 هسته اصلی قدرت و پردازش آیپد پرو ۲۰۲۱ نسل ۵ آیپد جدید
                 از پردازنده‌ای استفاده می‌کند که تا پیش از این فقط و فقط در
                 کامپیوترهای مک مبتنی بر اپل سیلیکون تعبیه شده بود. این موضوع
@@ -173,7 +174,7 @@ const Home = () => {
                 قدرت پردازش گرافیکی نیز تا ۴۰ درصد در دستگاه‌های جدید سریع‌تر
                 شود. نمایشگر باکیفیت‌تر که تا پیش از این هرگز معادل آن را
                 ندیده‌اید
-              </Box>
+              </Typography>
             </Paragraph>
           </PhotoWraper>
         

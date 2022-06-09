@@ -20,9 +20,20 @@ import "./Slider.scss";
 // import required modules
 import { Scrollbar, Autoplay, Pagination, Navigation } from "swiper";
 
-const Img = styled("div")(({ theme }) => ({
-    
-  }));
+const Img = styled("img")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    height: "100%",
+    objectPosition: "top start",
+    objectFit:"cover"
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+  },
+}));
 
 export default function App() {
   return (
@@ -40,14 +51,15 @@ export default function App() {
    navigation={true}
    modules={[Autoplay, Pagination, Navigation]}
    className="mySwiper"
+   sx={{height:" 100%"}}
       >
-          <SwiperSlide><img src={image7} /> </SwiperSlide>
-        <SwiperSlide><img src={image1} /></SwiperSlide>
-        <SwiperSlide><img src={image3} /></SwiperSlide>
-        <SwiperSlide><img src={image2} /></SwiperSlide>
-        <SwiperSlide><img src={image5} /> </SwiperSlide>
-        <SwiperSlide><img src={image6} /> </SwiperSlide>
-        <SwiperSlide><img src={image8} /> </SwiperSlide>
+          <SwiperSlide><Img src={image7} /> </SwiperSlide>
+        <SwiperSlide><Img src={image1} /></SwiperSlide>
+        <SwiperSlide><Img src={image3} /></SwiperSlide>
+        <SwiperSlide><Img src={image2} /></SwiperSlide>
+        <SwiperSlide><Img src={image5} /> </SwiperSlide>
+        <SwiperSlide><Img src={image6} /> </SwiperSlide>
+        <SwiperSlide><Img src={image8} /> </SwiperSlide>
       </Swiper>
     </>
   );

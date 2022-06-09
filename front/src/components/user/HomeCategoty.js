@@ -92,6 +92,18 @@ const Header = styled(Typography)(({ theme }) => ({
   },
 }));
 
+const Img = styled("img")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    width: "200px",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "300px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "300px",
+  },
+}));
+
 const HomeCategoty = () => {
   let navigate = useNavigate();
   const { data, loading, error } = useGetAxios(`/categories/?_embed=products`);
@@ -110,14 +122,13 @@ const HomeCategoty = () => {
           <Wraper item xs={12}>
             {data?.data.map((item, index) => (
               <CardWraper
-                item
                 xs={6}
                 key={item.id}
                 onClick={() => {
                   handleNavigate(item.id);
                 }}
               >
-                <img src={images[index]} alt="test" style={{ width: 300 }} />
+                <Img src={images[index]} alt="test" />
                 <Titles>{item.name}</Titles>
               </CardWraper>
             ))}

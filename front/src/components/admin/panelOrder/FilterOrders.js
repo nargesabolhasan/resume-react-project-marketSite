@@ -12,28 +12,32 @@ const ProductTable = (props) => {
   const [filteredData, setFilteredData] = useState();
   //-----------------
   useEffect(() => {
-    setFilteredData(
-      sortableItems.filter((item) => {
-        if (3 == item.orderStatus) {
-          return item;
-        }
-      })
-    );
-  }, [...props.products]);
+    getData()
+  }, []);
 
-  const handleChange = (e) => {
-    setFilteredData(
-      sortableItems.filter((item) => {
-        if (e.target.value == item.orderStatus) {
-          return item;
-        }
-        if (e.target.value == 0) {
-          return item;
-        }
-      })
-    );
+  const getData = async () => {
+    props.updateData()
+    const result= await HttpService.get("orders?orderStatus=3")
+    setFilteredData(result?.data)
   };
 
+  const handleChange = (e) => {
+    props.updateData()
+      sortableItems.filter((item) => {
+        if(e.target.value ==3){
+          getData()
+        }
+        else if (e.target.value == item.orderStatus) {
+          return item;
+        }
+        else if (e.target.value == 0) {
+          return item;
+        }
+        setFilteredData( item)
+      })
+    ;
+  };
+console.log(filteredData)
   return (
     <Box sx={{width: '100%',}}>
       <RadioGroup
@@ -62,17 +66,15 @@ const ProductTable = (props) => {
         />
       </RadioGroup>
       {filteredData ? (
-        <TableOrder products={filteredData} updateData={props.updateData} />
+        <TableOrder products={filteredData} updateData={getData} />
       ) : (
-        <TableOrder products={props.products} updateData={props.updateData} />
+        <TableOrder products={props.products} updateData={getData} />
       )}
     </Box>
   );
 };
 
 export default function App(props) {
-  //   let sortedProducts = [products.map((item=>{return item.name}))]
-  //   console.log(products)
   const { products, updateData } = props;
   return (
     <div>
