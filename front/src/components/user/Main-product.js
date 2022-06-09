@@ -12,6 +12,7 @@ import Modals from "../modal/Modals";
 import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./home/CardStyles.scss";
+import backProduct from "../../assets/images/avatar/backProduct.png"
 
 const Img = styled("img")(({ theme }) => ({
   width: "70%",
@@ -19,10 +20,14 @@ const Img = styled("img")(({ theme }) => ({
 const Titles = styled("h3")(({ theme }) => ({
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   padding: 10,
-  margin: 5,
-  color: "white",
+  margin: "6px",
+  color: "black",
   backgroundColor: "#ba6b6c",
   borderRadius: 5,
+  fontFamily: "SansWeb",
+  minWidth: "100px",
+  height:"50px"
+
 }));
 
 const Div = styled("div")(({ theme }) => ({
@@ -32,6 +37,7 @@ const Div = styled("div")(({ theme }) => ({
     alignItems: "center",
     justifyContent: "space-around",
     padding: "10px",
+    backgroundImage: `url(${backProduct})`
   },
   [theme.breakpoints.up("md")]: {
     display: "flex",
@@ -39,6 +45,7 @@ const Div = styled("div")(({ theme }) => ({
     alignItems: "center",
     justifyContent: "space-around",
     padding: "10px",
+    backgroundImage: `url(${backProduct})`
   },
   [theme.breakpoints.up("lg")]: {
     display: "flex",
@@ -46,6 +53,7 @@ const Div = styled("div")(({ theme }) => ({
     alignItems: "center",
     justifyContent: "space-around",
     padding: "10px",
+    backgroundImage: `url(${backProduct})`
   },
 }));
 const InfoCard = styled("div")(({ theme }) => ({
@@ -59,6 +67,7 @@ const InfoCard = styled("div")(({ theme }) => ({
     alignItems: "center",
     padding: "20px",
     boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+    backgroundColor: "rgb(238, 238, 238)"
   },
   [theme.breakpoints.up("md")]: {
     width: "100%",
@@ -70,9 +79,10 @@ const InfoCard = styled("div")(({ theme }) => ({
     alignItems: "center",
     padding: "20px",
     boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+    backgroundColor: "rgb(238, 238, 238)"
   },
   [theme.breakpoints.up("lg")]: {
-    width: "50%",
+    width: "90%",
     height: "750px",
     margin: "0 auto",
     display: "flex",
@@ -81,6 +91,7 @@ const InfoCard = styled("div")(({ theme }) => ({
     alignItems: "center",
     padding: "20px",
     boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+    backgroundColor: "rgb(238, 238, 238)"
   },
 }));
 
@@ -99,9 +110,10 @@ const Typographys = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     direction: "rtl",
-    fontSize: "20px",
+    fontSize: "18px",
     fontFamily: "SansWeb",
     padding: "5px",
+
   },
 }));
 
@@ -111,7 +123,7 @@ const Span = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   direction: "rtl",
-  minHeight: "50px",
+  marginTop: "4px"
 }));
 
 const Counter = styled("span")(({ theme }) => ({
@@ -265,7 +277,7 @@ const MainUser = (props) => {
 
   return (
     <>
-      <Div sx={{ mt: { lg: 20, md: 20, xs: 5 } }} xs={12}>
+      <Div xs={12}>
         <Grid
           item
           xs={12}
@@ -273,17 +285,36 @@ const MainUser = (props) => {
           md={6}
           sx={{
             width: { lg: "50%", md: "50%", xs: "100%" },
+            mt: { lg: 20, md: 20, xs: 5 },
             order: { lg: 1, md: 1, xs: 2 },
           }}
         >
-          <InfoCard sx={{ mt: 5, backgroundColor: "amber.main", mx: "auto" }}>
-            <Typographys sx={{textAlign:"end"}}>
-            {products.products?.map((item) => {
-              if (item.id === info?.id) {
-                return <Typography key={info?.id} sx={{ display: "flex",justifyContent:"space-around",alignItems: "center",fontSize: "15px",fontFamily:"SansWeb",direction:"rtl",backgroundColor: "success.main",p:1,borderRadius:"30px"}}> {item.orderCount}  عدد در  <AddShoppingCartIcon/></Typography>;
-              }
-            })}
-</Typographys>
+          <InfoCard sx={{ mt: 5, mx: "auto" }}>
+            <Typographys sx={{ textAlign: "end" }}>
+              {products.products?.map((item) => {
+                if (item.id === info?.id) {
+                  return (
+                    <Typography
+                      key={info?.id}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        fontSize: "15px",
+                        fontFamily: "SansWeb",
+                        direction: "rtl",
+                        backgroundColor: "success.main",
+                        p: 1,
+                        borderRadius: "30px",
+                      }}
+                    >
+                      {" "}
+                      {item.orderCount} عدد در <AddShoppingCartIcon />
+                    </Typography>
+                  );
+                }
+              })}
+            </Typographys>
             <Typographys sx={{ fontSize: "25px" }}>{info?.name}</Typographys>
             <Box sx={{ fontSize: "15px" }}>{info?.ENname}</Box>
             <Span>
@@ -336,7 +367,7 @@ const MainUser = (props) => {
                     attributes={{ name: "awesome-input", id: 1 }}
                     value={counter}
                     instructions={`تعداد موجودی :${info?.count}`}
-                    onValidate={validation}
+                    //onValidate={validation}
                   />
                 </Box>
                 <Button
@@ -359,7 +390,7 @@ const MainUser = (props) => {
               <Typographys>{info?.color}</Typographys>
             </Span>
             <Box>
-              <Titles sx={{ direction: "rtl" }}>توضیحات :</Titles>
+              <Titles sx={{ direction: "rtl",}}>توضیحات :</Titles>
               <Typographys ref={caption}> </Typographys>
             </Box>
             <Buttons
@@ -393,7 +424,7 @@ const MainUser = (props) => {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                width:"15%",
+                width: "15%",
               }}
             >
               {thumbnails?.map((image, index) => (

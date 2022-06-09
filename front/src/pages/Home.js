@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Slider from "../components/user/home/Slider";
 import { Typography } from "@mui/material";
+import { useNavigate, NavLink, useParams } from "react-router-dom";
 
 const Div = styled("div")(({ theme }) => ({
   display: "flex",
@@ -98,14 +99,17 @@ const Img1 = styled("img")(({ theme }) => ({
 }));
 
 const Home = () => {
-
-
   const [handleOpen, setHandleOpen] = useState({ open: true });
+  let navigate = useNavigate();
 
   const handleClick = () => {
     setHandleOpen({ open: true });
   };
 
+  const handle = (id) => {
+    //setHandleOpen({ open: true });
+    navigate(`/products/${id}`);
+  };
 
   return (
     <>
@@ -130,10 +134,10 @@ const Home = () => {
               کاملاً خودکفا طراحی کند و حالا مک بوک‌های مبتنی بر اپل سیلیکون
               اولین نمونه از این محصولات هستند.
             </Paragraph>
-            <Img1 src={macbookpro2021} />
+            <Img1 src={macbookpro2021} onClick={() => handle(7)}/>
           </PhotoWraper>
           <PhotoWraper>
-            <Img src={ipad} />
+            <Img src={ipad} onClick={() => handle(7)}/>
             <Paragraph
               sx={{
                 fontSize: { xs: 15, md: 20, lg: 20 },

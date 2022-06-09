@@ -13,6 +13,7 @@ import mac13 from "../../assets/images/HomePage/4.webp";
 import macAir from "../../assets/images/HomePage/5.webp";
 import imac from "../../assets/images/HomePage/6.webp";
 import ipadPro from "../../assets/images/HomePage/7.webp";
+import iphone from "../../assets/images/HomePage/8.webp";
 import  "../../assets/Core-ui/Core-styles.scss"
 
 
@@ -109,7 +110,7 @@ const Img = styled("img")(({ theme }) => ({
 const HomeCategoty = () => {
   let navigate = useNavigate();
   const { data, loading, error } = useGetAxios(`/categories/?_embed=products`);
-  const images = [macmini, mac16, mac14, mac13, macAir, imac, ipadPro];
+  const images = [macmini, mac16, mac14, mac13, macAir, imac, ipadPro,iphone];
   const handleNavigate = (id) => {
     navigate(`/categories/${id}`);
   };

@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProducts, increase, decrease } from "../../redux/basketSlice";
 
 const Img = styled("img")(({ theme }) => ({
-  width: "60%",
+  width: "50%",
 }));
 const Titles = styled("h2")(({ theme }) => ({
   padding: 10,
@@ -34,7 +34,7 @@ const Div = styled("div")(({ theme }) => ({
   padding: "10px",
 }));
 const InfoCard = styled("div")(({ theme }) => ({
-  height: "800px",
+  height: "600px",
   margin: "0 auto",
   display: "flex",
   flexDirection: "column",
@@ -42,6 +42,7 @@ const InfoCard = styled("div")(({ theme }) => ({
   alignItems: "center",
   padding: "20px",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+  backgroundColor: "rgb(238, 238, 238)"
 }));
 
 const Typographys = styled("div")(({ theme }) => ({
@@ -65,10 +66,10 @@ const Counter = styled("span")(({ theme }) => ({
   flexDirection: "row",
   alignItems: "center",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  border: "2px solid  #fff8e1",
-  background: "#fff8e1",
+  border: "2px solid  #ba6b6c",
   borderRadius: "5px",
   height: "100%",
+  backgroundColor: "rgb(238, 238, 238)"
 }));
 
 const MainBasket = (props) => {
@@ -194,10 +195,10 @@ const MainBasket = (props) => {
   }, [products.products]);
 
   return (
-    <Grid item lg={4} md={6} xs={12} sx={{ mt:{ lg:4,md:4,xs:2 }}}>
+    <Grid item lg={4} md={6} xs={12} sx={{ mt:{ lg:4,md:4,xs:2,}}}>
       <Div>
         <Grid>
-          <InfoCard sx={{ backgroundColor: "PLight.main" }}>
+          <InfoCard >
             <Img src={`${BASE_URL}${info?.image}`} />
             <Typographys sx={{ fontSize: "22px" }}>{info?.name}</Typographys>
             <Span>

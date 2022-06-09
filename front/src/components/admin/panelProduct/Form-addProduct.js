@@ -48,10 +48,6 @@ const Basic = (props) => {
       .required("نام لاتین محصول را وارد کنید"),
     image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
     thumbnail: Yup.mixed("تصاویر گالری محصول بار گذاری شود"),
-
-    // .test('fileFormat', '  فرمت عکس webp باشد', (value) => {
-    //    return value && ['image/webp','image/png'].includes(value.type);
-    // }),
     categoryId: Yup.number().required("دسته بندی  را انتخاب کنید"),
     price: Yup.number()
       .required("قیمت محصول را وارد کنید")
@@ -60,7 +56,6 @@ const Basic = (props) => {
       .required(" تعداد محصول را وارد کنید ")
       .min(0,"بزرگتر از 0 باشد"),
     color: Yup.string().required("رنگ محصول را وارد کنید "),
-    //description: Yup.string()("توضیحات محصول را وارد کنید"),
   });
 
   //-------submit add:----------
@@ -76,10 +71,6 @@ const Basic = (props) => {
     await HttpService.post("/products", formData);
     props.updateData();
     props.handleClose();
-    // setTimeout(() => {
-    //   window.location.reload(false);
-
-    // }, 1000);
   };
   //-------uplaod one image:---------
   const handleUpload = async (e) => {
@@ -109,7 +100,6 @@ const Basic = (props) => {
   //------delete new photos:----
   const deleteNewphotos = (input) => {
     setIUploadedGallery(uploadedGallery.filter((i) => i !== input));
-    //console.log(input)
   };
 
   return (
@@ -144,7 +134,6 @@ const Basic = (props) => {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          /* and other goodies */
         }) => (
           <EditForm onSubmit={handleSubmit}>
             <Grid

@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import TextField from "@mui/material/TextField";
-
+import backProduct from "../assets/images/avatar/backProduct.png";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormGroup from "@mui/material/FormGroup";
 import Button from "@mui/material/Button";
@@ -60,7 +60,7 @@ const SubmitPayment = () => {
     const today = new Date();
     let tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 3);
-    setResiveDate(tomorrow);
+    setResiveDate(tomorrow.getTime());
   }, []);
   //------------
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ const SubmitPayment = () => {
   //-----------Authentication :-----------
   const Authentication = async (input) => {
     dispatch(setcustomer(input));
-    window.open("http://127.0.0.1:5500/paymentHTML/index.html");
+    window.location.href = "http://127.0.0.1:5500/paymentHTML/index.html";
   };
 
   //----------------
@@ -87,11 +87,13 @@ const SubmitPayment = () => {
       <Box
         sx={{
           m: 0,
-          mt: 10,
+          mt: {lg:"20px",md:"200px",xs:"8px"},
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          backgroundImage: `url(${backProduct})`,
+          minHeight:{lg:"1000px",md:"1000px",xs:"600px"}
         }}
       >
         <Formik
@@ -130,7 +132,7 @@ const SubmitPayment = () => {
             <form onSubmit={handleSubmit} style={{ fontFamily: "koodak" }}>
               <FormGroup
                 sx={{
-                  width:{ lg:500, md:500,xs:300},
+                  width: { lg: 500, md: 500, xs: 300 },
                   mx: "auto",
                   mt: 10,
                   border: 3,
@@ -138,6 +140,7 @@ const SubmitPayment = () => {
                   p: 3,
                   borderRadius: "11px",
                   direction: "rtl",
+                  backgroundColor: "rgb(238, 238, 238)"
                 }}
               >
                 <Typography
@@ -318,7 +321,9 @@ const SubmitPayment = () => {
                     calendar={persian}
                     locale={persian_fa}
                     calendarPosition="bottom-right"
-                    onChange={(val)=>{setResiveNewDate(val.unix*1000)}}
+                    onChange={(val) => {
+                      setResiveNewDate(val.unix * 1000);
+                    }}
                     minDate={new Date()}
                     maxDate={new Date().setDate(29)}
                     value={resiveDate}
