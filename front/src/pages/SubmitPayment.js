@@ -151,6 +151,7 @@ const SubmitPayment = () => {
                     textAlign: "center",
                     fontFamily: "koodak",
                     textAlign: "center",
+                    fontSize:{lg:50,md:50,xs:30} 
                   }}
                 >
                   نهایی کردن خرید

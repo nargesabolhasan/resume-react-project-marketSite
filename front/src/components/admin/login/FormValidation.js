@@ -109,7 +109,7 @@ const FormValidation = () => {
               sx={{
                 width:{ lg:400,md:400,xs:"80%",},
                 mx: "auto",
-                mt: 20,
+                mt:{ lg:20,md:20,xs:2,},
                 border: 3,
                 borderColor: "primary.main",
                 p: 3,
