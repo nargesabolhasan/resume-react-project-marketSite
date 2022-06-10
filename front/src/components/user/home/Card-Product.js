@@ -39,7 +39,7 @@ const CardProduct = (props) => {
             
             <Button
               variant="contained"
-              sx={{ fontFamily: "koodak",backgroundColor: "SLight.main",color : "black"}}
+              sx={{ fontFamily: "koodak",backgroundColor: "SLight.main",color : "black",mt:3}}
               onClick={() => handleNavigate(product.id)}
             >
                اطلاعات محصول 

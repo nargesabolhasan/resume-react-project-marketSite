@@ -62,11 +62,12 @@ const Titles = styled(Typography)(({ theme }) => ({
 const ProductGroup = () => {
   let { id } = useParams();
   let navigate = useNavigate();
-  const limit = useMemo(() => 1, []);
+  const limit = useMemo(() => 2, []);
   const [activePage, setActivePage] = useState(1);
 
   const { data, loading, error } = useGetAxios(
-    `/categories/${id}?_embed=products`
+    
+    `categories/${id}?_embed=products&_page=${activePage}&_limit=1`
   );
 
   const handleNavigate = (id) => {
@@ -113,6 +114,22 @@ const ProductGroup = () => {
               </>
           </Container>
           </Dashboards>
+
+          <Pagination
+        sx={{
+          m: 6,
+          p:2,
+          border: 3,
+          borderColor: "primary.main",
+          borderRadius: 3,
+        }}
+        variant="outlined"
+        color="primary"
+        defaultPage={1}
+        page={activePage}
+        count={Math.ceil(data?.data.products.length/ limit)}
+        onChange={(_, page) => setActivePage(page)}
+      />
         </Div>
       )}
     </>

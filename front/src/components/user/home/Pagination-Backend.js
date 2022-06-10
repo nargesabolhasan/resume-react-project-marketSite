@@ -54,7 +54,7 @@ const Span = styled("div")(({ theme }) => ({
 }));
 
 const PaginationBackend = () => {
-  const limit = 2;
+  const limit = useMemo(() => 2, []);
   const [activePage, setActivePage] = useState(1);
   let navigate = useNavigate();
 

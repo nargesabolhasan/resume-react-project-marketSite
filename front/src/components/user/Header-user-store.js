@@ -297,9 +297,9 @@ const ResponsiveAppBar = (props) => {
                     >
                       <AddShoppingCartIcon />
                     </NavLink>
-                    <Typography sx={{ fontFamily: "koodak", ml: 3 }}>
+                    {/* <Typography sx={{ fontFamily: "koodak", ml: 3 }}>
                       سبد
-                    </Typography>
+                    </Typography> */}
                   </Badge>
                 </MenuItem>
               </Menu>
