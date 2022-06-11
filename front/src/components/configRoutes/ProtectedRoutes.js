@@ -4,16 +4,15 @@ import { useSelector } from "react-redux";
 
 const PublicRoutes = () => {
   const location = useLocation();
+  const user = useSelector((state) => state);
+  const token=localStorage.getItem("token")
   const useAuth = () => {
-    const user = useSelector((state) => state);
-    if (Object.keys(user.user).length !== 0) {
-      return true;
-    } else if (localStorage.length === 0) {
-      return false;
-    } else {
-      return false;
+    if (token ) {
+      return true
+    } else { 
+      return false
     }
-  
+    
   };
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const PublicRoutes = () => {
   }, [location]);
   const isAuth = useAuth();
 
-  return isAuth ? <Outlet />: <Navigate to="/PanelLogin" /> ;
+  return isAuth ? <Navigate to="/PanelProducts" />: <Navigate to="/PanelLogin" /> ;
 };
 
 export default PublicRoutes;
