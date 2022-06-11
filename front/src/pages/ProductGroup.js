@@ -115,21 +115,7 @@ const ProductGroup = () => {
           </Container>
           </Dashboards>
 
-          <Pagination
-        sx={{
-          m: 6,
-          p:2,
-          border: 3,
-          borderColor: "primary.main",
-          borderRadius: 3,
-        }}
-        variant="outlined"
-        color="primary"
-        defaultPage={1}
-        page={activePage}
-        count={Math.ceil(data?.data.products.length/ limit)}
-        onChange={(_, page) => setActivePage(page)}
-      />
+
         </Div>
       )}
     </>

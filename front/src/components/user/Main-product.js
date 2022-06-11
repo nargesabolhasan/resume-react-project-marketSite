@@ -15,7 +15,16 @@ import "./home/CardStyles.scss";
 import backProduct from "../../assets/images/avatar/backProduct.png"
 
 const Img = styled("img")(({ theme }) => ({
-  width: "70%",
+  [theme.breakpoints.down("md")]: {
+    width: "300px",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "70%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "70%",
+  },
+ 
 }));
 const Titles = styled("h3")(({ theme }) => ({
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
@@ -71,7 +80,7 @@ const InfoCard = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("md")]: {
     width: "100%",
-    height: "700px",
+    minHeight: "700px",
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",
@@ -83,7 +92,7 @@ const InfoCard = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "90%",
-    height: "750px",
+    minHeight: "750px",
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",
@@ -339,7 +348,7 @@ const MainUser = (props) => {
                 <Button
                   variant="outlined"
                   sx={{
-                    height: { lg: "100%", md: "100%", xs: "80px" },
+                    height: "80px" ,
                     fontSize: 20,
                     p: 0,
                     border: 2,
@@ -373,7 +382,7 @@ const MainUser = (props) => {
                 <Button
                   variant="outlined"
                   sx={{
-                    height: { lg: "100%", md: "100%", xs: "80px" },
+                    height: "80px" ,
                     fontSize: 20,
                     p: 0,
                     border: 2,

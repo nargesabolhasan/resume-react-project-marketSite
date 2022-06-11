@@ -51,7 +51,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerRight(props) {
   const { children } = props;
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const { data, loading, error } = useGetAxios(`/categories?_embed=products`);
 
   const handleDrawerOpen = () => {

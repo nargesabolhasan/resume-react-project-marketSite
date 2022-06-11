@@ -4,11 +4,9 @@ import Pagination from "@mui/material/Pagination";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import CardProduct from "./Card-Product";
-import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import  "../../../assets/Core-ui/Core-styles.scss"
 
@@ -54,7 +52,7 @@ const Span = styled("div")(({ theme }) => ({
 }));
 
 const PaginationBackend = () => {
-  const limit = useMemo(() => 2, []);
+  const limit = useMemo(() => 1, []);
   const [activePage, setActivePage] = useState(1);
   let navigate = useNavigate();
 
