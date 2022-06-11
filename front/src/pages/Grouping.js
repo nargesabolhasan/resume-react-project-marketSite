@@ -41,6 +41,7 @@ const Grouping = () => {
       <Img src={category2} />
       <PaginationBackend/>
     </Div>
+    
   );
 };
 

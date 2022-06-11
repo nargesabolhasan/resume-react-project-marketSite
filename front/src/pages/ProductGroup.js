@@ -60,19 +60,13 @@ const Titles = styled(Typography)(({ theme }) => ({
 
 const ProductGroup = () => {
   let { id } = useParams();
-  let navigate = useNavigate();
   const limit = useMemo(() => 2, []);
   const [activePage, setActivePage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(4);
+  const [rowsPerPage, setRowsPerPage] = useState(2);
 
   const { data, loading, error } = useGetAxios(
-    `categories/${id}?_embed=products&_page=${activePage}&_limit=${limit}`
+    `categories/${id}?_embed=products`
   );
-
-  const handleNavigate = (id) => {
-    navigate(`/categories/${id}`);
-  };
-  console.log(data);
 
   return (
     <>
@@ -92,7 +86,7 @@ const ProductGroup = () => {
         </Box>
       ) : (
         <Div>
-          <Dashboards>
+          <Dashboards >
             <Container spacing={1}>
               <>
                 <Paper
@@ -114,18 +108,36 @@ const ProductGroup = () => {
                   }}
                 >
                   <Titles>محصولات مشابه :</Titles>
-                  {data?.data.products.map((item) => (
+                  {data?.data.products?.slice(
+                (activePage-1) * rowsPerPage,
+                (activePage-1 ) * rowsPerPage + rowsPerPage
+              ).map((item) => (
                     <CardProduct product={item} key={item.id} />
                   ))}
-                 
                 </Paper>
+                <Pagination
+                  sx={{
+                    m: 6,
+                    p: 2,
+                    border: 3,
+                    borderColor: "primary.main",
+                    borderRadius: 3,
+                    width: "400px",
+                    mx:"auto"
+                  }}
+                  variant="outlined"
+                  color="primary"
+                  defaultPage={1}
+                  page={activePage}
+                  count={Math.ceil(data?.data.products.length / limit)}
+                  onChange={(_, page) => setActivePage(page)}
+                  rowsPerPage={rowsPerPage}
+                />
               </>
             </Container>
           </Dashboards>
         </Div>
       )}
-
-      <>hi</>
     </>
   );
 };
