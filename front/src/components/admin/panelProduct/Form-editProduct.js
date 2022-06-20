@@ -14,6 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useSelector } from "react-redux";
+import Typography from "@mui/material/Typography";
 
 //----component styles----------------
 
@@ -151,7 +152,7 @@ const Basic = (props) => {
 
   return (
     <div>
-      <h1>ویرایش کالا</h1>
+     <Typography sx={{ fontSize:{lg:50,md:30,xs:30},fontFamily: "koodak",p:3}}>ویرایش کالا</Typography>
       <Formik
         initialValues={{
           name: "",
@@ -195,7 +196,7 @@ const Basic = (props) => {
               <Grid
                 sx={{
                   display: "flex",
-                  flexDirection: "row",
+                  flexDirection: { lg: "row", md: "row", xs: "column" },
                   alignItems: "center",
                   justifyContent: "space-around",
                 }}
@@ -272,7 +273,7 @@ const Basic = (props) => {
               <Grid
                 sx={{
                   display: "flex",
-                  flexDirection: "row",
+                  flexDirection: { lg: "row", md: "row", xs: "column" },
                   alignItems: "center",
                   justifyContent: "space-around",
                 }}
@@ -342,7 +343,7 @@ const Basic = (props) => {
               <Grid
                 sx={{
                   display: "flex",
-                  flexDirection: "row",
+                  flexDirection: { lg: "row", md: "row", xs: "column" },
                   alignItems: "start",
                   justifyContent: "space-around",
                 }}
@@ -467,7 +468,17 @@ const Basic = (props) => {
                   </Errors>
                 </Grid>
               </Grid>
-              <div>
+              <Grid
+              sx={{
+                display: "flex",
+                flexDirection: { lg: "column", md: "column", xs: "column" },
+                alignItems: "start",
+                justifyContent: "space-around",
+               width: { lg: "430px", md: "430px", xs: "200px" },
+               overflowX:"scroll"
+
+              }}
+            >
                 <CKEditor
                   editor={ClassicEditor}
                   data={product?.description}
@@ -492,7 +503,7 @@ const Basic = (props) => {
                   }}
                   onBlur={handleBlur}
                 />
-              </div>
+              </Grid>
               <ButtonAdd type="submit" disabled={isSubmitting}>
                 ذخیره
               </ButtonAdd>

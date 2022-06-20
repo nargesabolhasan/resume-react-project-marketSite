@@ -66,7 +66,7 @@ export default function PersistentDrawerRight(props) {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
           <HeaderUserStore>
-          <MenuItem  sx={{ mx: "auto" }}>
+          <MenuItem  sx={{ mx: "auto"}}>
               <MenuIcon/> 
                {""}منو
           

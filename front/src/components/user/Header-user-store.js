@@ -231,7 +231,7 @@ const ResponsiveAppBar = (props) => {
                   </MenuItem>
                 </NavLink>
                 {children}
-                <MenuItem onClick={handleClose} sx={{backgroundColor:"#ba6b6c"}}>
+                <MenuItem onClick={handleClose} sx={{backgroundColor:"#ba6b6c",pt:2}}>
                   <Badge
                     badgeContent={products.products?.length}
                     color="PLight"

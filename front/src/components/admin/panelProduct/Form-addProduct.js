@@ -14,6 +14,7 @@ import imageIcon from "../../../assets/images/uploadImage/imageIcon.png";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
 
 const EditForm = styled("form")(({ theme }) => ({
   fontFamily: "koodak",
@@ -42,19 +43,17 @@ const Basic = (props) => {
   const [dataDesciption, setDataDiscription] = useState();
 
   const LoginSchema = Yup.object().shape({
-    name: Yup.string()
-      .required("نام محصول را وارد کنید "),
-    ENname: Yup.string()
-      .required("نام لاتین محصول را وارد کنید"),
+    name: Yup.string().required("نام محصول را وارد کنید "),
+    ENname: Yup.string().required("نام لاتین محصول را وارد کنید"),
     image: Yup.mixed().required("تصویر محصول بار گذاری شود"),
     thumbnail: Yup.mixed("تصاویر گالری محصول بار گذاری شود"),
     categoryId: Yup.number().required("دسته بندی  را انتخاب کنید"),
     price: Yup.number()
       .required("قیمت محصول را وارد کنید")
-      .min(0,"بزرگتر از 0 باشد"),
+      .min(0, "بزرگتر از 0 باشد"),
     count: Yup.number()
       .required(" تعداد محصول را وارد کنید ")
-      .min(0,"بزرگتر از 0 باشد"),
+      .min(0, "بزرگتر از 0 باشد"),
     color: Yup.string().required("رنگ محصول را وارد کنید "),
   });
 
@@ -104,7 +103,7 @@ const Basic = (props) => {
 
   return (
     <div>
-      <h1>افزودن / ویرایش کالا</h1>
+      <Typography sx={{ fontSize:{lg:50,md:30,xs:30},fontFamily: "koodak",p:3}}>افزودن کالا</Typography>
       <Formik
         initialValues={{
           name: "",
@@ -139,7 +138,7 @@ const Basic = (props) => {
             <Grid
               sx={{
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: { lg: "row", md: "row", xs: "column" },
                 alignItems: "center",
                 justifyContent: "space-around",
               }}
@@ -192,7 +191,7 @@ const Basic = (props) => {
             <Grid
               sx={{
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: { lg: "row", md: "row", xs: "column" },
                 alignItems: "center",
                 justifyContent: "space-around",
               }}
@@ -248,11 +247,10 @@ const Basic = (props) => {
                 </Errors>
               </Grid>
             </Grid>
-
             <Grid
               sx={{
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: { lg: "row", md: "row", xs: "column" },
                 alignItems: "start",
                 justifyContent: "space-around",
               }}
@@ -326,19 +324,29 @@ const Basic = (props) => {
                 >
                   {uploadingGallery ? (
                     uploadedGallery.map((image, index) => (
-                      <div key={index*2} style={{borderBottom:"2px dashed gray", paddingTop:"20px",paddingRight:"20px",marginTop:"25px",width: "100%",minHeight:"90px"}}>
-                        <CloseIcon
-                        sx={{
-                          mx: "auto",
-                          backgroundColor: "primary.main",
-                          color: "white",
-                          fontSize: 20,
-                          position: "relative",
-                          bottom:"50px",
-                          border: 3,
-                          borderColor: "primary.main",
-                          borderRadius: "11px",
+                      <div
+                        key={index * 2}
+                        style={{
+                          borderBottom: "2px dashed gray",
+                          paddingTop: "20px",
+                          paddingRight: "20px",
+                          marginTop: "25px",
+                          width: "100%",
+                          minHeight: "90px",
                         }}
+                      >
+                        <CloseIcon
+                          sx={{
+                            mx: "auto",
+                            backgroundColor: "primary.main",
+                            color: "white",
+                            fontSize: 20,
+                            position: "relative",
+                            bottom: "50px",
+                            border: 3,
+                            borderColor: "primary.main",
+                            borderRadius: "11px",
+                          }}
                           onClick={() => deleteNewphotos(image)}
                         />
                         <img
@@ -375,7 +383,17 @@ const Basic = (props) => {
                 </Errors>
               </Grid>
             </Grid>
-            <div>
+            <Grid
+              sx={{
+                display: "flex",
+                flexDirection: { lg: "column", md: "column", xs: "column" },
+                alignItems: "start",
+                justifyContent: "space-around",
+               width: { lg: "430px", md: "430px", xs: "200px" },
+               overflowX:"scroll"
+
+              }}
+            >
               <TittleInputs>توضیحات</TittleInputs>
               <CKEditor
                 editor={ClassicEditor}
@@ -398,7 +416,6 @@ const Basic = (props) => {
                 }}
                 onChange={(e, editor) => {
                   handleCkeditore(e, editor);
-                  //handleChange(editor?.getData());
                 }}
                 onBlur={handleBlur}
               />
@@ -407,7 +424,7 @@ const Basic = (props) => {
                   touched.description &&
                   errors.description}
               </Errors>
-            </div>
+            </Grid>
 
             <ButtonAdd type="submit" disabled={isSubmitting}>
               ذخیره
