@@ -9,7 +9,7 @@ import { styled } from "@mui/material/styles";
 import Buttons from "../buttons/Button-add";
 import { useDispatch, useSelector } from "react-redux";
 import Modals from "../modal/Modals";
-import { setProducts, removeSelectedProduct } from "../../redux/basketSlice";
+import { setProducts, removeSelectedProduct,setfirstProducts } from "../../redux/basketSlice";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./home/CardStyles.scss";
 import backProduct from "../../assets/images/avatar/backProduct.png"
@@ -275,14 +275,19 @@ const MainUser = (props) => {
   };
 
   const handleShopUpdate = (info, counter) => {
-    products.products?.map((item) => {
+    if(products.products?.length > 0) {
+      products.products?.map((item) => {
       if (item.id === info.id) {
         dispatch(removeSelectedProduct(item));
       }
     });
     const data = { ...info, orderCount: counter };
     dispatch(setProducts(data));
-  };
+  }else{
+    const data = { ...info, orderCount: counter };
+    dispatch(setfirstProducts(info));
+  }
+}
 
   return (
     <>
@@ -300,7 +305,7 @@ const MainUser = (props) => {
         >
           <InfoCard sx={{ mt: 5, mx: "auto" }}>
             <Typographys sx={{ textAlign: "end" }}>
-              {products.products?.map((item) => {
+              {info?.products?.map((item) => {
                 if (item.id === info?.id) {
                   return (
                     <Typography

@@ -7,19 +7,37 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
+import "../assets/Core-ui/Core-styles.scss";
 
 const Product = () => {
   let navigate = useNavigate();
   let { name } = useParams();
 
-
-  const { data, loading, error } = useGetAxios(`products/${name}?_expand=category`);
+  const { data, loading, error } = useGetAxios(
+    `products/${name}?_expand=category`
+  );
 
   return (
-    <Box >
-      {loading ? <h1>Loading...</h1> : <Box>
-      <MainUser info={data?.data}/>
-      </Box>}
+    <Box>
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            mt: { lg: 20, md: 15, xs: 2 },
+          }}
+        >
+          <div className="lds-ripple">
+            <div></div>
+            <div></div>
+          </div>
+        </Box>
+      ) : (
+        <Box>
+          <MainUser info={data?.data} />
+        </Box>
+      )}
     </Box>
   );
 };

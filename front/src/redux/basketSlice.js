@@ -7,11 +7,10 @@ export const basketSlice = createSlice({
   },
   reducers: {
     setProducts: (state, action) => {
-      if (state) {
-        return [...state, action.payload];
-      } else {
-        return [action.payload];
-      }
+      return [...state, action.payload];
+    },
+    setfirstProducts: (state, action) => {
+      return [action.payload];
     },
     removeSelectedProduct: (state, action) => {
       return [...state.filter((item) => item.id !== action.payload.id)];
@@ -41,6 +40,7 @@ export const basketSlice = createSlice({
 });
 
 export const {
+  setfirstProducts,
   setProducts,
   removeSelectedProduct,
   updateProducts,

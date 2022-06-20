@@ -118,7 +118,7 @@ const HomeCategoty = () => {
   return (
     <div style={{width: "100%"}}>
       {loading ? (
-        <div class="lds-ripple"><div></div><div></div></div>
+        <div className="lds-ripple"><div></div><div></div></div>
       ) : (
         <Box  style={{width: "100%"}}>
           <Header>دسته بندی محصولات </Header>

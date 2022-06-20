@@ -79,7 +79,7 @@ const ProductGroup = () => {
             mt: { lg: 20, md: 15, xs: 2 },
           }}
         >
-          <div class="lds-ripple">
+          <div className="lds-ripple">
             <div></div>
             <div></div>
           </div>

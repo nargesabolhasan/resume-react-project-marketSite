@@ -135,22 +135,3 @@ export default function PersistentDrawerRight(props) {
     </Box>
   );
 }
-
-{/* <List>
-{record.products.map((text, index) => (
-  <ListItem key={text.id} disablePadding>
-    <ListItemButton sx={{ textAlign: "start" }}>
-      <NavLink
-        to={`/products/${text.id}`}
-        style={{
-          color: "black",
-          textDecoration: "none",
-          fontFamily: "koodak",
-        }}
-      >
-        <ListItemText primary={text.name} />
-      </NavLink>
-    </ListItemButton>
-  </ListItem>
-))}
-</List> */}
