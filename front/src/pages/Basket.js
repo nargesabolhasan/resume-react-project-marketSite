@@ -115,7 +115,7 @@ const Titles = styled(Button)(({ theme }) => ({
 const Basket = (props) => {
   const products = useSelector((state) => state);
   const [showTable, setShowTable] = useState(false);
-  const [basketIsEmpty, setBasketIsEmpty] = useState(false);
+  const [basketIsEmpty, setBasketIsEmpty] = useState(true);
   const [allPrice, setAllPrice] = useState(0);
   const dispatch = useDispatch();
   const tableHeader = [
@@ -140,7 +140,9 @@ const Basket = (props) => {
   };
 
   useEffect(() => {
-    if (products.products.length > 0) {
+    
+
+    if (products.products?.length > 0) {
       setBasketIsEmpty(false);
     } else {
       setBasketIsEmpty(true);
@@ -152,7 +154,7 @@ const Basket = (props) => {
   };
 
   useEffect(() => {
-    if (products.products.length !== 0) {
+    if (products.products?.length > 0) {
       let sum = 0;
       products.products.map((item) => {
         sum += item.price * item.orderCount;
