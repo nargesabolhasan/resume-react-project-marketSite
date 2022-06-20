@@ -14,6 +14,18 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./home/CardStyles.scss";
 import backProduct from "../../assets/images/avatar/backProduct.png"
 
+const Thumbnails = styled("img")(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    width: "80px",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "100px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "100px",
+  },
+ 
+}));
 const Img = styled("img")(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     width: "300px",
@@ -305,7 +317,7 @@ const MainUser = (props) => {
         >
           <InfoCard sx={{ mt: 5, mx: "auto" }}>
             <Typographys sx={{ textAlign: "end" }}>
-              {info?.products?.map((item) => {
+              {products.products.length>0 && products.products?.map((item) => {
                 if (item.id === info?.id) {
                   return (
                     <Typography
@@ -322,8 +334,7 @@ const MainUser = (props) => {
                         borderRadius: "30px",
                       }}
                     >
-                      {" "}
-                      {item.orderCount} عدد در <AddShoppingCartIcon />
+                      {item?.orderCount} عدد در <AddShoppingCartIcon />
                     </Typography>
                   );
                 }
@@ -442,7 +453,7 @@ const MainUser = (props) => {
               }}
             >
               {thumbnails?.map((image, index) => (
-                <img
+                <Thumbnails
                   className="GalleryCard"
                   key={index}
                   src={`${BASE_URL}${image}`}
