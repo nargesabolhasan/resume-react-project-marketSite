@@ -195,54 +195,18 @@ const ResponsiveAppBar = (props) => {
                 anchorOrigin={{
                   vertical: "top",
                   horizontal: "left",
-
                 }}
                 transformOrigin={{
                   vertical: "top",
                   horizontal: "left",
                 }}
               >
-                <MenuItem
-                  onClick={handleClose}
-                  sx={{
-                    fontSize: 20,
-                    fontFamily: "koodak",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                    alignItems: "center",
-                    color: "black",
-                    
-                  }}
-                >
-                  {children}منو
-                </MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  sx={{
-                    fontSize: 20,
-                    fontFamily: "koodak",
-                    color: "black",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                  }}
-                >
+                <MenuItem onClick={handleClose}>
                   <ManageAccountsIcon />
 
                   <Authentication displayXs="flex">مدیریت</Authentication>
                 </MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  sx={{
-                    fontSize: 20,
-                    fontFamily: "koodak",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                    
-                  }}
-                >
+                <MenuItem onClick={handleClose}>
                   <CategoryIcon />
                   <NavLink
                     to="/grouping"
@@ -254,35 +218,20 @@ const ResponsiveAppBar = (props) => {
                     محصولات
                   </NavLink>
                 </MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  sx={{
-                    fontSize: 20,
-                    fontFamily: "koodak",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                     
-                  }}
+                <NavLink
+                  to="/"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#ba6b6c" : "black",
+                    textDecoration: "none",
+                  })}
                 >
-                  <HomeIcon />
-                  <NavLink
-                    to="/"
-                    style={({ isActive }) => ({
-                      color: isActive ? "#ba6b6c" : "black",
-                      textDecoration: "none",
-                    })}
-                  >
+                  <MenuItem onClick={handleClose} sx={{ mx: "auto" }}>
+                    <HomeIcon />
                     خانه
-                  </NavLink>
-                </MenuItem>
-                <MenuItem
-                  onClick={handleClose}
-                  sx={{
-                    fontSize: 20,
-                    fontFamily: "koodak",
-                  }}
-                >
+                  </MenuItem>
+                </NavLink>
+                {children}
+                <MenuItem onClick={handleClose} sx={{backgroundColor:"#ba6b6c"}}>
                   <Badge
                     badgeContent={products.products?.length}
                     color="PLight"
@@ -297,13 +246,9 @@ const ResponsiveAppBar = (props) => {
                     >
                       <AddShoppingCartIcon />
                     </NavLink>
-                    {/* <Typography sx={{ fontFamily: "koodak", ml: 3 }}>
-                      سبد
-                    </Typography> */}
                   </Badge>
                 </MenuItem>
               </Menu>
-
             </Box>
             <Box>
               <Link to="/">

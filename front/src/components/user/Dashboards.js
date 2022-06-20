@@ -12,8 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
+import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import useGetAxios from "../../axios/useGetAxios";
@@ -66,19 +65,12 @@ export default function PersistentDrawerRight(props) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
           <HeaderUserStore>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={handleDrawerOpen}
-              sx={{ ...(open && { display: "none" }) }}
-            >
-              <MenuIcon />
-            </IconButton>
-          </HeaderUserStore>
-        </Toolbar>
+          <MenuItem  sx={{ mx: "auto" }}>
+              <MenuIcon/> 
+               {""}منو
+          
+            </MenuItem></HeaderUserStore>
       </AppBar>
       {children}
       <Drawer
