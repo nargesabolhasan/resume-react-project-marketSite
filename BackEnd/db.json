@@ -564,12 +564,15 @@
       "thumbnail": "/files/2e3e6b408c899a45aeebb9d2929195da,/files/f34ac54a91ed3a2b3d2a3c65933caf6a,/files/747fe5a27480db1c780cca359d5dbd70,/files/f418aae905a93f91b2c72a0443362dd2",
       "categoryId": "8",
       "price": 7300000,
-      "count": "25",
+      "count": 22,
       "color": "Blue",
       "description": "<p>&nbsp;مهم‌ترین مشخصه این تلفن‌های هوشمند افزایش برآمدگی دوربین است که به دلیل بهبود سیستم استبلایز سنسور شیفت بوده است. اپل در طراحی این تلفن هوشمند بزرگ‌ترین لنزهای مورد استفاده در دوربین را تعبیه کرده است. آیفون ۱۳ پرو مکس به عنوان پرچمدار تلفن‌های هوشمند اپل در سال ۲۰۲۱ میلادی مجهز <strong>به قوی‌ترین دوربین دنیا</strong> برای فیلم‌برداری سینمایی و سریع‌ترین پردازنده تلفن‌های هوشمند شده است.</p>",
       "createdAt": "1654763128067",
       "id": 709,
-      "category": "[object Object]"
+      "category": {
+        "name": "آیفون 13 پرو مکس",
+        "id": "8"
+      }
     },
     {
       "name": "آیفون 13 پرو مکس ظرفیت 256 گیگ",
@@ -1069,57 +1072,6 @@
       ],
       "createdAt": 1654770994365,
       "id": 1012
-    },
-    {
-      "customerDetail": {
-        "firstName": "مریم",
-        "lastName": "سنقرکلایه",
-        "billingAddress": "عبدل آباد",
-        "phone": "09124355911",
-        "date": "",
-        "orderDate": 1656524088000
-      },
-      "orderStatus": 1,
-      "deliveredAt": 1656351360977,
-      "orderItems": [
-        {
-          "name": "آیمک 24 اینچ M1 ظرفیت 2TB/16GB/8-8 Core مدل 2021\n",
-          "ENname": "Apple iMac 24-inch M1 8-8Core/16GB/2TB 2021 - Silver\n",
-          "categoryId": "6",
-          "price": 86799000,
-          "count": 1,
-          "color": "Yellow Light Yellow,New Silver\n",
-          "createdAt": 1651922276103,
-          "description": "ظرفیت 2TB/16GB/8-8 Core ,مدل 2021,\n 24 اینچ",
-          "thumbnail": "/files/f81dccc83f9dcb4dc531e6e640cc7bdd",
-          "image": "/files/26383fad70b487c84be09206d2fd8431",
-          "id": 601,
-          "category": {
-            "name": "آیمک ",
-            "id": "6"
-          }
-        },
-        {
-          "name": "مک مینی M1 ظرفیت 256/16 گیگ مدل 2020",
-          "ENname": "Apple Mac Mini M1 16/256GB 2020 - CTO",
-          "image": "/files/29f59bfbc6ea6f2543502078bc0a78a4",
-          "thumbnail": ",/files/3ff824b5bd2c8f60806f1becd20f761d,/files/5ce4278eb0406bc5049f0c4affc2b968,/files/baec55763012e000b3e30f728bd90380,/files/9844f2f8263f1c4bbd0afb8b9405ad3b",
-          "categoryId": "1",
-          "price": "36599000",
-          "count": "21",
-          "color": "silver",
-          "description": "<p>&nbsp;مک مینی اولین کامپیوتر اپل بود که در آن از تراشه M1 استفاده شده بود و طی پروژه اپل سیلیکون، تراشه‌های اختصاصی اپل جایگزین تراشه اینتل شد. مک مینی با تراشه M1 و سیستم عامل macOS Big Sur 11 در سال 2020 عرضه شده است.<br>در این مدل از کارت گرافیکی استفاده نشده و<strong> حداکثر ظرفیت رم موجود در آن 16 گیگابایت است</strong> که امکان ارتقا رم را غیر ممکن کرده است.</p>",
-          "createdAt": "1654718288218",
-          "id": 708,
-          "category": {
-            "name": "مک مینی",
-            "id": "1"
-          },
-          "orderCount": 4
-        }
-      ],
-      "createdAt": 1656351341139,
-      "id": 1013
     }
   ],
   "orderStatus": [
