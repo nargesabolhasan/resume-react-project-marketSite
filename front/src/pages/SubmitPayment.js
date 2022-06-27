@@ -82,6 +82,9 @@ const SubmitPayment = () => {
   const handlePhone = (e) => {
     setPhoneNumber(e);
   };
+
+//-------------
+
   return (
     <StyleSheetManager stylisPlugins={[rtlPlugin]}>
       <Box
@@ -275,18 +278,6 @@ const SubmitPayment = () => {
                     onBlur={handleBlur}
                     value={values.phone}
                   />
-                  {/* <Box  sx={{float:"right",direction: "ltr" }}>
-                  <ReactPhoneInput
-                    id="phone"
-                    name="phone"
-                    value={values.phone}
-                    onChange={handleChange}
-                    component={Input}
-                    defaultCountry={"ir"}
-                    inputClass={{ margin: "10px 0" }}
-                    dropdownClass={"classes.countryList"}
-                  />
-                  </Box> */}
                   <FormHelperText
                     id="my-helper-text"
                     sx={{
@@ -326,7 +317,7 @@ const SubmitPayment = () => {
                       setResiveNewDate(val.unix * 1000);
                     }}
                     minDate={new Date()}
-                    maxDate={new Date().setDate(29)}
+                    maxDate={new Date().setDate(new Date().getDate() + 21)}
                     value={resiveDate}
                     onBlur={handleBlur}
                   />

@@ -297,7 +297,7 @@ const MainUser = (props) => {
     dispatch(setProducts(data));
   }else{
     const data = { ...info, orderCount: counter };
-    dispatch(setfirstProducts(info));
+    dispatch(setfirstProducts(data));
   }
 }
 

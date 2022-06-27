@@ -10,7 +10,6 @@ import Container from "@mui/material/Container";
 import { NavLink, Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { useNavigate, Outlet } from "react-router-dom";
 import logo from "../../assets/images/logo/logo.png";
 import Authentication from "../admin/Authentication";
 import "../../assets/Core-ui/palette.scss";
